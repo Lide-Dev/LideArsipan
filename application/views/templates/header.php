@@ -1,3 +1,6 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,10 +12,10 @@
     <?php if (!empty($title)) { ?>
         <title><?= $title ?></title>
     <?php } else { ?>
-        <title><?= $title ?></title>
+        <title>Test</title>
     <?php } ?>
 
-    <link rel="stylesheet" href=<?= base_url('assets/css/boostrap.min.css') ?>>
+    <link rel="stylesheet" href=<?= base_url('assets/css/bootstrap.min.css') ?>>
 
 </head>
 
