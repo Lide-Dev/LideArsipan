@@ -1,4 +1,4 @@
-<div class="container-fluid mt-5 bg-dark p-5">
+<div class="container-fluid mt-5 bg-freshturquoise p-5">
     <div class="row">
         <div class="col-md-4 d-flex flex-column justify-content-center text-white-50">
             <h5 class="text-justify">Lide Arsipan</h5>
