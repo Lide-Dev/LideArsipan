@@ -5,7 +5,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav mr-auto">
-            <a><img src="../../../assets/img/Sleman.png"></a>
+            <a><img src="<?=PATHIMG?>Sleman.png"></a>
             <a class="nav-item nav-link" href="<?=base_url('Home')?>">Home</a>
             <a class="nav-item nav-link" href="<?=base_url('Form_Surat')?>">Arsip</a>
             <a class="nav-item nav-link" href="#">Profil</a>

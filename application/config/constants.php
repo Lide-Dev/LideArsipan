@@ -87,4 +87,4 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 /*
 
 */
-defined('PATHIMG') OR define('PATHIMG','assets/img/logo.png');
+defined('PATHIMG') OR define('PATHIMG','assets/img/');
