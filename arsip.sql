@@ -79,6 +79,7 @@ CREATE TABLE dokumen(
 	type_file VARCHAR(10),
 	create_time timestamp,
 	update_time timestamp,
+	lokasi_arsip VARCHAR(100),
 	id_upload char(8),
 	PRIMARY KEY (id_dokumen),
 	FOREIGN KEY (id_upload) REFERENCES datapengguna(id_datapengguna)
