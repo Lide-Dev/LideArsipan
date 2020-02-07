@@ -2,29 +2,17 @@
     <ul class="sidebar-nav">
         <li class="sidebar-brand">
             <a href="#">
-                Start Bootstrap
+                Menu
             </a>
         </li>
         <li>
-            <a href="#">Dashboard</a>
+            <a href="<?=base_url('Home')?>">Dashboard</a>
         </li>
         <li>
-            <a href="#">Shortcuts</a>
+            <a href="<?=base_url('Form_Surat')?>">Registrasi Surat</a>
         </li>
         <li>
-            <a href="#">Overview</a>
-        </li>
-        <li>
-            <a href="#">Events</a>
-        </li>
-        <li>
-            <a href="#">About</a>
-        </li>
-        <li>
-            <a href="#">Services</a>
-        </li>
-        <li>
-            <a href="#">Contact</a>
+            <a href="#">Arsip Surat</a>
         </li>
     </ul>
 </div>

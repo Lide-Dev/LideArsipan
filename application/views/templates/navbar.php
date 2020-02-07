@@ -5,9 +5,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav mr-auto">
-            <a class="nav-item nav-link" href="<?=base_url('Home')?>">Home</a>
-            <a class="nav-item nav-link" href="<?=base_url('Form_Surat')?>">Arsip</a>
-            <a class="nav-item nav-link" href="#">Profil</a>
+            
         </div>
         <div class="navbar-nav mr-5">
             <a class="nav-item nav-link" href="#">Login</a>
