@@ -17,6 +17,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <link rel="stylesheet" href=<?= base_url('assets/css/lidearsip.css') ?>>
     <link rel="stylesheet" href=<?= base_url('assets/css/sidebar.css') ?>>
+    <link rel="stylesheet" href=<?= base_url('assets/css/jquery-ui.min.css') ?>>
     <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto&display=swap" rel="stylesheet">
 <!--For Font awesome only-->
     <script src="https://kit.fontawesome.com/c2282643fa.js" crossorigin="anonymous"></script>
