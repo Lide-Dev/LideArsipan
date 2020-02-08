@@ -6,12 +6,12 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ml-3 mr-auto">
         <a class="navbar-brand" href="#">
-          <img src="<?=PATHIMG?>Logo_Navbar.png" alt="Sleman">
+          <img src="<?=PATHIMG?>Logo_Navbar.svg" alt="Sleman">
         </a>
             <a class="nav-item nav-link mt-auto mb-auto" href="<?=base_url('Home')?>">Dashboard</a>
         </div>
         <div class="navbar-nav mr-5">
-            <a class="nav-item nav-link" href="#">Login</a>
+            <a class="nav-item nav-link" href="<?=base_url('Login')?>">Login</a>
         </div>
     </div>
 </nav>

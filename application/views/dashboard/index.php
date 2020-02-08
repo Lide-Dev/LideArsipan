@@ -7,7 +7,7 @@
 </div>
 
 <div class="card" style="width:400px">
-    <img class="card-img-top" src="<?=PATHIMG?>Sleman.png" alt="Logo Sleman" style="width:100%">
+    <img class="card-img-top" src="<?=PATHIMG?>Sleman.svg" alt="Logo Sleman" style="width:100%">
     <div class="card-body">
       <h4 class="card-title">John Doe</h4>
       <p class="card-text">...</p>

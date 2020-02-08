@@ -12,7 +12,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <?php if (!empty($title)) { ?>
         <title><?= $title ?></title>
     <?php } else { ?>
-        <title>Test</title>
+        <title>Lide Arsipan</title>
     <?php } ?>
 
     <link rel="stylesheet" href=<?= base_url('assets/css/lidearsip.css') ?>>
