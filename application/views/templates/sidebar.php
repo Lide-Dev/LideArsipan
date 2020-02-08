@@ -14,5 +14,8 @@
         <li>
             <a href="<?=base_url('Arsip')?>">Arsip Surat</a>
         </li>
+        <li>
+            <a href="<?=base_url('Landing_Page')?>">Home</a>
+        </li>
     </ul>
 </div>
