@@ -12,9 +12,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <?php if (!empty($title)) { ?>
         <title><?= $title ?></title>
     <?php } else { ?>
-        <title>Test</title>
+        <title>Lide Arsipan</title>
     <?php } ?>
-
+    
+    <link rel="icon" type="image/png" sizes="32x32" href=<?= base_url('assets/img/favicon-32x32.png') ?>>
     <link rel="stylesheet" href=<?= base_url('assets/css/lidearsip.css') ?>>
     <link rel="stylesheet" href=<?= base_url('assets/css/sidebar.css') ?>>
     <link rel="stylesheet" href=<?= base_url('assets/css/jquery-ui.min.css') ?>>

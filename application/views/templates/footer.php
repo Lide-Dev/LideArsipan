@@ -36,7 +36,9 @@
              <i class="fas fa-envelope mr-3"></i> condongcatur1946@gmail.com</p>
            <p>
              <i class="fas fa-print mr-3"></i> (0274) 885 689</p>
+             <p class="float-right"><a href="#">Back to top</a></p>
          </div>
+
          <!-- Grid column -->
 
        </div>
