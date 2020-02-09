@@ -52,3 +52,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route["ksurat/kategori"]= "form_surat/get_autocomplete/kategori";
+$route["ksurat/kodeutama"]= "form_surat/get_autocomplete/kodeutama";
+$route["ksurat/subkode1"]= "form_surat/get_autocomplete/subkode1";
+$route["ksurat/subkode2"]= "form_surat/get_autocomplete/subkode2";
+$route["ksurat/kode"]= "form_surat/set_kode";

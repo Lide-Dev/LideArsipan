@@ -27,4 +27,4 @@ defined('BASEPATH') or exit('No direct script access allowed');
 </head>
 
 <body>
-    <div id="wrapper" class="toggled">
+    <div id="wrapper" class="">
