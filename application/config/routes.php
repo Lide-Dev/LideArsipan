@@ -58,3 +58,4 @@ $route["ksurat/kodeutama"]= "form_surat/get_autocomplete/kodeutama";
 $route["ksurat/subkode1"]= "form_surat/get_autocomplete/subkode1";
 $route["ksurat/subkode2"]= "form_surat/get_autocomplete/subkode2";
 $route["ksurat/kode"]= "form_surat/set_kode";
+$route["ksurat/cekkode/(:any)"]= "form_surat/cek_kode/$1";
