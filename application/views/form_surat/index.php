@@ -56,12 +56,27 @@
         </div>
       </div>
       <div class="row">
-          <div class="col-md-12 mt-2">
-            <button id="btn_form_pilih" type="button" class="btn btn-freespeechblue px-4" disabled>Pilih</button>
-            <button id="btn_form_ulang" type="button" class="btn btn-danger px-3" disabled>Ulang</button>
-          </div>
+        <div class="col-md-12 mt-2">
+          <button id="btn_form_pilih" type="button" class="btn btn-success btn-md" disabled><span class="fas fa-check"></span></button>
+          <button id="btn_form_ulang" type="button" class="btn btn-danger btn-md" disabled><span class="fas fa-times"></span></button>
+          <!-- button type="button" class="btn btn-freespeechblue px-3" disabled>Pilih</button -->
         </div>
+      </div>
+
     </div><!-- End of form surat -->
+
+    <div class="form-group">
+      <label for="nama">Pilih Surat</label>
+      <div class="input-group mb-3">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="inputGroupFile02">
+          <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+        </div>
+        <div class="input-group-append">
+          <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
+        </div>
+      </div>
+    </div>
 
     <div class="form-group">
       <label for="nama">Asal Surat</label>

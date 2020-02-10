@@ -4415,6 +4415,20 @@ readers do not read off random characters that represent icons */
   overflow: visible;
   position: static;
   width: auto; }
+
+  @font-face {
+  font-family: 'ostrich-sans-light';
+  font-style: normal;
+  font-weight: normal;
+  font-display: auto;
+  src: url("../webfonts/ostrich-sans-light.eot");
+  src: url("../webfonts/ostrich-sans-light.eot?#iefix") format("embedded-opentype"),
+   url("../webfonts/ostrich-sans-light.woff2") format("woff2"),
+   url("../webfonts/ostrich-sans-light.woff") format("woff"),
+   url("../webfonts/ostrich-sans-light.ttf") format("truetype"),
+   url("../webfonts/ostrich-sans-light.svg") format("svg");
+  }
+
 @font-face {
   font-family: 'Font Awesome 5 Brands';
   font-style: normal;
