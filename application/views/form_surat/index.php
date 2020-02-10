@@ -13,7 +13,7 @@
   <form>
     <div class="my-5">
       <p>Kode Surat</p>
-      <div class="container p-3" style="background-color: #808e9b; border-radius: 5px;">
+      <div id="div_container_kode" class="container p-3" style="background-color: #808e9b; border-radius: 5px;">
         <div class="row">
           <div class="col-md-6">
             <p id="kode">Kode yang dipilih: 000/0/0/0</p>
@@ -48,13 +48,19 @@
           <small class="form-text text-white col-md-12">Pemilihan kode surat awalnya memilih kategori. Setelah itu kode utama dan seterusnya.</small>
           <small id="div_form_count" class="form-text text-white col-md-12">Pilihan kode berjumlah:</small>
         </div>
+      </div>
+      <div id="div_container_donekode" class="container" style="display: none">
         <div class="row">
+          <p>Kode yang dipilih adalah: <b id="kode_pilih"></b></p>
+          <p>Deskripsi Kode: <b id="tentang_pilih"></b></p>
+        </div>
+      </div>
+      <div class="row">
           <div class="col-md-12 mt-2">
             <button id="btn_form_pilih" type="button" class="btn btn-freespeechblue px-4" disabled>Pilih</button>
             <button id="btn_form_ulang" type="button" class="btn btn-danger px-3" disabled>Ulang</button>
           </div>
         </div>
-      </div>
     </div><!-- End of form surat -->
 
     <div class="form-group">

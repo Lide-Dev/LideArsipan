@@ -75,13 +75,24 @@ $("#form_kategori").autocomplete({
 $("#form_kode").on('change', function() {
   var kode = $("#form_kode option:selected").val();
   console.log(kode);
-    $.ajax({
-      url: "http://localhost/LideArsipan/ksurat/kode",
-      type: 'post',
-      data: {
-        kodevar: kode,
-      }
-    });
+  $.ajax({
+    url: "http://localhost/LideArsipan/ksurat/kode",
+    type: 'post',
+    data: {
+      kodevar: kode,
+    },
+    success:function(){
+      $.ajax({
+        url: "http://localhost/LideArsipan/ksurat/desckode",
+        type: 'post',
+        dataType: 'text',
+        success:function(data){
+          console.log(data);
+          $("#tentang").html("Deskripsi Kode: " + data);
+        }
+      });
+    }
+  });
     $("#kode").html("Kode yang dipilih: " + kode);
     $.ajax({
       url: "http://localhost/LideArsipan/ksurat/cekkode/subkode1",
@@ -91,7 +102,6 @@ $("#form_kode").on('change', function() {
       },
       dataType: "text",
       success: function (data) {
-        console.log("Sebanyak:"+data);
         valid = data;
         if (valid != 0) {
           $("#div_form_kode").delay(550).show(500);
@@ -117,14 +127,25 @@ $("#form_kode").on('change', function() {
 
 $("#form_subkode1").on('change', function() {
   var kode = $("#form_subkode1 option:selected").val();
-  console.log(kode);
     $.ajax({
       url: "http://localhost/LideArsipan/ksurat/kode",
       type: 'post',
       data: {
         kodevar: kode,
+      },
+      success:function(){
+        $.ajax({
+          url: "http://localhost/LideArsipan/ksurat/desckode",
+          type: 'post',
+          dataType: 'text',
+          success:function(data){
+            console.log(data);
+            $("#tentang").html("Deskripsi Kode: " + data);
+          }
+        });
       }
     });
+
     $("#kode").html("Kode yang dipilih: " + kode);
     $.ajax({
       url: "http://localhost/LideArsipan/ksurat/cekkode/subkode2",
@@ -158,25 +179,39 @@ $("#form_subkode1").on('change', function() {
 
 $("#form_subkode2").on('change', function() {
   var kode = $("#form_subkode2 option:selected").val();
-  console.log(kode);
-    $.ajax({
-      url: "http://localhost/LideArsipan/ksurat/kode",
-      type: 'post',
-      data: {
-        kodevar: kode,
-      }
-    });
-    $("#kode").html("Kode yang dipilih: " + kode);
-});
-
-$("#btn_form_ulang").click(function(){
   $.ajax({
     url: "http://localhost/LideArsipan/ksurat/kode",
     type: 'post',
     data: {
-      kodevar: "undefined",
+      kodevar: kode,
+    },
+    success:function(){
+      $.ajax({
+        url: "http://localhost/LideArsipan/ksurat/desckode",
+        type: 'post',
+        dataType: 'text',
+        success:function(data){
+          console.log(data);
+          $("#tentang").html("Deskripsi Kode: " + data);
+        }
+      });
     }
   });
+    $("#kode").html("Kode yang dipilih: " + kode);
+});
+
+$("#btn_form_ulang").click(function(){
+  $("#div_container_donekode").hide(1000);
+  $("#div_container_kode").delay(1000).show(500);
+  $.ajax({
+    url: "http://localhost/LideArsipan/ksurat/kode",
+    type: 'post',
+    data: {
+      kodevar: "000/0/0/0",
+    }
+  });
+  $("#kode").html("Kode yang dipilih: 000/0/0/0")
+  $("#tentang").html("Deskripsi Kode: Belum dipilih")
   $("#div_form_kode").hide(500);
   $("#div_form_subkode1").hide(500);
   $("#div_form_subkode2").hide(500);
@@ -187,5 +222,27 @@ $("#btn_form_ulang").click(function(){
   $("#form_kategori").val("");
   $("#div_form_kategori").delay(550).show(500);
   $("#btn_form_ulang").prop('disabled',true);
+  $("#btn_form_pilih").prop('disabled',true);
+});
+
+$("#btn_form_pilih").click(function(){
+  $("#div_container_kode").hide(500);
+  $("#div_container_donekode").delay(550).show(500);
+  $.ajax({
+    url: "http://localhost/LideArsipan/ksurat/desckode",
+    type: 'post',
+    dataType:'text',
+    success:function(data){
+      $('#tentang_pilih').html(data);
+    }
+  });
+  $.ajax({
+    url: "http://localhost/LideArsipan/ksurat/getkode",
+    type: 'post',
+    dataType:'text',
+    success:function(data){
+      $("#kode_pilih").html(data);
+    }
+  });
   $("#btn_form_pilih").prop('disabled',true);
 });
