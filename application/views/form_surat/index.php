@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Pages: Form Surat
  * Pages ini berfungsi untuk membuat surat.
@@ -10,44 +11,52 @@
     <h2>REGISTRASI SURAT</h2>
   </div>
   <form>
-  <div class="my-5">
-    <p>Kode Surat</p>
-    <div class="container p-3" style="background-color: #808e9b; border-radius: 5px;">
-      <div class="row">
-        <div class="col-md-6">
-        <p id="kode">Kode yang dipilih: 000/0/0/0</p>
+    <div class="my-5">
+      <p>Kode Surat</p>
+      <div class="container p-3" style="background-color: #808e9b; border-radius: 5px;">
+        <div class="row">
+          <div class="col-md-6">
+            <p id="kode">Kode yang dipilih: 000/0/0/0</p>
+          </div>
+          <div class="col-md-6">
+            <p id="tentang">Tentang: Belum dipilih</p>
+          </div>
         </div>
-        <div class="col-md-6">
-        <p id="tentang">Tentang: Belum dipilih</p>
+        <div class="form-row" id="form_row">
+          <div id="div_form_kategori" class="form-group col-md-6">
+            <label class="" for="form_kategori">Kategori</label>
+            <input type="text" class="form-control" id="form_kategori">
+          </div>
+          <div id="div_form_kode" class="form-group col-md-6" style="display: none">
+            <label for="form_kode">Kode Utama</label>
+            <select class="form-control" id="form_kode">
+            </select>
+          </div>
+          <div id="div_form_subkode1" class="form-group col-md-6" style="display: none">
+            <label for="form_subkode1">Sub Kode 1</label>
+            <select class="form-control" id="form_subkode1">
+            </select>
+          </div>
+          <div id="div_form_subkode2" class="form-group col-md-6" style="display: none">
+            <label for="form_subkode2">Sub Kode 2</label>
+            <select class="form-control" id="form_subkode2">
+            </select>
+          </div>
+          <div id="div_form_done" class="form-group col-md-6" style="display: none">
+            <p class=" font-weight-bold">Tidak terdapat pilihan lagi.</p>
+          </div>
+          <small class="form-text text-white col-md-12">Pemilihan kode surat awalnya memilih kategori. Setelah itu kode utama dan seterusnya.</small>
+          <small id="div_form_count" class="form-text text-white col-md-12">Pilihan kode berjumlah:</small>
         </div>
-      </div>
-      <div class="form-row" id="form_row">
-        <div id="div_form_kategori"  class="form-group col-md-6">
-          <label class="" for="form_kategori">Kategori</label>
-          <input type="text" class="form-control" id="form_kategori">
-        </div>
-        <div id="div_form_kode" class="form-group col-md-6" style="display: none">
-          <label for="form_kode">Kode Utama</label>
-          <input type="text" class="form-control" id="form_kode">
-        </div>
-        <div id="div_form_subkode1" class="form-group col-md-6" style="display: none">
-          <label for="form_subkode1">Sub Kode 1</label>
-          <input type="text" class="form-control" id="form_subkode1">
-        </div>
-        <div id="div_form_subkode2"  class="form-group col-md-6" style="display: none">
-          <label for="form_subkode2">Sub Kode 2</label>
-          <input type="text" class="form-control" id="form_subkode2">
-        </div>
-        <small class="form-text text-white col-md-12">Pemilihan kode surat awalnya memilih kategori. Setelah itu kode utama dan seterusnya.</small>
+        
       </div>
       <div class="row">
         <div class="col-md-12 mt-2">
-        <button type="button" class="btn btn-success btn-md"><span class="fas fa-check"></span></button>
-        <button type="button" class="btn btn-danger btn-md"><span class="fas fa-times"></span></button>
+        <button id="btn_form_pilih" type="button" class="btn btn-success btn-md"><span class="fas fa-check"></span></button>
+        <button id="btn_form_ulang" type="button" class="btn btn-danger btn-md"><span class="fas fa-times"></span></button>
         <!-- button type="button" class="btn btn-freespeechblue px-3" disabled>Pilih</button -->
         </div>
       </div>
-    </div>
     </div><!-- End of form surat -->
 
     <div class="form-group">
