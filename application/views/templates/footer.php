@@ -117,6 +117,10 @@
 
      <script src=<?=base_url('assets/js/page/form_surat.js')?>></script>
    <?php
+    } else {
+    ?>
+     <script src=<?=base_url('assets/js/page/arsip.js')?>></script>
+   <?php 
     }
     ?>
 
