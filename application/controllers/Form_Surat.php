@@ -221,12 +221,10 @@ class Form_Surat extends CI_Controller
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('uploaddoc')) {
             $error = array('error' => $this->upload->display_errors());
-            print_r($error);
             return false;
         } else {
             $data = $this->upload->data();
             $data['user']='ADM000000';
-            print_r($data);
             $this->load->model('model_dokumen');
             $this->iddokumen = $this->model_dokumen->TambahDokumen($data);
             return true;

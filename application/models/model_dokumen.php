@@ -43,7 +43,6 @@ class Model_Dokumen extends CI_Model
      */
     function TambahDokumen($data)
     {
-        print_r($data);
         $id = $this->getIdRandom();
         $value = array(
             'id_dokumen' => $id,

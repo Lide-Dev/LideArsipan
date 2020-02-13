@@ -46,7 +46,6 @@ class Model_Surat extends CI_Model
 
     function TambahSurat($data)
     {
-        print_r($data);
         if (is_array($data['klasifikasi'])){
         $data['klasifikasi'] = implode(".",$data['klasifikasi']);
         }
