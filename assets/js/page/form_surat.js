@@ -1,4 +1,26 @@
 //var _0x2718=['JSON','slice','term','Kode\x20yang\x20dipilih:\x20','split','#div_form_kategori','val','Tentang:\x20','log','html','get','#kode','delay','length','ajax','label','#tentang','autocomplete','hide','#form_kategori'];(function(_0x22b062,_0x42f677){var _0x207340=function(_0x77875b){while(--_0x77875b){_0x22b062['push'](_0x22b062['shift']());}};_0x207340(++_0x42f677);}(_0x2718,0x16b));var _0x26d9=function(_0x22b062,_0x42f677){_0x22b062=_0x22b062-0x0;var _0x207340=_0x2718[_0x22b062];return _0x207340;};$(_0x26d9('0x10'))[_0x26d9('0xe')]({'source':function(_0x2c5d8d,_0xc32288){$[_0x26d9('0xb')]({'url':'http://localhost/LideArsipan/index.php/form_surat/get_autocomplete/kategori','type':_0x26d9('0x7'),'dataType':_0x26d9('0x11'),'data':{'search':_0x2c5d8d[_0x26d9('0x13')]},'success':function(_0x2242eb){_0xc32288(_0x2242eb[_0x26d9('0x12')](0x0,0xa));console[_0x26d9('0x5')](_0x2242eb);}});},'minLength':0x2,'select':function(_0x22ee99,_0x3c2550){var _0x15e9b1=_0x3c2550['item'][_0x26d9('0xc')];var _0x480c8a=_0x15e9b1[_0x26d9('0x1')]('\x20');var _0x508670=_0x480c8a[0x0][_0x26d9('0x1')]('.');var _0x1466da='';for(var _0x4cd3c7=0x0;_0x4cd3c7<_0x480c8a[_0x26d9('0xa')];_0x4cd3c7++){if(_0x4cd3c7==0x0){console[_0x26d9('0x5')]('k');continue;}_0x1466da+=_0x480c8a[_0x4cd3c7]+'\x20';console[_0x26d9('0x5')](_0x480c8a[_0x4cd3c7]);}var _0x1237da=_0x508670['join']('/');$(_0x26d9('0x10'))[_0x26d9('0x3')]();$(_0x26d9('0x8'))[_0x26d9('0x6')](_0x26d9('0x0')+_0x1237da);$(_0x26d9('0xd'))[_0x26d9('0x6')](_0x26d9('0x4')+_0x1466da);$(_0x26d9('0x2'))[_0x26d9('0xf')](0x1f4);$('#div_form_kode')[_0x26d9('0x9')](0x258)['show'](0x1f4);kodeglobal=_0x1237da;tentangglobal=_0x1466da;}});
+$(".form-tgl").datepicker({
+  changeMonth: true,
+  changeYear: true,
+  showButtonPanel: true,
+  dateFormat: 'dd/mm/yy',
+  maxDate: 0
+})
+
+$("#label_tipesurat1").click(function () {
+  $("#form_tipesurat1").prop("checked", true);
+  $("#form_tipesurat2").prop("checked", false);
+  $("#label-asalsurat").html("<b class='text-danger'>*</b>Asal Surat");
+
+});
+
+$("#label_tipesurat2").click(function () {
+  $("#form_tipesurat2").prop("checked", true);
+  $("#form_tipesurat1").prop("checked", false);
+  $("#label-asalsurat").html("<b class='text-danger'>*</b>Tujuan Pengiriman");
+});
+
+
 $("#form_kategori").autocomplete({
   source: function (request, response) {
     // Fetch data
@@ -16,8 +38,8 @@ $("#form_kategori").autocomplete({
   }, // Kode php untuk prosesing data.
 
   select: function (event, ui) {
-    $("#btn_form_pilih").prop("disabled", false);
-    $("#btn_form_ulang").prop("disabled", false);
+    $(".btn_form_pilih").prop("disabled", false);
+    $(".btn_form_ulang").prop("disabled", false);
     var valid = "";
     var str = ui.item.label;
     var tentang = str.split(" ");
@@ -72,7 +94,7 @@ $("#form_kategori").autocomplete({
 });
 
 
-$("#form_kode").on('change', function() {
+$("#form_kode").on('change', function () {
   var kode = $("#form_kode option:selected").val();
   console.log(kode);
   $.ajax({
@@ -81,103 +103,103 @@ $("#form_kode").on('change', function() {
     data: {
       kodevar: kode,
     },
-    success:function(){
+    success: function () {
       $.ajax({
         url: "http://localhost/LideArsipan/ksurat/desckode",
         type: 'post',
         dataType: 'text',
-        success:function(data){
+        success: function (data) {
           console.log(data);
           $("#tentang").html("Deskripsi Kode: " + data);
         }
       });
     }
   });
-    $("#kode").html("Kode yang dipilih: " + kode);
-    $.ajax({
-      url: "http://localhost/LideArsipan/ksurat/cekkode/subkode1",
-      type: 'post',
-      data: {
-        kodevar: kode,
-      },
-      dataType: "text",
-      success: function (data) {
-        valid = data;
-        if (valid != 0) {
-          $("#div_form_kode").delay(550).show(500);
-          $.ajax({
-            url: "http://localhost/LideArsipan/ksurat/subkode1",
-            type: 'post',
-            dataType: "html",
-            success: function (data) {
-              $("#div_form_subkode1").show(500);
-              console.log(data);
-              $("#form_subkode1").html(data);
-            }
-          });
-        }
-        else
-          $("#div_form_subkode1").hide(500);
-          $("#div_form_subkode2").hide(500);
-      }
-    });
-});
-
-
-
-$("#form_subkode1").on('change', function() {
-  var kode = $("#form_subkode1 option:selected").val();
-    $.ajax({
-      url: "http://localhost/LideArsipan/ksurat/kode",
-      type: 'post',
-      data: {
-        kodevar: kode,
-      },
-      success:function(){
+  $("#kode").html("Kode yang dipilih: " + kode);
+  $.ajax({
+    url: "http://localhost/LideArsipan/ksurat/cekkode/subkode1",
+    type: 'post',
+    data: {
+      kodevar: kode,
+    },
+    dataType: "text",
+    success: function (data) {
+      valid = data;
+      if (valid != 0) {
+        $("#div_form_kode").delay(550).show(500);
         $.ajax({
-          url: "http://localhost/LideArsipan/ksurat/desckode",
+          url: "http://localhost/LideArsipan/ksurat/subkode1",
           type: 'post',
-          dataType: 'text',
-          success:function(data){
+          dataType: "html",
+          success: function (data) {
+            $("#div_form_subkode1").show(500);
             console.log(data);
-            $("#tentang").html("Deskripsi Kode: " + data);
+            $("#form_subkode1").html(data);
           }
         });
       }
-    });
+      else
+        $("#div_form_subkode1").hide(500);
+      $("#div_form_subkode2").hide(500);
+    }
+  });
+});
 
-    $("#kode").html("Kode yang dipilih: " + kode);
-    $.ajax({
-      url: "http://localhost/LideArsipan/ksurat/cekkode/subkode2",
-      type: 'post',
-      data: {
-        kodevar: kode,
-      },
-      dataType: "text",
-      success: function (data) {
-        console.log("Sebanyak:"+data);
-        valid = data;
-        if (valid != 0) {
-          $("#div_form_kode").delay(550).show(500);
-          $.ajax({
-            url: "http://localhost/LideArsipan/ksurat/subkode2",
-            type: 'post',
-            dataType: "html",
-            success: function (data) {
-              $("#div_form_subkode2").show(500);
-              console.log(data);
-              $("#form_subkode2").html(data);
-            }
-          });
+
+
+$("#form_subkode1").on('change', function () {
+  var kode = $("#form_subkode1 option:selected").val();
+  $.ajax({
+    url: "http://localhost/LideArsipan/ksurat/kode",
+    type: 'post',
+    data: {
+      kodevar: kode,
+    },
+    success: function () {
+      $.ajax({
+        url: "http://localhost/LideArsipan/ksurat/desckode",
+        type: 'post',
+        dataType: 'text',
+        success: function (data) {
+          console.log(data);
+          $("#tentang").html("Deskripsi Kode: " + data);
         }
-        else
-          $("#div_form_subkode2").hide(500);
+      });
+    }
+  });
+
+  $("#kode").html("Kode yang dipilih: " + kode);
+  $.ajax({
+    url: "http://localhost/LideArsipan/ksurat/cekkode/subkode2",
+    type: 'post',
+    data: {
+      kodevar: kode,
+    },
+    dataType: "text",
+    success: function (data) {
+      console.log("Sebanyak:" + data);
+      valid = data;
+      if (valid != 0) {
+        $("#div_form_kode").delay(550).show(500);
+        $.ajax({
+          url: "http://localhost/LideArsipan/ksurat/subkode2",
+          type: 'post',
+          dataType: "html",
+          success: function (data) {
+            $("#div_form_subkode2").show(500);
+            console.log(data);
+            $("#form_subkode2").html(data);
+          }
+        });
       }
-    });
+      else
+        $("#div_form_subkode2").hide(500);
+    }
+  });
 
 });
 
-$("#form_subkode2").on('change', function() {
+$("#form_subkode2").on('change', function () {
   var kode = $("#form_subkode2 option:selected").val();
   $.ajax({
     url: "http://localhost/LideArsipan/ksurat/kode",
@@ -185,22 +207,22 @@ $("#form_subkode2").on('change', function() {
     data: {
       kodevar: kode,
     },
-    success:function(){
+    success: function () {
       $.ajax({
         url: "http://localhost/LideArsipan/ksurat/desckode",
         type: 'post',
         dataType: 'text',
-        success:function(data){
+        success: function (data) {
           console.log(data);
           $("#tentang").html("Deskripsi Kode: " + data);
         }
       });
     }
   });
-    $("#kode").html("Kode yang dipilih: " + kode);
+  $("#kode").html("Kode yang dipilih: " + kode);
 });
 
-$("#btn_form_ulang").click(function(){
+$(".btn_form_ulang").click(function () {
   $("#div_container_donekode").hide(1000);
   $("#div_container_kode").delay(1000).show(500);
   $.ajax({
@@ -221,28 +243,99 @@ $("#btn_form_ulang").click(function(){
   $("#form_subkode2").html("");
   $("#form_kategori").val("");
   $("#div_form_kategori").delay(550).show(500);
-  $("#btn_form_ulang").prop('disabled',true);
-  $("#btn_form_pilih").prop('disabled',true);
+  $(".btn_form_ulang").prop('disabled', true);
+  $(".btn_form_pilih").prop('disabled', true);
 });
 
-$("#btn_form_pilih").click(function(){
+$(".btn_form_pilih").click(function () {
   $("#div_container_kode").hide(500);
   $("#div_container_donekode").delay(550).show(500);
   $.ajax({
     url: "http://localhost/LideArsipan/ksurat/desckode",
     type: 'post',
-    dataType:'text',
-    success:function(data){
+    dataType: 'text',
+    success: function (data) {
       $('#tentang_pilih').html(data);
     }
   });
   $.ajax({
     url: "http://localhost/LideArsipan/ksurat/getkode",
     type: 'post',
-    dataType:'text',
-    success:function(data){
+    dataType: 'text',
+    success: function (data) {
       $("#kode_pilih").html(data);
     }
   });
-  $("#btn_form_pilih").prop('disabled',true);
+  $(".btn_form_pilih").prop('disabled', true);
+});
+
+
+$('#form_suratdoc').change(function (e) {
+  var fileName = e.target.files[0].name;
+  $("#label_suratdoc").html(fileName);
+});
+
+
+$("#form_surat").validate({
+  rules: {
+    kategori: "required",
+    nosurat: {
+      required: true
+    },
+    tglpenerimaansurat: {
+      required: true,
+      minlength: 10,
+      maxlength: 10,
+      pattern: /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/
+    },
+    tglpembuatansurat: {
+      required: true,
+      minlength: 10,
+      maxlength: 11,
+      pattern: /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/
+    },
+    asalsurat: {
+      required: true,
+      maxlength: 255
+    },
+    lokasiarsip: {
+      required: true,
+      maxlength: 255
+    },
+    uploaddoc: {
+      required: true,
+    }
+  },
+  messages: {
+    kategori: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Setidaknya memilih satu klasifikasi surat.</small>",
+    nosurat: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi nomor suratnya</small>",
+    lokasiarsip: {
+      required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi lokasi arsipnya</small>",
+      maxlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Maksimal karakter kata adalah 255.</small>",
+    },
+    asalsurat: {
+      required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi bagian ini</small>",
+      maxlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Maksimal karakter kata adalah 255.</small>",
+    },
+    tglpenerimaansurat: {
+      required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi tanggal penerimaan suratnya</small>",
+      minlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Format tanggal tidak benar!</small>",
+      maxlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Format tanggal tidak benar!</small>",
+      pattern: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Format tanggal tidak benar!</small>"
+    },
+    tglpembuatansurat: {
+      required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi tanggal pembuatan suratnya</small>",
+      minlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Format tanggal tidak benar!</small>",
+      maxlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Format tanggal tidak benar!</small>",
+      pattern: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Format tanggal tidak benar!</small>"
+    },
+    uploaddoc: {
+      required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di pilih file surat yang ingin di upload!</small>",
+      accept: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Format file tidak benar!</small>",
+    },
+    submitHandler: function (form) {
+      form.submit();
+    }
+
+  },
 });

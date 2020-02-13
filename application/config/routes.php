@@ -61,3 +61,4 @@ $route["ksurat/kode"]= "form_surat/set_kode";
 $route["ksurat/getkode"]= "form_surat/get_kode";
 $route["ksurat/cekkode/(:any)"]= "form_surat/cek_kode/$1";
 $route["ksurat/desckode"]="form_surat/get_desckode";
+$route["surat/go/add/newsurat"]="form_surat/form_submit";
