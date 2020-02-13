@@ -4,7 +4,7 @@ class Arsip extends CI_Controller {
 
 
     public function index(){
-        $data['page']="form_surat";
+        $data['page']="arsip";
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('templates/navbar');

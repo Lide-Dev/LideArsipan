@@ -12072,4 +12072,23 @@ a.text-blackpearl:hover, a.text-blackpearl:focus {
     border: 1px solid #ddd !important;
   }
 }
+
+/* Slide Arsip */
+
+#panel_arsip, #flip_arsip {
+  padding: 5px;
+  text-align: center;
+  background-color: #e5eecc;
+  border: solid 1px #c3c3c3;
+}
+
+#panel_arsip {
+  padding: 50px;
+  display: none;
+}
+
+/*End Slide Arsip*/
+
+
+
 /*# sourceMappingURL=lidearsip.css.map */
