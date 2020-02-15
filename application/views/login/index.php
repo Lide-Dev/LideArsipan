@@ -67,8 +67,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </form>
                 <div class="mt-4">
                     <div class="d-flex justify-content-center links">
-                        <b>Lupa Password? <a href="#" class="ml-2" style="color: white;"><button type="button" class="feedback btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bantuan</b></button></a>
-                                <!-- Fitur Report Bug -->
+                        <b>Lupa Password? <!-- Fitur Report Bug --> <a href="#" class="ml-2" style="color: white;"><button type="button" class="feedback btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bantuan</b></button></a>
+                                
                                 <div class="btn-group dropup">
                                     <ul class="dropdown-menu dropdown-menu-right dropdown-menu-form">
                                         <li>
