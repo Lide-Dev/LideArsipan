@@ -105,12 +105,16 @@
 
    </body>
    <script src=<?= base_url('assets/js/jquery.js') ?>></script>
-
    <script src=<?= base_url('assets/js/jquery-ui.min.js') ?>></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
    <script src=<?= base_url('assets/js/sidebar.js') ?>></script>
    <script src=<?= base_url('assets/js/fontawesome.js') ?>></script>
-   <script src=<?= base_url('assets/js/bootstrap.min.js') ?>></script>
+   <script src=<?= base_url('assets/js/bootstrap.bundle.min.js') ?>></script>
    <script src=<?= base_url('assets/js/fontawesome.min.js') ?>></script>
+   <script type="text/javascript">
+      $('[data-toggle="tooltip"]').tooltip()
+   </script>
    <?php
     if ($page === "form_surat") {
     ?>

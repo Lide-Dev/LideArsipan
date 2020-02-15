@@ -43,7 +43,7 @@ class Model_Kode extends CI_Model
 
     function check_kode($idform, $kode)
     {
-        //print_r($kode);
+
         if ($idform === "kode") {
             $this->db->like('id_kode', '0.0', 'before');
             $this->db->like('id_kode', $kode[0], 'after');
@@ -76,7 +76,7 @@ class Model_Kode extends CI_Model
         if ($kode[0] === '160') {
             $this->db->where('id_kode >=', '160.0.0.0');
             $this->db->where('id_kode <', '162.0.0.0');
-            //print_r($result);
+
         } else {
             $this->db->like('id_kode', '0.0', 'before');
             $this->db->like('id_kode', $kode[0], 'after');
@@ -84,8 +84,6 @@ class Model_Kode extends CI_Model
         }
         $this->db->order_by('id_kode', 'ASC');
         $this->db->limit(10);
-        //echo "<br><br>";
-        //print_r($result);
         return $this->db->get('kode')->result();
     }
 
