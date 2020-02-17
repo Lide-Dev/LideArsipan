@@ -2,11 +2,34 @@
 
 class Form_Surat extends CI_Controller
 {
-
     private $iddokumen = "";
     //-------------------------------- START VIEW FUNCTION ----------------------------------//
     //-------------------------------- VIEW FUNCTION ----------------------------------//
     //-------------------------------- VIEW FUNCTION ----------------------------------//
+
+     /**
+     * Inisialisasi informasi untuk view page yang di gunakan.
+     *
+     * @param string $page
+     * Diusahakan sama seperti yang ada di view template dan lain-lain karena berpengaruh jalannya web seperti JS.
+     * @param string $title
+     * Judul page yang akan berada pada tab browser.
+     * @return array
+     */
+    function initconfig($page,$title=null){
+        if (!empty($page)){
+        $data['page']=$page;
+        }
+        else {$data['page']="lidearsip";}
+
+        if (!empty($title)){
+            $data['title']=$title;
+            }
+            else {$data['title']="Lide Arsipan";}
+
+
+        return $data;
+    }
 
     /**
      * Inisialisasi page form_surat. Semua inisiasi data harus ada disini sebelum memulai
@@ -16,14 +39,15 @@ class Form_Surat extends CI_Controller
      */
     public function index()
     {
+        $data = $this->initconfig("form_surat","Registrasi Surat");
         $data['statemessage'] = false;
-        $data['page'] = "form_surat";
         $this->initview($data);
     }
 
     public function initview($data)
     {
-        $this->load->view('templates/header');
+
+        $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar');
         $this->load->view('templates/navbar');
         $this->load->view('form_surat/index', $data);
@@ -154,6 +178,8 @@ class Form_Surat extends CI_Controller
                     $value = $_POST;
                     $value['id_dokumen']= $this->iddokumen;
                     $value['klasifikasi']= $this->session->kodesurat;
+                    $this->load->model('model_kode');
+                    $value['desckode'] = $this->model_kode->get_desckode($this->session->kodesurat);
                     $this->load->model("model_surat");
                     $this->model_surat->TambahSurat($value);
                     $data['colormessage'] = "bg-info";
@@ -295,7 +321,10 @@ class Form_Surat extends CI_Controller
     function get_desckode()
     {
         $this->load->model('model_kode');
+        if (empty($this->input->post('desckode')))
         $result = $this->model_kode->get_desckode($this->session->kodesurat);
+        else
+        $result = $this->model_kode->get_desckode($this->input->post('desckode'));
         echo $result;
     }
 

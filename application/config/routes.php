@@ -53,6 +53,7 @@ $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route["registrasi_surat"]= "form_surat";
 $route["ksurat/kategori"]= "form_surat/get_autocomplete/kategori";
 $route["ksurat/kodeutama"]= "form_surat/get_autocomplete/kodeutama";
 $route["ksurat/subkode1"]= "form_surat/get_autocomplete/subkode1";
@@ -62,3 +63,6 @@ $route["ksurat/getkode"]= "form_surat/get_kode";
 $route["ksurat/cekkode/(:any)"]= "form_surat/cek_kode/$1";
 $route["ksurat/desckode"]="form_surat/get_desckode";
 $route["surat/go/add/newsurat"]="form_surat/form_submit";
+
+$route["ajaxarsip/table"]="arsip/gettable";
+$route["ajaxarsip/count"]="arsip/getcountajax";
