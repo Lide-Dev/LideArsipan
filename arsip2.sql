@@ -1,33 +1,33 @@
 
 CREATE TABLE gender(
-	id_gender char(1),
-	nama varchar(12),
+	id_gender char(1) NOT NULL,
+	nama varchar(12) NOT NULL,
 	PRIMARY KEY (id_gender)
     
 );
 
 CREATE TABLE permission(
-	id_permission char(5),
-   	readfile boolean,
-   	writefile boolean,
+	id_permission char(5) NOT NULL,
+   	readfile boolean NOT NULL,
+   	writefile boolean NOT NULL,
     PRIMARY KEY (id_permission)
 );
 
 CREATE TABLE jabatan(
-	id_jabatan char(5),
-   	nama varchar(100),
+	id_jabatan char(5) NOT NULL,
+   	nama varchar(100) NOT NULL,
     PRIMARY KEY (id_jabatan)
 );
 
 CREATE TABLE jenis_arsip(
-	id_jenisarsip char(5),
-	nama VARCHAR (100),
+	id_jenisarsip char(5) NOT NULL,
+	nama VARCHAR (100) NOT NULL,
 	PRIMARY KEY (id_jenisarsip)
 );
 
 CREATE TABLE kode(
-	id_kode char(9),
-	nama VARCHAR(200),
+	id_kode char(9) NOT NULL,
+	nama VARCHAR(200) NOT NULL,
 	PRIMARY KEY (id_kode)
 );
 
@@ -43,13 +43,13 @@ CREATE TABLE klasifikasi(
 );
 
 CREATE TABLE datapengguna(
-	id_datapengguna char(10),
-	nip char(18),
-	nama varchar(255),
-	tgl_lahir date,
-	foto_profil varchar(100),
-	create_time timestamp,
-	update_time timestamp,
+	id_datapengguna char(10) NOT NULL,
+	nip char(18) NOT NULL,
+	nama varchar(255) NOT NULL,
+	tgl_lahir date NOT NULL,
+	foto_profil varchar(100) DEFAULT 'undefined',
+	create_time datetime,
+	update_time datetime,
 	id_gender char(1),
 	id_jabatan char(5),
 	PRIMARY KEY (id_datapengguna),
@@ -59,13 +59,13 @@ CREATE TABLE datapengguna(
 
 /*Lampiran atau Surat*/
 CREATE TABLE dokumen(
-	id_dokumen char(20),
-	nama varchar(255),
+	id_dokumen char(20) NOT NULL,
+	nama varchar(255) NOT NULL,
 	ekstensi varchar(5),
 	byte_file varchar(10),
 	type_file VARCHAR(10),
-	create_time timestamp,
-	update_time timestamp,
+	create_time datetime,
+	update_time datetime,
 	PRIMARY KEY (id_dokumen)
 );
 
@@ -73,11 +73,16 @@ CREATE TABLE surat_masuk(
 	id_suratmasuk char(20),
 	id_dokumen CHAR(20),
 	id_kode char(9),
-	id_upload char(8),
-	perihal varchar(100),
+	id_upload char(10),
+	asal_surat varchar(254),
+    klasifikasi VARCHAR(254),
+    isi_ringkas varchar(254),
+    keterangan varchar(254),
 	lokasi_arsip VARCHAR(100),
-	create_time timestamp,
-	update_time timestamp,
+    tgl_penerimaan date,
+    tgl_pembuatan date,
+	create_time datetime,
+	update_time datetime,
 	PRIMARY KEY (id_suratmasuk),
 	FOREIGN KEY (id_dokumen) REFERENCES dokumen(id_dokumen),
 	FOREIGN KEY (id_kode) REFERENCES kode(id_kode),
@@ -88,16 +93,44 @@ CREATE TABLE surat_keluar(
 	id_suratkeluar char(20),
 	id_dokumen CHAR(20),
 	id_kode char(9),
-	id_upload char(8),
-	perihal varchar(100),
+	id_upload char(10),
+	surat_dikirim varchar(254),
+    klasifikasi VARCHAR(254),
+    isi_ringkas varchar(254),
+    keterangan varchar(254),
 	lokasi_arsip VARCHAR(100),
-	create_time timestamp,
-	update_time timestamp,
+    tgl_penerimaan date,
+    tgl_pembuatan date,
+	create_time datetime,
+	update_time datetime,
 	PRIMARY KEY (id_suratkeluar),
 	FOREIGN KEY (id_dokumen) REFERENCES dokumen(id_dokumen),
 	FOREIGN KEY (id_kode) REFERENCES kode(id_kode),
 	FOREIGN KEY (id_upload) REFERENCES datapengguna(id_datapengguna)
 );
+/*----------------------ADMIN TABLES-------------------------------*/
+CREATE TABLE admindata(
+    id_admin char(10),
+    nama VARCHAR(254),
+    password VARCHAR(60)
+)
+
+CREATE TABLE log_activity(
+    id_log char(20),
+    id_logtipe char(5)
+)
+
+CREATE TABLE log_tipe(
+    id_logtipe char(5),
+    nama VARCHAR(100)
+)
+
+INSERT INTO gender VALUES ( 'M', 'Laki-laki'),
+( 'F', 'Perempuan');
+
+INSERT INTO jabatan VALUES ('JB000','SUPER ADMIN');
+
+INSERT INTO datapengguna VALUES ('ADM0000000','010203040506070809','Herlandro Tribiakto','1999-09-10','undefined','2020-02-10','2020-02-10','M','JB000');
 
 INSERT INTO kode VALUES
     ('140.0.0.0','PEMERINTAHAN DESA / KELURAHAN'),
@@ -139,7 +172,7 @@ INSERT INTO kode VALUES
     ('157.2.0.0','Penghargaan'),
     ('158.0.0.0','Jawaban Pemerintah'),
     ('159.0.0.0','Hak'),
-    ('160.0.0.0','DPRD PROVINSI TAMBAHKAN KODE WILAYAH'),
+    ('160.0.0.0','DPRD PROVINSI '),
     ('161.0.0.0','Keanggotaan'),
     ('161.1.0.0','Pencalonan'),
     ('161.2.0.0','Pengangkatan'),
@@ -154,7 +187,7 @@ INSERT INTO kode VALUES
     ('163.2.0.0','Penghargaan'),
     ('164.0.0.0','Hak'),
     ('165.0.0.0','Sekretaris DPRD Provinsi'),
-    ('170.0.0.0','DPRD KABUPATEN TAMBAHKAN KODE WILAYAH'),
+    ('170.0.0.0','DPRD KABUPATEN'),
     ('171.0.0.0','Keanggotaan'),
     ('171.1.0.0','Pencalonan'),
     ('171.2.0.0','Pengangkatan'),
