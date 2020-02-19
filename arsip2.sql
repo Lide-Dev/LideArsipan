@@ -46,6 +46,7 @@ CREATE TABLE datapengguna(
 	id_datapengguna char(10) NOT NULL,
 	nip char(18) NOT NULL,
 	nama varchar(255) NOT NULL,
+    email varchar(255) NOT NULL,
 	tgl_lahir date NOT NULL,
 	foto_profil varchar(100) DEFAULT 'undefined',
 	create_time datetime,

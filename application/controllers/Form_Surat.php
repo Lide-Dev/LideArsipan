@@ -1,36 +1,11 @@
 <?php
 
-class Form_Surat extends CI_Controller
+class Form_Surat extends MY_Controller
 {
     private $iddokumen = "";
     //-------------------------------- START VIEW FUNCTION ----------------------------------//
     //-------------------------------- VIEW FUNCTION ----------------------------------//
     //-------------------------------- VIEW FUNCTION ----------------------------------//
-
-     /**
-     * Inisialisasi informasi untuk view page yang di gunakan.
-     *
-     * @param string $page
-     * Diusahakan sama seperti yang ada di view template dan lain-lain karena berpengaruh jalannya web seperti JS.
-     * @param string $title
-     * Judul page yang akan berada pada tab browser.
-     * @return array
-     */
-    function initconfig($page,$title=null){
-        if (!empty($page)){
-        $data['page']=$page;
-        }
-        else {$data['page']="lidearsip";}
-
-        if (!empty($title)){
-            $data['title']=$title;
-            }
-            else {$data['title']="Lide Arsipan";}
-
-
-        return $data;
-    }
-
     /**
      * Inisialisasi page form_surat. Semua inisiasi data harus ada disini sebelum memulai
      * page
@@ -39,19 +14,9 @@ class Form_Surat extends CI_Controller
      */
     public function index()
     {
-        $data = $this->initconfig("form_surat","Registrasi Surat");
-        $data['statemessage'] = false;
-        $this->initview($data);
-    }
-
-    public function initview($data)
-    {
-
-        $this->load->view('templates/header',$data);
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/navbar');
-        $this->load->view('form_surat/index', $data);
-        $this->load->view('templates/footer', $data);
+        $data = $this->initConfig("arsip","Data Arsip");
+        $data['statemessage'] = 0;
+        $this->initView('form_surat/index',$data);
     }
 
     /**
@@ -161,19 +126,19 @@ class Form_Surat extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $data['colormessage'] = "bg-danger";
             $data['message'] = "Kesalahan: Terdapat form penting yang belum terisi. Mohon di isi! (Error Code: 401) ";
-            $this->initview($data);
+            $this->initview('form_surat/index',$data);
         } else {
             $valid = $this->validation_kode();
             if ($valid === false) {
                 $data['colormessage'] = "bg-danger";
                 $data['message'] = "Kesalahan: Kode belum di isi! (Error Code: 403)";
-                $this->initview($data);
+                $this->initview('form_surat/index',$data);
             } else {
                 $valid = $this->upload_doc();
                 if ($valid === false) {
                     $data['colormessage'] = "bg-danger";
                     $data['message'] = "Kesalahan: Perhatikan ekstensi dan besar ukuran filenya (Error Code: 402)";
-                    $this->initview($data);
+                    $this->initview('form_surat/index',$data);
                 } else {
                     $value = $_POST;
                     $value['id_dokumen']= $this->iddokumen;
@@ -184,7 +149,7 @@ class Form_Surat extends CI_Controller
                     $this->model_surat->TambahSurat($value);
                     $data['colormessage'] = "bg-info";
                     $data['message'] = "Berhasil! Surat berhasil di input ke arsip online.";
-                    $this->initview($data);
+                    $this->initview('form_surat/index',$data);
                 }
             }
         }

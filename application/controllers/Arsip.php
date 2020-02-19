@@ -1,39 +1,12 @@
 <?php
 
-class Arsip extends CI_Controller {
-    /**
-     * Inisialisasi informasi untuk view page yang di gunakan.
-     *
-     * @param string $page
-     * Diusahakan sama seperti yang ada di view template dan lain-lain karena berpengaruh jalannya web seperti JS.
-     * @param string $title
-     * Judul page yang akan berada pada tab browser.
-     * @return array
-     */
-    function initconfig($page,$title=null){
-        if (!empty($page)){
-        $data['page']=$page;
-        }
-        else {$data['page']="undefined";}
-
-        if (!empty($title)){
-            $data['title']=$title;
-            }
-            else {$data['title']="Lide Arsipan";}
-
-
-        return $data;
-    }
+class Arsip extends MY_Controller {
 
     public function index(){
-        $data = $this->initconfig('arsip','Data Arsip');
+        $data = $this->initConfig("arsip","Data Arsip");
         $this->load->model("model_surat");
         $data['tablerow']=$this->model_surat->getCountSurat();
-        $this->load->view('templates/header',$data);
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/navbar');
-        $this->load->view('arsip/index',$data);
-        $this->load->view('templates/footer',$data);
+        $this->initView('arsip/index',$data);
     }
 
     function getCountAjax(){
