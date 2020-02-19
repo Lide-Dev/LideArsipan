@@ -22,6 +22,38 @@
   ?>
   <div class="form-row mt-5">
     <div class="form-group col-md-6">
+      <!-- ceklis -->
+      <section class="body">
+	<div class="element" >
+    <input type="checkbox" class="b">
+  </div>
+  <div class="element" >
+    <input type="checkbox" class="b" checked>
+  </div>
+	<div class="element">
+	<input type="checkbox" class="n">​
+</div>
+	<div class="element">
+	<input type="checkbox" checked class="n">​
+</div>
+  <div class="element" >
+    <input type="radio" name="rad" >
+    <label for="rad"></label>
+  </div>
+  <div class="element" style="" >
+    <input type="radio" name="rad" checked >
+    <label for="rad"></label>
+  </div>
+  <div class="element" >
+    <input type="radio" name="simp" >
+    <label for="simp"></label>
+  </div>
+  <div class="element">
+    <input type="radio" name="simp" checked >
+    <label for="simp"></label>
+  </div>
+</section>
+      <!-- end ceklis -->
       <label for="form_nosurat">Tipe Surat</label>
       <ul class="nav nav-pills">
         <li class="nav-item">
@@ -37,7 +69,7 @@
   </div>
   <div class="mt-2 mb-3">
     <p><b class="text-danger ">*</b>Klasifikasi Surat</p>
-    <div id="div_container_kode" class="container p-3" style="background-color: #808e9b; border-radius: 5px;">
+    <div id="div_container_kode" class="container border border-hintofelusive rounded p-3">
       <div class="row">
         <div class="col-md-6">
           <p id="kode">Kode yang dipilih: 000/0/0/0</p>
@@ -77,7 +109,7 @@
         <div id="div_form_done" class="form-group col-md-6" style="display: none">
           <p class=" font-weight-bold">Tidak terdapat pilihan lagi.</p>
         </div>
-        <small class="form-text text-white col-md-12">Pemilihan kode surat awalnya memilih kategori. Setelah itu kode utama dan seterusnya.</small>
+        <small class="form-text col-md-12">Pemilihan kode surat awalnya memilih kategori. Setelah itu kode utama dan seterusnya.</small>
         <small id="div_form_count" class="form-text text-warning col-md-12">Tombol akan aktif jika telah memilih kategori!</small>
         <label id='form-kategori-error' class="form-text error col-md-12" for="form_kategori"></label>
       </div>
