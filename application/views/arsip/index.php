@@ -1,16 +1,15 @@
 <div class="container mb-5">
     <div class="container">
-        <div id="flip_arsip">
+        <div id="flip_arsip" class="bg-white">
             <div class="col-md-12"><i class="fa fa-search" aria-hidden="true"></i> Klik disini untuk memulai pencarian</div>
             <div class="col-md-12"><i id="chevron_nav" class="fas fa-chevron-down fa-lg"></i></div>
         </div>
 
         <div id="panel_arsip">
-            <div class="card shadow mb-5 bg-white rounded">
+            <div class="card shadow mb-2 bg-white rounded">
                 <!--Card-Body-->
-                <div class="mt-2 mb-3">
-                    <p><b class="text-danger ">*</b>Masukan Kategori Surat Yang Di Cari</p>
-                    <div id="div_container_kode" class="container p-3" style="background-color: #808e9b; border-radius: 5px;">
+                <div class="mt-2 mb-2">
+                    <div id="div_container_kode" class="container p-3">
                         <div class="row">
                             <div class="col-md-6">
                                 <p id="kode">Kode yang dipilih: 000/0/0/0</p>
@@ -65,7 +64,7 @@
                         <div class="col-md-12 mt-2">
                             <span class="d-none d-md-inline-block">
                                 <button id="" type="button" class="btn btn-success btn-md btn_form_pilih" disabled>
-                                    <span class="fas fa-check"></span> Pilih
+                                    <span class="fas fa-search"></span> Cari
                                 </button>
                             </span>
                             <span class="d-none d-md-inline-block">
@@ -81,6 +80,43 @@
             </div>
         </div>
     </div>
+
+    <!-- Menu Surat -->
+    <div class="p-3">
+    <section class="page-section" id="services">
+    <div class="container border border-hintofelusive rounded p-3">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h4 class="section-heading text-uppercase mt-2 mb-4">Pilih jenis Surat</h4>
+        </div>
+      </div>
+      <div class="shadow row text-center">
+        <div class="col-md-4">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-info"></i>
+            <i class="fas fa-arrow-circle-down fa-stack-1x fa-inverse"></i>
+          </span>
+          <h5 class="service-heading">Surat Masuk</h5>
+        </div>
+        <div class="col-md-4">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-info"></i>
+            <i class="fas fa-arrow-circle-up fa-stack-1x fa-inverse"></i>
+          </span>
+          <h5 class="service-heading">Surat Keluar</h5>
+        </div>
+        <div class="col-md-4">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-warning"></i>
+            <i class="fas fa-inbox fa-stack-1x fa-inverse"></i>
+          </span>
+          <h5 class="service-heading">Disposisi</h5>
+        </div>
+      </div>
+    </div>
+  </section>
+    </div>
+    <!-- End of Menu Surat -->
     <!--Tabel-->
 
     <?php if (empty($tablerow) || $tablerow === 0) { ?>

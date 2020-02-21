@@ -14,7 +14,7 @@ class Form_Surat extends MY_Controller
      */
     public function index()
     {
-        $data = $this->initConfig("arsip","Data Arsip");
+        $data = $this->initConfig("form_surat","Registrasi Arsip");
         $data['statemessage'] = 0;
         $this->initView('form_surat/index',$data);
     }

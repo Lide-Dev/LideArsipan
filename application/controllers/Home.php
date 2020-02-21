@@ -1,15 +1,11 @@
 <?php
 
-class Home extends CI_Controller {
+class Home extends MY_Controller {
 
 
     public function index(){
-        $data['page']="home";
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/navbar');
-        $this->load->view('dashboard/index');
-        $this->load->view('templates/footer',$data);
+        $data = $this->initConfig("home","Lide Arsipan");
+        $this->initView('dashboard/index',$data);
     }
 }
 

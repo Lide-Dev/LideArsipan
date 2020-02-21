@@ -22,46 +22,14 @@
   ?>
   <div class="form-row mt-5">
     <div class="form-group col-md-6">
-      <!-- ceklis -->
-      <section class="body">
-	<div class="element" >
-    <input type="checkbox" class="b">
-  </div>
-  <div class="element" >
-    <input type="checkbox" class="b" checked>
-  </div>
-	<div class="element">
-	<input type="checkbox" class="n">​
-</div>
-	<div class="element">
-	<input type="checkbox" checked class="n">​
-</div>
-  <div class="element" >
-    <input type="radio" name="rad" >
-    <label for="rad"></label>
-  </div>
-  <div class="element" style="" >
-    <input type="radio" name="rad" checked >
-    <label for="rad"></label>
-  </div>
-  <div class="element" >
-    <input type="radio" name="simp" >
-    <label for="simp"></label>
-  </div>
-  <div class="element">
-    <input type="radio" name="simp" checked >
-    <label for="simp"></label>
-  </div>
-</section>
-      <!-- end ceklis -->
       <label for="form_nosurat">Tipe Surat</label>
       <ul class="nav nav-pills">
-        <li class="nav-item">
-          <label class="nav-link active border border-blackpearl" for="form_tipesurat1" id="label_tipesurat1" data-toggle="tab" aria-selected="true">Surat Masuk</label>
+        <li class="nav-item m-2">
+          <label class="nav-link active border border-londonsquare" for="form_tipesurat1" id="label_tipesurat1" data-toggle="tab" aria-selected="true"><b>Surat Masuk</b></label>
           <input type="radio" name="tipesurat" id="form_tipesurat1" value="suratmasuk" style="display:none" checked>
         </li>
-        <li class="nav-item">
-          <label class="nav-link border border-blackpearl" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false">Surat Keluar</label>
+        <li class="nav-item m-2">
+          <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false"><b>Surat Keluar</b></label>
           <input type="radio" name="tipesurat" id="form_tipesurat2" value="suratkeluar" style="display:none" >
         </li>
       </ul>
@@ -109,11 +77,11 @@
         <div id="div_form_done" class="form-group col-md-6" style="display: none">
           <p class=" font-weight-bold">Tidak terdapat pilihan lagi.</p>
         </div>
-        <small class="form-text col-md-12">Pemilihan kode surat awalnya memilih kategori. Setelah itu kode utama dan seterusnya.</small>
+        <small class="form-text col-md-12"><i>Pemilihan kode surat awalnya memilih kategori. Setelah itu kode utama dan seterusnya.</i></small>
         <small id="div_form_count" class="form-text text-warning col-md-12">Tombol akan aktif jika telah memilih kategori!</small>
         <label id='form-kategori-error' class="form-text error col-md-12" for="form_kategori"></label>
       </div>
-    </div>
+    
     <div id="div_container_donekode" class="container border border-hintofelusive rounded pt-3" style="display: none">
       <div class="row">
         <p class="col-md-6">Kode yang dipilih adalah: <b id="kode_pilih"></b></p>
@@ -135,8 +103,9 @@
         <!-- button type="button" class="btn btn-freespeechblue px-3" disabled>Pilih</button -->
       </div>
     </div>
+    </div>
   </div><!-- End of form surat -->
-  <div class="border border-hintofelusive rounded p-3 mb-3">
+  
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="form_nosurat"><b class="text-danger">*</b>Nomor Surat</label>
@@ -154,7 +123,7 @@
       </div>
     </div>
 
-  </div>
+  
 
   <div class="form-group">
     <label id="label-asalsurat" for="form_asalsurat"><b class="text-danger">*</b>Asal Surat</label>
