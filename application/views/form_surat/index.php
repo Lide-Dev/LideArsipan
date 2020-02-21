@@ -32,6 +32,10 @@
           <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false"><b>Surat Keluar</b></label>
           <input type="radio" name="tipesurat" id="form_tipesurat2" value="suratkeluar" style="display:none" >
         </li>
+        <li class="nav-item m-2">
+          <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false"><b>Disposisi</b></label>
+          <input type="radio" name="tipesurat" id="form_tipesurat2" value="disposisi" style="display:none" >
+        </li>
       </ul>
     </div>
   </div>
