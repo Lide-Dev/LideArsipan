@@ -66,3 +66,4 @@ $route["surat/go/add/newsurat"]="form_surat/form_submit";
 
 $route["ajaxarsip/table"]="arsip/gettable";
 $route["ajaxarsip/count"]="arsip/getcountajax";
+$route["ajaxlogin/emailcek"]="login/LP_CheckEmail";

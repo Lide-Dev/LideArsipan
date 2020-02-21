@@ -1,3 +1,4 @@
+<?php if (!empty($footerext)&&$footerext===true){ ?>
    <!-- Footer -->
    <footer class="page-footer font-small bg-blackpearl pt-4">
 
@@ -102,6 +103,7 @@
 
    </footer>
    <!-- Footer -->
+<?php }?>
 
    </body>
    <script src=<?= base_url('assets/js/jquery.js') ?>></script>
@@ -116,6 +118,7 @@
    <script type="text/javascript">
      $('[data-toggle="tooltip"]').tooltip()
    </script>
+
    <?php
     if ($page === "form_surat") {
     ?>
@@ -126,6 +129,9 @@
     ?>
      <script type="text/javascript" src=<?= base_url('assets/js/page/arsip.js') ?>></script>
    <?php
+    } if ($page === "login"){
+      echo "<script src=".base_url('assets/js/bug_report.js')."></script>";
+      echo "<script src=".base_url('assets/js/page/login.js')."></script>";
     }
     ?>
 
