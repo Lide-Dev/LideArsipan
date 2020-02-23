@@ -49,7 +49,7 @@ class Model_Kode extends CI_Model
             $this->db->like('id_kode', $kode[0], 'after');
             $this->db->where('id_kode >', $kode[0] . ".0.0.0");
         } else if ($idform == "subkode1") {
-            //echo $kode[0].".".$kode[1];
+
             $this->db->like('id_kode', '0', 'before');
             $this->db->like('id_kode', $kode[0] . "." . $kode[1], 'after');
             $this->db->where('id_kode >', $kode[0] . "." . $kode[1] . ".0.0");
@@ -66,6 +66,7 @@ class Model_Kode extends CI_Model
     {
         $this->db->like('id_kode', '0.0.0', 'before');
         $this->db->like('nama', $title, 'both');
+        $this->db->or_like('id_kode', $title, 'both');
         $this->db->order_by('nama', 'ASC');
         $this->db->limit(10);
         return $this->db->get('kode')->result();

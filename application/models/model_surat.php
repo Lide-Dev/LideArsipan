@@ -1,5 +1,5 @@
 <?php
-class Model_Surat extends CI_Model
+class Model_Surat extends MY_Model
 {
 
 
@@ -10,41 +10,6 @@ class Model_Surat extends CI_Model
         return $data;
     }
 
-    function cekIdAvailable($id, $tipe)
-    {
-        if ($tipe === 'suratmasuk') {
-            $this->db->where('id_suratmasuk', $id);
-            $num_rows = $this->db->count_all_results('surat_masuk');
-        } else {
-            $this->db->where('id_suratkeluar', $id);
-            $num_rows = $this->db->count_all_results('surat_keluar');
-        }
-        if ($num_rows > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function getIdRandom($tipe)
-    {
-        $id = bin2hex(random_bytes(18));
-        if ($tipe === 'suratmasuk')
-            $uid = "SM";
-        else
-            $uid = "SK";
-        $result = true;
-        while ($result) {
-            $result = $this->cekIdAvailable($id, $tipe);
-            if ($result) {
-                $id = bin2hex(random_bytes(18));
-            } else {
-                break;
-            }
-        }
-        return $uid . $id;
-    }
-
     function TambahSurat($data)
     {
         if (is_array($data['klasifikasi'])) {
@@ -53,14 +18,14 @@ class Model_Surat extends CI_Model
 
         $date = date("Y-m-d H:i:s");
         if ($data['tipesurat'] === 'suratmasuk') {
-            $id = $this->getIdRandom('suratmasuk');
+            $id = $this->getIdRandom('suratmasuk',20,'SM');
             $tabel = 'surat_masuk';
             $value = array(
                 'id_suratmasuk' => $id,
                 'asal_surat' => $data['asalsurat']
             );
         } else {
-            $id = $this->getIdRandom('suratkeluar');
+            $id = $this->getIdRandom('suratkeluar',20,'SK');
             $tabel = 'surat_keluar';
             $value = array(
                 'id_suratkeluar' => $id,
@@ -81,6 +46,7 @@ class Model_Surat extends CI_Model
             'create_time' => $date,
             'update_time' => $date
         );
+        $this->createLog(5,"Membuat surat baru dengan ID Surat: ".$id);
         $this->db->insert($tabel, $value);
     }
 

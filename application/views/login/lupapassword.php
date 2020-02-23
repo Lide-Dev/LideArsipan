@@ -10,8 +10,9 @@
     </div>
     <div id="lp_form" class="container my-3">
         <div class="form-group">
-            <label for=""><b class="text-danger">*</b>Email</label>
+            <label for="lp_email"><b class="text-danger">*</b>Email</label>
             <input type="text" class="form-control" name="inputemail" id="lp_email" aria-describedby="lp_helpemail" placeholder="">
+           <small id="lp_errorpass" class="text-danger" style="display: none"><i class="fas fa-exclamation-triangle mr-1"></i><span id="lp_error"></span></small>
             <small id="lp_helpemail" class="form-text text-muted">Masukkan email akun anda disini. Kami akan mengecek email anda untuk mengirim link verifikasi ganti password atau cobalah kontak admin website ini.</small>
         </div>
     </div>

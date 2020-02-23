@@ -14,7 +14,7 @@ class Form_Surat extends MY_Controller
      */
     public function index()
     {
-        $data = $this->initConfig("arsip","Data Arsip");
+        $data = $this->initConfig("form_surat","Registrasi Arsip");
         $data['statemessage'] = 0;
         $this->initView('form_surat/index',$data);
     }
@@ -225,24 +225,22 @@ class Form_Surat extends MY_Controller
     function validation_kode()
     {
         if (!empty($this->session->kodesurat)) {
-            echo "ok1";
             $kode = $this->session->kodesurat;
             if (is_array($kode)){
                 $kode = implode(".",$kode);
-                echo "ok1a";
             }
-            echo "ok1b";
-            echo $kode;
+
+
             if ($kode === "000.0.0.0" || $kode === "000/0/0/0") {
                 return false;
-                echo "ok2";
+
             } else {
                 return true;
-                echo "ok3";
+
             }
         } else {
             return false;
-            echo "ok4";
+
         }
     }
 

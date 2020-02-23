@@ -1,36 +1,8 @@
 <?php
-class Model_Dokumen extends CI_Model
+class Model_Dokumen extends MY_Model
 {
 
-    function cekIdAvailable($id)
-    {
-        $this->db->where('id_dokumen', $id);
-        $num_rows = $this->db->count_all_results('dokumen');
-        if($num_rows>0){
-            return true;
-        }
-        else{
-            return false;
-        }
 
-    }
-
-    function getIdRandom()
-    {
-        $id = bin2hex(random_bytes(18));
-        $result=true;
-        while ($result) {
-            $result = $this->cekIdAvailable($id);
-            if ($result){
-                $id = bin2hex(random_bytes(18));
-            }
-            else{
-                break;
-            }
-        }
-        return "DK".$id;
-
-    }
 
     /**
      * Fungsi untuk menambahkan dokumen ke database
@@ -43,7 +15,7 @@ class Model_Dokumen extends CI_Model
      */
     function TambahDokumen($data)
     {
-        $id = $this->getIdRandom();
+        $id = $this->getIdRandom('dokumen',20,'DK');
         $value = array(
             'id_dokumen' => $id,
             'nama' => $data['raw_name'],

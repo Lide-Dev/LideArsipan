@@ -42,21 +42,31 @@ CREATE TABLE klasifikasi(
 	FOREIGN KEY (id_permission) REFERENCES permission(id_permission)
 );
 
+
+CREATE TABLE userlogin(
+    id_user char(10) NOT NULL,
+    password CHAR(60) NOT NULL,
+    email varchar(255) NOT NULL,
+    PRIMARY KEY (id_user)
+);
+
 CREATE TABLE datapengguna(
 	id_datapengguna char(10) NOT NULL,
-	nip char(18) NOT NULL,
+    nip char(18) NOT NULL,
 	nama varchar(255) NOT NULL,
-    email varchar(255) NOT NULL,
 	tgl_lahir date NOT NULL,
 	foto_profil varchar(100) DEFAULT 'undefined',
 	create_time datetime,
 	update_time datetime,
 	id_gender char(1),
 	id_jabatan char(5),
+    id_user char(10),
 	PRIMARY KEY (id_datapengguna),
     FOREIGN KEY (id_jabatan) REFERENCES jabatan(id_jabatan),
+    FOREIGN KEY (id_user) REFERENCES userlogin(id_user),
     FOREIGN KEY (id_gender) REFERENCES gender(id_gender)
 );
+
 
 /*Lampiran atau Surat*/
 CREATE TABLE dokumen(
@@ -109,6 +119,7 @@ CREATE TABLE surat_keluar(
 	FOREIGN KEY (id_kode) REFERENCES kode(id_kode),
 	FOREIGN KEY (id_upload) REFERENCES datapengguna(id_datapengguna)
 );
+
 /*----------------------ADMIN TABLES-------------------------------*/
 CREATE TABLE admindata(
     id_admin char(10),
@@ -116,22 +127,50 @@ CREATE TABLE admindata(
     password VARCHAR(60)
 )
 
-CREATE TABLE log_activity(
-    id_log char(20),
-    id_logtipe char(5)
-)
 
 CREATE TABLE log_tipe(
     id_logtipe char(5),
-    nama VARCHAR(100)
-)
+    nama VARCHAR(100),
+    PRIMARY KEY (id_logtipe)
+);
+
+CREATE TABLE lupapass(
+    id_lupapass char(10),
+    kodeganti varchar(30),
+    id_user char(10)
+);
+
+CREATE TABLE log_activity(
+    id_log char(20),
+    id_logtipe char(5),
+    data_log VARCHAR(254),
+    description varchar(254),
+    PRIMARY KEY (id_log),
+    FOREIGN KEY (id_logtipe) REFERENCES log_tipe(id_logtipe)
+);
+
 
 INSERT INTO gender VALUES ( 'M', 'Laki-laki'),
 ( 'F', 'Perempuan');
 
 INSERT INTO jabatan VALUES ('JB000','SUPER ADMIN');
 
-INSERT INTO datapengguna VALUES ('ADM0000000','010203040506070809','Herlandro Tribiakto','1999-09-10','undefined','2020-02-10','2020-02-10','M','JB000');
+INSERT INTO userlogin VALUES ('USL0000000','admin','herlandrotoz@gmail.com');
+
+INSERT INTO datapengguna VALUES ('ADM0000000','010203040506070809','Herlandro Tribiakto','1999-09-10','undefined','2020-02-10','2020-02-10','M','JB000','USL0000000');
+
+INSERT INTO log_tipe VALUES
+("LT001","New Account"),
+("LT002","Delete Account"),
+("LT003","Edit Account"),
+("LT004","Change Password"),
+("LT005","New Surat"),
+("LT006","Edit Surat"),
+("LT007","Delete Surat"),
+("LT008","Upload Document"),
+("LT009","Ban Account"),
+("LT010","Unban Account"),
+("LT011","Default Value");
 
 INSERT INTO kode VALUES
     ('140.0.0.0','PEMERINTAHAN DESA / KELURAHAN'),
