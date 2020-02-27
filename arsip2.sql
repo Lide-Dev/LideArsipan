@@ -46,6 +46,7 @@ CREATE TABLE klasifikasi(
 CREATE TABLE userlogin(
     id_user char(10) NOT NULL,
     password CHAR(60) NOT NULL,
+    username CHAR(60) NOT NULL,
     email varchar(255) NOT NULL,
     PRIMARY KEY (id_user)
 );
@@ -154,7 +155,7 @@ INSERT INTO gender VALUES ( 'M', 'Laki-laki'),
 
 INSERT INTO jabatan VALUES ('JB000','SUPER ADMIN');
 
-INSERT INTO userlogin VALUES ('USL0000000','admin','herlandrotoz@gmail.com');
+INSERT INTO userlogin VALUES ('USL0000000','$2y$10$q07PTe3qt8PIGXPlBRfrQ.wKXHH6fOllpx49ze33eVQCdpZv73QSa','admin','herlandrotoz@gmail.com');
 
 INSERT INTO datapengguna VALUES ('ADM0000000','010203040506070809','Herlandro Tribiakto','1999-09-10','undefined','2020-02-10','2020-02-10','M','JB000','USL0000000');
 

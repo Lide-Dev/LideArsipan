@@ -53,6 +53,8 @@ $route['default_controller'] = 'landing_page';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['go/logout']="login/logout";
+
 $route["registrasi_surat"]= "form_surat";
 $route["ksurat/kategori"]= "form_surat/get_autocomplete/kategori";
 $route["ksurat/kodeutama"]= "form_surat/get_autocomplete/kodeutama";
@@ -67,3 +69,7 @@ $route["surat/go/add/newsurat"]="form_surat/form_submit";
 $route["ajaxarsip/table"]="arsip/gettable";
 $route["ajaxarsip/count"]="arsip/getcountajax";
 $route["ajaxlogin/emailcek"]="login/LP_CheckEmail";
+
+$route['go/loginvalid/token']="login/validateLogin";
+$route['gantipass/(:any)']="login/viewCP/$1";
+$route['gantipass/accept/go']="login/changePassword";

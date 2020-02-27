@@ -111,10 +111,11 @@ class Form_Surat extends MY_Controller
      */
     public function set_kode()
     {
-        if (is_array($_POST['kodevar']))
-            $this->session->set_userdata("kodesurat", $_POST['kodevar']);
+        $kodevar = $this->input->post('kodevar');
+        if (is_array($kodevar))
+            $this->session->set_userdata("kodesurat", $kodevar);
         else {
-            $this->session->set_userdata("kodesurat", explode(".", $_POST['kodevar']));
+            $this->session->set_userdata("kodesurat", explode(".", $kodevar));
         }
     }
 
@@ -127,20 +128,23 @@ class Form_Surat extends MY_Controller
             $data['colormessage'] = "bg-danger";
             $data['message'] = "Kesalahan: Terdapat form penting yang belum terisi. Mohon di isi! (Error Code: 401) ";
             $this->initview('form_surat/index',$data);
+            $this->session->unset_userdata('kodesurat');
         } else {
             $valid = $this->validation_kode();
             if ($valid === false) {
                 $data['colormessage'] = "bg-danger";
                 $data['message'] = "Kesalahan: Kode belum di isi! (Error Code: 403)";
                 $this->initview('form_surat/index',$data);
+                $this->session->unset_userdata('kodesurat');
             } else {
                 $valid = $this->upload_doc();
                 if ($valid === false) {
                     $data['colormessage'] = "bg-danger";
                     $data['message'] = "Kesalahan: Perhatikan ekstensi dan besar ukuran filenya (Error Code: 402)";
                     $this->initview('form_surat/index',$data);
+                    $this->session->unset_userdata('kodesurat');
                 } else {
-                    $value = $_POST;
+                    $value = $this->input->post();
                     $value['id_dokumen']= $this->iddokumen;
                     $value['klasifikasi']= $this->session->kodesurat;
                     $this->load->model('model_kode');
@@ -150,6 +154,7 @@ class Form_Surat extends MY_Controller
                     $data['colormessage'] = "bg-info";
                     $data['message'] = "Berhasil! Surat berhasil di input ke arsip online.";
                     $this->initview('form_surat/index',$data);
+                    $this->session->unset_userdata('kodesurat');
                 }
             }
         }
@@ -263,10 +268,11 @@ class Form_Surat extends MY_Controller
      */
     function cek_kode($idform)
     {
-        if (!is_array($_POST['kodevar']))
-            $_POST['kodevar'] = explode(".", $_POST['kodevar']);
+        $kodevar = $this->input->post('kodevar',true);
+        if (!is_array($kodevar))
+        $kodevar = explode(".", $kodevar);
         $this->load->model('model_kode');
-        $count = $this->model_kode->check_kode($idform, $_POST['kodevar']);
+        $count = $this->model_kode->check_kode($idform, $kodevar);
         echo ($count);
     }
 
