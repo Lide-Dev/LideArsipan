@@ -1,15 +1,11 @@
 <?php
 
-class Landing_Page extends CI_Controller {
+class Landing_Page extends MY_Controller {
 
 
     public function index(){
-        $data['page']="form_surat";
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/navbar');
-        $this->load->view('landing_page/index');
-        $this->load->view('templates/footer',$data);
+        $data = $this->initConfig("home","Lide Arsipan");
+        $this->initView('landing_page/index',$data);
     }
 }
 

@@ -143,7 +143,6 @@ CREATE TABLE lupapass(
 CREATE TABLE log_activity(
     id_log char(20),
     id_logtipe char(5),
-    data_log VARCHAR(254),
     description varchar(254),
     PRIMARY KEY (id_log),
     FOREIGN KEY (id_logtipe) REFERENCES log_tipe(id_logtipe)

@@ -31,5 +31,30 @@
           <p class="text-muted">Membuat surat dengan tempalte yang tersedia.</p>
         </div>
       </div>
+      <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                  <nav>
+                    <div class="nav nav-tabs nav-fill border border-hintofelusive" id="nav-tab" role="tablist">
+                      <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><b>Simpan Arsip</b></a>
+                      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><b>Cari Arsip</b></a>
+                      <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><b>Buat Surat</b></a>
+                    </div>
+                  </nav>
+                  <div class="tab-content py-3 px-3 px-sm-1" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                      ARSIP 1
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                     ARSIP 2
+                    </div>
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                     ARSIP 3
+                    </div>
+                  </div>
+                
+                </div>
+              </div>
+        </div>
     </div>
   </section>
