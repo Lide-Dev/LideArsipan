@@ -19,6 +19,20 @@ function validateEmail(email) {
     return re.test(email);
 }
 
+$('#login_form').validate({
+    rules: {
+        login_name: 'required',
+        login_pass: 'required',
+    },
+    messages: {
+        login_name: "<small class='text-danger text-truncate'><i class='fas fa-exclamation-triangle'></i> Mohon di isi dengan username atau email anda.</small>",
+        login_pass: "<small class='text-danger text-truncate'><i class='fas fa-exclamation-triangle'></i> Mohon di isi password anda agar bisa login</small>",
+    },
+    submitHandler: function (form) {
+        form.submit();
+    }
+});
+
 $("#cancelID").click(function () {
     $("#okID").delay(1000).show(500);
     $("#lp_spinner").delay(1000).hide(500);
@@ -28,7 +42,6 @@ $("#cancelID").click(function () {
 
 $("#lp_email").change(function (e) {
     e.preventDefault();
-    console.log("change");
     var e = true;
     var a = $("#lp_email").val();
 
@@ -38,18 +51,17 @@ $("#lp_email").change(function (e) {
     }
     if (a == "") {
         $("#lp_error").text("Mohon di isi email akun anda agar kami bisa mencari akun anda");
-        e =false
+        e = false
     }
-    if(e){
+    if (e) {
         $("#lp_errorpass").hide();
     }
-    else{
+    else {
         $("#lp_errorpass").show();
     }
 });
 
 $("#okID").click(function () {
-    console.log("TSET");
     var e = true;
     var a = $("#lp_email").val();
     a = escapeHtml(a);
@@ -65,7 +77,7 @@ $("#okID").click(function () {
 
     if (e) {
         $("#lp_errorpass").hide();
-        console.log(a);
+        //console.log(a);
         $("#modal_footer").hide(500);
         $("#lp_form").hide(500);
         $("#lp_spinner").show(500);
@@ -76,7 +88,7 @@ $("#okID").click(function () {
             type: "POST",
             dataType: "text",
             success: function (data) {
-                console.log(data);
+                console.log(data + "SSS");
                 if (data == 1) {
                     $("#okID").delay(500).hide(500);
                     $("#modal_footer").delay(1000).show(500);
@@ -104,9 +116,10 @@ $("#okID").click(function () {
             }
         });
     }
-    else{
+    else {
         $("#lp_errorpass").show();
     }
+
 
 
 

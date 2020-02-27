@@ -41,8 +41,8 @@ class Model_Surat extends MY_Model
             'lokasi_arsip' => $data['lokasiarsip'],
             'isi_ringkas' => $data['isiringkas'],
             'keterangan' => $data['keterangan'],
-            'tgl_pembuatan' => $this->FixDatePicker($_POST['tglpembuatansurat']),
-            'tgl_penerimaan' => $this->FixDatePicker($_POST['tglpenerimaansurat']),
+            'tgl_pembuatan' => $this->FixDatePicker($data['tglpembuatansurat']),
+            'tgl_penerimaan' => $this->FixDatePicker($data['tglpenerimaansurat']),
             'create_time' => $date,
             'update_time' => $date
         );
@@ -90,8 +90,8 @@ class Model_Surat extends MY_Model
         );
 
         if ($type === 'datatables') {
-            $order_field = $_POST['order'][0]['column'];
-            $order_type = $_POST['order'][0]['dir'];
+            $order_field = $params['order'][0]['column'];
+            $order_type = $params['order'][0]['dir'];
             $columns = array(
                 0 => 'id_kode',
                 1 => 'keterangan',

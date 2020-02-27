@@ -13,6 +13,9 @@ class MY_Model extends CI_Model
         } else if ($tipe === 'suratmasuk') {
             $this->db->where('id_suratmasuk', $id);
             $num_rows = $this->db->count_all_results('surat_masuk');
+        } else if ($tipe === 'lupapass') {
+            $this->db->where('id_suratmasuk', $id);
+            $num_rows = $this->db->count_all_results('surat_masuk');
         } else {
             $this->db->where('id_log', $id);
             $num_rows = $this->db->count_all_results('log_activity');
@@ -33,6 +36,8 @@ class MY_Model extends CI_Model
      * - $tipe = 'dokumen'
      * - $tipe = 'suratmasuk'
      * - $tipe = 'suratkeluar'
+     * - $tipe = 'lupapass'
+     * - Nilai default null maka dia tidak akan mengecek availability dari ID.
      * @param integer $idsize
      * Ukuran ID tersebut. Jika ada alias maka alias akan masuk dalam ukuran tersebut. Contoh:
      * - $idsize=10, $alias="AA", Maka menjadi "AA12345678".
@@ -61,8 +66,8 @@ class MY_Model extends CI_Model
             $alias = substr($alias, 0, $slice);
             $len = $slice;
         }
-
         $id = bin2hex(random_bytes($idsize - $len));
+        $id = substr($id,0,$idsize - $len);
         if (!empty($alias))
             $uid = $alias;
         else
@@ -74,11 +79,17 @@ class MY_Model extends CI_Model
                 $cid = $id . $uid;
             else
                 $cid = $uid . $id;
-
-            $result = $this->cekIdAvailable($cid, $tipe);
-            if ($result) {
-                $id = bin2hex(random_bytes($idsize - $len));
-            } else {
+            if (!empty($tipe)) {
+                $result = $this->cekIdAvailable($cid, $tipe);
+                if ($result) {
+                    $id = bin2hex(random_bytes($idsize - $len));
+                    $id = substr($id,0,$idsize - $len);
+                } else {
+                    break;
+                }
+            }
+            else {
+                $result = true;
                 break;
             }
         }
@@ -132,24 +143,24 @@ class MY_Model extends CI_Model
         if ($temp < 1 || $temp > 11) {
             $tipe = "011";
         }
-        if (empty($data)){
+        if (empty($data)) {
             $data = "undefined";
         }
-        if (empty($desc)){
+        if (empty($desc)) {
             $desc = "undefined";
         }
-        if (substr($tipe,0,2)!="LT"){
-            $tipe="LT".$tipe;
+        if (substr($tipe, 0, 2) != "LT") {
+            $tipe = "LT" . $tipe;
         }
-        $id=$this->getIdRandom('log',20,'LG');
-        if (is_array($data)){
-            $data = print_r($data,true);
+        $id = $this->getIdRandom('log', 20, 'LG');
+        if (is_array($data)) {
+            $data = print_r($data, true);
         }
         $data = array(
-            'id_log'=>$id,
-            'id_logtipe'=>$tipe,
-            'description'=>$desc
+            'id_log' => $id,
+            'id_logtipe' => $tipe,
+            'description' => $desc
         );
-        $this->db->insert('log_activity',$data);
+        $this->db->insert('log_activity', $data);
     }
 }

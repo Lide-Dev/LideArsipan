@@ -11,7 +11,11 @@
         </a>
         </div>
         <div class="navbar-nav mr-md-5">
-            <a class="nav-item nav-link" href="<?=base_url('Login')?>">Login</a>
+            <?=
+            empty($_SESSION['idlogin'])
+            ? "<a class='nav-item nav-link' href='".base_url('Login')."'>Login</a>"
+            : "<a class='nav-item nav-link' href='".base_url('go/logout')."'>Logout</a>";
+            ?>
         </div>
     </div>
 </nav>

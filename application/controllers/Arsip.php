@@ -17,9 +17,9 @@ class Arsip extends MY_Controller {
 
     public function getTable(){
         $this->load->model("model_surat");
-        $result = $this->model_surat->getDataTableSurat($this->input->post());
+        $result = $this->model_surat->getDataTableSurat($this->input->post(null,true));
         $callback = array(
-            'draw' =>  $this->input->post('draw'),
+            'draw' =>  $this->input->post('draw',true),
             'recordsTotal' => $result['total'],
             'recordsFiltered' => $result['totalFilter'],
             'data' => $result['data']
