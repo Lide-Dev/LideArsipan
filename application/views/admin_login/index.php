@@ -39,7 +39,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
                             </div>
                             <div class="form-label-group m-3">
-                                <a href="<?= base_url('Dashboard_Admin') ?>"><button type="button" name="button" class="btn btn-md btn-primary btn-block text-uppercase">Masuk</button></a>
+                                <a href="<?= base_url('Admin_Registrasi_User') ?>"><button type="button" name="button" class="btn btn-md btn-primary btn-block text-uppercase">Masuk</button></a>
                                 <hr class="my-4">
                             </div>
 

@@ -6,16 +6,16 @@
             </a>
         </li>
         <li>
+            <a href="<?=base_url('Landing_Page')?>">Home</a>
+        </li>
+        <li>
             <a href="<?=base_url('Home')?>">Dashboard</a>
         </li>
         <li>
             <a href="<?=base_url('Form_Surat')?>">Registrasi Surat</a>
         </li>
         <li>
-            <a href="<?=base_url('Arsip')?>">Arsip Surat</a>
-        </li>
-        <li>
-            <a href="<?=base_url('Landing_Page')?>">Home</a>
-        </li>
+            <a href="<?=base_url('Arsip')?>">Cari Arsip</a>
+        </li> 
     </ul>
 </div>
