@@ -173,6 +173,26 @@ INSERT INTO log_tipe VALUES
 ("LT010","Unban Account"),
 ("LT011","Default Value");
 
+INSERT INTO jabatan VALUES
+    ('JB001','Kepala Desa'),
+    ('JB002','Kepala Seksi Pemerintahan'),
+    ('JB003','Kepala Seksi Kesejahteraan'),
+    ('JB004','Kepala Seksi Pelayanan'),
+    ('JB005','Kepala Urusan Tata Usaha'),
+    ('JB006','Kepala Urusan Keuangan'),
+    ('JB007','Kepala Urusan Perencanaan'),
+    ('JB008','Dukuh'),
+    ('JB009','Staf'),
+    ('JB010','Ketua - BPD'),
+    ('JB011','Wakil Ketua - BPD'),
+    ('JB012','Sekretaris - BPD'),
+    ('JB013','Ketua POKJA Pemerintahan - BPD'),
+    ('JB014','Ketua POKJA Kemasyarakatan - BPD'),
+    ('JB015','Ketua POKJA Pembangunan - BPD'),
+    ('JB016','Anggota - BPD'),
+    ('JB017','Rukun Tetangga (RT)'),
+    ('JB018','Rukun Warga (RW)');
+
 INSERT INTO kode VALUES
     ('140.0.0.0','PEMERINTAHAN DESA / KELURAHAN'),
     ('141.0.0.0','Pamong Desa, Meliputi: Pencalonan, Pemilihan, Meninggal, Pengangkatan, Pemberhenian.'),

@@ -19,7 +19,7 @@
                         Menu
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="<?=base_url('#')?>">Data Arsip</a>
+                        <a class="dropdown-item" href="<?=base_url('admin/admdatauser')?>">Data Arsip</a>
                         <a class="dropdown-item" href="<?=base_url('#')?>">Bantuan</a>
                         <a class="dropdown-item" href="<?=base_url('#')?>">Data User</a>
                         <a class="dropdown-item" href="<?=base_url('Admin_Registrasi_User')?>">Registrasi</a>

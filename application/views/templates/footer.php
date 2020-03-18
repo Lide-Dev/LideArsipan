@@ -133,6 +133,10 @@
       echo "<script src=".base_url('assets/js/bug_report.js')."></script>";
       echo "<script src=".base_url('assets/js/page/login.js')."></script>";
     }
+    if ($page === "adm_datauser"){
+      echo "<script src=".base_url('assets/js/page/admin/duser.js')."></script>";
+    }
+
     ?>
 
    </html>

@@ -7,6 +7,12 @@ class MY_Model extends CI_Model
         if ($tipe === 'dokumen') {
             $this->db->where('id_dokumen', $id);
             $num_rows = $this->db->count_all_results('dokumen');
+        } else if ($tipe === 'datapengguna') {
+            $this->db->where('id_datapengguna', $id);
+            $num_rows = $this->db->count_all_results('datapengguna');
+        } else if ($tipe === 'userlogin') {
+            $this->db->where('id_user', $id);
+            $num_rows = $this->db->count_all_results('userlogin');
         } else if ($tipe === 'suratkeluar') {
             $this->db->where('id_suratkeluar', $id);
             $num_rows = $this->db->count_all_results('surat_keluar');
@@ -14,7 +20,7 @@ class MY_Model extends CI_Model
             $this->db->where('id_suratmasuk', $id);
             $num_rows = $this->db->count_all_results('surat_masuk');
         } else if ($tipe === 'lupapass') {
-            $this->db->where('id_suratmasuk', $id);
+            $this->db->where('id_lupapass', $id);
             $num_rows = $this->db->count_all_results('surat_masuk');
         } else {
             $this->db->where('id_log', $id);
@@ -37,6 +43,8 @@ class MY_Model extends CI_Model
      * - $tipe = 'suratmasuk'
      * - $tipe = 'suratkeluar'
      * - $tipe = 'lupapass'
+     * - $tipe = 'userlogin'
+     * - $tipe = 'datapengguna'
      * - Nilai default null maka dia tidak akan mengecek availability dari ID.
      * @param integer $idsize
      * Ukuran ID tersebut. Jika ada alias maka alias akan masuk dalam ukuran tersebut. Contoh:

@@ -1,5 +1,5 @@
 <?php
-
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Form_Surat extends MY_Controller
 {
     private $iddokumen = "";
@@ -33,6 +33,8 @@ class Form_Surat extends MY_Controller
      */
     public function get_autocomplete($idtext)
     {
+        if (!$this->input->is_ajax_request()) exit("Unauthorized Request (401)");
+
         $this->load->model('model_kode');
         $i = 0;
         if ($idtext === 'kategori') {

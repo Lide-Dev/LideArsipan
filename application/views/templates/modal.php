@@ -37,6 +37,9 @@ $colorOption3 = $modal["color"]["option3"];
           </button>
         </div>
         <div class="modal-body">
+          <div id='color_message' class='mb-5 px-3'>
+              <h3 id='text_message'></h3>
+          </div>
           <?=
             $databody
           ?>
@@ -45,7 +48,7 @@ $colorOption3 = $modal["color"]["option3"];
           <div id="modal_footer">
             <?php
             if ($stateOK)
-              echo "<submit id='{$okID}' type='submit' class='btn {$colorOK} mx-1'> {$textOK} </submit> ";
+              echo "<input id='{$okID}' type='submit' class='btn {$colorOK} mx-1' value='{$textOK}'>  ";
 
             if ($stateCancel)
               echo "<button id='{$cancelID}' type='button' class='btn {$colorCancel} mx-1' data-dismiss='modal'> {$textCancel} </button>";

@@ -1,5 +1,5 @@
 <?php
-
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Login extends MY_Controller
 {
     function test_input($data)
@@ -29,10 +29,12 @@ class Login extends MY_Controller
         $this->initView('login/index', $data, false, false, true, true);
     }
 
+
+
     public function logout()
     {
         $this->session->sess_destroy();
-        header("Location: ".base_url("home"));
+        header("Location: " . base_url("home"));
     }
 
     public function validateLogin()
@@ -44,38 +46,43 @@ class Login extends MY_Controller
         // check if e-mail address is well-formed
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             //$emailErr = "Invalid email format";
-            $data = $this->mdl->validateLogin(false, $post['login_name'],$post['login_pass']);
+            $data = $this->mdl->validateLogin(false, $post['login_name'], $post['login_pass']);
             //print_r ($data);
         } else {
-            $data = $this->mdl->validateLogin(true, $post['login_name'],$post['login_pass']);
+            $data = $this->mdl->validateLogin(true, $post['login_name'], $post['login_pass']);
             //print_r ($data);
         }
 
-        if ($data['valid']){
-            $this->session->set_userdata('idlogin',$data['id']);
-            header('Location: '.base_url("home"));
-        }
-        else {
+        if ($data['valid']) {
+            $this->session->set_userdata('idlogin', $data['id']);
+            if ($data['type'] === 'user')
+                header('Location: ' . base_url("home"));
+            else
+                header('Location: ' . base_url("admin/admhome"));
+        } else {
             $message = "Username/Email dengan Password tidak cocok!";
-            header('Location: '.base_url("login"));
-            $this->messagePage($message,3);
+            header('Location: ' . base_url("login"));
+            $this->messagePage($message, 3);
         }
     }
 
     public function LP_CheckEmail()
     {
-        $state = false;
-        $this->load->model('model_datapengguna', "model_dp");
-        $email = $this->input->post("email", true);
-        $state = $this->model_dp->checkEmail($email);
-        $data = $this->model_dp->CreateCodePass($email);
-        //echo $state;
-        if ($state) {
-            $this->SendMail($email, $data);
-            echo 1;
-        } else {
-            echo 0;
-        }
+        if (!$this->input->is_ajax_request()) exit("Unauthorized Request (401)");
+
+            $state = false;
+            $this->load->model('model_datapengguna', "model_dp");
+            $email = $this->input->post("email", true);
+            $state = $this->model_dp->checkEmail($email);
+            $data = $this->model_dp->CreateCodePass($email);
+            //echo $state;
+            if ($state) {
+                $this->SendMail($email, $data);
+                echo 1;
+            } else {
+                echo 0;
+            }
+
     }
 
     public function SendMail($to, $data)

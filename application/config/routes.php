@@ -53,6 +53,17 @@ $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['admin/admhome']="dashboard_admin/index";
+
+$route['admin/admdatauser']="admin_datauser/index";
+$route['admin/admdatauser/put/user']="admin_datauser/addaccount";
+
+$route["ajaxadmin/user/table"]="admin_datauser/gettable";
+$route["ajaxadmin/user/count"]="admin_datauser/getcountajax";
+$route["ajaxadmin/get/edituser"]="admin_datauser/geteditdatauser";
+$route["ajaxadmin/get/modal"]="admin_datauser/getviewmodal";
+$route["ajaxadmin/set/clickbutton"]="admin_datauser/setclickbutton";
+
 $route['go/logout']="login/logout";
 
 $route["registrasi_surat"]= "form_surat";

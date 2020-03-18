@@ -73,7 +73,7 @@ class MY_Controller extends CI_Controller
      * Menampilkan pilihan ok,cancel,option3,form untuk modal.
      *
      *
-     * @return array Konfigurasi modal tersebut.
+     * @return array Konfigurasi modal tersebut pastikan disimpan dengan array seperti ini $namavariabel['modal'].
      */
     public function initModal($config = null)
     {
