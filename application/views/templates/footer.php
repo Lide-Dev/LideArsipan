@@ -138,5 +138,11 @@
     }
 
     ?>
+     <?php
+     if ($page === "dashboard"){
+      echo "<script src=".base_url('assets/js/page/counter_dashboard.js')."></script>";
+      echo "<script src=".base_url('assets/js/page/jumbotron_dashboard.js')."></script>";
+    }
+    ?>
 
    </html>

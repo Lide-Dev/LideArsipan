@@ -1,6 +1,6 @@
 <div class="container mb-5">
     <div class="container">
-        <div id="flip_arsip" class="bg-white">
+        <div id="flip_arsip" class="bg-white text-center">
             <div class="col-md-12"><i class="fa fa-search" aria-hidden="true"></i> Klik disini untuk memulai pencarian</div>
             <div class="col-md-12"><i id="chevron_nav" class="fas fa-chevron-down fa-lg"></i></div>
         </div>
@@ -50,7 +50,7 @@
                                 <p class=" font-weight-bold">Tidak terdapat pilihan lagi.</p>
                             </div>
                             <small class="form-text text-white col-md-12">Pemilihan kode surat awalnya memilih kategori. Setelah itu kode utama dan seterusnya.</small>
-                            <small id="div_form_count" class="form-text text-warning col-md-12">Tombol akan aktif jika telah memilih kategori!</small>
+                            <small id="div_form_count" class="form-text text-warning col-md-12 text-center">Tombol akan aktif jika telah memilih kategori!</small>
                             <label id='form-kategori-error' class="form-text error col-md-12" for="form_kategori"></label>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12 mt-2">
+                        <div class="col-md-12 mt-2 text-center">
                             <span class="d-none d-md-inline-block">
                                 <button id="" type="button" class="btn btn-success btn-md btn_form_pilih" disabled>
                                     <span class="fas fa-search"></span> Cari

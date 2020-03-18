@@ -6,22 +6,14 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="<?=base_url('Dashboard_Admin')?>">
-                        <i class="fa fa-home"></i>
-                        Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         </i>
                         Menu
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="<?=base_url('admin/admdatauser')?>">Data Arsip</a>
                         <a class="dropdown-item" href="<?=base_url('#')?>">Bantuan</a>
-                        <a class="dropdown-item" href="<?=base_url('#')?>">Data User</a>
+                        <a class="dropdown-item" href="<?=base_url('admin/admdatauser')?>">Data User</a>
                         <a class="dropdown-item" href="<?=base_url('Admin_Registrasi_User')?>">Registrasi</a>
                     </div>
                 </li>

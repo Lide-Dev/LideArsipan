@@ -4,7 +4,7 @@ class Home extends MY_Controller {
 
 
     public function index(){
-        $data = $this->initConfig("home","Lide Arsipan");
+        $data = $this->initConfig("dashboard","Lide Arsipan");
         $this->initView('dashboard/index',$data);
     }
 }
