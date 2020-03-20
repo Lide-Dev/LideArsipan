@@ -136,6 +136,9 @@
     if ($page === "adm_datauser"){
       echo "<script src=".base_url('assets/js/page/admin/duser.js')."></script>";
     }
+    if ($page === "adm_dashboard"){
+      echo "<script src=".base_url('assets/js/page/admin/chartdashboard.js')."></script>";
+    }
 
     ?>
      <?php

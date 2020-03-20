@@ -185,6 +185,7 @@ class MY_Controller extends CI_Controller
      */
     public function initView($pageURI, $config, $navbar = true, $sidebar = true, $modal = false,$login= false)
     {
+
         if (empty($_SESSION['idlogin'])){
             if ($pageURI==="login/index"){
                 $message = "Anda telah logout dari Arsip ini. Silahkan login lagi.";
@@ -192,9 +193,9 @@ class MY_Controller extends CI_Controller
                 $this->load->view('templates/header', $config);
 
                 if ($navbar)
-                    $this->load->view('templates/sidebar', $config);
-                if ($sidebar)
                     $this->load->view('templates/navbar', $config);
+                if ($sidebar)
+                $this->load->view('templates/sidebar', $config);
         
                 $this->load->view($pageURI, $config);
                 if ($modal)
@@ -209,12 +210,18 @@ class MY_Controller extends CI_Controller
 
         }
         else{
+        $this->load->model('model_login','mdl');
+        $admin=$this->mdl->getDataUser($_SESSION['idlogin']);
         $this->load->view('templates/header', $config);
 
-        if ($navbar)
-            $this->load->view('templates/sidebar', $config);
-        if ($sidebar)
+        if ($navbar){
+            if ($admin->tipe=='admin')
+            $this->load->view('templates/navbar_admin', $config);
+            else
             $this->load->view('templates/navbar', $config);
+        }
+        if ($sidebar)
+        $this->load->view('templates/sidebar', $config);
 
         $this->load->view($pageURI, $config);
         if ($modal)
