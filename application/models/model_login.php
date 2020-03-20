@@ -131,7 +131,7 @@ class Model_Login extends MY_Model
     function getDataUser($id)
     {
         $this->db->where("id_user",$id,true);
-        $single=$this->db->get("userlogin")->row();
-        return $single;
+        $single=$this->db->get("userlogin");
+        return $single->row();
     }
 }

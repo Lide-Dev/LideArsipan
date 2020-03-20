@@ -53,7 +53,7 @@ $route['default_controller'] = 'landing_page';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['admin/admhome']="dashboard_admin/index";
+$route['admin/admhome']="admin_dashboard/index";
 
 $route['admin/admdatauser']="admin_datauser/index";
 $route['admin/admdatauser/put/user']="admin_datauser/addaccount";
