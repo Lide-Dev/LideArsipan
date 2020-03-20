@@ -192,10 +192,11 @@ class MY_Controller extends CI_Controller
                 $this->messagePage($message,1);
                 $this->load->view('templates/header', $config);
 
-                if ($navbar)
-                    $this->load->view('templates/navbar', $config);
                 if ($sidebar)
                 $this->load->view('templates/sidebar', $config);
+                if ($navbar)
+                    $this->load->view('templates/navbar', $config);
+
         
                 $this->load->view($pageURI, $config);
                 if ($modal)
@@ -214,14 +215,15 @@ class MY_Controller extends CI_Controller
         $admin=$this->mdl->getDataUser($_SESSION['idlogin']);
         $this->load->view('templates/header', $config);
 
+        if ($sidebar)
+        $this->load->view('templates/sidebar', $config);
+
         if ($navbar){
             if ($admin->tipe=='admin')
             $this->load->view('templates/navbar_admin', $config);
             else
             $this->load->view('templates/navbar', $config);
         }
-        if ($sidebar)
-        $this->load->view('templates/sidebar', $config);
 
         $this->load->view($pageURI, $config);
         if ($modal)
