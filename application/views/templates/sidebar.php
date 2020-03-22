@@ -16,6 +16,11 @@
         </li>
         <li>
             <a href="<?=base_url('Arsip')?>">Cari Arsip</a>
-        </li> 
+        </li>
+        <?php if (!empty($accadmin)&&$accadmin==='admin') {?>
+        <li>
+            <a href="<?=base_url('admin/admhome')?>">Dashboard Admin</a>
+        </li>
+        <?php  }?>
     </ul>
 </div>

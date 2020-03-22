@@ -14,7 +14,7 @@ class MY_Controller extends CI_Controller
      * @param boolean $footerext Menambahkan footer link, copyright dan lain-lain jika nilai "true"
      * @return array Pengembalian akan berbentuk array $data['...']
      */
-    public function initConfig($page, $title = null, $footerext = true)
+    public function initConfig($page, $title = null, $footerext = true, $admin = false)
     {
         strtolower($page);
         if (!empty($page)) {
@@ -33,6 +33,9 @@ class MY_Controller extends CI_Controller
             $data['footerext'] = true;
         }
 
+        if (is_bool($admin) && $admin === true) {
+            $data['admin'] = true;
+        }
 
         return $data;
     }
@@ -181,54 +184,78 @@ class MY_Controller extends CI_Controller
      * @param boolean $modal Konfigurasi modal. Jika "TRUE" maka akan ditampilkan modalnya. Default nilainya "TRUE".
      * - Perlu diingat untuk konfigurasi modal perlu memanggil fungsi initModal().
      * - Konfigurasi disimpan di variable seperti => $data['modal']
+     * @param boolean $landing Konfigurasi agar landing page tidak ke login.
      * @return void
      */
-    public function initView($pageURI, $config, $navbar = true, $sidebar = true, $modal = false,$login= false)
+    public function initView($pageURI, $config, $navbar = true, $sidebar = true, $modal = false, $landing = false)
     {
+        if ($landing) {
+            $this->load->view('templates/header', $config);
 
-        if (empty($_SESSION['idlogin'])){
-            if ($pageURI==="login/index"){
-                $message = "Anda telah logout dari Arsip ini. Silahkan login lagi.";
-                $this->messagePage($message,1);
-                $this->load->view('templates/header', $config);
-
-                if ($sidebar)
+            if ($sidebar)
                 $this->load->view('templates/sidebar', $config);
-                if ($navbar)
-                    $this->load->view('templates/navbar', $config);
+            if ($navbar)
+                $this->load->view('templates/navbar', $config);
 
-        
-                $this->load->view($pageURI, $config);
-                if ($modal)
-                    $this->load->view('templates/modal', $config);
-                $this->load->view('templates/footer', $config);
+
+            $this->load->view($pageURI, $config);
+            if ($modal)
+                $this->load->view('templates/modal', $config);
+            $this->load->view('templates/footer', $config);
+        } else {
+            if (empty($_SESSION['idlogin'])) {
+                if ($pageURI === "login/index") {
+                    $message = "Anda telah logout dari Arsip ini. Silahkan login lagi.";
+                    $this->messagePage($message, 1);
+                    $this->load->view('templates/header', $config);
+
+                    if ($sidebar)
+                        $this->load->view('templates/sidebar', $config);
+                    if ($navbar)
+                        $this->load->view('templates/navbar', $config);
+
+
+                    $this->load->view($pageURI, $config);
+                    if ($modal)
+                        $this->load->view('templates/modal', $config);
+                    $this->load->view('templates/footer', $config);
+                } else {
+                    $message = "Anda telah logout dari Arsip ini. Silahkan login lagi.";
+                    header('Location: ' . base_url("login"));
+                    $this->messagePage($message, 1);
+                }
+            } else {
+                $this->load->model('model_login', 'mdl');
+                $admin = $this->mdl->getDataUser($_SESSION['idlogin']);
+                $accadmin = $admin->tipe;
+                $config['accadmin'] = $accadmin;
+                if ((!empty($config['admin']) && $config['admin']) && ($accadmin !== 'admin')) {
+                    $message = "Authorized Access. Anda perlu login menjadi admin! ";
+                    header('Location: ' . base_url("login"));
+                    $this->messagePage($message, 3);
+                } else {
+                    $this->load->view('templates/header', $config);
+                    if ($sidebar) {
+                        if (!empty($config['admin']) && $config['admin'])
+                            $this->load->view('templates/sidebar_admin', $config);
+                        else
+                            $this->load->view('templates/sidebar', $config);
+                    }
+
+
+                    if ($navbar) {
+                        if (!empty($config['admin']) && $config['admin'])
+                            $this->load->view('templates/navbar_admin', $config);
+                        else
+                            $this->load->view('templates/navbar', $config);
+                    }
+
+                    $this->load->view($pageURI, $config);
+                    if ($modal)
+                        $this->load->view('templates/modal', $config);
+                    $this->load->view('templates/footer', $config);
+                }
             }
-            else{
-                $message = "Anda telah logout dari Arsip ini. Silahkan login lagi.";
-                header('Location: '.base_url("login"));
-                $this->messagePage($message,1);
-            }
-
-        }
-        else{
-        $this->load->model('model_login','mdl');
-        $admin=$this->mdl->getDataUser($_SESSION['idlogin']);
-        $this->load->view('templates/header', $config);
-
-        if ($sidebar)
-        $this->load->view('templates/sidebar', $config);
-
-        if ($navbar){
-            if ($admin->tipe=='admin')
-            $this->load->view('templates/navbar_admin', $config);
-            else
-            $this->load->view('templates/navbar', $config);
-        }
-
-        $this->load->view($pageURI, $config);
-        if ($modal)
-            $this->load->view('templates/modal', $config);
-        $this->load->view('templates/footer', $config);
         }
     }
 
@@ -246,14 +273,14 @@ class MY_Controller extends CI_Controller
     public function messagePage($message, $type)
     {
         if ($type === 1) {
-            $colormessage='bg-info';
-            $tcolormessage='text-white';
+            $colormessage = 'bg-info';
+            $tcolormessage = 'text-white';
         } else if ($type === 2) {
-            $colormessage= 'bg-warning';
-            $tcolormessage= 'text-white';
+            $colormessage = 'bg-warning';
+            $tcolormessage = 'text-white';
         } else {
-            $colormessage= 'bg-danger';
-            $tcolormessage='text-white';
+            $colormessage = 'bg-danger';
+            $tcolormessage = 'text-white';
         }
 
         $config = array(
@@ -262,9 +289,7 @@ class MY_Controller extends CI_Controller
             'tcolormessage' => $tcolormessage
         );
 
-        $message = $this->load->view('templates/message', $config,true);
+        $message = $this->load->view('templates/message', $config, true);
         $this->session->set_flashdata('message', $message);
     }
 }
-
-?>

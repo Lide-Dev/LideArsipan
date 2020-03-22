@@ -6,7 +6,7 @@ class Admin_DataUser extends MY_Controller
 
     public function index()
     {
-        $data = $this->initConfig("adm_datauser", "Data User", false);
+        $data = $this->initConfig("adm_datauser", "Data User", false, true);
         $config = array(
             "dialog_center" => true,
             "id" => array(
