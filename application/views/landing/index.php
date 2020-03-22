@@ -2,15 +2,17 @@
 <html>
 
 <head>
-    <title>Bootstrap Example</title>
+    <title>Condongcatur</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="icon" type="image/png" sizes="32x32" href=<?= base_url('assets/img/favicon-32x32.png') ?>>
     <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href=<?= base_url('assets/css/animation_landing.css') ?>>
     <!--For Font awesome only-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src=<?= base_url('assets/js/tooltips_landing.js') ?>></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/c2282643fa.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/popper.min.js" integrity="sha256-O17BxFKtTt1tzzlkcYwgONw4K59H+r1iI8mSQXvSf5k=" crossorigin="anonymous"></script>
@@ -29,7 +31,7 @@
 
 <body>
 
-    <div class="container-fluid" style="background-color:#05c46b;color:#fff;height:250px;">
+    <div class="container-fluid" style="background-color:#1e272e; color:#fff; height:250px;">
         <div class="">
             <div id="demo" class="carousel slide" data-ride="carousel">
                 <ul class="carousel-indicators">
@@ -37,7 +39,7 @@
                     <li data-target="#demo" data-slide-to="1"></li>
                     <li data-target="#demo" data-slide-to="2"></li>
                 </ul>
-                <div class="carousel-inner" style="background-color: rgba(0,0,0,0.3)">
+                <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="row">
                             <div class="col-5">
@@ -52,7 +54,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                    <div class="row">
+                        <div class="row">
                             <div class="col-5">
                                 <img src="<?= PATHIMG ?>slide_1.svg" class="" style="height: 100%;" alt="">
                             </div>
@@ -65,7 +67,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                    <div class="row">
+                        <div class="row">
                             <div class="col-5">
                                 <img src="<?= PATHIMG ?>slide_1.svg" class="" style="height: 100%;" alt="">
                             </div>
@@ -88,9 +90,26 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-dark bg-dark" data-spy="affix" data-offset-top="197">
+    <nav class="navbar navbar" data-spy="affix" data-offset-top="197" style="height: 150px; background: linear-gradient(to bottom, #1e272e 50%, white 50%);">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Basic Topnav</a></li>
+            <li class="active"><a href="#">
+                    <div class="container">
+                        <div class="row">
+                            <div class="container">
+                                <div class="row">
+                                    <a href="<?=base_url('Login')?>" class="intro-banner-vdo-play-btn pinkBg">
+                                        <i class="glyphicon glyphicon-play whiteText" data-toggle="tooltip" data-placement="top" title="Login Ke Akun Anda" aria-hidden="true">
+                                            <i class="fas fa-sign-in-alt" style="color: white"></i>
+                                        </i>
+                                        <span class="ripple pinkBg"></span>
+                                        <span class="ripple pinkBg"></span>
+                                        <span class="ripple pinkBg"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a></li>
         </ul>
     </nav>
 
@@ -222,110 +241,110 @@
             </div>
     </div>
 
-       <!-- Footer -->
-   <footer class="page-footer font-small pt-4" style="background-color: #1e272e;">
+    <!-- Footer -->
+    <footer class="page-footer font-small pt-4" style="background-color: #1e272e;">
 
-<!-- Footer Links -->
-<div class="container text-center text-md-left">
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left">
 
-  <!-- Footer links -->
-  <div class="row text-center text-md-left mt-3 pb-3">
+            <!-- Footer links -->
+            <div class="row text-center text-md-left mt-3 pb-3">
 
-    <!-- Grid column -->
-    <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3" style="color: #808e9b;">
-      <h6 class="text-uppercase mb-4 font-weight-bold">PEMERINTAH DESA CONDONGCATUR</h6>
-      <p>Pemerintah Desa Condongcatur berdiri pada tanggal 26 Desember 1946 berdasarkan Maklumat Pemerintah Daerah Istimewa Yogyakarta Nomor 5 Tahun 1948.</p>
-    </div>
-    <!-- Grid column -->
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3" style="color: #808e9b;">
+                    <h6 class="text-uppercase mb-4 font-weight-bold">PEMERINTAH DESA CONDONGCATUR</h6>
+                    <p>Pemerintah Desa Condongcatur berdiri pada tanggal 26 Desember 1946 berdasarkan Maklumat Pemerintah Daerah Istimewa Yogyakarta Nomor 5 Tahun 1948.</p>
+                </div>
+                <!-- Grid column -->
 
-    <hr class="w-100 clearfix d-md-none">
+                <hr class="w-100 clearfix d-md-none">
 
-    <!-- Grid column -->
-    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3" style="color: #808e9b;">
-      <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
-      <p>
-        <a href="#!">LideDev</a>
-      </p>
-    </div>
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3" style="color: #808e9b;">
+                    <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                    <p>
+                        <a href="#!">LideDev</a>
+                    </p>
+                </div>
 
-    <!-- Grid column -->
-    <hr class="w-100 clearfix d-md-none">
+                <!-- Grid column -->
+                <hr class="w-100 clearfix d-md-none">
 
-    <!-- Grid column -->
-    <div class="col-md-4 col-lg-3 col-xl-7 mx-auto mt-3" style="color: #808e9b;">
-      <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
-      <p>
-        <i class="fas fa-home mr-3"></i> Depok, Sleman, Yogyakarta, 55583</p>
-      <p>
-        <i class="fas fa-envelope mr-3"></i> condongcatur1946@gmail.com</p>
-      <p>
-        <i class="fas fa-print mr-3"></i> (0274) 885 689</p>
-      <p class="float-right"><a href="#">Back to top</a></p>
-    </div>
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-7 mx-auto mt-3" style="color: #808e9b;">
+                    <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                    <p>
+                        <i class="fas fa-home mr-3"></i> Depok, Sleman, Yogyakarta, 55583</p>
+                    <p>
+                        <i class="fas fa-envelope mr-3"></i> condongcatur1946@gmail.com</p>
+                    <p>
+                        <i class="fas fa-print mr-3"></i> (0274) 885 689</p>
+                    <p class="float-right"><a href="#">Back to top</a></p>
+                </div>
 
-    <!-- Grid column -->
+                <!-- Grid column -->
 
-  </div>
-  <!-- Footer links -->
+            </div>
+            <!-- Footer links -->
 
-  <hr>
+            <hr>
 
-  <!-- Grid row -->
-  <div class="row d-flex align-items-center">
+            <!-- Grid row -->
+            <div class="row d-flex align-items-center">
 
-    <!-- Grid column -->
-    <div class="col-md-7 col-lg-8">
+                <!-- Grid column -->
+                <div class="col-md-7 col-lg-8">
 
-      <!--Copyright-->
-      <p class="text-center text-md-left" style="color: white;">© 2020 Copyright:
-        <a href="#">
-          <strong> LideDev</strong>
-        </a>
-      </p>
+                    <!--Copyright-->
+                    <p class="text-center text-md-left" style="color: white;">© 2020 Copyright:
+                        <a href="#">
+                            <strong> LideDev</strong>
+                        </a>
+                    </p>
 
-    </div>
-    <!-- Grid column -->
+                </div>
+                <!-- Grid column -->
 
-    <!-- Grid column -->
-    <div class="col-md-5 col-lg-4 ml-lg-0">
+                <!-- Grid column -->
+                <div class="col-md-5 col-lg-4 ml-lg-0">
 
-      <!-- Social buttons -->
-      <div class="text-center text-md-right">
-        <ul class="list-unstyled list-inline">
-          <li class="list-inline-item">
-            <a class="btn-floating btn-sm rgba-white-slight mx-1">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a class="btn-floating btn-sm rgba-white-slight mx-1">
-              <i class="fab fa-twitter"></i>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a class="btn-floating btn-sm rgba-white-slight mx-1">
-              <i class="fab fa-google-plus-g"></i>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a class="btn-floating btn-sm rgba-white-slight mx-1">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
+                    <!-- Social buttons -->
+                    <div class="text-center text-md-right">
+                        <ul class="list-unstyled list-inline">
+                            <li class="list-inline-item">
+                                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                                    <i class="fab fa-google-plus-g"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
-    </div>
-    <!-- Grid column -->
+                </div>
+                <!-- Grid column -->
 
-  </div>
-  <!-- Grid row -->
+            </div>
+            <!-- Grid row -->
 
-</div>
-<!-- Footer Links -->
+        </div>
+        <!-- Footer Links -->
 
-</footer>
-<!-- Footer -->
+    </footer>
+    <!-- Footer -->
 </body>
 
 </html>

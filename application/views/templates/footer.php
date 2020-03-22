@@ -55,9 +55,7 @@
 
            <!--Copyright-->
            <p class="text-center text-md-left text-white">© 2020 Copyright:
-             <a href="#">
-               <strong> LideDev</strong>
-             </a>
+               <strong> Pemerintah Desa Condongcatur</strong>
            </p>
 
          </div>
