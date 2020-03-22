@@ -25,15 +25,15 @@
       <label for="form_nosurat">Tipe Surat</label>
       <ul class="nav nav-pills">
         <li class="nav-item m-2">
-          <label class="nav-link active border border-londonsquare" for="form_tipesurat1" id="label_tipesurat1" data-toggle="tab" aria-selected="true"><b>Surat Masuk</b></label>
+          <label class="nav-link active border border-londonsquare" for="form_tipesurat1" id="label_tipesurat1" data-toggle="tab" aria-selected="true">Surat Masuk</label>
           <input type="radio" name="tipesurat" id="form_tipesurat1" value="suratmasuk" style="display:none" checked>
         </li>
         <li class="nav-item m-2">
-          <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false"><b>Surat Keluar</b></label>
+          <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false">Surat Keluar</label>
           <input type="radio" name="tipesurat" id="form_tipesurat2" value="suratkeluar" style="display:none" >
         </li>
         <li class="nav-item m-2">
-          <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false"><b>Disposisi</b></label>
+          <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false">Disposisi</label>
           <input type="radio" name="tipesurat" id="form_tipesurat2" value="disposisi" style="display:none" >
         </li>
       </ul>

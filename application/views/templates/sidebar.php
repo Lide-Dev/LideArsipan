@@ -6,9 +6,6 @@
             </a>
         </li>
         <li>
-            <a href="<?=base_url('Landing_Page')?>">Home</a>
-        </li>
-        <li>
             <a href="<?=base_url('Home')?>">Dashboard</a>
         </li>
         <li>
