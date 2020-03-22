@@ -30,11 +30,11 @@
         </li>
         <li class="nav-item m-2">
           <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false">Surat Keluar</label>
-          <input type="radio" name="tipesurat" id="form_tipesurat2" value="suratkeluar" style="display:none" >
+          <input type="radio" name="tipesurat" id="form_tipesurat2" value="suratkeluar" style="display:none">
         </li>
         <li class="nav-item m-2">
           <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false">Disposisi</label>
-          <input type="radio" name="tipesurat" id="form_tipesurat2" value="disposisi" style="display:none" >
+          <input type="radio" name="tipesurat" id="form_tipesurat2" value="disposisi" style="display:none">
         </li>
       </ul>
     </div>
@@ -85,49 +85,49 @@
         <small id="div_form_count" class="form-text text-warning col-md-12">Tombol akan aktif jika telah memilih kategori!</small>
         <label id='form-kategori-error' class="form-text error col-md-12" for="form_kategori"></label>
       </div>
-    
-    <div id="div_container_donekode" class="container border border-hintofelusive rounded pt-3" style="display: none">
+
+      <div id="div_container_donekode" class="container border border-hintofelusive rounded pt-3" style="display: none">
+        <div class="row">
+          <p class="col-md-6">Kode yang dipilih adalah: <b id="kode_pilih"></b></p>
+          <p class="col-md-6">Deskripsi Kode: <b id="tentang_pilih"></b></p>
+        </div>
+      </div>
       <div class="row">
-        <p class="col-md-6">Kode yang dipilih adalah: <b id="kode_pilih"></b></p>
-        <p class="col-md-6">Deskripsi Kode: <b id="tentang_pilih"></b></p>
+        <div class="col-md-12 mt-2">
+          <span class="d-none d-md-inline-block">
+            <button id="" type="button" class="btn btn-success btn-md btn_form_pilih" disabled>
+              <span class="fas fa-check"></span> Pilih
+            </button>
+          </span>
+          <span class="d-none d-md-inline-block">
+            <button id="" type="button" class="btn btn-danger btn-md btn_form_ulang" disabled><span class="fas fa-times"> </span> Ulang</button>
+          </span>
+          <button id="" type="button" class="btn btn-success btn-md d-md-none btn_form_pilih" disabled><span class="fas fa-check"></span></button>
+          <button id="" type="button" class="btn btn-danger btn-md d-md-none btn_form_ulang" disabled><span class="fas fa-times"></span></button>
+          <!-- button type="button" class="btn btn-freespeechblue px-3" disabled>Pilih</button -->
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 mt-2">
-        <span class="d-none d-md-inline-block">
-          <button id="" type="button" class="btn btn-success btn-md btn_form_pilih" disabled>
-            <span class="fas fa-check"></span> Pilih
-          </button>
-        </span>
-        <span class="d-none d-md-inline-block">
-          <button id="" type="button" class="btn btn-danger btn-md btn_form_ulang" disabled><span class="fas fa-times"> </span> Ulang</button>
-        </span>
-        <button id="" type="button" class="btn btn-success btn-md d-md-none btn_form_pilih" disabled><span class="fas fa-check"></span></button>
-        <button id="" type="button" class="btn btn-danger btn-md d-md-none btn_form_ulang" disabled><span class="fas fa-times"></span></button>
-        <!-- button type="button" class="btn btn-freespeechblue px-3" disabled>Pilih</button -->
-      </div>
-    </div>
     </div>
   </div><!-- End of form surat -->
-  
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="form_nosurat"><b class="text-danger">*</b>Nomor Surat</label>
-        <input type="text" id="form_nosurat" class="form-control" name="nosurat" placeholder="">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-3">
-        <label for="form_penerimaansurat"><b class="text-danger">*</b>Tanggal Penerimaan Surat</label>
-        <input type="text" id="form_penerimaansurat" class="form-control form-tgl" name="tglpenerimaansurat" placeholder="">
-      </div>
-      <div class="form-group col-md-3">
-        <label for="form_pembuatansurat"><b class="text-danger">*</b>Tanggal Pembuatan Surat</label>
-        <input type="text" id="form_pembuatansurat" class="form-control form-tgl" name="tglpembuatansurat" placeholder="">
-      </div>
-    </div>
 
-  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="form_nosurat"><b class="text-danger">*</b>Nomor Surat</label>
+      <input type="text" id="form_nosurat" class="form-control" name="nosurat" placeholder="">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="form_penerimaansurat"><b class="text-danger">*</b>Tanggal Penerimaan Surat</label>
+      <input type="text" id="form_penerimaansurat" class="form-control form-tgl" name="tglpenerimaansurat" placeholder="">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="form_pembuatansurat"><b class="text-danger">*</b>Tanggal Pembuatan Surat</label>
+      <input type="text" id="form_pembuatansurat" class="form-control form-tgl" name="tglpembuatansurat" placeholder="">
+    </div>
+  </div>
+
+
 
   <div class="form-group">
     <label id="label-asalsurat" for="form_asalsurat"><b class="text-danger">*</b>Asal Surat</label>

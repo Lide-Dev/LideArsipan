@@ -15,7 +15,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <?php if (!empty($title)) { ?>
         <title><?= $title ?></title>
     <?php } else { ?>
-        <title>Lide Arsipan</title>
+        <title>Condongcatur</title>
     <?php } ?>
 
     <link rel="icon" type="image/png" sizes="32x32" href=<?= base_url('assets/img/favicon-32x32.png') ?>>

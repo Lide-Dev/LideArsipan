@@ -161,7 +161,7 @@
             <!--Copyright-->
             <p class="text-center text-md-left" style="color: white;">© 2020 Copyright:
               <a href="#">
-                <strong> LideDev</strong>
+                <strong> Pemerintah Desa Condongcatur</strong>
               </a>
             </p>
 
