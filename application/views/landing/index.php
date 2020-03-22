@@ -16,17 +16,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/c2282643fa.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/popper.min.js" integrity="sha256-O17BxFKtTt1tzzlkcYwgONw4K59H+r1iI8mSQXvSf5k=" crossorigin="anonymous"></script>
-    <style>
-        .affix {
-            top: 0;
-            width: 100%;
-            z-index: 9999 !important;
-        }
-
-        .affix+.container-fluid {
-            padding-top: 70px;
-        }
-    </style>
 </head>
 
 <body>

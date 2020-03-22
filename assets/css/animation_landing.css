@@ -63,3 +63,13 @@
     animation-delay:.6s;
     -webkit-animation-delay:.6s
 }
+
+.affix {
+    top: 0;
+    width: 100%;
+    z-index: 9999 !important;
+}
+
+.affix+.container-fluid {
+    padding-top: 70px;
+}
