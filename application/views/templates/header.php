@@ -15,13 +15,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <?php if (!empty($title)) { ?>
         <title><?= $title ?></title>
     <?php } else { ?>
-        <title>Condongcatur</title>
+        <title>Lide Arsipan</title>
     <?php } ?>
 
     <link rel="icon" type="image/png" sizes="32x32" href=<?= base_url('assets/img/favicon-32x32.png') ?>>
+
+    <?php if(empty($landing)||(!empty($landing)&&!$landing)){?>
     <link rel="stylesheet" href=<?= base_url('assets/css/lidearsip.css') ?>>
     <link rel="stylesheet" href=<?= base_url('assets/css/sidebar.css') ?>>
     <link rel="stylesheet" href=<?= base_url('assets/css/jquery-ui.min.css') ?>>
+    <?php } else { ?>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="icon" type="image/png" sizes="32x32" href=<?= base_url('assets/img/favicon-32x32.png') ?>>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href=<?= base_url('assets/css/animation_landing.css') ?>>
+    <?php } ?>
 <!--For CSS Pages-->
     <?php if (!empty($page)&&$page==="login"){ ?>
     <link rel="stylesheet" href=<?= base_url('assets/css/login_css.css') ?>>
