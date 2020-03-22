@@ -189,6 +189,7 @@ class MY_Controller extends CI_Controller
      */
     public function initView($pageURI, $config, $navbar = true, $sidebar = true, $modal = false, $landing = false)
     {
+        $config['landing']=$landing;
         if ($landing) {
             $this->load->view('templates/header', $config);
 
