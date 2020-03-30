@@ -1,7 +1,7 @@
 <div class="container mb-5">
     <div class="container">
-        <div id="flip_arsip" class="bg-white text-center">
-            <div class="col-md-12"><i class="fa fa-search" aria-hidden="true"></i> Klik disini untuk memulai pencarian</div>
+        <div id="flip_arsip" class="bg-white mt-2 text-center">
+            <div class="col-md-12"><i class="fa fa-search" aria-hidden="true"></i> <strong>Klik disini untuk memulai pencarian</strong></div>
             <div class="col-md-12"><i id="chevron_nav" class="fas fa-chevron-down fa-lg"></i></div>
         </div>
 

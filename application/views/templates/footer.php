@@ -159,10 +159,8 @@
           <div class="col-md-7 col-lg-8">
 
             <!--Copyright-->
-            <p class="text-center text-md-left" style="color: white;">© 2020 Copyright:
-              <a href="#">
-                <strong> LideDev</strong>
-              </a>
+            <p class="text-center text-md-left" style="color: white;">© 2020 Copyright :
+                Pemerintah Desa Condongcatur
             </p>
 
           </div>
@@ -228,7 +226,7 @@
 <script src=<?= base_url('assets/js/sidebar.js') ?>></script>
 <script src=<?= base_url('assets/js/fontawesome.js') ?>></script>
 <script src=<?= base_url('assets/js/bootstrap.bundle.min.js') ?>></script>
-<script src=<?= base_url('assets/js/fontawesome.min.js') ?>></script>
+<script src=<?= base_url('assets/js/slider_landing.js') ?>></script>
 <script type="text/javascript">
   $('[data-toggle="tooltip"]').tooltip()
 </script>

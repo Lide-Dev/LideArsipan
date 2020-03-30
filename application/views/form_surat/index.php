@@ -25,15 +25,15 @@
       <label for="form_nosurat">Tipe Surat</label>
       <ul class="nav nav-pills">
         <li class="nav-item m-2">
-          <label class="nav-link active border border-londonsquare" for="form_tipesurat1" id="label_tipesurat1" data-toggle="tab" aria-selected="true"><b>Surat Masuk</b></label>
+          <label class="nav-link active border border-londonsquare" for="form_tipesurat1" id="label_tipesurat1" data-toggle="tab" aria-selected="true">Surat Masuk</label>
           <input type="radio" name="tipesurat" id="form_tipesurat1" value="suratmasuk" style="display:none" checked>
         </li>
         <li class="nav-item m-2">
-          <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false"><b>Surat Keluar</b></label>
+          <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false">Surat Keluar</label>
           <input type="radio" name="tipesurat" id="form_tipesurat2" value="suratkeluar" style="display:none">
         </li>
         <li class="nav-item m-2">
-          <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false"><b>Disposisi</b></label>
+          <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false">Disposisi</label>
           <input type="radio" name="tipesurat" id="form_tipesurat2" value="disposisi" style="display:none">
         </li>
       </ul>
@@ -92,20 +92,20 @@
         <p class="col-md-6">Kode yang dipilih adalah: <b id="kode_pilih"></b></p>
         <p class="col-md-6">Deskripsi Kode: <b id="tentang_pilih"></b></p>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 mt-2">
-        <span class="d-none d-md-inline-block">
-          <button id="" type="button" class="btn btn-success btn-md btn_form_pilih" disabled>
-            <span class="fas fa-check"></span> Pilih
-          </button>
-        </span>
-        <span class="d-none d-md-inline-block">
-          <button id="" type="button" class="btn btn-danger btn-md btn_form_ulang" disabled><span class="fas fa-times"> </span> Ulang</button>
-        </span>
-        <button id="" type="button" class="btn btn-success btn-md d-md-none btn_form_pilih" disabled><span class="fas fa-check"></span></button>
-        <button id="" type="button" class="btn btn-danger btn-md d-md-none btn_form_ulang" disabled><span class="fas fa-times"></span></button>
-        <!-- button type="button" class="btn btn-freespeechblue px-3" disabled>Pilih</button -->
+      <div class="row">
+        <div class="col-md-12 mt-2">
+          <span class="d-none d-md-inline-block">
+            <button id="" type="button" class="btn btn-success btn-md btn_form_pilih" disabled>
+              <span class="fas fa-check"></span> Pilih
+            </button>
+          </span>
+          <span class="d-none d-md-inline-block">
+            <button id="" type="button" class="btn btn-danger btn-md btn_form_ulang" disabled><span class="fas fa-times"> </span> Ulang</button>
+          </span>
+          <button id="" type="button" class="btn btn-success btn-md d-md-none btn_form_pilih" disabled><span class="fas fa-check"></span></button>
+          <button id="" type="button" class="btn btn-danger btn-md d-md-none btn_form_ulang" disabled><span class="fas fa-times"></span></button>
+          <!-- button type="button" class="btn btn-freespeechblue px-3" disabled>Pilih</button -->
+        </div>
       </div>
     </div>
   </div><!-- End of form surat -->

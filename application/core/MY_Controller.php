@@ -26,7 +26,7 @@ class MY_Controller extends CI_Controller
         if (!empty($title)) {
             $data['title'] = $title;
         } else {
-            $data['title'] = "Lide Arsipan";
+            $data['title'] = "Condongcatur";
         }
 
         if (is_bool($footerext) && $footerext === true) {
