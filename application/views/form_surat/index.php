@@ -92,7 +92,8 @@
         <p class="col-md-6">Kode yang dipilih adalah: <b id="kode_pilih"></b></p>
         <p class="col-md-6">Deskripsi Kode: <b id="tentang_pilih"></b></p>
       </div>
-      <div class="row">
+    </div>
+    <div class="row">
         <div class="col-md-12 mt-2">
           <span class="d-none d-md-inline-block">
             <button id="" type="button" class="btn btn-success btn-md btn_form_pilih" disabled>
@@ -107,7 +108,6 @@
           <!-- button type="button" class="btn btn-freespeechblue px-3" disabled>Pilih</button -->
         </div>
       </div>
-    </div>
   </div><!-- End of form surat -->
 
   <div class="form-row">
