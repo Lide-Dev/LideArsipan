@@ -39,7 +39,7 @@ function ajaxadd() {
         url: "http://localhost/LideArsipan/ajaxadmin/get/modal",
         dataType: "html",
         success: function (data) {
-          console.log(data);
+
           $("#ad_form").html(data);
           $('#ad_spinner').hide();
           $('#ad_form').show();
@@ -76,23 +76,33 @@ function ajaxpassword() {
 $(document).ready(function () {
   $("#formadm").submit(function(e){
     e.preventDefault();
+    $('#ad_failed').hide();
     $('#ad_form').hide();
     $('#modal_footer').hide();
     $('#ad_spinner').show();
+    var pst = $(this).serialize();
+    //console.log($('#formadm').serialize());
+    console.log(pst);
     $.ajax({
       url: "http://localhost/LideArsipan/admin/admdatauser/put/user",
       type: 'post',
-      data: $(this).serialize(),
-      success: function(data){
+      data:   pst ,
+      dataType: 'json',}).done(function(data){
+        console.log(data);
         if (data.valid){
-          
+            $('#ad_spinner').hide();
+            $('#ad_success').show();
+            $("#info_Desc").html(data['message']);
         }
         else{
-
+            $('#ad_spinner').hide();
+            $('#ad_failed').show();
+            $("#info_Descf").html(data['message']);
+            $("#modal_footer").show();
         }
-      }
-    });
-  })
+      });
+
+  });
 
   $.ajax({
     url: "http://localhost/LideArsipan/ajaxadmin/user/count",
@@ -176,7 +186,8 @@ $("#ad_add").click(function () {
 });
 
 $('.close, #cancelID').click(function () {
-
+  $('#ad_failed').hide();
+  $('#ad_success').hide();
   $('#ad_spinner').delay(2000).show();
   $('#ad_form').delay(2000).hide();
   $('#modal_footer').hide();

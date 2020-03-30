@@ -54,6 +54,7 @@ class Model_DataPengguna extends MY_Model
 
     function getAccountDataWhere($data, $boolreturn)
     {
+        //print_r($data);
         $valid1 = $valid2 = false;
         if (!empty($data['email'])) {
             $email = $data['email'];
@@ -63,9 +64,12 @@ class Model_DataPengguna extends MY_Model
             $email = $data['username'];
             $valid2 = true;
         }
-        if (($valid1 || $valid2) && $boolreturn)
+        if ((!$valid1 && !$valid2) && $boolreturn){
+
             return false;
+        }
         else {
+
             $username = $data['username'];
 
             if ($valid1)
@@ -77,9 +81,9 @@ class Model_DataPengguna extends MY_Model
             $query = $this->db->get('userlogin');
             if ($boolreturn) {
                 if ($query->num_rows() > 0) {
-                    return true;
-                } else {
                     return false;
+                } else {
+                    return true;
                 }
             } else {
                 return $query->result;
@@ -91,9 +95,12 @@ class Model_DataPengguna extends MY_Model
     {
         $id = $this->getIdRandom('userlogin',10,'USL');
         if (empty($data['username']))
-        $data['username']=="undefined";
+        $data['username']="undefined";
         if (empty($data['email']))
-        $data['email']=="undefined";
+        $data['email']="undefined";
+
+        $data['password']=password_hash($data['password'],PASSWORD_BCRYPT);
+
         $value1 = array(
             'id_user'=>$id,
             'username'=>$data['username'],
@@ -103,7 +110,7 @@ class Model_DataPengguna extends MY_Model
         );
         $this->db->insert('userlogin',$value1);
 
-        if ($data['gender']==='laki')
+        if ($data['jeniskelamin']==='laki')
         {
             $gender = 'M';
         }
@@ -126,8 +133,8 @@ class Model_DataPengguna extends MY_Model
             'nama'=>$data['nama'],
             'tgl_lahir'=>$data['tgllahir'],
             'foto_profil'=>'undefined',
-            'gender'=> $gender,
-            'jabatan'=> $data['jabatan']
+            'id_gender'=> $gender,
+            'id_jabatan'=> $data['jabatan']
         );
         $this->db->insert('datapengguna',$value2);
 

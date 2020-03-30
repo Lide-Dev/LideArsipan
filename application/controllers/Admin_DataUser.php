@@ -30,6 +30,7 @@ class Admin_DataUser extends MY_Controller
 
     public function addAccount()
     {
+        $valid = $valid2= $validname = $validemail = false;
         $this->load->model('model_datapengguna', 'mdp');
         $config = array(
             array(
@@ -61,28 +62,43 @@ class Admin_DataUser extends MY_Controller
 
             ),
         );
+
         $this->form_validation->set_rules($config);
         if ($this->form_validation->run() == FALSE)
         {
             $data['valid']=false;
             $data['message']='Terdapat kesalahan pada penginputan data. Mohon di perhatikan kembali';
-            $data['return']=$this->input->post('',true);
+            $data['return']=$_POST;
             echo json_encode($data);
+
         }
         else
         {
-            $valid = $this->mdp->getAccountDataWhere($this->input->post('',true));
-            if ($valid){
-                $this->mdp->addNewAccount($this->input->post('',true));
+            if (empty($_POST['username'])){
+                $validname=false;
+            }
+            if (empty($_POST['email'])){
+                $validemail=false;
+            }
+            if (!$validname&&(!empty($_POST['username'])&& strlen($_POST['username']) > 3))
+            $valid=true;
+            if (!$validemail&&(!empty($_POST['email'])&& filter_var($_POST['email'],FILTER_VALIDATE_EMAIL)))
+            $valid=true;
+
+            $valid2 = $this->mdp->getAccountDataWhere($_POST,true);
+            if ($valid2){
+            $this->mdp->addNewAccount($_POST,true);
                 $data['valid']=true;
                 $data['message']='Akun telah dibuat!';
                 echo json_encode($data);
+
             }
             else{
                 $data['valid']=false;
                 $data['message']='Username atau email telah digunakan';
-                $data['return']=$this->input->post('',true);
+                $data['return']=$_POST;
                 echo json_encode($data);
+
             }
         }
 

@@ -6,7 +6,7 @@
     </div>
 
     <div class="mt-3">
-        <label for="ad_email"><b class="text-danger">*</b>Username</label>
+        <label for="ad_username"><b class="text-danger">*</b>Username</label>
         <input type="text" class="form-control" name="username" id="ad_username" aria-describedby="ad_help" placeholder="">
         <!--<small id="lp_errorpass" class="text-danger" style="display: none"><i class="fas fa-exclamation-triangle mr-1"></i><span id="lp_error"></span></small>-->
     </div>
@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="mt-3">
-        <label for="ad_nip"><b class="text-danger">*</b>Tgl. Lahir</label>
+        <label for="ad_tgllahir"><b class="text-danger">*</b>Tgl. Lahir</label>
         <input type="text" class="form-control" name="tgllahir" id="ad_tgllahir" aria-describedby="ad_help" placeholder="">
         <!--<small id="lp_errorpass" class="text-danger" style="display: none"><i class="fas fa-exclamation-triangle mr-1"></i><span id="lp_error"></span></small>-->
     </div>
