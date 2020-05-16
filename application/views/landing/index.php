@@ -1,38 +1,22 @@
 <div>
     <!-- slider -->
-    <section class="banner-sec secslider" style="background-color: #808e9b">
+    <section class="banner-sec secslider" style="background-color: #d2dae2">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/politics.jpg" alt="">
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h2>
-                            </div>
-                        </div>
+                    <div class="card"> <img src="<?= PATHIMG ?>F1.svg" class="img-fluid" alt="">
+                        
                     </div>
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/travel.jpg" alt="">
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h2>
-                            </div>
-                        </div>
+                    <div class="card"> <img src="<?= PATHIMG ?>F2.svg" class="img-fluid" alt="">
+                        
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/business1.jpg" alt="">
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h2>
-                            </div>
-                        </div>
+                    <div class="card"> <img src="<?= PATHIMG ?>F3.svg" class="img-fluid" alt="">
+                        
                     </div>
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/food.jpg" alt="">
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h2>
-                            </div>
-                        </div>
+                    <div class="card"> <img src="<?= PATHIMG ?>F4.svg" class="img-fluid" alt="">
+                        
                     </div>
                 </div>
                 <div class="col-md-6 top-slider">
@@ -48,9 +32,9 @@
                         <div class="carousel-inner" role="listbox">
                             <div class="carousel-item active">
                                 <div class="news-block">
-                                    <div class="news-media"><img src="<?= PATHIMG ?>banner_bg.svg" class="img-fluid" style="width: 100%;" alt=""></div>
+                                    <div class="news-media"><img src="<?= PATHIMG ?>F1.svg" class="img-fluid" style="width: 100%;" alt=""></div>
                                     <div class="news-title">
-                                        <h2 class=" title-large"><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h2>
+                                        <h2 class=" title-large"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></h2>
                                     </div>
                                     <div class="news-des">Vestibulum id purus vel nunc ullamcorper ultricies. Fusce a metus at ante malesuada pellentesque. In hac habitasse platea dictumst.</div>
                                     <div></div>
@@ -58,9 +42,9 @@
                             </div>
                             <div class="carousel-item">
                                 <div class="news-block">
-                                    <div class="news-media"><img src="<?= PATHIMG ?>banner_bg.svg" class="img-fluid" style="width: 100%;" alt=""></div>
+                                    <div class="news-media"><img src="<?= PATHIMG ?>F2.svg" class="img-fluid" style="width: 100%;" alt=""></div>
                                     <div class="news-title">
-                                        <h2 class=" title-large"><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h2>
+                                        <h2 class=" title-large"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></h2>
                                     </div>
                                     <div class="news-des">Vestibulum id purus vel nunc ullamcorper ultricies. Fusce a metus at ante malesuada pellentesque. In hac habitasse platea dictumst.</div>
                                     <div></div>
@@ -68,9 +52,9 @@
                             </div>
                             <div class="carousel-item">
                                 <div class="news-block">
-                                    <div class="news-media"><img src="<?= PATHIMG ?>banner_bg.svg" class="img-fluid" style="width: 100%;" alt=""></div>
+                                    <div class="news-media"><img src="<?= PATHIMG ?>F3.svg" class="img-fluid" style="width: 100%;" alt=""></div>
                                     <div class="news-title">
-                                        <h2 class=" title-large"><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h2>
+                                        <h2 class=" title-large"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></h2>
                                     </div>
                                     <div class="news-des">Vestibulum id purus vel nunc ullamcorper ultricies. Fusce a metus at ante malesuada pellentesque. In hac habitasse platea dictumst.</div>
                                     <div></div>
