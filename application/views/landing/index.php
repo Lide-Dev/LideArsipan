@@ -1,7 +1,18 @@
 <div>
+<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e272e">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-3 mr-auto">
+        <a class="navbar-brand d-none d-md-block" href="#">
+          <img src=<?=base_url(PATHIMG.'Logo_Navbar.svg')?> alt="Sleman">
+        </a>
+        <div style="color: white" class="my-auto">Website Arsip Pemerintah Desa Condongcatur</div>
+        </div>
+    </div>
+</nav>
     <!-- slider -->
     <section class="banner-sec secslider" style="background-color: #d2dae2">
         <div class="container">
+        
             <div class="row">
                 <div class="col-md-3">
                     <div class="card"> <img src="<?= PATHIMG ?>F1.svg" class="img-fluid" alt="">

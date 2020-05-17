@@ -17,7 +17,7 @@
                  </div>
 
                  <div class="row text-center">
-                     <div class="col-md-4">
+                     <div class="col-md-6">
                          <span class="fa-stack fa-4x">
                              <i class="fas fa-circle fa-stack-2x text-primary"></i>
                              <i class="fas fa-save fa-stack-1x fa-inverse"></i>
@@ -25,7 +25,7 @@
                          <h4 class="service-heading">Simpan Arsip</h4>
                          <p class="">Simpan arsip anda berdasarkan kode surat.</p>
                      </div>
-                     <div class="col-md-4">
+                     <div class="col-md-6">
                          <span class="fa-stack fa-4x">
                              <i class="fas fa-circle fa-stack-2x text-primary"></i>
                              <i class="fas fa-search fa-stack-1x fa-inverse"></i>
@@ -33,14 +33,14 @@
                          <h4 class="service-heading">Telusuri Arsip</h4>
                          <p class="">Telusuri arsip anda yang tersimpan di website ini.</p>
                      </div>
-                     <div class="col-md-4">
+                     <!-- div class="col-md-4">
                          <span class="fa-stack fa-4x">
                              <i class="fas fa-circle fa-stack-2x text-primary"></i>
                              <i class="fas fa-plus-square fa-stack-1x fa-inverse"></i>
                          </span>
                          <h4 class="service-heading">Buat Surat</h4>
                          <p class="">Membuat surat dengan tempalte yang tersedia.</p>
-                     </div>
+                     </div -->
                  </div>
              </div>
              <!-- /.container -->
