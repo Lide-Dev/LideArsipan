@@ -94,6 +94,7 @@ class Model_DataPengguna extends MY_Model
     function addNewAccount($data)
     {
         $id = $this->getIdRandom('userlogin',10,'USL');
+        $id2 = $this->getIdRandom('datapengguna',10,'DP');
         if (empty($data['username']))
         $data['username']="undefined";
         if (empty($data['email']))
@@ -107,6 +108,7 @@ class Model_DataPengguna extends MY_Model
             'email'=>$data['email'],
             'password'=>$data['password'],
             'tipe'=>'user'
+
         );
         $this->db->insert('userlogin',$value1);
 
@@ -126,15 +128,16 @@ class Model_DataPengguna extends MY_Model
             $data['jabatan']='JB009';
         }
 
-        $id = $this->getIdRandom('datapengguna',10,'DP');
+
         $value2 = array(
-            'id_datapengguna'=>$id,
+            'id_datapengguna'=>$id2,
             'nip'=>$data['nip'],
             'nama'=>$data['nama'],
             'tgl_lahir'=>$data['tgllahir'],
             'foto_profil'=>'undefined',
             'id_gender'=> $gender,
-            'id_jabatan'=> $data['jabatan']
+            'id_jabatan'=> $data['jabatan'],
+            'id_user'=> $id
         );
         $this->db->insert('datapengguna',$value2);
 

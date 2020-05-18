@@ -56,10 +56,13 @@ $route['translate_uri_dashes'] = FALSE;
 $route['admin/admhome']="admin_dashboard/index";
 
 $route['admin/admdatauser']="admin_datauser/index";
+$route['admin/admdatauser/form/request']='admin_datauser/submitrequest';
 $route['admin/admdatauser/put/user']="admin_datauser/addaccount";
+//$route['admin/admdatauser/put/banuser']="admin_datauser/banaccount";
 
-$route["ajaxadmin/user/table"]="admin_datauser/gettable";
+$route["ajaxadmin/user/table/(:any)"]="admin_datauser/gettable/$1";
 $route["ajaxadmin/user/count"]="admin_datauser/getcountajax";
+$route["ajaxadmin/user/mode"]="admin_datauser/tablemode";
 $route["ajaxadmin/get/edituser"]="admin_datauser/geteditdatauser";
 $route["ajaxadmin/get/modal"]="admin_datauser/getviewmodal";
 $route["ajaxadmin/set/clickbutton"]="admin_datauser/setclickbutton";

@@ -48,6 +48,7 @@ CREATE TABLE userlogin(
     password CHAR(60) NOT NULL,
     username CHAR(60) NOT NULL,
     email varchar(255) NOT NULL,
+    tipe varchar(5) NOT NULL,
     PRIMARY KEY (id_user)
 );
 
@@ -147,6 +148,16 @@ CREATE TABLE log_activity(
     description varchar(254),
     PRIMARY KEY (id_log),
     FOREIGN KEY (id_logtipe) REFERENCES log_tipe(id_logtipe)
+);
+
+CREATE TABLE banakun(
+    id_ban char (10),
+    id_user char(10),
+    start_date date,
+    finish_date date,
+    alasan varchar(255),
+    PRIMARY KEY (id_ban),
+    FOREIGN KEY (id_user) REFERENCES userlogin(id_user)
 );
 
 

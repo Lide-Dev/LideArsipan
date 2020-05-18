@@ -127,23 +127,23 @@ class Form_Surat extends MY_Controller
         $data['page'] = "form_surat";
         $this->validation_init();
         if ($this->form_validation->run() == FALSE) {
-            $data['colormessage'] = "bg-danger";
-            $data['message'] = "Kesalahan: Terdapat form penting yang belum terisi. Mohon di isi! (Error Code: 401) ";
-            $this->initview('form_surat/index',$data);
+            $message = "Kesalahan: Terdapat form penting yang belum terisi. Mohon di isi! (Error Code: 401) ";
+            $this->messagePage($message,3);
+            header('Location: '.base_url('form_surat'));
             $this->session->unset_userdata('kodesurat');
         } else {
             $valid = $this->validation_kode();
             if ($valid === false) {
-                $data['colormessage'] = "bg-danger";
-                $data['message'] = "Kesalahan: Kode belum di isi! (Error Code: 403)";
-                $this->initview('form_surat/index',$data);
+                $message= "Kesalahan: Kode belum di isi! (Error Code: 403)";
+                $this->messagePage($message,3);
+                header('Location: '.base_url('form_surat'));
                 $this->session->unset_userdata('kodesurat');
             } else {
                 $valid = $this->upload_doc();
                 if ($valid === false) {
-                    $data['colormessage'] = "bg-danger";
-                    $data['message'] = "Kesalahan: Perhatikan ekstensi dan besar ukuran filenya (Error Code: 402)";
-                    $this->initview('form_surat/index',$data);
+                    $message= "Kesalahan: Perhatikan ekstensi dan besar ukuran filenya (Error Code: 402)";
+                    $this->messagePage($message,3);
+                    header('Location: '.base_url('form_surat'));
                     $this->session->unset_userdata('kodesurat');
                 } else {
                     $value = $this->input->post();
@@ -153,9 +153,9 @@ class Form_Surat extends MY_Controller
                     $value['desckode'] = $this->model_kode->get_desckode($this->session->kodesurat);
                     $this->load->model("model_surat");
                     $this->model_surat->TambahSurat($value);
-                    $data['colormessage'] = "bg-info";
-                    $data['message'] = "Berhasil! Surat berhasil di input ke arsip online.";
-                    $this->initview('form_surat/index',$data);
+                    $message= "Berhasil! Surat berhasil di input ke arsip online.";
+                    $this->messagePage($message,1);
+                    header('Location: '.base_url('form_surat'));
                     $this->session->unset_userdata('kodesurat');
                 }
             }
