@@ -7,6 +7,7 @@
     <i id="info_Iconf" class="fas fa-times fa-6x text-danger"></i>
     <p id="info_Statusf" class="text-center font-weight-bold mt-3">Gagal !</p>
     <p id="info_Descf" class="text-center"></p>
+    <button type="button" id="info_Buttonf" class="btn btn-primary">Input Ulang</button>
 </div>
 <div id="ad_spinner" class="container text-center my-3">
     <i class="fas fa-spinner fa-6x fa-spin text-blackpearl"></i>

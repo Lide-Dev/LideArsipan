@@ -189,7 +189,7 @@ class MY_Controller extends CI_Controller
      */
     public function initView($pageURI, $config, $navbar = true, $sidebar = true, $modal = false, $landing = false)
     {
-        $config['landing']=$landing;
+        $config['landing'] = $landing;
         if ($landing) {
             $this->load->view('templates/header', $config);
 
@@ -219,6 +219,7 @@ class MY_Controller extends CI_Controller
                     $this->load->view($pageURI, $config);
                     if ($modal)
                         $this->load->view('templates/modal', $config);
+
                     $this->load->view('templates/footer', $config);
                 } else {
                     $message = "Anda telah logout dari Arsip ini. Silahkan login lagi.";
@@ -230,11 +231,20 @@ class MY_Controller extends CI_Controller
                 $admin = $this->mdl->getDataUser($_SESSION['idlogin']);
                 $accadmin = $admin->tipe;
                 $config['accadmin'] = $accadmin;
+                $row = $this->mdl->validBan($_SESSION['idlogin']);
+                empty($row) ? '' : $bandate = strtotime($row->finish_date);
+                $date = strtotime(date("Y-m-d H:i:s"));
                 if ((!empty($config['admin']) && $config['admin']) && ($accadmin !== 'admin')) {
                     $message = "Authorized Access. Anda perlu login menjadi admin! ";
                     header('Location: ' . base_url("login"));
                     $this->messagePage($message, 3);
-                } else {
+                }
+                else if (!empty($row) && $date<$bandate) {
+                    $message = "Anda telah di ban sampai tanggal ".date("d-m-Y",strtotime($row->finish_date))." dengan alasan: ".$row->alasan;
+                    header('Location: ' . base_url("login"));
+                    $this->messagePage($message, 3);
+                }
+                else {
                     $this->load->view('templates/header', $config);
                     if ($sidebar) {
                         if (!empty($config['admin']) && $config['admin'])
@@ -268,8 +278,7 @@ class MY_Controller extends CI_Controller
      * - 1 : Tipe info.
      * - 2 : Tipe warning.
      * - 3 : Tipe danger.
-     * @return array
-     * konten dari message tersebut.
+     * - Panggil message ke view dengan $this->session->flashdata('message')
      */
     public function messagePage($message, $type)
     {

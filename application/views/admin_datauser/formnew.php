@@ -1,6 +1,6 @@
 <div class="form-group">
     <div>
-        <label for="ad_email"><b class="text-danger">*</b>Email</label>
+        <label for="ad_email">Email</label>
         <input type="text" class="form-control" name="email" id="ad_email" aria-describedby="ad_help" placeholder="">
         <!--<small id="lp_errorpass" class="text-danger" style="display: none"><i class="fas fa-exclamation-triangle mr-1"></i><span id="lp_error"></span></small>-->
     </div>
@@ -16,7 +16,7 @@
         <input type="password" class="form-control" name="password" id="ad_password" aria-describedby="ad_help" placeholder="">
         <!--<small id="lp_errorpass" class="text-danger" style="display: none"><i class="fas fa-exclamation-triangle mr-1"></i><span id="lp_error"></span></small>-->
     </div>
-    <small id="ad_help" class="form-text text-muted border-bottom border-dark pb-3">Email dan Username ini akan digunakan untuk login. Salah satu harus di isi.</small>
+    <small id="ad_help" class="form-text text-muted border-bottom border-dark pb-3">Email atau Username ini akan digunakan untuk login. Pastikan Username lebih dari 3 karakter</small>
 
     <div class="mt-3">
         <label for="ad_nama"><b class="text-danger">*</b>Nama</label>
@@ -32,10 +32,10 @@
         <label for=""><b class="text-danger">*</b>Jenis Kelamin</label>
         <div class="form-check form-check-inline">
             <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="jeniskelamin" id="ad_jk" value="laki" checked> Laki-laki
+                <input class="form-check-input" type="radio" name="jeniskelamin" id="ad_jkl" value="laki" checked> Laki-laki
             </label>
             <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="jeniskelamin" id="ad_jk" value="perempuan"> Perempuan
+                <input class="form-check-input" type="radio" name="jeniskelamin" id="ad_jkp" value="perempuan"> Perempuan
             </label>
         </div>
     </div>

@@ -10,14 +10,7 @@
   <div style="text-align: center;" class="mt-3 mb-3">
     <h2>REGISTRASI SURAT</h2>
   </div>
-  <?php if ($statemessage === true) { ?>
-    <div class="row">
-      <div class="container <?= $colormessage ?> text-white">
-        <p class="ml-3"><?= $message ?></p>
-      </div>
-    </div>
-
-  <?php } ?>
+  <?= (empty($this->session->flashdata('message'))) ? ""  : $this->session->flashdata('message') ?>
   <?php echo form_open_multipart('/surat/go/add/newsurat', array("id" => "form_surat")) //<form> tag tetapi di panggil lewat CodeIgniter
   ?>
   <div class="form-row mt-5">
@@ -94,20 +87,20 @@
       </div>
     </div>
     <div class="row">
-        <div class="col-md-12 mt-2">
-          <span class="d-none d-md-inline-block">
-            <button id="" type="button" class="btn btn-success btn-md btn_form_pilih" disabled>
-              <span class="fas fa-check"></span> Pilih
-            </button>
-          </span>
-          <span class="d-none d-md-inline-block">
-            <button id="" type="button" class="btn btn-danger btn-md btn_form_ulang" disabled><span class="fas fa-times"> </span> Ulang</button>
-          </span>
-          <button id="" type="button" class="btn btn-success btn-md d-md-none btn_form_pilih" disabled><span class="fas fa-check"></span></button>
-          <button id="" type="button" class="btn btn-danger btn-md d-md-none btn_form_ulang" disabled><span class="fas fa-times"></span></button>
-          <!-- button type="button" class="btn btn-freespeechblue px-3" disabled>Pilih</button -->
-        </div>
+      <div class="col-md-12 mt-2">
+        <span class="d-none d-md-inline-block">
+          <button id="" type="button" class="btn btn-success btn-md btn_form_pilih" disabled>
+            <span class="fas fa-check"></span> Pilih
+          </button>
+        </span>
+        <span class="d-none d-md-inline-block">
+          <button id="" type="button" class="btn btn-danger btn-md btn_form_ulang" disabled><span class="fas fa-times"> </span> Ulang</button>
+        </span>
+        <button id="" type="button" class="btn btn-success btn-md d-md-none btn_form_pilih" disabled><span class="fas fa-check"></span></button>
+        <button id="" type="button" class="btn btn-danger btn-md d-md-none btn_form_ulang" disabled><span class="fas fa-times"></span></button>
+        <!-- button type="button" class="btn btn-freespeechblue px-3" disabled>Pilih</button -->
       </div>
+    </div>
   </div><!-- End of form surat -->
 
   <div class="form-row">

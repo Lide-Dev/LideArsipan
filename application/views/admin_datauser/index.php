@@ -2,7 +2,7 @@
 <?=!empty($_SESSION['message']) ? cetak($_SESSION['message']) : ""?>
     <form action="" method="get">
         <div class="row mb-5">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <label class="px-4" for="">Pencarian Data User</label>
                 <div class="input-group px-4">
                     <div class="input-group-prepend">
@@ -12,9 +12,10 @@
                     <!--<small id="HelpPencarianUser" class="form-text text-muted">Help text</small>-->
                 </div>
             </div>
-            <div class="col-md-4 align-self-end d-flex justify-content-start px-2">
+            <div class="col-md-6 align-self-end d-flex justify-content-start px-2">
                 <button type="button" class="btn btn-primary">Mencari</button>
                 <button type="button" id="ad_add" class="btn btn-success mx-2"><i class="fas fa-plus-square fa-sm "></i></button>
+                <button type="button" id="ad_banmode" class="btn btn-outline-darkpriwinkle">Blacklist Mode</button>
             </div>
         </div>
         <div class="row">
