@@ -1,52 +1,39 @@
 <div>
+<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e272e">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-3 mr-auto">
+        <a class="navbar-brand d-none d-md-block" href="#">
+          <img src=<?=base_url(PATHIMG.'Logo_Navbar.svg')?> alt="Sleman">
+        </a>
+        <div style="color: white" class="my-auto">Website Arsip Pemerintah Desa Condongcatur</div>
+        </div>
+    </div>
+</nav>
     <!-- slider -->
-    <section class="banner-sec secslider">
+    <section class="banner-sec secslider" style="background-color: #d2dae2">
         <div class="container">
+        
             <div class="row">
                 <div class="col-md-3">
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/politics.jpg" alt="">
-                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">News</span> </div>
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">Syria war: Why the battle for Aleppo matters</a></h2>
-                            </div>
-                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
-                        </div>
+                    <div class="card"> <img src="<?= PATHIMG ?>F1.svg" class="img-fluid" alt="">
+                        
                     </div>
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/travel.jpg" alt="">
-                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">Politics</span> </div>
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">Key Republicans sign letter warning against</a></h2>
-                            </div>
-                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
-                        </div>
+                    <div class="card"> <img src="<?= PATHIMG ?>F2.svg" class="img-fluid" alt="">
+                        
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/business1.jpg" alt="">
-                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">Travel</span> </div>
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">Obamacare Appears to Be Making People Healthier</a></h2>
-                            </div>
-                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
-                        </div>
+                    <div class="card"> <img src="<?= PATHIMG ?>F3.svg" class="img-fluid" alt="">
+                        
                     </div>
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/food.jpg" alt="">
-                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">News</span> </div>
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">‘S.N.L.’ to Lose Two Longtime Cast Members</a></h2>
-                            </div>
-                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
-                        </div>
+                    <div class="card"> <img src="<?= PATHIMG ?>F4.svg" class="img-fluid" alt="">
+                        
                     </div>
                 </div>
                 <div class="col-md-6 top-slider">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
-                        <ol class="carousel-indicators">
+                        <ol class="d-none carousel-indicators">
                             <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="2"></li>
@@ -56,34 +43,31 @@
                         <div class="carousel-inner" role="listbox">
                             <div class="carousel-item active">
                                 <div class="news-block">
-                                    <div class="news-media"><img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/politics1.jpg" alt=""></div>
+                                    <div class="news-media"><img src="<?= PATHIMG ?>F1.svg" class="img-fluid" style="width: 100%;" alt=""></div>
                                     <div class="news-title">
-                                        <h2 class=" title-large"><a href="#">Ray madison may struggle to get best from Paul in a 4-2-3-1 formation</a></h2>
+                                        <h2 class=" title-large"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></h2>
                                     </div>
-                                    <div class="news-des">Condimentum ultrices mi est a arcu at cum a elementum per cum turpis dui vulputate vestibulum in vehicula montes vel. Mauris nam suspendisse consectetur mus...</div>
-                                    <div class="time-text"><strong>2h ago</strong></div>
+                                    <div class="news-des">Vestibulum id purus vel nunc ullamcorper ultricies. Fusce a metus at ante malesuada pellentesque. In hac habitasse platea dictumst.</div>
                                     <div></div>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="news-block">
-                                    <div class="news-media"><img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/sport1.jpg" alt=""></div>
+                                    <div class="news-media"><img src="<?= PATHIMG ?>F2.svg" class="img-fluid" style="width: 100%;" alt=""></div>
                                     <div class="news-title">
-                                        <h2 class=" title-large"><a href="#">An Alternative Form of Mental Health Care Gains a Foothold</a></h2>
+                                        <h2 class=" title-large"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></h2>
                                     </div>
-                                    <div class="news-des">Condimentum ultrices mi est a arcu at cum a elementum per cum turpis dui vulputate vestibulum in vehicula montes vel. Mauris nam suspendisse consectetur mus...</div>
-                                    <div class="time-text"><strong>2h ago</strong></div>
+                                    <div class="news-des">Vestibulum id purus vel nunc ullamcorper ultricies. Fusce a metus at ante malesuada pellentesque. In hac habitasse platea dictumst.</div>
                                     <div></div>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="news-block">
-                                    <div class="news-media"><img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/health.jpg" alt=""></div>
+                                    <div class="news-media"><img src="<?= PATHIMG ?>F3.svg" class="img-fluid" style="width: 100%;" alt=""></div>
                                     <div class="news-title">
-                                        <h2 class=" title-large"><a href="#">Key Republican Senator Says She Will Not Vote for former president!</a></h2>
+                                        <h2 class=" title-large"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></h2>
                                     </div>
-                                    <div class="news-des">Condimentum ultrices mi est a arcu at cum a elementum per cum turpis dui vulputate vestibulum in vehicula montes vel. Mauris nam suspendisse consectetur mus...</div>
-                                    <div class="time-text"><strong>2h ago</strong></div>
+                                    <div class="news-des">Vestibulum id purus vel nunc ullamcorper ultricies. Fusce a metus at ante malesuada pellentesque. In hac habitasse platea dictumst.</div>
                                     <div></div>
                                 </div>
                             </div>

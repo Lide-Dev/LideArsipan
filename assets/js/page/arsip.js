@@ -21,16 +21,17 @@ $(document).ready(function () {
             { "data": "id_kode" }, // Tampilkan nis
             { "data": "keterangan" },  // Tampilkan nama
             { "data": "tgl_penerimaan" },
-            { "data": "klasifikasi" }
+            { "data": "klasifikasi" },
+            { "data": "klasifikasi" },
             // Tampilkan telepon
             // Tampilkan alamat
-            /*{{
+            {
               "render": function (data, type, row) {
                 // Tampilkan kolom aksi
                 var html = "<a href=''>EDIT</a> | "
                 html += "<a href=''>DELETE</a>"
                 return html
-              }}*/
+              }}
           ],
           "drawCallback": function (settings) { 
             // Here the response

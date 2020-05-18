@@ -96,7 +96,7 @@ class Model_Surat extends MY_Model
                 0 => 'id_kode',
                 1 => 'keterangan',
                 2 => 'tgl_penerimaan',
-                3 => 'klasifikasi'
+                3 => 'klasifikasi',
             );
             if (!empty($params['search']['value'])) {
                 $this->db->like($columns[1], $params['search']['value']);

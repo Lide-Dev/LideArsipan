@@ -17,7 +17,7 @@
                  </div>
 
                  <div class="row text-center">
-                     <div class="col-md-4">
+                     <div class="col-md-6">
                          <span class="fa-stack fa-4x">
                              <i class="fas fa-circle fa-stack-2x text-primary"></i>
                              <i class="fas fa-save fa-stack-1x fa-inverse"></i>
@@ -25,7 +25,7 @@
                          <h4 class="service-heading">Simpan Arsip</h4>
                          <p class="">Simpan arsip anda berdasarkan kode surat.</p>
                      </div>
-                     <div class="col-md-4">
+                     <div class="col-md-6">
                          <span class="fa-stack fa-4x">
                              <i class="fas fa-circle fa-stack-2x text-primary"></i>
                              <i class="fas fa-search fa-stack-1x fa-inverse"></i>
@@ -33,14 +33,14 @@
                          <h4 class="service-heading">Telusuri Arsip</h4>
                          <p class="">Telusuri arsip anda yang tersimpan di website ini.</p>
                      </div>
-                     <div class="col-md-4">
+                     <!-- div class="col-md-4">
                          <span class="fa-stack fa-4x">
                              <i class="fas fa-circle fa-stack-2x text-primary"></i>
                              <i class="fas fa-plus-square fa-stack-1x fa-inverse"></i>
                          </span>
                          <h4 class="service-heading">Buat Surat</h4>
                          <p class="">Membuat surat dengan tempalte yang tersedia.</p>
-                     </div>
+                     </div -->
                  </div>
              </div>
              <!-- /.container -->
@@ -104,12 +104,12 @@
                                      <i class="fas fa-search fa-stack-1x fa-inverse"></i>
                                  </span>
                              </p>
-                             <p class="nav-item nav-link text-white" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">
+                            <!-- <p class="nav-item nav-link text-white" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">
                                  <span class="fa-stack fa-2x">
                                      <i class="fas fa-circle fa-stack-2x text-primary"></i>
                                      <i class="fas fa-plus-square fa-stack-1x fa-inverse"></i>
                                  </span>
-                             </p>
+                             </p> -->
                          </div>
                      </nav>
                      <div class="tab-content py-3 px-3 px-sm-1" id="nav-tabContent">
@@ -223,97 +223,32 @@
                          </div>
                          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                              <!-- template tutorial -->
-                             <div class="container">
-                                 <h4>Cara menggunakan Fitur Cari Arsip</h4>
+                             <div class="how-section1 text-black">
                                  <div class="row">
-                                     <div class="col-md-12">
-                                         <div class="main-timeline">
-                                             <a href="#" class="timeline">
-                                                 <div class="timeline-icon"><i class="fa fa-globe"></i></div>
-                                                 <div class="timeline-content">
-                                                     <h3 class="title">Web Designer</h3>
-                                                     <p class="description">
-                                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                                                     </p>
-                                                 </div>
-                                             </a>
-                                             <a href="#" class="timeline">
-                                                 <div class="timeline-icon"><i class="fa fa-rocket"></i></div>
-                                                 <div class="timeline-content">
-                                                     <h3 class="title">Web Developer</h3>
-                                                     <p class="description">
-                                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                                                     </p>
-                                                 </div>
-                                             </a>
-                                             <a href="#" class="timeline">
-                                                 <div class="timeline-icon"><i class="fa fa-briefcase"></i></div>
-                                                 <div class="timeline-content">
-                                                     <h3 class="title">Web Designer</h3>
-                                                     <p class="description">
-                                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                                                     </p>
-                                                 </div>
-                                             </a>
-                                             <a href="#" class="timeline">
-                                                 <div class="timeline-icon"><i class="fa fa-mobile"></i></div>
-                                                 <div class="timeline-content">
-                                                     <h3 class="title">Web Developer</h3>
-                                                     <p class="description">
-                                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                                                     </p>
-                                                 </div>
-                                             </a>
-                                         </div>
+                                     <div class="col-md-6 how-img">
+                                         <img src=<?= base_url(PATHIMG . '1.svg') ?> style="width: 100%;" class="img-fluid" alt="" />
+                                     </div>
+                                     <div class="col-md-6">
+                                         <h4 class="subheading">Langkah #1</h4>
+                                         <p class="text-muted">Buka menu sebelah kiri, lalu pilih fitur Cari Arsip.</p>
                                      </div>
                                  </div>
-                             </div>
-                             <!-- end of template tutorial -->
-                         </div>
-                         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                             <!-- template tutorial -->
-                             <div class="container">
-                                 <h4>Cara menggunakan Fitur Buat Surat</h4>
                                  <div class="row">
-                                     <div class="col-md-12">
-                                         <div class="main-timeline">
-                                             <a href="#" class="timeline">
-                                                 <div class="timeline-icon"><i class="fa fa-globe"></i></div>
-                                                 <div class="timeline-content">
-                                                     <h3 class="title">Web Designer</h3>
-                                                     <p class="description">
-                                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                                                     </p>
-                                                 </div>
-                                             </a>
-                                             <a href="#" class="timeline">
-                                                 <div class="timeline-icon"><i class="fa fa-rocket"></i></div>
-                                                 <div class="timeline-content">
-                                                     <h3 class="title">Web Developer</h3>
-                                                     <p class="description">
-                                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                                                     </p>
-                                                 </div>
-                                             </a>
-                                             <a href="#" class="timeline">
-                                                 <div class="timeline-icon"><i class="fa fa-briefcase"></i></div>
-                                                 <div class="timeline-content">
-                                                     <h3 class="title">Web Designer</h3>
-                                                     <p class="description">
-                                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                                                     </p>
-                                                 </div>
-                                             </a>
-                                             <a href="#" class="timeline">
-                                                 <div class="timeline-icon"><i class="fa fa-mobile"></i></div>
-                                                 <div class="timeline-content">
-                                                     <h3 class="title">Web Developer</h3>
-                                                     <p class="description">
-                                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                                                     </p>
-                                                 </div>
-                                             </a>
-                                         </div>
+                                     <div class="col-md-6">
+                                         <h4 class="subheading">Langkah #2</h4>
+                                         <p class="text-muted">Masukan Kode Surat yang dicari lalu klik tombol cari.</p>
+                                     </div>
+                                     <div class="col-md-6 how-img">
+                                         <img src=<?= base_url(PATHIMG . '2.svg') ?> style="width: 100%;" class="img-fluid" alt="" />
+                                     </div>
+                                 </div>
+                                 <div class="row">
+                                     <div class="col-md-6 how-img">
+                                         <img src=<?= base_url(PATHIMG . '3.svg') ?> style="width: 100%;" class="img-fluid" alt="" />
+                                     </div>
+                                     <div class="col-md-6">
+                                         <h4 class="subheading">Langkah #3</h4>
+                                         <p class="text-muted">Anda bisa melihat file Arsip yang tersimpan di website ini dan dapat memilih jenis Surat apa yang ingin di lihat.</p>
                                      </div>
                                  </div>
                              </div>
