@@ -136,21 +136,21 @@ class Form_Surat extends MY_Controller
             if ($valid === false) {
                 $message= "Kesalahan: Kode belum di isi! (Error Code: 403)";
                 $this->messagePage($message,3);
-                header('Location: '.base_url('form_surat'));
+                //header('Location: '.base_url('form_surat'));
                 $this->session->unset_userdata('kodesurat');
             } else {
                 $valid = $this->upload_doc();
                 if ($valid === false) {
                     $message= "Kesalahan: Perhatikan ekstensi dan besar ukuran filenya (Error Code: 402)";
                     $this->messagePage($message,3);
-                    header('Location: '.base_url('form_surat'));
+                    //header('Location: '.base_url('form_surat'));
                     $this->session->unset_userdata('kodesurat');
                 } else {
                     $value = $this->input->post();
                     $value['id_dokumen']= $this->iddokumen;
                     $value['klasifikasi']= $this->session->kodesurat;
                     $this->load->model('model_kode');
-                    $value['desckode'] = $this->model_kode->get_desckode($this->session->kodesurat);
+                    //$value['desckode'] = $this->model_kode->get_desckode($this->session->kodesurat);
                     $this->load->model("model_surat");
                     $this->model_surat->TambahSurat($value);
                     $message= "Berhasil! Surat berhasil di input ke arsip online.";

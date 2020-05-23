@@ -26,8 +26,8 @@
           <input type="radio" name="tipesurat" id="form_tipesurat2" value="suratkeluar" style="display:none">
         </li>
         <li class="nav-item m-2">
-          <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false">Disposisi</label>
-          <input type="radio" name="tipesurat" id="form_tipesurat2" value="disposisi" style="display:none">
+          <label class="nav-link border border-londonsquare" for="form_tipesurat3" id="label_tipesurat3" data-toggle="tab" aria-selected="false">Disposisi</label>
+          <input type="radio" name="tipesurat" id="form_tipesurat3" value="disposisi" style="display:none">
         </li>
       </ul>
     </div>
@@ -120,23 +120,33 @@
     </div>
   </div>
 
-
+  <div class="form-row" id="div_noagenda">
+    <div class="form-group col-md-6">
+      <label id="label-noagenda" for="form_noagenda"><b class="text-danger">*</b>Nomor Agenda</label>
+      <input type="text" id="form_noagenda" class="form-control" placeholder="" name="noagenda">
+    </div>
+    <div class="form-group col-md-6">
+      <label id="label-perihal" for="form_perihal"><b class="text-danger">*</b>Perihal</label>
+      <input type="text" id="form_perihal" class="form-control" placeholder="" name="perihal">
+    </div>
+  </div>
 
   <div class="form-group">
     <label id="label-asalsurat" for="form_asalsurat"><b class="text-danger">*</b>Asal Surat</label>
     <input type="text" id="form_asalsurat" class="form-control" placeholder="" name="asalsurat">
   </div>
+
   <div class="form-group">
-    <label for="form_lokasiarsip"><b class="text-danger">*</b>Lokasi Arsip</label>
+    <label id="label-lokasiarsip" for="form_lokasiarsip"><b class="text-danger">*</b>Lokasi Arsip</label>
     <input type="text" id="form_lokasiarsip" class="form-control" placeholder="" name="lokasiarsip">
   </div>
 
   <div class="form-group">
-    <label for="form_isi">Isi Ringkas</label>
+    <label id="label-isi" for="form_isi">Isi Ringkas</label>
     <textarea type="text" id="form_isi" class="form-control" placeholder="" name="isiringkas"></textarea>
   </div>
 
-  <div class="form-group">
+  <div id="div_keterangan" class="form-group">
     <label for="form_keterangan">Keterangan</label>
     <textarea class="form-control" id="form_keterangan" rows="3" placeholder="" name="keterangan"></textarea>
   </div>

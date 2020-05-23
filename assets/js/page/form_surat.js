@@ -1,4 +1,18 @@
-//var _0x2718=['JSON','slice','term','Kode\x20yang\x20dipilih:\x20','split','#div_form_kategori','val','Tentang:\x20','log','html','get','#kode','delay','length','ajax','label','#tentang','autocomplete','hide','#form_kategori'];(function(_0x22b062,_0x42f677){var _0x207340=function(_0x77875b){while(--_0x77875b){_0x22b062['push'](_0x22b062['shift']());}};_0x207340(++_0x42f677);}(_0x2718,0x16b));var _0x26d9=function(_0x22b062,_0x42f677){_0x22b062=_0x22b062-0x0;var _0x207340=_0x2718[_0x22b062];return _0x207340;};$(_0x26d9('0x10'))[_0x26d9('0xe')]({'source':function(_0x2c5d8d,_0xc32288){$[_0x26d9('0xb')]({'url':'http://localhost/LideArsipan/index.php/form_surat/get_autocomplete/kategori','type':_0x26d9('0x7'),'dataType':_0x26d9('0x11'),'data':{'search':_0x2c5d8d[_0x26d9('0x13')]},'success':function(_0x2242eb){_0xc32288(_0x2242eb[_0x26d9('0x12')](0x0,0xa));console[_0x26d9('0x5')](_0x2242eb);}});},'minLength':0x2,'select':function(_0x22ee99,_0x3c2550){var _0x15e9b1=_0x3c2550['item'][_0x26d9('0xc')];var _0x480c8a=_0x15e9b1[_0x26d9('0x1')]('\x20');var _0x508670=_0x480c8a[0x0][_0x26d9('0x1')]('.');var _0x1466da='';for(var _0x4cd3c7=0x0;_0x4cd3c7<_0x480c8a[_0x26d9('0xa')];_0x4cd3c7++){if(_0x4cd3c7==0x0){console[_0x26d9('0x5')]('k');continue;}_0x1466da+=_0x480c8a[_0x4cd3c7]+'\x20';console[_0x26d9('0x5')](_0x480c8a[_0x4cd3c7]);}var _0x1237da=_0x508670['join']('/');$(_0x26d9('0x10'))[_0x26d9('0x3')]();$(_0x26d9('0x8'))[_0x26d9('0x6')](_0x26d9('0x0')+_0x1237da);$(_0x26d9('0xd'))[_0x26d9('0x6')](_0x26d9('0x4')+_0x1466da);$(_0x26d9('0x2'))[_0x26d9('0xf')](0x1f4);$('#div_form_kode')[_0x26d9('0x9')](0x258)['show'](0x1f4);kodeglobal=_0x1237da;tentangglobal=_0x1466da;}});
+$(document).ready( function ()
+{
+  $("#form_tipesurat1").prop("checked", true);
+  $("#form_tipesurat2").prop("checked", false);
+  $("#form_tipesurat3").prop("checked", false);
+  $("#form_perihal").rules("remove");
+  $("#form_noagenda").rules("remove");
+  $("#div_noagenda").hide();
+  $("#div_keterangan").show();
+  $("#label-asalsurat").html("<b class='text-danger'>*</b>Asal Surat");
+  $("#label-lokasiarsip").html("<b class='text-danger'>*</b>Lokasi Arsip");
+  $("#label-isi").html("Isi Ringkas");
+  }
+);
+
 $(".form-tgl").datepicker({
   changeMonth: true,
   changeYear: true,
@@ -10,14 +24,55 @@ $(".form-tgl").datepicker({
 $("#label_tipesurat1").click(function () {
   $("#form_tipesurat1").prop("checked", true);
   $("#form_tipesurat2").prop("checked", false);
+  $("#form_tipesurat3").prop("checked", false);
+  $("#form_perihal").rules("remove");
+  $("#form_noagenda").rules("remove");
+  $("#div_noagenda").hide();
+  $("#div_keterangan").show();
   $("#label-asalsurat").html("<b class='text-danger'>*</b>Asal Surat");
-
+  $("#label-lokasiarsip").html("<b class='text-danger'>*</b>Lokasi Arsip");
+  $("#label-isi").html("Isi Ringkas");
 });
 
 $("#label_tipesurat2").click(function () {
   $("#form_tipesurat2").prop("checked", true);
+  $("#form_tipesurat3").prop("checked", false);
   $("#form_tipesurat1").prop("checked", false);
-  $("#label-asalsurat").html("<b class='text-danger'>*</b>Tujuan Pengiriman");
+  $("#form_perihal").rules("remove");
+  $("#form_noagenda").rules("remove");
+  $("#div_noagenda").hide();
+  $("#div_keterangan").show();
+  $("#label-asalsurat").html("<b class='text-danger'>*</b>Dituju Kepada");
+  $("#label-lokasiarsip").html("<b class='text-danger'>*</b>Lokasi Arsip");
+  $("#label-isi").html("Isi Ringkas");
+});
+
+$("#label_tipesurat3").click(function () {
+  $("#form_tipesurat3").prop("checked", true);
+  $("#form_tipesurat1").prop("checked", false);
+  $("#form_tipesurat2").prop("checked", false);
+  $("#div_noagenda").show();
+  $("#div_keterangan").hide();
+  $("#label-asalsurat").html("<b class='text-danger'>*</b>Dituju Kepada");
+  $("#label-lokasiarsip").html("<b class='text-danger'>*</b>Pengirim/Asal Surat");
+  $("#label-isi").html("Isi Disposisi");
+  $("#form_noagenda").rules("add", {
+    required: true,
+    maxlength: 254,
+    messages: {
+      required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi nomor agenda!</small>",
+      maxlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Teks tidak boleh melebihi 254 karakter!</small>",
+    }
+  });
+  $("#form_perihal").rules("add", {
+    required: true,
+    maxlength: 254,
+    messages: {
+      required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi perihal!</small>",
+      maxlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Teks tidak boleh melebihi 254 karakter!</small>",
+    }
+  });
+
 });
 
 
@@ -310,7 +365,7 @@ $("#form_surat").validate({
     kategori: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Setidaknya memilih satu klasifikasi surat.</small>",
     nosurat: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi nomor suratnya</small>",
     lokasiarsip: {
-      required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi lokasi arsipnya</small>",
+      required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi bagian ini</small>",
       maxlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Maksimal karakter kata adalah 255.</small>",
     },
     asalsurat: {

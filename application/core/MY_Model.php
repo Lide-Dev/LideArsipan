@@ -10,6 +10,9 @@ class MY_Model extends CI_Model
         } else if ($tipe === 'datapengguna') {
             $this->db->where('id_datapengguna', $id);
             $num_rows = $this->db->count_all_results('datapengguna');
+        } else if ($tipe === 'disposisi') {
+            $this->db->where('id_disposisi', $id);
+            $num_rows = $this->db->count_all_results('disposisi');
         } else if ($tipe === 'userlogin') {
             $this->db->where('id_user', $id);
             $num_rows = $this->db->count_all_results('userlogin');

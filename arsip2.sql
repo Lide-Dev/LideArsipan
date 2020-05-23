@@ -88,7 +88,7 @@ CREATE TABLE surat_masuk(
 	id_kode char(9),
 	id_upload char(10),
 	asal_surat varchar(254),
-    klasifikasi VARCHAR(254),
+    /*klasifikasi*/ VARCHAR(254),
     isi_ringkas varchar(254),
     keterangan varchar(254),
 	lokasi_arsip VARCHAR(100),
@@ -108,7 +108,7 @@ CREATE TABLE surat_keluar(
 	id_kode char(9),
 	id_upload char(10),
 	surat_dikirim varchar(254),
-    klasifikasi VARCHAR(254),
+    /*klasifikasi VARCHAR(254),*/
     isi_ringkas varchar(254),
     keterangan varchar(254),
 	lokasi_arsip VARCHAR(100),
@@ -117,6 +117,26 @@ CREATE TABLE surat_keluar(
 	create_time datetime,
 	update_time datetime,
 	PRIMARY KEY (id_suratkeluar),
+	FOREIGN KEY (id_dokumen) REFERENCES dokumen(id_dokumen),
+	FOREIGN KEY (id_kode) REFERENCES kode(id_kode),
+	FOREIGN KEY (id_upload) REFERENCES datapengguna(id_datapengguna)
+);
+
+CREATE TABLE disposisi(
+    id_disposisi char(20),
+    id_dokumen char(20),
+    id_kode char(9),
+    id_upload char(10),
+    no_agenda varchar (50),
+    perihal varchar(254),
+    dituju varchar(254),
+    pengirim varchar(254),
+    isi_disposisi varchar(500),
+    tgl_penerimaan date,
+    tgl_pembuatan date,
+    create_time datetime,
+    update_time datetime,
+    PRIMARY KEY (id_disposisi),
 	FOREIGN KEY (id_dokumen) REFERENCES dokumen(id_dokumen),
 	FOREIGN KEY (id_kode) REFERENCES kode(id_kode),
 	FOREIGN KEY (id_upload) REFERENCES datapengguna(id_datapengguna)

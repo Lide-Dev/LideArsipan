@@ -1,6 +1,15 @@
 
 $(document).ready(function () {
   $.ajax({
+    url: "http://localhost/LideArsipan/arsip/gettest",
+    type: 'post',
+    dataType: "text",
+    success: function (data) {
+      console.log(data);
+    }
+  });
+
+  $.ajax({
     url: "http://localhost/LideArsipan/ajaxarsip/count",
     type: 'post',
     dataType: "text",
@@ -21,8 +30,7 @@ $(document).ready(function () {
             { "data": "id_kode" }, // Tampilkan nis
             { "data": "keterangan" },  // Tampilkan nama
             { "data": "tgl_penerimaan" },
-            { "data": "klasifikasi" },
-            { "data": "klasifikasi" },
+            { "data": "klasifikasi"},
             // Tampilkan telepon
             // Tampilkan alamat
             {
@@ -31,7 +39,9 @@ $(document).ready(function () {
                 var html = "<a href=''>EDIT</a> | "
                 html += "<a href=''>DELETE</a>"
                 return html
-              }}
+              },
+              "orderable": false
+            }
           ],
           "drawCallback": function (settings) { 
             // Here the response

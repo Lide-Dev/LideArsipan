@@ -134,7 +134,6 @@
                         <th>Keterangan</th>
                         <th>Tgl. Masuk Arsip</th>
                         <th>Klasifikasi</th>
-                        <th>Jenis Arsip</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>

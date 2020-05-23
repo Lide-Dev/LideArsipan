@@ -2,7 +2,6 @@
 class Model_Surat extends MY_Model
 {
 
-
     function FixDatePicker($data)
     {
         $data = explode("/", $data);
@@ -18,35 +17,49 @@ class Model_Surat extends MY_Model
 
         $date = date("Y-m-d H:i:s");
         if ($data['tipesurat'] === 'suratmasuk') {
-            $id = $this->getIdRandom('suratmasuk',20,'SM');
+            $id = $this->getIdRandom('suratmasuk', 20, 'SM');
             $tabel = 'surat_masuk';
             $value = array(
                 'id_suratmasuk' => $id,
-                'asal_surat' => $data['asalsurat']
+                'asal_surat' => $data['asalsurat'],
+                'keterangan' => $data['keterangan'],
+                'lokasi_arsip' => $data['lokasiarsip'],
+                'isi_ringkas' => $data['isiringkas']
+            );
+        } else if ($data['tipesurat'] === 'disposisi') {
+            $id = $this->getIdRandom('disposisi', 20, 'DI');
+            $tabel = 'disposisi';
+            $value = array(
+                'id_disposisi' => $id,
+                'dituju' => $data['asalsurat'],
+                'pengirim' => $data['lokasiarsip'],
+                'isi_disposisi' => $data['isiringkas'],
+                'perihal' => $data['perihal'],
+                'no_agenda' => $data['noagenda']
             );
         } else {
-            $id = $this->getIdRandom('suratkeluar',20,'SK');
+            $id = $this->getIdRandom('suratkeluar', 20, 'SK');
             $tabel = 'surat_keluar';
             $value = array(
                 'id_suratkeluar' => $id,
-                'surat_dikirim' => $data['asalsurat']
+                'surat_dikirim' => $data['asalsurat'],
+                'keterangan' => $data['keterangan'],
+                'lokasi_arsip' => $data['lokasiarsip'],
+                'isi_ringkas' => $data['isiringkas']
             );
         }
         $date = date('Y-m-d H:i:s');
         $value += array(
-            'klasifikasi' => $data['desckode'],
+            //'klasifikasi' => $data['desckode'],
             'id_dokumen' => $data['id_dokumen'],
             'id_kode' => $data['klasifikasi'],
             'id_upload' => 'ADM0000000',
-            'lokasi_arsip' => $data['lokasiarsip'],
-            'isi_ringkas' => $data['isiringkas'],
-            'keterangan' => $data['keterangan'],
             'tgl_pembuatan' => $this->FixDatePicker($data['tglpembuatansurat']),
             'tgl_penerimaan' => $this->FixDatePicker($data['tglpenerimaansurat']),
             'create_time' => $date,
             'update_time' => $date
         );
-        $this->createLog(5,"Membuat surat baru dengan ID Surat: ".$id);
+        $this->createLog(5, "Membuat surat baru dengan ID Surat: " . $id);
         $this->db->insert($tabel, $value);
     }
 
@@ -59,27 +72,32 @@ class Model_Surat extends MY_Model
 
     function getDataTableSurat($data)
     {
-        $value = array();
+        //$value = array();
         $params = $data;
+        /*if (empty($params['order'][0]['column'])){
+            $params['order'][0]['column']='0';
+            $params['order'][0]['dir']='asc';
+        }*/
 
         $query = $this->querySurat('datatables', $params, 'surat_masuk');
-        $query2 = $this->querySurat('datatables', $params, 'surat_keluar');
+        //print_r($query);
+        //$query2 = $this->querySurat('datatables', $params, 'surat_keluar');
         $queryFilter = $this->querySurat('datatables', $params, 'surat_masuk', true);
-        $queryFilter2 = $this->querySurat('datatables', $params, 'surat_keluar', true);
+        //$queryFilter2 = $this->querySurat('datatables', $params, 'surat_keluar', true);
         $queryAll = $this->querySurat('all', $params, 'surat_masuk');
-        $queryAll2 = $this->querySurat('all', $params, 'surat_keluar');
-        foreach ($query->result() as $row) {
-            $value[] = $row;
-        }
-        foreach ($query2->result() as $row) {
-            $value[] = $row;
-        }
+        //$queryAll2 = $this->querySurat('all', $params, 'surat_keluar');
+        //foreach ($query->result() as $row) {
+        //     $value[] = $row;
+        // }
+        //foreach ($query2->result() as $row) {
+        //    $value[] = $row;
+        //}
 
-        $totalFilter = $queryFilter->num_rows();
-        $totalFilter += $queryFilter2->num_rows();
+        $totalFilter = sizeof($queryFilter);
+        //$totalFilter += $queryFilter2->num_rows();
         $total = $queryAll->num_rows();
-        $total += $queryAll2->num_rows();
-        $result = array('total' => $total, 'data' => $value, 'totalFilter' => $totalFilter);
+        //$total += $queryAll2->num_rows();
+        $result = array('total' => $total, 'data' => $query, 'totalFilter' => $totalFilter);
         return $result;
     }
 
@@ -88,15 +106,17 @@ class Model_Surat extends MY_Model
         $config = array(
             'limitmax' => 60
         );
+        $this->db->join('kode', 'kode.id_kode = ' . $typesurat . '.id_kode');
 
         if ($type === 'datatables') {
+
             $order_field = $params['order'][0]['column'];
             $order_type = $params['order'][0]['dir'];
             $columns = array(
-                0 => 'id_kode',
-                1 => 'keterangan',
-                2 => 'tgl_penerimaan',
-                3 => 'klasifikasi',
+                0 => $typesurat . '.id_kode',
+                1 => $typesurat . '.keterangan',
+                2 => $typesurat . '.tgl_penerimaan',
+                3 => 'kode.nama'
             );
             if (!empty($params['search']['value'])) {
                 $this->db->like($columns[1], $params['search']['value']);
@@ -106,24 +126,82 @@ class Model_Surat extends MY_Model
 
             if (!$filter) {
                 if (!empty($params['start']))
-                $start = $params['start'];
+                    $start = $params['start'];
                 else
-                $start = 0;
+                    $start = 0;
 
-                if (!empty($params['length'])&&$params['length'] <= $config['limitmax']) {
+                if (!empty($params['length']) && $params['length'] <= $config['limitmax']) {
                     $limit = $params['length'];
                 } else {
                     $limit = 20;
                 }
-                $this->db->limit($limit,$start);
+                $this->db->limit($limit, $start);
             }
-            $this->db->order_by($params['columns'][$order_field]['data'], $order_type);
+            if ($order_field<3){
+                $this->db->order_by($typesurat . "." . $params['columns'][$order_field]['data'], $order_type);
+            }
+
 
             $query = $this->db->get($typesurat);
-            return $query;
+            $data = array();
+            $a = 0;
+            $data = $query->result_array();
+            foreach ($data as $i) {
+                $i['klasifikasi'] = $this->get_desckode($i['id_kode']);
+                $data[$a] = $i;
+                $a++;
+            }
+            if ($order_field==='3'){
+                $columns = array_column($data,'klasifikasi');
+                if ($order_type === 'asc')
+                   array_multisort($columns,SORT_ASC,$data);
+                else
+                    array_multisort($columns,SORT_DESC,$data);
+            }
+            return $data;
         } else {
             $query = $this->db->get($typesurat);
             return $query;
         }
+    }
+
+    function get_desckode($kode)
+    {
+        if (!is_array($kode))
+            $kode = explode(".", $kode);
+
+            $this->db->where("id_kode", $kode[0] . ".0.0.0");
+            $query = $this->db->get('kode')->row(0);
+            $result = $query->nama;
+            $this->db->reset_query();
+        if ($kode[1] !== "0") {
+            $result .= " / ";
+            $temp = array_slice($kode,0,2);
+            $temp = implode(".",$temp);
+            $this->db->where("id_kode", $temp. ".0.0");
+            $query = $this->db->get('kode')->row(0);
+            $result .= $query->nama;
+            $this->db->reset_query();
+        }
+        if ($kode[2] !== "0") {
+            $result .= " / ";
+            $temp = array_slice($kode,0,3);
+            $temp = implode(".",$temp);
+            $this->db->where("id_kode", $temp. ".0");
+            $query = $this->db->get('kode')->row(0);
+            $result .= $query->nama;
+            $this->db->reset_query();
+        }
+        if ($kode[3] !== "0") {
+            $result .= " / ";
+            $temp = array_slice($kode,0,4);
+            $temp = implode(".",$temp);
+            $this->db->where("id_kode", $temp);
+            $query = $this->db->get('kode')->row(0);
+            $result .= $query->nama;
+            $this->db->reset_query();
+        }
+
+        return $result;
     }
 }
