@@ -1,13 +1,74 @@
+<?php
+$active = array('', '', '');
+
+if (!empty($_SESSION['typearsip'])) {
+    $th = 'Keterangan';
+    if ($_SESSION['typearsip'] === 'sm') {
+        $active[0] = 'active';
+    } else if ($_SESSION['typearsip'] === 'sk') {
+        $active[1] = 'active';
+    } else if ($_SESSION['typearsip'] === 'dp') {
+        $active[2] = 'active';
+        $th = 'Perihal';
+    } else
+        $active = array('', '', '');
+}
+?>
+
 <div class="container mb-5">
+    <!-- Menu Surat -->
+    <div class="p-3">
+        <section class="page-section" id="services">
+            <div class="container border border-hintofelusive rounded p-3">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h4 class="section-heading text-uppercase mt-2 mb-4">Pilih jenis Surat</h4>
+                    </div>
+                </div>
+
+                <div class="shadow d-flex text-center btn-group btn-group-toggle justify-content-center">
+                    <a href="<?= base_url('arsip/suratmasuk') ?>" class="col-md-4 btn btn-hintofelusive <?= $active[0] ?>">
+                        <div id="arsip-sm" class="">
+                            <span class="fa-stack fa-4x">
+                                <i class="fas fa-circle fa-stack-2x text-info"></i>
+                                <i class="fas fa-arrow-circle-down fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <h5 class="service-heading">Surat Masuk</h5>
+                        </div>
+                    </a>
+                    <a href="<?= base_url('arsip/suratkeluar') ?>" class="col-md-4 btn btn-hintofelusive <?= $active[1] ?>">
+                        <div id="arsip-sk">
+                            <span class="fa-stack fa-4x">
+                                <i class="fas fa-circle fa-stack-2x text-info"></i>
+                                <i class="fas fa-arrow-circle-up fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <h5 class="service-heading">Surat Keluar</h5>
+                        </div>
+                    </a>
+                    <a href="<?= base_url('arsip/disposisi') ?>" class="col-md-4 btn btn-hintofelusive <?= $active[2] ?>">
+                        <div id="arsip-dp">
+                            <span class="fa-stack fa-4x">
+                                <i class="fas fa-circle fa-stack-2x text-warning"></i>
+                                <i class="fas fa-inbox fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <h5 class="service-heading">Disposisi</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- End of Menu Surat -->
+
     <div class="container">
         <div id="flip_arsip" class="bg-white mt-2 text-center">
             <div class="col-md-12"><i class="fa fa-search" aria-hidden="true"></i> <strong>Klik disini untuk memulai pencarian</strong></div>
             <div class="col-md-12"><i id="chevron_nav" class="fas fa-chevron-down fa-lg"></i></div>
         </div>
 
-        <div id="panel_arsip">
+        <!-- <div id="panel_arsip" style="display: none">
             <div class="card shadow mb-2 bg-white rounded">
-                <!--Card-Body-->
+                Card-Body
                 <div class="mt-2 mb-2">
                     <div id="div_container_kode" class="container p-3">
                         <div class="row">
@@ -72,68 +133,32 @@
                             </span>
                             <button id="" type="button" class="btn btn-success btn-md d-md-none btn_form_pilih" disabled><span class="fas fa-check"></span></button>
                             <button id="" type="button" class="btn btn-danger btn-md d-md-none btn_form_ulang" disabled><span class="fas fa-times"></span></button>
-                            <!-- button type="button" class="btn btn-freespeechblue px-3" disabled>Pilih</button -->
+
                         </div>
                     </div>
                 </div>
-                <!-- End Form -->
+                End Form
             </div>
-        </div>
+        </div> -->
     </div>
 
-    <!-- Menu Surat -->
-    <div class="p-3">
-    <section class="page-section" id="services">
-    <div class="container border border-hintofelusive rounded p-3">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <h4 class="section-heading text-uppercase mt-2 mb-4">Pilih jenis Surat</h4>
-        </div>
-      </div>
-      <div class="shadow row text-center">
-        <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-info"></i>
-            <i class="fas fa-arrow-circle-down fa-stack-1x fa-inverse"></i>
-          </span>
-          <h5 class="service-heading">Surat Masuk</h5>
-        </div>
-        <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-info"></i>
-            <i class="fas fa-arrow-circle-up fa-stack-1x fa-inverse"></i>
-          </span>
-          <h5 class="service-heading">Surat Keluar</h5>
-        </div>
-        <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-warning"></i>
-            <i class="fas fa-inbox fa-stack-1x fa-inverse"></i>
-          </span>
-          <h5 class="service-heading">Disposisi</h5>
-        </div>
-      </div>
-    </div>
-  </section>
-    </div>
-    <!-- End of Menu Surat -->
     <!--Tabel-->
 
     <?php if (empty($tablerow) || $tablerow === 0) { ?>
-        <div class="container" style="margin-top:20vh; margin-bottom:20vh">
+        <div class="container" style="margin-top:20vh; margin-bottom:20vh; display:none">
             <p class="text-center">
                 Tidak terdapat arsip disini. Silahkan di isi terlebih dahulu untuk melihat tabel data arsip!
             </p>
         </div>
     <?php } else { ?>
-        <div class="container table-responsive">
+        <div class="container table-responsive" id="div-table" style="">
             <table class="table table-striped table-bordered" id="tabel_arsip" style="width: 100%">
                 <thead class="">
                     <tr>
                         <th>No. Arsip</th>
-                        <th>Keterangan</th>
-                        <th>Tgl. Masuk Arsip</th>
                         <th>Klasifikasi</th>
+                        <th>Tgl. Masuk Arsip</th>
+                        <th><?=$th?></th>
                         <th>Aksi</th>
                     </tr>
                 </thead>

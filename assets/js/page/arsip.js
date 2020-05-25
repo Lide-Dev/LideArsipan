@@ -1,57 +1,76 @@
 
-$(document).ready(function () {
-  $.ajax({
-    url: "http://localhost/LideArsipan/arsip/gettest",
-    type: 'post',
-    dataType: "text",
-    success: function (data) {
-      console.log(data);
-    }
-  });
 
+
+$(document).ready(function () {
   $.ajax({
     url: "http://localhost/LideArsipan/ajaxarsip/count",
     type: 'post',
-    dataType: "text",
+    dataType: "JSON",
     success: function (data) {
-      if (data > 0) {
-        $('#tabel_arsip').DataTable({
-          "processing": true,
-          "serverSide": true,
-          "ordering": true,
-          "order": [[0, 'asc']], // Default sortingnya berdasarkan kolom /field ke 0 (paling pertama)
-          "ajax": {
-            "url": "http://localhost/LideArsipan/ajaxarsip/table", // URL file untuk proses select datanya
-            "type": "POST"
-          },
-          "deferRender": true,
-          "aLengthMenu": [[20, 10, 50], [5, 10, 50]], // Combobox Limit
-          "columns": [
-            { "data": "id_kode" }, // Tampilkan nis
-            { "data": "keterangan" },  // Tampilkan nama
-            { "data": "tgl_penerimaan" },
-            { "data": "klasifikasi"},
-            // Tampilkan telepon
-            // Tampilkan alamat
-            {
-              "render": function (data, type, row) {
-                // Tampilkan kolom aksi
-                var html = "<a href=''>EDIT</a> | "
-                html += "<a href=''>DELETE</a>"
-                return html
-              },
-              "orderable": false
+      console.log(data);
+      if (data['type'] === "emp") {
+        console.log('1');
+        $('#tabel_arsip').html('');
+        $('#div-table').hide();
+      }
+      else {
+        var columns=[''];
+        if (data['type'] === "dp") {
+          columns[0] = "id_kode";
+          columns[1] = "klasifikasi";
+          columns[2] = "perihal";
+          columns[3] = "tgl_penerimaan";
+        }
+        else {
+          columns[0] = "id_kode";
+          columns[1] = "klasifikasi";
+          columns[2] = "keterangan";
+          columns[3] = "tgl_penerimaan";
+        }
+        console.log(columns)
+        if (data['rows'] > 0) {
+          console.log('2');
+          $('#div-table').show();
+
+          $('#tabel_arsip').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ordering": true,
+            "order": [[0, 'asc']], // Default sortingnya berdasarkan kolom /field ke 0 (paling pertama)
+            "ajax": {
+              "url": "http://localhost/LideArsipan/ajaxarsip/table", // URL file untuk proses select datanya
+              "type": "POST"
+            },
+            "deferRender": true,
+            "aLengthMenu": [[20, 10, 50], [5, 10, 50]], // Combobox Limit
+            "columns": [
+              { "data": columns[0] }, // Tampilkan nis
+              { "data": columns[1] },  // Tampilkan nama
+              { "data": columns[2] },
+              { "data": columns[3] },
+              // Tampilkan telepon
+              // Tampilkan alamat
+              {
+                "render": function (data, type, row) {
+                  // Tampilkan kolom aksi
+                  var html = "<a href=''>EDIT</a> | "
+                  html += "<a href=''>DELETE</a>"
+                  return html
+                },
+                "orderable": false
+              }
+            ],
+            "drawCallback": function (settings) {
+              // Here the response
+              var response = settings.json;
+              console.log(response);
             }
-          ],
-          "drawCallback": function (settings) { 
-            // Here the response
-            var response = settings.json;
-            console.log(response);
-          }
-        });
+          });
+        }
       }
     }
   });
+
 });
 
 $("#flip_arsip").click(function () {

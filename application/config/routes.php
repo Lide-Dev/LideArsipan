@@ -59,7 +59,6 @@ $route['admin/admdatauser']="admin_datauser/index";
 $route['admin/admdatauser/form/request']='admin_datauser/submitrequest';
 $route['admin/admdatauser/put/user']="admin_datauser/addaccount";
 //$route['admin/admdatauser/put/banuser']="admin_datauser/banaccount";
-
 $route["ajaxadmin/user/table/(:any)"]="admin_datauser/gettable/$1";
 $route["ajaxadmin/user/count"]="admin_datauser/getcountajax";
 $route["ajaxadmin/user/mode"]="admin_datauser/tablemode";
@@ -79,6 +78,10 @@ $route["ksurat/getkode"]= "form_surat/get_kode";
 $route["ksurat/cekkode/(:any)"]= "form_surat/cek_kode/$1";
 $route["ksurat/desckode"]="form_surat/get_desckode";
 $route["surat/go/add/newsurat"]="form_surat/form_submit";
+
+$route["arsip/suratmasuk"]= "arsip/showtable/sm";
+$route["arsip/suratkeluar"]= "arsip/showtable/sk";
+$route["arsip/disposisi"]= "arsip/showtable/dp";
 
 $route["ajaxarsip/table"]="arsip/gettable";
 $route["ajaxarsip/count"]="arsip/getcountajax";

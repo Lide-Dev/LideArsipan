@@ -70,21 +70,25 @@ class Model_Surat extends MY_Model
         return $num_rows;
     }
 
-    function getDataTableSurat($data)
+    function getDataTableSurat($data, $type)
     {
-        //$value = array();
         $params = $data;
-        /*if (empty($params['order'][0]['column'])){
-            $params['order'][0]['column']='0';
-            $params['order'][0]['dir']='asc';
-        }*/
 
-        $query = $this->querySurat('datatables', $params, 'surat_masuk');
+        if ($type === 'dp'){
+            $type = 'disposisi';
+        }
+        else if ($type === 'sk'){
+            $type = 'surat_keluar';
+        }
+        else{
+            $type = 'surat_masuk';
+        }
+        $query = $this->querySurat('datatables', $params, $type);
         //print_r($query);
         //$query2 = $this->querySurat('datatables', $params, 'surat_keluar');
-        $queryFilter = $this->querySurat('datatables', $params, 'surat_masuk', true);
+        $queryFilter = $this->querySurat('datatables', $params, $type, true);
         //$queryFilter2 = $this->querySurat('datatables', $params, 'surat_keluar', true);
-        $queryAll = $this->querySurat('all', $params, 'surat_masuk');
+        $queryAll = $this->querySurat('all', $params, $type);
         //$queryAll2 = $this->querySurat('all', $params, 'surat_keluar');
         //foreach ($query->result() as $row) {
         //     $value[] = $row;
@@ -109,12 +113,15 @@ class Model_Surat extends MY_Model
         $this->db->join('kode', 'kode.id_kode = ' . $typesurat . '.id_kode');
 
         if ($type === 'datatables') {
-
+            $column2 = '.keterangan';
+            if ($typesurat==='dp'){
+                $column2= '.perihal';
+            }
             $order_field = $params['order'][0]['column'];
             $order_type = $params['order'][0]['dir'];
             $columns = array(
                 0 => $typesurat . '.id_kode',
-                1 => $typesurat . '.keterangan',
+                1 => $typesurat . $column2,
                 2 => $typesurat . '.tgl_penerimaan',
                 3 => 'kode.nama'
             );
@@ -140,7 +147,6 @@ class Model_Surat extends MY_Model
             if ($order_field<3){
                 $this->db->order_by($typesurat . "." . $params['columns'][$order_field]['data'], $order_type);
             }
-
 
             $query = $this->db->get($typesurat);
             $data = array();
