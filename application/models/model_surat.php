@@ -121,9 +121,9 @@ class Model_Surat extends MY_Model
             $order_type = $params['order'][0]['dir'];
             $columns = array(
                 0 => $typesurat . '.id_kode',
-                1 => $typesurat . $column2,
+                1 => 'kode.nama',
                 2 => $typesurat . '.tgl_penerimaan',
-                3 => 'kode.nama'
+                3 =>  $typesurat . $column2
             );
             if (!empty($params['search']['value'])) {
                 $this->db->like($columns[1], $params['search']['value']);
@@ -144,7 +144,7 @@ class Model_Surat extends MY_Model
                 }
                 $this->db->limit($limit, $start);
             }
-            if ($order_field<3){
+            if ($order_field!=='1'){
                 $this->db->order_by($typesurat . "." . $params['columns'][$order_field]['data'], $order_type);
             }
 
@@ -157,7 +157,7 @@ class Model_Surat extends MY_Model
                 $data[$a] = $i;
                 $a++;
             }
-            if ($order_field==='3'){
+            if ($order_field==='1'){
                 $columns = array_column($data,'klasifikasi');
                 if ($order_type === 'asc')
                    array_multisort($columns,SORT_ASC,$data);

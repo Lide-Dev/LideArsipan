@@ -1,6 +1,6 @@
 <?php
 $active = array('', '', '');
-
+$th = '';
 if (!empty($_SESSION['typearsip'])) {
     $th = 'Keterangan';
     if ($_SESSION['typearsip'] === 'sm') {
@@ -61,10 +61,10 @@ if (!empty($_SESSION['typearsip'])) {
     <!-- End of Menu Surat -->
 
     <div class="container">
-        <div id="flip_arsip" class="bg-white mt-2 text-center">
+        <!-- <div id="flip_arsip" class="bg-white mt-2 text-center">
             <div class="col-md-12"><i class="fa fa-search" aria-hidden="true"></i> <strong>Klik disini untuk memulai pencarian</strong></div>
             <div class="col-md-12"><i id="chevron_nav" class="fas fa-chevron-down fa-lg"></i></div>
-        </div>
+        </div> -->
 
         <!-- <div id="panel_arsip" style="display: none">
             <div class="card shadow mb-2 bg-white rounded">
@@ -144,21 +144,21 @@ if (!empty($_SESSION['typearsip'])) {
 
     <!--Tabel-->
 
-    <?php if (empty($tablerow) || $tablerow === 0) { ?>
+    <?php if (empty($tablerow) || $tablerow === 0 || (empty($_SESSION['typearsip']))) { ?>
         <div class="container" style="margin-top:20vh; margin-bottom:20vh; display:none">
             <p class="text-center">
                 Tidak terdapat arsip disini. Silahkan di isi terlebih dahulu untuk melihat tabel data arsip!
             </p>
         </div>
     <?php } else { ?>
-        <div class="container table-responsive" id="div-table" style="">
+        <div class="container table-responsive" id="div-table">
             <table class="table table-striped table-bordered" id="tabel_arsip" style="width: 100%">
                 <thead class="">
                     <tr>
                         <th>No. Arsip</th>
                         <th>Klasifikasi</th>
-                        <th>Tgl. Masuk Arsip</th>
                         <th><?=$th?></th>
+                        <th>Tgl. Masuk Arsip</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
