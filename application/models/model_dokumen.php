@@ -19,10 +19,17 @@ class Model_Dokumen extends MY_Model
         $value = array(
             'id_dokumen' => $id,
             'nama' => $data['raw_name'],
-            'ekstensi' => $data['file_ext'],
+            'extensi' => $data['file_ext'],
             'byte_file' => $data['file_size'],
         );
         $this->db->insert('dokumen', $value);
         return $id;
+    }
+
+    function GetDokumenbyID($id){
+        $this->db->where('id_dokumen',$id);
+        $query=$this->db->get('dokumen');
+
+        return $query->row_array();
     }
 }

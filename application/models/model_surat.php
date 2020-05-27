@@ -1,6 +1,24 @@
 <?php
 class Model_Surat extends MY_Model
 {
+    function GetSuratbyID($id, $type){
+        if ($type === 'sm'){
+            $table = 'surat_masuk';
+            $type = 'suratmasuk';
+        }
+        else if ($type === 'sk'){
+            $table = 'surat_keluar';
+            $type = 'suratkeluar';
+        }
+        else {
+            $table = 'disposisi';
+            $type = 'disposisi';
+        }
+        $this->db->where('id_'.$type,$id);
+        $query=$this->db->get($table);
+
+        return $query->row_array();
+    }
 
     function FixDatePicker($data)
     {
@@ -24,7 +42,8 @@ class Model_Surat extends MY_Model
                 'asal_surat' => $data['asalsurat'],
                 'keterangan' => $data['keterangan'],
                 'lokasi_arsip' => $data['lokasiarsip'],
-                'isi_ringkas' => $data['isiringkas']
+                'isi_ringkas' => $data['isiringkas'],
+                'no_surat' => $data['nosurat']
             );
         } else if ($data['tipesurat'] === 'disposisi') {
             $id = $this->getIdRandom('disposisi', 20, 'DI');
@@ -45,7 +64,8 @@ class Model_Surat extends MY_Model
                 'surat_dikirim' => $data['asalsurat'],
                 'keterangan' => $data['keterangan'],
                 'lokasi_arsip' => $data['lokasiarsip'],
-                'isi_ringkas' => $data['isiringkas']
+                'isi_ringkas' => $data['isiringkas'],
+                'no_surat' => $data['nosurat']
             );
         }
         $date = date('Y-m-d H:i:s');

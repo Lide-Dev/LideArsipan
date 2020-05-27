@@ -189,21 +189,8 @@ $(document).ready(function () {
                   return html;
                 }
               }
-              // Tampilkan telepon
-              // Tampilkan alamat
-              /*{{
-                "render": function (data, type, row) {
-                  // Tampilkan kolom aksi
-                  var html = "<a href=''>EDIT</a> | "
-                  html += "<a href=''>DELETE</a>"
-                  return html
-                }}*/
             ],
-            /*"drawCallback": function (settings) {
-              // Here the response
-              var response = settings.json;
-              console.log(response);
-            }*/
+
           });
 
 

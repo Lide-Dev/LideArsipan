@@ -189,6 +189,7 @@ class MY_Controller extends CI_Controller
      */
     public function initView($pageURI, $config, $navbar = true, $sidebar = true, $modal = false, $landing = false)
     {
+        $config['sidebar'] = $sidebar;
         $config['landing'] = $landing;
         if ($landing) {
             $this->load->view('templates/header', $config);
@@ -268,6 +269,7 @@ class MY_Controller extends CI_Controller
                 }
             }
         }
+
     }
 
     /**
@@ -301,5 +303,31 @@ class MY_Controller extends CI_Controller
 
         $message = $this->load->view('templates/message', $config, true);
         $this->session->set_flashdata('message', $message);
+    }
+
+    /**
+     * Fungsi untuk membawa user ke page Error.
+     *
+     * @param [array] $config
+     * - Konfigurasi untuk page error. Mempunyai nilai default.
+     * @param [array] $config['title']
+     * - Judul page error.
+     * @param [array] $config['code']
+     * - Code response dari page error tadi.
+     * @param [array] $config['desc']
+     * - Deskripsi error.
+     * @return void
+     */
+    public function errorPage($config){
+        if (empty($config['title']))
+        $config['title']='Kesalahan Halaman';
+        if (empty($config['code']))
+        $config['code']='404';
+        if (empty($config['desc']))
+        $config['desc']='Terjadi sebuah kesalahan pada halaman web ini. Coba di refresh page atau perhatikan
+        url web dengan benar. Jika masih berlanjut cobalah kontak admin web ini';
+
+        $this->session->set_flashdata('configer',$config);
+        redirect(base_url('error'));
     }
 }

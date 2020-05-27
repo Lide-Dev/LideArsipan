@@ -2,6 +2,14 @@
 
 class Model_DataPengguna extends MY_Model
 {
+    function GetUserbyID($id,$column=null){
+        $this->db->where("id_datapengguna",$id);
+        if (!empty($column)){
+            $this->db->select($column);
+        }
+        $query=$this->db->get('datapengguna');
+        return $query->row();
+    }
 
     function CheckEmail($email)
     {
