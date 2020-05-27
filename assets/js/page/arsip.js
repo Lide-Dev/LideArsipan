@@ -61,7 +61,7 @@ $(document).ready(function () {
                   var class3 = "class='btn btn-danger delete'";
                   var html = "<a "+class1+" href=''>EDIT</a> | "
                   html += "<button "+class2+" id='"+data+" '>OPEN</button> "
-                  html += "<a "+class3+" href=''>DELETE</a>"
+                  html += "| <a "+class3+" href=''>DELETE</a>"
                   a++
                   return html
                 },
