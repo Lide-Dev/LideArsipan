@@ -1,8 +1,7 @@
 var baseurl='http://localhost/LideArsipan/';
-
-
 $(document).ready(function () {
   var table='';
+  var tp_arsip='';
   $.ajax({
     url: baseurl+"ajaxarsip/count",
     type: 'post',
@@ -32,9 +31,9 @@ $(document).ready(function () {
           else
             columns[4] = 'id_suratkeluar'
         }
+        tp_arsip=columns[4];
         if (data['rows'] > 0) {
           $('#div-table').show();
-          var a = 0;
           table = $('#tabel_arsip').DataTable({
             "processing": true,
             "serverSide": true,
@@ -56,32 +55,24 @@ $(document).ready(function () {
               { "data": columns[4],
                 "render": function (data, type, row) {
                   // Tampilkan kolom aksi
-                  var class2 = "class='btn btn-mintygreen open'";
-                  var class1 = "class='btn btn-primary edit'";
-                  var class3 = "class='btn btn-danger delete'";
-                  var html = "<a "+class1+" href=''>EDIT</a> | "
-                  html += "<button "+class2+" id='"+data+" '>OPEN</button> "
-                  html += "| <a "+class3+" href=''>DELETE</a>"
-                  a++
+                  var class2 = "btn open";
+                  var class1 = "class='btn edit'";
+                  var class3 = "class='btn delete'";
+                  var html = "<a "+class1+" href=''><i class='glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='Edit Surat' aria-hidden='true'><i class='fas fa-edit' style='color: #05c46b'></i></i></a> "
+                  html +=" <i class='btn open glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='Buka Surat' aria-hidden='true'><i class='fas fa-envelope-open-text' style='color: #00d8d6''></i></i> "
+                  html += "<a "+class3+" href=''><i class='glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='Hapus Surat' aria-hidden='true'><i class='fas fa-trash-alt' style='color: #ff3f34'></i></i></a>"
+
                   return html
                 },
                 "orderable": false
               }
-            ],
-            "drawCallback": function (settings) {
-              // Here the response
-              var response = settings.json;
-              //console.log(response);
-            }
+            ]
           });
 
           $('#tabel_arsip tbody').on('click', '.open', function () {
-            //console.log('test');
-           // $('#modalLabel').html('Membuka Arsip');
-            var data = table.row($(this).parents('tr')).data();
-            console.log(data);
+           var data = table.row($(this).parents('tr')).data();
            $('#modalarsip').modal('show');
-           openpage(data);
+           openpage(data[tp_arsip]);
           });
         }
       }
