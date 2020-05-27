@@ -15,8 +15,8 @@
         <div class="navbar-nav mr-md-5">
             <?=
             empty($_SESSION['idlogin'])
-            ? "<a class='nav-item nav-link' href='".base_url('Login')."'>Login</a>"
-            : "<a class='nav-item nav-link' href='".base_url('go/logout')."'>Logout</a>";
+            ? "<a class='nav-item nav-link' href='".base_url('Login')."'><i class='glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='MASUK' aria-hidden='true'><i class='fas fa-sign-in-alt'></i></i></a>"
+            : "<a class='nav-item nav-link' href='".base_url('go/logout')."'><i class='glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='KELUAR' aria-hidden='true'><i class='fas fa-sign-out-alt white'></i></i></a>";
             ?>
         </div>
     </div>

@@ -1,6 +1,6 @@
 <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
-        <li class="sidebar-brand">
+        <li class="sidebar-brand mb-2">
             <a href="#">
                 Menu
             </a>

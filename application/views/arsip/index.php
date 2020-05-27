@@ -152,8 +152,9 @@ if (!empty($_SESSION['typearsip'])) {
         </div>
     <?php } else { ?>
         <div class="container" id="div-table">
-            <table class="table table-responsive table-striped table-bordered" id="tabel_arsip" style="width: 100%">
-                <thead class="">
+            <div class="table-responsive-lg">
+            <table class="table hover table-striped table-borderless" id="tabel_arsip" style="width: 100%">
+                <thead class="thead-dark">
                     <tr>
                         <th>No. Arsip</th>
                         <th>Klasifikasi</th>
@@ -164,6 +165,7 @@ if (!empty($_SESSION['typearsip'])) {
                 </thead>
 
             </table>
+            </div>
         </div>
     <?php } ?>
 
