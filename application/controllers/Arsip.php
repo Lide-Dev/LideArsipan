@@ -24,11 +24,12 @@ class Arsip extends MY_Controller
             )
         );
         $data['modal'] = $this->initModal($config);
-        $this->initView('arsip/index', $data, true,true,true);
+        $this->initView('arsip/index', $data, true, true, true);
     }
 
     public function showTable($type)
     {
+
         switch ($type) {
             case 'sk':
                 $this->session->set_userdata('typearsip', 'sk');
@@ -60,7 +61,7 @@ class Arsip extends MY_Controller
 
     public function file_check($str)
     {
-        $str = substr($str,1);
+        $str = substr($str, 1);
         $pdf = array('pdf', 'ps');
         $image = array('jpg', 'jpeg', 'png', 'bmp', 'svg');
         $doc = array('doc', 'docx', 'odt', 'rtf', 'tex', 'wpd');
@@ -80,52 +81,54 @@ class Arsip extends MY_Controller
 
     public function getViewModal($type)
     {
+        $this->ajaxFunction();
         //AJAX View Modal
         //if (!$this->input->is_ajax_request()) exit("Unknown Address (401)");
         if ($type === "open") {
-            $_SESSION['typearsip'] === "sm" ? $typearsip = "suratmasuk" : 'disposisi';
-            $_SESSION['typearsip'] === "sk" ? $typearsip = "suratkeluar" : 'disposisi';
-            $_SESSION['typearsip'] === "dp" ? $typearsip = "disposisi" : '';
-            $request=$this->input->get('send');
+            $request = $this->input->get('send');
             $this->load->model("model_surat", "ms");
             $this->load->model("model_dokumen", "md");
-            $this->load->model("model_datapengguna","mdp");
-            //print_r($this->input->get('send'));
-           //print_r($request['id_'.$typearsip]);
-            $data['arsip'] = $this->ms->GetSuratbyID($request['id_'.$typearsip], $_SESSION['typearsip']);
-            $data['klasifikasi'] = $this->ms->get_desckode($data['arsip']['id_kode']);
-            $data['user'] = $this->mdp->GetUserbyID($data['arsip']['id_upload'], "nama");
-            $data['namauploader'] = $data['user']->nama;
-            $data['dokumen'] = $this->md->GetDokumenbyID($data['arsip']['id_dokumen'], $_SESSION['typearsip']);
-            //print_r($data['arsip']);
-            //print_r($data['dokumen']);
-            $data['dokumen']['byte_file']= $this->formatBytes($data['dokumen']['byte_file']);
-            $data['extfile'] = $this->file_check($data['dokumen']['ekstensi']);
-
-            $load = $this->load->view("arsip/openpage", $data, true);
+            $this->load->model("model_datapengguna", "mdp");
+            $data['arsip'] = $this->ms->GetSuratbyID($request, $_SESSION['typearsip']);
+            if (!empty($data['arsip'])) {
+                $data['klasifikasi'] = $this->ms->get_desckode($data['arsip']['id_kode']);
+                $data['user'] = $this->mdp->GetUserbyID($data['arsip']['id_upload'], "nama");
+                $data['namauploader'] = $data['user']->nama;
+                $data['dokumen'] = $this->md->GetDokumenbyID($data['arsip']['id_dokumen'], $_SESSION['typearsip']);
+                $data['dokumen']['byte_file'] = $this->formatBytes($data['dokumen']['byte_file']);
+                $data['extfile'] = $this->file_check($data['dokumen']['ekstensi']);
+                $load = $this->load->view("arsip/openpage", $data, true); //MODAL VIEW (ARSIP/OPENPAGE)
+            }
+            else {
+                $data['title']='Kesalahan Pengiriman';
+                $data['desc']='Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
+                $load = $this->load->view("arsip/errorpage", $data, true);
+            }
+        }
+        else if ($type === "delete"){
+            
         }
         echo $load;
     }
 
-    function getDokumenDownload($id){
+    function getDokumenDownload($id)
+    {
         $this->load->model("model_dokumen", "md");
-        $data=$this->md->GetDokumenbyID($id);
-        if (file_exists('assets/doc/'.$data['nama'].$data['ekstensi'])){
-            redirect(base_url('assets/doc/'.$data['nama'].$data['ekstensi']));
-        }
-        else{
-            $config['title']='File Hilang';
-            $config['code']='404';
-            $config['desc']='File '.$data['nama'].$data['ekstensi'].' tidak ditemukan atau hilang pada server. Cobalah untuk menkontak admin web ini.';
+        $data = $this->md->GetDokumenbyID($id);
+        if (file_exists('assets/doc/' . $data['nama'] . $data['ekstensi'])) {
+            redirect(base_url('assets/doc/' . $data['nama'] . $data['ekstensi']));
+        } else {
+            $config['title'] = 'File Hilang';
+            $config['code'] = '404';
+            $config['desc'] = 'File ' . $data['nama'] . $data['ekstensi'] . ' tidak ditemukan atau hilang pada server. Cobalah untuk menkontak admin web ini.';
             $this->errorPage($config);
         }
-
-
     }
 
 
     function getCountAjax()
     {
+        $this->ajaxFunction();
         if (empty($_SESSION['typearsip']) or $_SESSION['typearsip'] === 'none') {
             $type = 'emp';
             $tablerow = 0;
@@ -142,23 +145,9 @@ class Arsip extends MY_Controller
         echo json_encode($callback);
     }
 
-    public function getTest()
-    {
-        $this->load->model("model_surat");
-        $this->load->model("model_kode", "mk");
-        $result = $this->model_surat->getDataTableSurat($this->input->post(null, true));
-        $a = 0;
-        foreach ($result['data'] as $i) {
-            $data = (array) $i;
-            $data['klasifikasi'] = $this->mk->get_desckode($data['id_kode']);
-            $i = (object) $data;
-            $result['data'][$a] = $i;
-            $a++;
-        }
-    }
-
     public function getTable()
     {
+        $this->ajaxFunction();
         $this->load->model("model_surat");
         $result = $this->model_surat->getDataTableSurat($this->input->post(null, true), $_SESSION['typearsip']);
         $callback = array(

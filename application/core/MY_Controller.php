@@ -330,4 +330,18 @@ class MY_Controller extends CI_Controller
         $this->session->set_flashdata('configer',$config);
         redirect(base_url('error'));
     }
+
+    /**
+     * Fungsi untuk memberikan validasi fungsi jika ini adalah request AJAX
+     *
+     * @return void
+     */
+    public function ajaxFunction(){
+        if (!$this->input->is_ajax_request()){
+            $config['title']='Kesalahan URL';
+            $config['code']='403';
+            $config['desc']='URL yang anda tuju tidak bisa kami bawa kesana karena berbahaya';
+            $this->errorPage($config);
+        }
+    }
 }
