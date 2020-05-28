@@ -55,12 +55,12 @@ $(document).ready(function () {
               { "data": columns[4],
                 "render": function (data, type, row) {
                   // Tampilkan kolom aksi
-                  var class2 = "class='btn btn-mintygreen open'";
-                  var class1 = "class='btn btn-primary edit'";
-                  var class3 = "class='btn btn-danger delete'";
-                  var html = "<button "+class1+" href=''>EDIT</button> | "
-                  html += "<button "+class2+" id='"+data+" '>OPEN</button> "
-                  html += "<button "+class3+" href=''>DELETE</button>"
+                  var class2 = "btn open";
+                  var class1 = "class='btn edit'";
+                  var class3 = "class='btn delete'";
+                  var html = "<a "+class1+" href=''><i class='glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='Edit Surat' aria-hidden='true'><i class='fas fa-edit' style='color: #05c46b'></i></i></a> "
+                  html +=" <i class='btn open glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='Buka Surat' aria-hidden='true'><i class='fas fa-envelope-open-text' style='color: #00d8d6''></i></i> "
+                  html += "<a "+class3+" href=''><i class='glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='Hapus Surat' aria-hidden='true'><i class='fas fa-trash-alt' style='color: #ff3f34'></i></i></a>"
 
                   return html
                 },
@@ -110,7 +110,7 @@ $('#formarsip').submit(function (e) {
     url: "http://localhost/LideArsipan/arsip/delete",
     data: {'send':send,'type':type},
     type: "get",
-    dataType: "html",     
+    dataType: "html",
   });
 });
 
