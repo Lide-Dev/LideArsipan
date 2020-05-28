@@ -84,8 +84,8 @@ class Arsip extends MY_Controller
         $this->ajaxFunction();
         //AJAX View Modal
         //if (!$this->input->is_ajax_request()) exit("Unknown Address (401)");
+        $request = $this->input->get('send');
         if ($type === "open") {
-            $request = $this->input->get('send');
             $this->load->model("model_surat", "ms");
             $this->load->model("model_dokumen", "md");
             $this->load->model("model_datapengguna", "mdp");
@@ -106,7 +106,16 @@ class Arsip extends MY_Controller
             }
         }
         else if ($type === "delete"){
-            
+            $this->load->model("model_surat", "ms");
+            $data['arsip'] = $this->ms->GetSuratbyID($request, $_SESSION['typearsip']);
+            if (!empty($data['arsip'])) {
+                $load = $this->load->view("arsip/deletepage", $data, true);
+            }
+            else {
+                $data['title']='Kesalahan Pengiriman';
+                $data['desc']='Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
+                $load = $this->load->view("arsip/errorpage", $data, true);
+            }
         }
         echo $load;
     }
