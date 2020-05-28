@@ -18,15 +18,15 @@
       <label for="form_nosurat">Tipe Surat</label>
       <ul class="nav nav-pills">
         <li class="nav-item m-2">
-          <label class="nav-link active border border-londonsquare" for="form_tipesurat1" id="label_tipesurat1" data-toggle="tab" aria-selected="true">Surat Masuk</label>
+          <label class="nav-link active" for="form_tipesurat1" id="label_tipesurat1" data-toggle="tab" aria-selected="true"><i class="fa fa-arrow-circle-down"></i> Surat Masuk</label>
           <input type="radio" name="tipesurat" id="form_tipesurat1" value="suratmasuk" style="display:none" checked>
         </li>
         <li class="nav-item m-2">
-          <label class="nav-link border border-londonsquare" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false">Surat Keluar</label>
+          <label class="nav-link" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false"><i class="fa fa-arrow-circle-up"></i> Surat Keluar</label>
           <input type="radio" name="tipesurat" id="form_tipesurat2" value="suratkeluar" style="display:none">
         </li>
         <li class="nav-item m-2">
-          <label class="nav-link border border-londonsquare" for="form_tipesurat3" id="label_tipesurat3" data-toggle="tab" aria-selected="false">Disposisi</label>
+          <label class="nav-link" for="form_tipesurat3" id="label_tipesurat3" data-toggle="tab" aria-selected="false"><i class="fa fa-inbox"></i> Disposisi</label>
           <input type="radio" name="tipesurat" id="form_tipesurat3" value="disposisi" style="display:none">
         </li>
       </ul>
@@ -79,28 +79,29 @@
         <small id="div_form_count" class="form-text text-warning col-md-12">Tombol akan aktif jika telah memilih kategori!</small>
         <label id='form-kategori-error' class="form-text error col-md-12" for="form_kategori"></label>
       </div>
-    </div>
-    <div id="div_container_donekode" class="container border border-hintofelusive rounded pt-3" style="display: none">
+      <div id="div_container_donekode" class="container border border-hintofelusive rounded pt-3" style="display: none">
+        <div class="row">
+          <p class="col-md-6">Kode yang dipilih adalah: <b id="kode_pilih"></b></p>
+          <p class="col-md-6">Deskripsi Kode: <b id="tentang_pilih"></b></p>
+        </div>
+      </div>
       <div class="row">
-        <p class="col-md-6">Kode yang dipilih adalah: <b id="kode_pilih"></b></p>
-        <p class="col-md-6">Deskripsi Kode: <b id="tentang_pilih"></b></p>
+        <div class="col-md-12 mt-2">
+          <span class="d-none d-md-inline-block">
+            <button id="" type="button" class="btn btn-outline-success btn-md btn_form_pilih" disabled>
+              <span class="fas fa-check"></span> Pilih
+            </button>
+          </span>
+          <span class="d-none d-md-inline-block">
+            <button id="" type="button" class="btn btn-outline-danger btn-md btn_form_ulang" disabled><span class="fas fa-times"> </span> Ulang</button>
+          </span>
+          <button id="" type="button" class="btn btn-success btn-md d-md-none btn_form_pilih" disabled><span class="fas fa-check"></span></button>
+          <button id="" type="button" class="btn btn-danger btn-md d-md-none btn_form_ulang" disabled><span class="fas fa-times"></span></button>
+          <!-- button type="button" class="btn btn-freespeechblue px-3" disabled>Pilih</button -->
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12 mt-2">
-        <span class="d-none d-md-inline-block">
-          <button id="" type="button" class="btn btn-success btn-md btn_form_pilih" disabled>
-            <span class="fas fa-check"></span> Pilih
-          </button>
-        </span>
-        <span class="d-none d-md-inline-block">
-          <button id="" type="button" class="btn btn-danger btn-md btn_form_ulang" disabled><span class="fas fa-times"> </span> Ulang</button>
-        </span>
-        <button id="" type="button" class="btn btn-success btn-md d-md-none btn_form_pilih" disabled><span class="fas fa-check"></span></button>
-        <button id="" type="button" class="btn btn-danger btn-md d-md-none btn_form_ulang" disabled><span class="fas fa-times"></span></button>
-        <!-- button type="button" class="btn btn-freespeechblue px-3" disabled>Pilih</button -->
-      </div>
-    </div>
+
   </div><!-- End of form surat -->
 
   <div class="form-row">
@@ -152,10 +153,10 @@
   </div>
 
   <div class="form-group">
-    <label for="nama">Pilih Surat</label>
+    <label for="nama">Pilih File Surat</label>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text bg-hintofelusive" id="form_suratdocspan">Surat: </span>
+        <span class="input-group-text bg-hintofelusive" id="form_suratdocspan">Surat : </span>
       </div>
       <div class="custom-file col-md-6">
         <input type="file" class="custom-file-input" id="form_suratdoc" name="uploaddoc" accept="application/pdf,image/jpg,image/jpeg,image/png,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
@@ -167,6 +168,6 @@
   </div>
 
 
-  <button type="submit" class="btn btn-primary mb-3">Submit</button>
+  <button type="submit" class="btn btn-outline-primary mb-4"><i class="fas fa-save"></i> Simpan Arsip</button>
   </form>
 </div>

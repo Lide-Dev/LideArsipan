@@ -19,7 +19,7 @@ class Model_Dokumen extends MY_Model
         $value = array(
             'id_dokumen' => $id,
             'nama' => $data['raw_name'],
-            'extensi' => $data['file_ext'],
+            'ekstensi' => $data['file_ext'],
             'byte_file' => $data['file_size'],
         );
         $this->db->insert('dokumen', $value);

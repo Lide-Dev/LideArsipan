@@ -41,6 +41,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <?php if (!empty($page)&&$page==="dashboard"){ ?>
     <link rel="stylesheet" href=<?= base_url('assets/css/tutorial_dashboard.css') ?>>
     <link rel="stylesheet" href=<?= base_url('assets/css/jumbotron_dashboard.css') ?>>
+    <link rel="stylesheet" href=<?= base_url('assets/css/page/style.css') ?>>
     <?php }?>
     <?php if (!empty($page)&&$page==="arsip"){ ?>
     <link rel="stylesheet" href=<?= base_url('assets/css/button_table.css') ?>>

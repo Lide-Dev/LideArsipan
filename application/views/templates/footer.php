@@ -142,7 +142,7 @@
               <i class="fas fa-envelope mr-3"></i> condongcatur1946@gmail.com</p>
             <p>
               <i class="fas fa-print mr-3"></i> (0274) 885 689</p>
-            <p class="float-right"><a href="#">Back to top</a></p>
+            <p class="float-right"><a href="#"><i class='glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='Kembali Ke Atas' aria-hidden='true'><i class="fas fa-angle-double-up fa-2x"></i></i></a></p>
           </div>
 
           <!-- Grid column -->
