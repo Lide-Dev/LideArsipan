@@ -58,9 +58,9 @@ $(document).ready(function () {
                   var class2 = "class='btn btn-mintygreen open'";
                   var class1 = "class='btn btn-primary edit'";
                   var class3 = "class='btn btn-danger delete'";
-                  var html = "<a "+class1+" href=''>EDIT</a> | "
+                  var html = "<button "+class1+" href=''>EDIT</button> | "
                   html += "<button "+class2+" id='"+data+" '>OPEN</button> "
-                  html += "<a "+class3+" href=''>DELETE</a>"
+                  html += "<button "+class3+" href=''>DELETE</button>"
 
                   return html
                 },
@@ -71,8 +71,18 @@ $(document).ready(function () {
 
           $('#tabel_arsip tbody').on('click', '.open', function () {
            var data = table.row($(this).parents('tr')).data();
+           $('#modalLabel').text('Membuka Arsip');
            $('#modalarsip').modal('show');
+           $('#okID').hide();
            openpage(data[tp_arsip]);
+          });
+
+          $('#tabel_arsip tbody').on('click', '.delete', function () {
+            var data = table.row($(this).parents('tr')).data();
+            $('#modalLabel').text('Membuang Arsip');
+            $('#modalarsip').modal('show');
+            $('#okID').show();
+            deletepage(data[tp_arsip]);
           });
         }
       }
@@ -80,6 +90,37 @@ $(document).ready(function () {
   });
 
 
+});
+
+$('#formarsip').submit(function (e) {
+  e.preventDefault();
+  var send = $(this).serialize();
+  var type = $('#formarsip').attr('class');
+  if ($('#test').hasClass('del')){
+    type = 'del'
+  }
+  else if ($('#test').hasClass('edit')){
+    type = 'edit'
+  }
+  else {
+    type = 'empty'
+  }
+
+  $.ajax({
+    url: "http://localhost/LideArsipan/arsip/delete",
+    data: {'send':send,'type':type},
+    type: "get",
+    dataType: "html",     
+  });
+});
+
+$('#cancelID').click(function(){
+  $('#formarsip').removeClass('del');
+  $('#formarsip').removeClass('edit');
+  $('#ar_spinner').show();
+  $('#modal_footer').hide();
+  $('#ar_content').hide();
+  $('#ar_form').hide();
 });
 
 function openpage(data){
@@ -99,6 +140,29 @@ function openpage(data){
       $('#ar_spinner').hide();
       $('#modal_footer').show();
       $('#ar_content').show();
+      //$('#ar_form').show();
+    }
+  });
+}
+
+function deletepage(data){
+  $.ajax({
+    url: "http://localhost/LideArsipan/arsip/modal/get/delete",
+    data: {'send':data},
+    type: "get",
+    dataType: "html",
+    beforeSend: function () {
+      $('#ar_spinner').show();
+      $('#modal_footer').hide();
+      $('#ar_content').hide();
+      $('#ar_form').hide();
+     },
+    success: function (data) {
+      $("#ar_content").html(data);
+      $('#ar_spinner').hide();
+      $('#modal_footer').show();
+      $('#ar_content').show();
+      $('#formarsip').addClass('del');
       //$('#ar_form').show();
     }
   });
