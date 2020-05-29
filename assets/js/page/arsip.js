@@ -1,9 +1,9 @@
-var baseurl='http://localhost/LideArsipan/';
+var baseurl = 'http://localhost/LideArsipan/';
 $(document).ready(function () {
-  var table='';
-  var tp_arsip='';
+  var table = '';
+  var tp_arsip = '';
   $.ajax({
-    url: baseurl+"ajaxarsip/count",
+    url: baseurl + "ajaxarsip/count",
     type: 'post',
     dataType: "JSON",
     success: function (data) {
@@ -13,7 +13,7 @@ $(document).ready(function () {
         $('#div-table').hide();
       }
       else {
-        var columns=[''];
+        var columns = [''];
         if (data['type'] === "dp") {
           columns[0] = "id_kode";
           columns[1] = "klasifikasi";
@@ -26,12 +26,12 @@ $(document).ready(function () {
           columns[1] = "klasifikasi";
           columns[2] = "keterangan";
           columns[3] = "tgl_penerimaan";
-          if (data['type']==='sm')
+          if (data['type'] === 'sm')
             columns[4] = 'id_suratmasuk'
           else
             columns[4] = 'id_suratkeluar'
         }
-        tp_arsip=columns[4];
+        tp_arsip = columns[4];
         if (data['rows'] > 0) {
           $('#div-table').show();
           table = $('#tabel_arsip').DataTable({
@@ -52,15 +52,17 @@ $(document).ready(function () {
               { "data": columns[3] },
               // Tampilkan telepon
               // Tampilkan alamat
-              { "data": columns[4],
+              {
+                "data": columns[4],
                 "render": function (data, type, row) {
                   // Tampilkan kolom aksi
-                  var class2 = "btn open";
-                  var class1 = "class='btn edit'";
-                  var class3 = "class='btn delete'";
-                  var html = "<a "+class1+" href=''><i class='glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='Edit Surat' aria-hidden='true'><i class='fas fa-edit' style='color: #05c46b'></i></i></a> "
-                  html +=" <i class='btn open glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='Buka Surat' aria-hidden='true'><i class='fas fa-envelope-open-text' style='color: #00d8d6''></i></i> "
-                  html += "<a "+class3+" href=''><i class='glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='Hapus Surat' aria-hidden='true'><i class='fas fa-trash-alt' style='color: #ff3f34'></i></i></a>"
+                  var classs = "btn open glyphicon glyphicon-play whiteText";
+                  var content1 = "<i class='fas fa-edit' style='color: #05c46b'></i>";
+                  var content2 = "<i class='fas fa-envelope-open-text' style='color: #00d8d6''></i>";
+                  var content3 = "<i class='fas fa-trash-alt' style='color: #ff3f34'></i>";
+                  var html = "<i class='" + classs + " edit' data-toggle='tooltip' data-placement='top' title='Edit Surat' aria-hidden='true'>" + content1 + "</i>"
+                  html += " <i class='" + classs + " open' data-toggle='tooltip' data-placement='top' title='Buka Surat' aria-hidden='true'>" + content2 + "</i> "
+                  html += "<i class='" + classs + " delete' data-toggle='tooltip' data-placement='top' title='Hapus Surat' aria-hidden='true'>" + content3 + "</i>"
 
                   return html
                 },
@@ -70,14 +72,18 @@ $(document).ready(function () {
           });
 
           $('#tabel_arsip tbody').on('click', '.open', function () {
-           var data = table.row($(this).parents('tr')).data();
-           $('#modalLabel').text('Membuka Arsip');
-           $('#modalarsip').modal('show');
-           $('#okID').hide();
-           openpage(data[tp_arsip]);
+            $('#ar_content').hide();
+            $('#ar_form').hide();
+            var data = table.row($(this).parents('tr')).data();
+            $('#modalLabel').text('Membuka Arsip');
+            $('#modalarsip').modal('show');
+            $('#okID').hide();
+            openpage(data[tp_arsip]);
           });
 
           $('#tabel_arsip tbody').on('click', '.delete', function () {
+            $('#ar_content').hide();
+            $('#ar_form').hide();
             var data = table.row($(this).parents('tr')).data();
             $('#modalLabel').text('Membuang Arsip');
             $('#modalarsip').modal('show');
@@ -95,26 +101,43 @@ $(document).ready(function () {
 $('#formarsip').submit(function (e) {
   e.preventDefault();
   var send = $(this).serialize();
-  var type = $('#formarsip').attr('class');
-  if ($('#test').hasClass('del')){
-    type = 'del'
+  var type1 = '';
+  if ($('#formarsip').hasClass('del')) {
+    type1 = 'delete'
   }
-  else if ($('#test').hasClass('edit')){
-    type = 'edit'
+  else if ($('#test').hasClass('edit')) {
+    type1 = 'patch'
   }
   else {
-    type = 'empty'
+    type1 = ''
   }
 
   $.ajax({
-    url: "http://localhost/LideArsipan/arsip/delete",
-    data: {'send':send,'type':type},
-    type: "get",
+    url: "http://localhost/LideArsipan/arsip/request/" + type1,
+    type: 'post',
+    data: { 'send': send },
     dataType: "html",
+    beforeSend: function () {
+      $('#ar_spinner').show();
+      $('#modal_footer').hide();
+      $('#ar_content').hide();
+      $('#ar_form').hide();
+    },
+    success: function (data) {
+      $("#ar_content").html(data);
+      $('#ar_spinner').hide();
+      $('#modal_footer').show();
+      $('#ar_content').show();
+      $('#okID').hide();
+      $('#formarsip').removeClass('del');
+      $('#formarsip').removeClass('edit');
+      $('#tabel_arsip').DataTable().ajax.reload();
+      //$('#ar_form').show();
+    }
   });
 });
 
-$('#cancelID').click(function(){
+$('#cancelID, .close').click(function () {
   $('#formarsip').removeClass('del');
   $('#formarsip').removeClass('edit');
   $('#ar_spinner').show();
@@ -123,10 +146,10 @@ $('#cancelID').click(function(){
   $('#ar_form').hide();
 });
 
-function openpage(data){
+function openpage(data) {
   $.ajax({
     url: "http://localhost/LideArsipan/arsip/modal/get/open",
-    data: {'send':data},
+    data: { 'send': data },
     type: "get",
     dataType: "html",
     beforeSend: function () {
@@ -134,7 +157,7 @@ function openpage(data){
       $('#modal_footer').hide();
       $('#ar_content').hide();
       $('#ar_form').hide();
-     },
+    },
     success: function (data) {
       $("#ar_content").html(data);
       $('#ar_spinner').hide();
@@ -145,10 +168,10 @@ function openpage(data){
   });
 }
 
-function deletepage(data){
+function deletepage(data) {
   $.ajax({
     url: "http://localhost/LideArsipan/arsip/modal/get/delete",
-    data: {'send':data},
+    data: { 'send': data },
     type: "get",
     dataType: "html",
     beforeSend: function () {
@@ -156,7 +179,7 @@ function deletepage(data){
       $('#modal_footer').hide();
       $('#ar_content').hide();
       $('#ar_form').hide();
-     },
+    },
     success: function (data) {
       $("#ar_content").html(data);
       $('#ar_spinner').hide();

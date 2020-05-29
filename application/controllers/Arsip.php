@@ -98,22 +98,20 @@ class Arsip extends MY_Controller
                 $data['dokumen']['byte_file'] = $this->formatBytes($data['dokumen']['byte_file']);
                 $data['extfile'] = $this->file_check($data['dokumen']['ekstensi']);
                 $load = $this->load->view("arsip/openpage", $data, true); //MODAL VIEW (ARSIP/OPENPAGE)
-            }
-            else {
-                $data['title']='Kesalahan Pengiriman';
-                $data['desc']='Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
+            } else {
+                $data['title'] = 'Kesalahan Pengiriman';
+                $data['desc'] = 'Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
                 $load = $this->load->view("arsip/errorpage", $data, true);
             }
-        }
-        else if ($type === "delete"){
+        } else if ($type === "delete") {
             $this->load->model("model_surat", "ms");
             $data['arsip'] = $this->ms->GetSuratbyID($request, $_SESSION['typearsip']);
             if (!empty($data['arsip'])) {
+                $this->session->set_tempdata('id_surat',$request,120);
                 $load = $this->load->view("arsip/deletepage", $data, true);
-            }
-            else {
-                $data['title']='Kesalahan Pengiriman';
-                $data['desc']='Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
+            } else {
+                $data['title'] = 'Kesalahan Pengiriman';
+                $data['desc'] = 'Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
                 $load = $this->load->view("arsip/errorpage", $data, true);
             }
         }
@@ -168,5 +166,53 @@ class Arsip extends MY_Controller
 
         header('Content-Type: application/json');
         echo json_encode($callback);
+    }
+
+    public function requestModal($request)
+    {
+        $this->ajaxFunction();
+        //echo $request;
+        //print_r($_SESSION);
+        if (!empty($request)) {
+            if ($request === 'delete') {
+                //echo $_SESSION['id_surat']."kontol";
+                $load=$this->deleteSurat($_SESSION['id_surat']);
+            } else if ($request === 'edit') {
+                $this->output->set_status_header('400');
+                $data['title'] = 'Fitur Belum Dibuat';
+                $data['desc'] = 'Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
+                $load = $this->load->view("arsip/errorpage", $data, true);
+            } else {
+                $this->output->set_status_header('400');
+                $data['title'] = 'Kesalahan Pengiriman';
+                $data['desc'] = 'Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
+                $load = $this->load->view("arsip/errorpage", $data, true);
+            }
+        } else {
+            $this->output->set_status_header('400');
+            $data['title'] = 'Kesalahan Pengiriman';
+            $data['desc'] = 'Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
+            $load = $this->load->view("arsip/errorpage", $data, true);
+        }
+        echo $load;
+    }
+
+    public function deleteSurat($id)
+    {
+        $request = $id;
+        $this->load->model("model_surat", "ms");
+        $data['arsip'] = $this->ms->GetSuratbyID($request, $_SESSION['typearsip']);
+        if (!empty($data['arsip'])) {
+            $this->ms->DeleteTempSuratbyID($request, $_SESSION['typearsip']);
+            $data['title'] = 'Berhasil Menghapus Arsip!';
+            $data['desc'] = 'Penghapusan berhasil namun ini bersifat tidak permanen. Jika ingin menghapus secara permanen kontak web admin ini.';
+            $load = $this->load->view("arsip/completepage", $data, true);
+        } else {
+            $this->output->set_status_header('400');
+            $data['title'] = 'Kesalahan Pengiriman';
+            $data['desc'] = 'Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
+            $load = $this->load->view("arsip/errorpage", $data, true);
+        }
+        return $load;
     }
 }

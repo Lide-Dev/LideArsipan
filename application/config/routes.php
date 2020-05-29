@@ -83,7 +83,9 @@ $route["arsip/suratmasuk"]= "arsip/showtable/sm";
 $route["arsip/suratkeluar"]= "arsip/showtable/sk";
 $route["arsip/disposisi"]= "arsip/showtable/dp";
 $route["arsip/dokumen/get/(:any)"] = "arsip/getdokumendownload/$1";
+$route["arsip/request/(:any)"] = "arsip/requestmodal/$1";
 $route["arsip/modal/get/(:any)"] = "arsip/getviewmodal/$1";
+
 
 $route["ajaxarsip/table"]="arsip/gettable";
 $route["ajaxarsip/count"]="arsip/getcountajax";

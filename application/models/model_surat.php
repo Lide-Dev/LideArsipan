@@ -20,6 +20,41 @@ class Model_Surat extends MY_Model
         return $query->row_array();
     }
 
+    function DeleteTempSuratbyID($id,$type){
+        if ($type === 'sm'){
+            $table = 'surat_masuk';
+            $type = 'suratmasuk';
+        }
+        else if ($type === 'sk'){
+            $table = 'surat_keluar';
+            $type = 'suratkeluar';
+        }
+        else {
+            $table = 'disposisi';
+            $type = 'disposisi';
+        }
+        $this->db->where('id_'.$type, $id);
+        $this->db->set('sampah',1);
+        $this->db->update($table);
+    }
+
+    function DeletePermSuratbyID($id,$type){
+        if ($type === 'sm'){
+            $table = 'surat_masuk';
+            $type = 'suratmasuk';
+        }
+        else if ($type === 'sk'){
+            $table = 'surat_keluar';
+            $type = 'suratkeluar';
+        }
+        else {
+            $table = 'disposisi';
+            $type = 'disposisi';
+        }
+        $this->db->where('id_'.$type, $id);
+        $this->db->delete($table);
+    }
+
     function FixDatePicker($data)
     {
         $data = explode("/", $data);
@@ -131,7 +166,7 @@ class Model_Surat extends MY_Model
             'limitmax' => 60
         );
         $this->db->join('kode', 'kode.id_kode = ' . $typesurat . '.id_kode');
-
+        $this->db->where('sampah',0);
         if ($type === 'datatables') {
             $column2 = '.keterangan';
             if ($typesurat==='dp'){

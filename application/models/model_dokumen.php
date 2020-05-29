@@ -32,4 +32,11 @@ class Model_Dokumen extends MY_Model
 
         return $query->row_array();
     }
+
+    function DeleteDokumenbyID($id){
+        $this->db->where('id_dokumen',$id);
+        $this->db->delete('dokumen');
+    }
+
+
 }
