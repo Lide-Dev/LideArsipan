@@ -1,58 +1,144 @@
 <?php
 class Model_Surat extends MY_Model
 {
-    function GetSuratbyID($id, $type){
-        if ($type === 'sm'){
+    function GetSuratbyID($id, $type)
+    {
+        if ($type === 'sm') {
             $table = 'surat_masuk';
             $type = 'suratmasuk';
-        }
-        else if ($type === 'sk'){
+        } else if ($type === 'sk') {
             $table = 'surat_keluar';
             $type = 'suratkeluar';
-        }
-        else {
+        } else {
             $table = 'disposisi';
             $type = 'disposisi';
         }
-        $this->db->where('id_'.$type,$id);
-        $query=$this->db->get($table);
+        $this->db->where('id_' . $type, $id);
+        $query = $this->db->get($table);
 
         return $query->row_array();
     }
 
-    function DeleteTempSuratbyID($id,$type){
-        if ($type === 'sm'){
+    function DeleteTempSuratbyID($id, $type)
+    {
+        if ($type === 'sm') {
             $table = 'surat_masuk';
             $type = 'suratmasuk';
-        }
-        else if ($type === 'sk'){
+        } else if ($type === 'sk') {
             $table = 'surat_keluar';
             $type = 'suratkeluar';
-        }
-        else {
+        } else {
             $table = 'disposisi';
             $type = 'disposisi';
         }
-        $this->db->where('id_'.$type, $id);
-        $this->db->set('sampah',1);
+        $this->db->where('id_' . $type, $id);
+        $this->db->set('sampah', 1);
         $this->db->update($table);
     }
 
-    function DeletePermSuratbyID($id,$type){
-        if ($type === 'sm'){
+    function DeletePermSuratbyID($id, $type)
+    {
+        if ($type === 'sm') {
             $table = 'surat_masuk';
             $type = 'suratmasuk';
-        }
-        else if ($type === 'sk'){
+        } else if ($type === 'sk') {
             $table = 'surat_keluar';
             $type = 'suratkeluar';
-        }
-        else {
+        } else {
             $table = 'disposisi';
             $type = 'disposisi';
         }
-        $this->db->where('id_'.$type, $id);
+        $this->db->where('id_' . $type, $id);
         $this->db->delete($table);
+    }
+
+    function EditSuratbyID($id, $type, $data)
+    {
+        if ($type === 'sm') {
+            $table = 'surat_masuk';
+            $type = 'suratmasuk';
+            $data = array(
+                'no_surat' => $data['nosurat_'],
+                'asal_surat' => $data['asalsurat_'],
+                'isi_ringkas' => $data['isiringkas_'],
+                'keterangan' => $data['keterangan_'],
+                'lokasi_arsip' => $data['lokasiarsip_']
+            );
+        } else if ($type === 'sk') {
+            $table = 'surat_keluar';
+            $type = 'suratkeluar';
+            $data = array(
+                'no_surat' => $data['nosurat_'],
+                'surat_dikirim' => $data['pengirim_'],
+                'isi_ringkas' => $data['isiringkas_'],
+                'keterangan' => $data['keterangan_'],
+                'lokasi_arsip' => $data['lokasiarsip_']
+            );
+        } else {
+            $table = 'disposisi';
+            $type = 'disposisi';
+            $data = array(
+                'no_agenda' => $data['noagenda_'],
+                'perihal' => $data['perihal_'],
+                'dituju' => $data['dituju_'],
+                'pengirim' => $data['pengirim_'],
+                'isi_disposisi' => $data['isidisposisi_']
+            );
+        }
+        
+        $this->db->where('id_' . $type, $id);
+        $this->db->update($table, $data);
+    }
+
+    function EditSuratValidatebyID($id, $type, $data)
+    {
+        if ($type === 'sm') {
+            $table = 'surat_masuk';
+            $type = 'suratmasuk';
+            $data = array(
+                'no_surat' => $data['nosurat_'],
+                'asal_surat' => $data['asalsurat_'],
+                'isi_ringkas' => $data['isiringkas_'],
+                'keterangan' => $data['keterangan_'],
+                'lokasi_arsip' => $data['lokasiarsip_']
+            );
+        } else if ($type === 'sk') {
+            $table = 'surat_keluar';
+            $type = 'suratkeluar';
+            $data = array(
+                'no_surat' => $data['nosurat_'],
+                'surat_dikirim' => $data['pengirim_'],
+                'isi_ringkas' => $data['isiringkas_'],
+                'keterangan' => $data['keterangan_'],
+                'lokasi_arsip' => $data['lokasiarsip_']
+            );
+        } else {
+            $table = 'disposisi';
+            $type = 'disposisi';
+            $data = array(
+                'no_agenda' => $data['noagenda_'],
+                'perihal' => $data['perihal_'],
+                'dituju' => $data['dituju_'],
+                'pengirim' => $data['pengirim_'],
+                'isi_disposisi' => $data['isidisposisi_']
+            );
+        }
+        $column = array_keys($data);
+        $muchkey = sizeof($data);
+        $this->db->select(implode(', ',$column));
+        $this->db->where('id_' . $type, $id);
+        $query = $this->db->get($table);
+        $real = $query->row_array();
+        $changes = array();
+        for ($i = 0; $i < $muchkey; $i++) {
+            if ($data[$column[$i]] === $real[$column[$i]] || ( empty($data[$column[$i]]) && empty($data[$column[$i]]) ) ) {
+                $changes[$i] = false;
+            } else {
+                $changes[$i] = true;
+            }
+        }
+        $return = array ('changes'=> $changes,'size'=> $muchkey);
+        return $return;
     }
 
     function FixDatePicker($data)
@@ -129,13 +215,11 @@ class Model_Surat extends MY_Model
     {
         $params = $data;
 
-        if ($type === 'dp'){
+        if ($type === 'dp') {
             $type = 'disposisi';
-        }
-        else if ($type === 'sk'){
+        } else if ($type === 'sk') {
             $type = 'surat_keluar';
-        }
-        else{
+        } else {
             $type = 'surat_masuk';
         }
         $query = $this->querySurat('datatables', $params, $type);
@@ -166,11 +250,11 @@ class Model_Surat extends MY_Model
             'limitmax' => 60
         );
         $this->db->join('kode', 'kode.id_kode = ' . $typesurat . '.id_kode');
-        $this->db->where('sampah',0);
+        $this->db->where('sampah', 0);
         if ($type === 'datatables') {
             $column2 = '.keterangan';
-            if ($typesurat==='dp'){
-                $column2= '.perihal';
+            if ($typesurat === 'dp') {
+                $column2 = '.perihal';
             }
             $order_field = $params['order'][0]['column'];
             $order_type = $params['order'][0]['dir'];
@@ -199,7 +283,7 @@ class Model_Surat extends MY_Model
                 }
                 $this->db->limit($limit, $start);
             }
-            if ($order_field!=='1'){
+            if ($order_field !== '1') {
                 $this->db->order_by($typesurat . "." . $params['columns'][$order_field]['data'], $order_type);
             }
 
@@ -212,12 +296,12 @@ class Model_Surat extends MY_Model
                 $data[$a] = $i;
                 $a++;
             }
-            if ($order_field==='1'){
-                $columns = array_column($data,'klasifikasi');
+            if ($order_field === '1') {
+                $columns = array_column($data, 'klasifikasi');
                 if ($order_type === 'asc')
-                   array_multisort($columns,SORT_ASC,$data);
+                    array_multisort($columns, SORT_ASC, $data);
                 else
-                    array_multisort($columns,SORT_DESC,$data);
+                    array_multisort($columns, SORT_DESC, $data);
             }
             return $data;
         } else {
@@ -231,32 +315,32 @@ class Model_Surat extends MY_Model
         if (!is_array($kode))
             $kode = explode(".", $kode);
 
-            $this->db->where("id_kode", $kode[0] . ".0.0.0");
-            $query = $this->db->get('kode')->row(0);
-            $result = $query->nama;
-            $this->db->reset_query();
+        $this->db->where("id_kode", $kode[0] . ".0.0.0");
+        $query = $this->db->get('kode')->row(0);
+        $result = $query->nama;
+        $this->db->reset_query();
         if ($kode[1] !== "0") {
             $result .= " / ";
-            $temp = array_slice($kode,0,2);
-            $temp = implode(".",$temp);
-            $this->db->where("id_kode", $temp. ".0.0");
+            $temp = array_slice($kode, 0, 2);
+            $temp = implode(".", $temp);
+            $this->db->where("id_kode", $temp . ".0.0");
             $query = $this->db->get('kode')->row(0);
             $result .= $query->nama;
             $this->db->reset_query();
         }
         if ($kode[2] !== "0") {
             $result .= " / ";
-            $temp = array_slice($kode,0,3);
-            $temp = implode(".",$temp);
-            $this->db->where("id_kode", $temp. ".0");
+            $temp = array_slice($kode, 0, 3);
+            $temp = implode(".", $temp);
+            $this->db->where("id_kode", $temp . ".0");
             $query = $this->db->get('kode')->row(0);
             $result .= $query->nama;
             $this->db->reset_query();
         }
         if ($kode[3] !== "0") {
             $result .= " / ";
-            $temp = array_slice($kode,0,4);
-            $temp = implode(".",$temp);
+            $temp = array_slice($kode, 0, 4);
+            $temp = implode(".", $temp);
             $this->db->where("id_kode", $temp);
             $query = $this->db->get('kode')->row(0);
             $result .= $query->nama;

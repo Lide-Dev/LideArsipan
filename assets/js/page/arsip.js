@@ -56,7 +56,7 @@ $(document).ready(function () {
                 "data": columns[4],
                 "render": function (data, type, row) {
                   // Tampilkan kolom aksi
-                  var classs = "btn open glyphicon glyphicon-play whiteText";
+                  var classs = "btn glyphicon glyphicon-play whiteText";
                   var content1 = "<i class='fas fa-edit' style='color: #05c46b'></i>";
                   var content2 = "<i class='fas fa-envelope-open-text' style='color: #00d8d6''></i>";
                   var content3 = "<i class='fas fa-trash-alt' style='color: #ff3f34'></i>";
@@ -72,8 +72,7 @@ $(document).ready(function () {
           });
 
           $('#tabel_arsip tbody').on('click', '.open', function () {
-            $('#ar_content').hide();
-            $('#ar_form').hide();
+            resetmodal();
             var data = table.row($(this).parents('tr')).data();
             $('#modalLabel').text('Membuka Arsip');
             $('#modalarsip').modal('show');
@@ -82,13 +81,21 @@ $(document).ready(function () {
           });
 
           $('#tabel_arsip tbody').on('click', '.delete', function () {
-            $('#ar_content').hide();
-            $('#ar_form').hide();
+            resetmodal();
             var data = table.row($(this).parents('tr')).data();
             $('#modalLabel').text('Membuang Arsip');
             $('#modalarsip').modal('show');
             $('#okID').show();
             deletepage(data[tp_arsip]);
+          });
+
+          $('#tabel_arsip tbody').on('click', '.edit', function () {
+           resetmodal();
+            var data = table.row($(this).parents('tr')).data();
+            $('#modalLabel').text('Mengubah Data Arsip');
+            $('#modalarsip').modal('show');
+            $('#okID').show();
+            editpage(data[tp_arsip]);
           });
         }
       }
@@ -105,7 +112,7 @@ $('#formarsip').submit(function (e) {
   if ($('#formarsip').hasClass('del')) {
     type1 = 'delete'
   }
-  else if ($('#test').hasClass('edit')) {
+  else if ($('#formarsip').hasClass('edit')) {
     type1 = 'patch'
   }
   else {
@@ -120,6 +127,8 @@ $('#formarsip').submit(function (e) {
     beforeSend: function () {
       $('#ar_spinner').show();
       $('#modal_footer').hide();
+      $('#ar_content').html('');
+      $('#ar_form').html('');
       $('#ar_content').hide();
       $('#ar_form').hide();
     },
@@ -138,6 +147,8 @@ $('#formarsip').submit(function (e) {
 });
 
 $('#cancelID, .close').click(function () {
+  $('#ar_content').html('');
+  $('#ar_form').html('');
   $('#formarsip').removeClass('del');
   $('#formarsip').removeClass('edit');
   $('#ar_spinner').show();
@@ -153,6 +164,8 @@ function openpage(data) {
     type: "get",
     dataType: "html",
     beforeSend: function () {
+      $('#ar_content').html('');
+      $('#ar_form').html('');
       $('#ar_spinner').show();
       $('#modal_footer').hide();
       $('#ar_content').hide();
@@ -175,6 +188,8 @@ function deletepage(data) {
     type: "get",
     dataType: "html",
     beforeSend: function () {
+      $('#ar_content').html('');
+      $('#ar_form').html('');
       $('#ar_spinner').show();
       $('#modal_footer').hide();
       $('#ar_content').hide();
@@ -189,6 +204,36 @@ function deletepage(data) {
       //$('#ar_form').show();
     }
   });
+}
+
+function editpage(data) {
+  $.ajax({
+    url: "http://localhost/LideArsipan/arsip/modal/get/edit",
+    data: { 'send': data },
+    type: "get",
+    dataType: "html",
+    beforeSend: function () {
+      $('#ar_spinner').show();
+      $('#modal_footer').hide();
+      $('#ar_content').hide();
+      $('#ar_form').hide();
+    },
+    success: function (data) {
+      $("#ar_form").html(data);
+      $('#ar_spinner').hide();
+      $('#modal_footer').show();
+      $('#ar_form').show();
+      $('#formarsip').addClass('edit');
+      //$('#ar_form').show();
+    }
+  });
+}
+
+function resetmodal() {
+  $('#ar_content').html('');
+  $('#ar_form').html('');
+  $('#ar_content').hide();
+  $('#ar_form').hide();
 }
 
 
