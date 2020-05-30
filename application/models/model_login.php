@@ -215,7 +215,7 @@ class Model_Login extends MY_Model
         return $num_rows;
     }
 
-    function updateDataLogin($id, $data)
+    function updateDataLogin($id, $data,$iduser)
     {
         if (empty($data['email'])) {
             $data['email'] = 'undefined';
@@ -227,9 +227,12 @@ class Model_Login extends MY_Model
 
         $this->db->where('id_user', $id);
         $this->db->update('userlogin', $data);
+
+        $desclog = "(ID_User => {$id} , Email => {$data['email']} , Username => {$data['username']} , ID_TriggerUser => {$iduser})";
+        $this->createLog("003",$desclog);
     }
 
-    function banAccount($id, $data)
+    function banAccount($id, $data, $iduser)
     {
         $id2 = $this->getIdRandom(null,10,'BA');
         $date = date("Y-m-d H:i:s");
@@ -261,10 +264,23 @@ class Model_Login extends MY_Model
             'finish_date' => $date2
         );
         $this->db->insert('banakun', $value);
+
+        $desclog = "(ID_Ban => {$id2} , ID_User => {$id} , ID_TriggerUser => {$iduser})";
+        $this->createLog("009",$desclog);
     }
 
-    function unbanAccount($id){
-        $this->db->delete('banakun', array('id_' => $id));
+    function unbanAccount($id,$iduser){
+        $date = date("Y-m-d H:i:s");
+        $date2 = strtotime("-2 day", strtotime($date));
+        $date2 = date("Y-m-d H:i:s", $date2);
+
+        $this->db->where('id_user',$id);
+        $query=$this->db->get('banakun')->row_array();
+
+        $this->db->where('id_user',$id);
+        $this->db->update('banakun', array('finish_date' => $date2));
+        $desclog = "(ID_Ban => {$query['id_ban']} , ID_User => {$id} , ID_TriggerUser => {$iduser})";
+        $this->createLog("010",$desclog);
     }
 
     function validBan($id){

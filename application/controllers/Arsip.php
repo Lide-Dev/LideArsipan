@@ -7,7 +7,13 @@ class Arsip extends MY_Controller
     {
         $data = $this->initConfig("arsip", "Data Arsip");
         $this->load->model("model_surat");
-        $data['tablerow'] = $this->model_surat->getCountSurat();
+        if (!empty($_SESSION['typearsip']) || $_SESSION['typearsip'] !== 'none'){
+            $type = $_SESSION['typearsip'];
+        }
+        else {
+            $type = '';
+        }
+        $data['tablerow'] = $this->model_surat->getCountSurat($type);
         $config = array(
             "dialog_center" => false,
             "id" => array(
@@ -235,7 +241,7 @@ class Arsip extends MY_Controller
         $this->load->model("model_surat", "ms");
         $data['arsip'] = $this->ms->GetSuratbyID($request, $_SESSION['typearsip']);
         if (!empty($data['arsip'])) {
-            $this->ms->DeleteTempSuratbyID($request, $_SESSION['typearsip']);
+            $this->ms->DeleteTempSuratbyID($request, $_SESSION['typearsip'], $_SESSION['idlogin']);
             $data['title'] = 'Berhasil Menghapus Arsip!';
             $data['desc'] = 'Penghapusan berhasil namun ini bersifat tidak permanen. Jika ingin menghapus secara permanen kontak web admin ini.';
             $load = $this->load->view("arsip/completepage", $data, true);
@@ -263,7 +269,7 @@ class Arsip extends MY_Controller
             }
 
             if ($changes) {
-                $this->ms->EditSuratbyID($request, $_SESSION['typearsip'], $data);
+                $this->ms->EditSuratbyID($request, $_SESSION['typearsip'], $data, $_SESSION['idlogin']);
                 $this->output->set_status_header('200');
                 $data['title'] = 'Berhasil Mengubah Data Arsip!';
                 $data['desc'] = 'Pengubahan data arsip telah dilakukan!';

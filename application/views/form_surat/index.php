@@ -34,52 +34,54 @@
   </div>
   <div class="mt-2 mb-3">
     <p><b class="text-danger ">*</b>Klasifikasi Surat</p>
-    <div id="div_container_kode" class="container border border-hintofelusive rounded p-3">
-      <div class="row">
-        <div class="col-md-6">
-          <p id="kode">Kode yang dipilih: 000/0/0/0</p>
-        </div>
-        <div class="col-md-6">
-          <p id="tentang">Tentang: Belum dipilih</p>
-        </div>
-      </div>
-
-      <div class="form-row" id="form_row">
-        <div id="div_form_kategori" class="form-group col-md-6 ">
-          <label class="" for="form_kategori">Kategori</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-search" aria-hidden="true"></i>
-              </span>
-            </div>
-            <input type="text" class="form-control" id="form_kategori" name="kategori">
+    <div class="container border border-hintofelusive rounded p-3">
+      <div id="div_container_kode" >
+        <div class="row">
+          <div class="col-md-6">
+            <p id="kode">Kode yang dipilih: 000/0/0/0</p>
           </div>
+          <div class="col-md-6">
+            <p id="tentang">Tentang: Belum dipilih</p>
+          </div>
+        </div>
+
+        <div class="form-row" id="form_row">
+          <div id="div_form_kategori" class="form-group col-md-6 ">
+            <label class="" for="form_kategori">Kategori</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control" id="form_kategori" name="kategori">
+            </div>
 
 
+          </div>
+          <div id="div_form_kode" class="form-group col-md-6" style="display: none">
+            <label for="form_kode">Kode Utama</label>
+            <select class="form-control" id="form_kode">
+            </select>
+          </div>
+          <div id="div_form_subkode1" class="form-group col-md-6" style="display: none">
+            <label for="form_subkode1">Sub Kode 1</label>
+            <select class="form-control" id="form_subkode1">
+            </select>
+          </div>
+          <div id="div_form_subkode2" class="form-group col-md-6" style="display: none">
+            <label for="form_subkode2">Sub Kode 2</label>
+            <select class="form-control" id="form_subkode2">
+            </select>
+          </div>
+          <div id="div_form_done" class="form-group col-md-6" style="display: none">
+            <p class=" font-weight-bold">Tidak terdapat pilihan lagi.</p>
+          </div>
+          <small class="form-text col-md-12"><i>Pemilihan kode surat awalnya memilih kategori. Setelah itu kode utama dan seterusnya.</i></small>
+          <small id="div_form_count" class="form-text text-warning col-md-12">Tombol akan aktif jika telah memilih kategori!</small>
+          <label id='form-kategori-error' class="form-text error col-md-12" for="form_kategori"></label>
         </div>
-        <div id="div_form_kode" class="form-group col-md-6" style="display: none">
-          <label for="form_kode">Kode Utama</label>
-          <select class="form-control" id="form_kode">
-          </select>
-        </div>
-        <div id="div_form_subkode1" class="form-group col-md-6" style="display: none">
-          <label for="form_subkode1">Sub Kode 1</label>
-          <select class="form-control" id="form_subkode1">
-          </select>
-        </div>
-        <div id="div_form_subkode2" class="form-group col-md-6" style="display: none">
-          <label for="form_subkode2">Sub Kode 2</label>
-          <select class="form-control" id="form_subkode2">
-          </select>
-        </div>
-        <div id="div_form_done" class="form-group col-md-6" style="display: none">
-          <p class=" font-weight-bold">Tidak terdapat pilihan lagi.</p>
-        </div>
-        <small class="form-text col-md-12"><i>Pemilihan kode surat awalnya memilih kategori. Setelah itu kode utama dan seterusnya.</i></small>
-        <small id="div_form_count" class="form-text text-warning col-md-12">Tombol akan aktif jika telah memilih kategori!</small>
-        <label id='form-kategori-error' class="form-text error col-md-12" for="form_kategori"></label>
       </div>
-      <div id="div_container_donekode" class="container border border-hintofelusive rounded pt-3" style="display: none">
+      <div id="div_container_donekode" class="container pt-3" style="display: none">
         <div class="row">
           <p class="col-md-6">Kode yang dipilih adalah: <b id="kode_pilih"></b></p>
           <p class="col-md-6">Deskripsi Kode: <b id="tentang_pilih"></b></p>

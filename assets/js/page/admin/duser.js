@@ -127,6 +127,7 @@ $(document).ready(function () {
   $("#formadm").submit(function (e) {
     e.preventDefault();
     $('#ad_failed').hide();
+    $('#ad_success').hide();
     $('#ad_form').hide();
     $('#modal_footer').hide();
     $('#ad_spinner').show();

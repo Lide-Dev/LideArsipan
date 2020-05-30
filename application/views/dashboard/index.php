@@ -62,28 +62,28 @@
                  <div class="col">
                      <div class="counter">
                          <i class="fa fa-arrow-circle-down fa-2x"></i>
-                         <h2 class="timer count-title count-number" data-to="100" data-speed="1500"></h2>
+                         <h2 class="timer count-title count-number" data-to=<?=$count_sm?> data-speed="1500"></h2>
                          <p class="count-text ">Surat Masuk</p>
                      </div>
                  </div>
                  <div class="col">
                      <div class="counter">
                          <i class="fa fa-arrow-circle-up fa-2x"></i>
-                         <h2 class="timer count-title count-number" data-to="1700" data-speed="1500"></h2>
+                         <h2 class="timer count-title count-number" data-to=<?=$count_sk?> data-speed="1500"></h2>
                          <p class="count-text ">Surat Keluar</p>
                      </div>
                  </div>
                  <div class="col">
                      <div class="counter">
                          <i class="fa fa-inbox fa-2x"></i>
-                         <h2 class="timer count-title count-number" data-to="11900" data-speed="1500"></h2>
+                         <h2 class="timer count-title count-number" data-to=<?=$count_dp?> data-speed="1500"></h2>
                          <p class="count-text ">Disposisi</p>
                      </div>
                  </div>
                  <div class="col">
                      <div class="counter">
                          <i class="fa fa-file fa-2x"></i>
-                         <h2 class="timer count-title count-number" data-to="157" data-speed="1500"></h2>
+                         <h2 class="timer count-title count-number" data-to=<?=$count_all?> data-speed="1500"></h2>
                          <p class="count-text ">Arsip Saya</p>
                      </div>
                  </div>

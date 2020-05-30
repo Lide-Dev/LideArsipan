@@ -33,6 +33,12 @@ class Model_Dokumen extends MY_Model
         return $query->row_array();
     }
 
+    function GetByteFile(){
+        $this->db->select('byte_file');
+        $query=$this->db->get('dokumen');
+        return $query->result_array();
+    }
+
     function DeleteDokumenbyID($id){
         $this->db->where('id_dokumen',$id);
         $this->db->delete('dokumen');

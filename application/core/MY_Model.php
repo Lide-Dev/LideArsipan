@@ -137,6 +137,7 @@ class MY_Model extends CI_Model
      * - 009 = Ban Account
      * - 010 = Unban Account
      * - 011 = Default Value
+     * - 012 = Temporary Delete Surat
      * - Nilai diluar jangkauan akan menjadi nilai default. Nilai yang kurang dari tiga digit akan di konversi kan menjadi tiga digit.
      * @param string $desc
      * Deskripsi log yang dimasukkan atau berubah. Biasanya berisi siapa yang mengubah dll.
@@ -151,7 +152,7 @@ class MY_Model extends CI_Model
             $tipe = sprintf("%03d", $tipe);
         }
         $temp = intval($tipe);
-        if ($temp < 1 || $temp > 11) {
+        if ($temp < 1 || $temp > 12) {
             $tipe = "011";
         }
         if (empty($data)) {
@@ -167,10 +168,12 @@ class MY_Model extends CI_Model
         if (is_array($data)) {
             $data = print_r($data, true);
         }
+        $date = date("Y-m-d H:i:s");
         $data = array(
             'id_log' => $id,
             'id_logtipe' => $tipe,
-            'description' => $desc
+            'description' => $desc,
+            'created_time' => $date
         );
         $this->db->insert('log_activity', $data);
     }

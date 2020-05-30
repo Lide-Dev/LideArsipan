@@ -6,7 +6,7 @@ class Admin_DataUser extends MY_Controller
 
     public function index()
     {
-        $this->session->set_userdata('tablemode','normal');
+        $this->session->set_userdata('tablemode', 'normal');
         $data = $this->initConfig("adm_datauser", "Data User", false, true);
         $config = array(
             "dialog_center" => true,
@@ -41,11 +41,11 @@ class Admin_DataUser extends MY_Controller
             $this->editAccount();
         } else if ($request === 'pss') {
             $this->editPassword();
-        }
-        else if($request === 'ban') {
+        } else if ($request === 'ban') {
             $this->banAccount();
-        }
-        else {
+        } else if ($request === 'unban') {
+            $this->unbanAccount();
+        } else {
             $data['valid'] = false;
             $data['message'] = 'Session pada form ini habis! Silahkan ulang lagi.';
             $data['request'] = 'ssnexp';
@@ -120,7 +120,7 @@ class Admin_DataUser extends MY_Controller
             if ($valid) {
                 $valid2 = $this->mdp->getAccountDataWhere($_POST, true);
                 if ($valid2) {
-                    $this->mdp->addNewAccount($_POST, true);
+                    $this->mdp->addNewAccount($_POST, $_SESSION['idlogin']);
                     $data['valid'] = true;
                     $data['message'] = 'Akun telah dibuat!';
                     $data['request'] = 'new';
@@ -157,8 +157,8 @@ class Admin_DataUser extends MY_Controller
             $this->load->model('model_login', 'mdl');
             $isAvailable = $this->mdl->validIDData($id);
             if (empty($_POST['cek_email'])) {
-                $_POST['cek_email']=false;
-                $_POST['email']='undefined';
+                $_POST['cek_email'] = false;
+                $_POST['email'] = 'undefined';
             }
             if ($isAvailable > 0) {
                 $isAvailable = true;
@@ -190,26 +190,22 @@ class Admin_DataUser extends MY_Controller
                 $dataerror .= 'Kesalahan format pada input data username. ';
             }
 
-            if($_POST['cek_email']){
+            if ($_POST['cek_email']) {
                 if ($isAvailable && $validname && $validemail) {
                     $valid = true;
                 } else {
                     $valid = false;
                 }
-
-            }
-            else{
+            } else {
                 if ($isAvailable && $validname) {
                     $valid = true;
                 } else {
                     $valid = false;
                 }
-
             }
 
-            if ($valid)
-            {
-                $this->mdl->updateDataLogin($id, $_POST);
+            if ($valid) {
+                $this->mdl->updateDataLogin($id, $_POST, $_SESSION['idlogin']);
                 $data['valid'] = true;
                 $data['message'] = 'Data akun berhasil di ubah!';
                 $data['return'] = $_POST;
@@ -237,9 +233,10 @@ class Admin_DataUser extends MY_Controller
     public function banAccount()
     {
         $id = $this->session->tempdata('iduser');
-        $this->load->model('model_login','mdl');
-        $dataerror=''; $valid=true;
-        $config= array(
+        $this->load->model('model_login', 'mdl');
+        $dataerror = '';
+        $valid = true;
+        $config = array(
             array(
                 'field' => 'desc',
                 'label' => 'Alasan Ban',
@@ -252,40 +249,54 @@ class Admin_DataUser extends MY_Controller
         );
 
         $this->form_validation->set_rules($config);
-        if ($this->form_validation->run()){
-            if(empty($_POST['date']))
-            {
+        if ($this->form_validation->run()) {
+            if (empty($_POST['date'])) {
                 $dataerror .= 'Terjadi kesalahan pada input tenggat waktu.';
-                $valid=false;
+                $valid = false;
             }
-            if($_POST['date']<1&&$_POST['date']>6)
-            {
+            if ($_POST['date'] < 1 && $_POST['date'] > 6) {
                 $_POST['date'] = 1;
             }
 
-            if ($valid){
-                $this->mdl->banAccount($id,$_POST);
+            if ($valid) {
+                $this->mdl->banAccount($id, $_POST, $_SESSION['idlogin']);
                 $data['valid'] = true;
                 $data['message'] = 'Akun telah di Ban! Cek di Blacklist Mode.';
                 $data['request'] = 'ban';
                 echo json_encode($data);
-            }
-            else{
+            } else {
                 $data['valid'] = false;
                 $data['message'] = 'Terdapat kesalahan saat pengiriman form: ' . $dataerror;
                 $data['return'] = $_POST;
                 $data['request'] = 'ban';
                 echo json_encode($data);
             }
-        }
-        else{
+        } else {
             $data['valid'] = false;
             $data['message'] = 'Tolong di isi alasan ban pada form!';
             $data['return'] = $_POST;
             $data['request'] = 'ban';
             echo json_encode($data);
         }
+    }
 
+    public function unbanAccount()
+    {
+        $id = $this->session->tempdata('iduser');
+        $this->load->model('model_login', 'mdl');
+        if (!empty($id)) {
+            $this->mdl->unbanAccount($id, $_SESSION['idlogin']);
+            $data['valid'] = true;
+            $data['message'] = 'Akun telah di unban!';
+            $data['request'] = 'unban';
+            echo json_encode($data);
+        }
+        else {
+            $data['valid'] = false;
+            $data['message'] = 'Session form ini telah habis!';
+            $data['request'] = 'ban';
+            echo json_encode($data);
+        }
     }
 
     //---------------------------AJAX REQUEST----------------------------------------------
@@ -301,11 +312,11 @@ class Admin_DataUser extends MY_Controller
     {
         //if (!$this->input->is_ajax_request()) exit("Unknown Address (401)");
         if (!empty($_POST['iduser']))
-        $this->session->set_tempdata("iduser", $this->input->post("iduser", true), 240);
+            $this->session->set_tempdata("iduser", $this->input->post("iduser", true), 240);
 
         $request = $this->input->post("request", true);
         $this->session->set_tempdata("requestform", $request, 180);
-        echo $request.$_POST['iduser'];
+        echo $request . $_POST['iduser'];
     }
 
     public function getViewModal()
@@ -337,20 +348,19 @@ class Admin_DataUser extends MY_Controller
     {
         $this->load->model("model_login", "mdl");
         $data['tablerow'] = $this->mdl->getCountLogin();
-        $data['tablemode']= $this->tableMode(true);
+        $data['tablemode'] = $this->tableMode(true);
         echo json_encode($data);
     }
 
-    public function tableMode($return='')
+    public function tableMode($return = '')
     {
         if (!empty($_POST['mode']))
-        $this->session->set_userdata('tablemode',$_POST['mode']);
+            $this->session->set_userdata('tablemode', $_POST['mode']);
 
-        if (empty($return) || !$return){
+        if (empty($return) || !$return) {
             $data['request'] = $this->session->userdata('tablemode');
             echo json_encode($data);
-        }
-        else{
+        } else {
             return ($this->session->userdata('tablemode'));
         }
     }
@@ -358,7 +368,7 @@ class Admin_DataUser extends MY_Controller
     public function getTable($mode)
     {
         $this->load->model("model_login", "mdl");
-        $result = $this->mdl->getDataLogin($this->input->post(null, true),$mode);
+        $result = $this->mdl->getDataLogin($this->input->post(null, true), $mode);
         $callback = array(
             'draw' =>  $this->input->post('draw', true),
             'recordsTotal' => $result['total'],
@@ -369,4 +379,3 @@ class Admin_DataUser extends MY_Controller
         echo json_encode($callback);
     }
 }
-

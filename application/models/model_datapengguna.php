@@ -99,7 +99,7 @@ class Model_DataPengguna extends MY_Model
         }
     }
 
-    function addNewAccount($data)
+    function addNewAccount($data,$id_user)
     {
         $id = $this->getIdRandom('userlogin',10,'USL');
         $id2 = $this->getIdRandom('datapengguna',10,'DP');
@@ -149,5 +149,24 @@ class Model_DataPengguna extends MY_Model
         );
         $this->db->insert('datapengguna',$value2);
 
+        $c1 = array_keys($value1);
+        $c2 = array_keys($value2);
+        $d1 = $d2 = '';
+        for ($i=0;$i<5;$i++){
+            if ($i===3){
+                continue;
+            }
+            if ($i===4){
+                $d1 .= $c1[$i]." => ".$value1[$c1[$i]];
+            }
+            else{
+                $d1 .= $c1[$i]." => ".$value1[$c1[$i]].", ";
+            }
+        }
+        for ($i=0;$i<1;$i++){
+            $d2 .= $c2[$i]." => ".$value2[$c2[$i]];
+        }
+        $desclog ='Login Data ( '.$d1.' ), User Data ( '.$d2.' ). ID_TriggerUser => '.$id_user;
+        $this->createLog("001",$desclog);
     }
 }

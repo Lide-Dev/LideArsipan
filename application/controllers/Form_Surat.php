@@ -152,7 +152,7 @@ class Form_Surat extends MY_Controller
                     $this->load->model('model_kode');
                     //$value['desckode'] = $this->model_kode->get_desckode($this->session->kodesurat);
                     $this->load->model("model_surat");
-                    $this->model_surat->TambahSurat($value);
+                    $this->model_surat->TambahSurat($value,$_SESSION['idlogin']);
                     $message= "Berhasil! Surat berhasil di input ke arsip online.";
                     $this->messagePage($message,1);
                     header('Location: '.base_url('form_surat'));

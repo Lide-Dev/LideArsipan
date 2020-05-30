@@ -19,7 +19,7 @@ class Model_Surat extends MY_Model
         return $query->row_array();
     }
 
-    function DeleteTempSuratbyID($id, $type)
+    function DeleteTempSuratbyID($id, $type, $iduser)
     {
         if ($type === 'sm') {
             $table = 'surat_masuk';
@@ -34,9 +34,11 @@ class Model_Surat extends MY_Model
         $this->db->where('id_' . $type, $id);
         $this->db->set('sampah', 1);
         $this->db->update($table);
+        $desclog = "Temporary Delete Surat {$table} ( ID_Surat => {$id} , ID_TriggerUser => {$iduser})";
+        $this->createLog('012', $desclog);
     }
 
-    function DeletePermSuratbyID($id, $type)
+    function DeletePermSuratbyID($id, $type, $iduser)
     {
         if ($type === 'sm') {
             $table = 'surat_masuk';
@@ -48,11 +50,13 @@ class Model_Surat extends MY_Model
             $table = 'disposisi';
             $type = 'disposisi';
         }
+        $desclog = "Delete Surat {$table} ( ID_Surat => {$id} , ID_TriggerUser => {$iduser})";
         $this->db->where('id_' . $type, $id);
         $this->db->delete($table);
+        $this->createLog("007",$desclog);
     }
 
-    function EditSuratbyID($id, $type, $data)
+    function EditSuratbyID($id, $type, $data, $iduser)
     {
         if ($type === 'sm') {
             $table = 'surat_masuk';
@@ -85,9 +89,11 @@ class Model_Surat extends MY_Model
                 'isi_disposisi' => $data['isidisposisi_']
             );
         }
-        
+
         $this->db->where('id_' . $type, $id);
         $this->db->update($table, $data);
+        $desclog = "Edit Surat {$table} ( ID_Surat => {$id} , ID_TriggerUser => {$iduser})";
+        $this->createLog("003",$desclog);
     }
 
     function EditSuratValidatebyID($id, $type, $data)
@@ -125,19 +131,19 @@ class Model_Surat extends MY_Model
         }
         $column = array_keys($data);
         $muchkey = sizeof($data);
-        $this->db->select(implode(', ',$column));
+        $this->db->select(implode(', ', $column));
         $this->db->where('id_' . $type, $id);
         $query = $this->db->get($table);
         $real = $query->row_array();
         $changes = array();
         for ($i = 0; $i < $muchkey; $i++) {
-            if ($data[$column[$i]] === $real[$column[$i]] || ( empty($data[$column[$i]]) && empty($data[$column[$i]]) ) ) {
+            if ($data[$column[$i]] === $real[$column[$i]] || (empty($data[$column[$i]]) && empty($data[$column[$i]]))) {
                 $changes[$i] = false;
             } else {
                 $changes[$i] = true;
             }
         }
-        $return = array ('changes'=> $changes,'size'=> $muchkey);
+        $return = array('changes' => $changes, 'size' => $muchkey);
         return $return;
     }
 
@@ -148,7 +154,7 @@ class Model_Surat extends MY_Model
         return $data;
     }
 
-    function TambahSurat($data)
+    function TambahSurat($data, $iduser)
     {
         if (is_array($data['klasifikasi'])) {
             $data['klasifikasi'] = implode(".", $data['klasifikasi']);
@@ -200,14 +206,26 @@ class Model_Surat extends MY_Model
             'create_time' => $date,
             'update_time' => $date
         );
-        $this->createLog(5, "Membuat surat baru dengan ID Surat: " . $id);
+        $this->createLog(5, "Create New Surat {$tabel} ( ID_Surat => {$id} , ID_TriggerUser => {$iduser} )");
         $this->db->insert($tabel, $value);
     }
 
-    function getCountSurat()
+    function getCountSurat($type = null)
     {
-        $num_rows = $this->db->count_all_results('surat_masuk');
-        $num_rows += $this->db->count_all_results('surat_keluar');
+        if ($type === 'dp') {
+            $num_rows = $this->db->count_all_results('disposisi');
+        }
+        else if ($type === 'sm'){
+            $num_rows = $this->db->count_all_results('surat_masuk');
+        }
+        else if ($type === 'sk' ){
+            $num_rows = $this->db->count_all_results('surat_keluar');
+        }
+        else{
+            $num_rows = $this->db->count_all_results('surat_masuk');
+            $num_rows += $this->db->count_all_results('surat_keluar');
+            $num_rows += $this->db->count_all_results('disposisi');
+        }
         return $num_rows;
     }
 
