@@ -28,7 +28,7 @@ class Model_Login extends MY_Model
             if (!empty($params['search']['value'])) {
                 $this->db->like($columns[1], $params['search']['value']);
                 $this->db->or_like($columns[0], $params['search']['value']);
-                $this->db->or_like($columns[3], $params['search']['value']);
+                $this->db->or_like($columns[2], $params['search']['value']);
             }
 
             if (!$filter) {

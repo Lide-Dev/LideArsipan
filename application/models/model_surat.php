@@ -271,7 +271,7 @@ class Model_Surat extends MY_Model
         $this->db->where('sampah', 0);
         if ($type === 'datatables') {
             $column2 = '.keterangan';
-            if ($typesurat === 'dp') {
+            if ($typesurat === 'disposisi') {
                 $column2 = '.perihal';
             }
             $order_field = $params['order'][0]['column'];

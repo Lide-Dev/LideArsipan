@@ -7,11 +7,11 @@ class Arsip extends MY_Controller
     {
         $data = $this->initConfig("arsip", "Data Arsip");
         $this->load->model("model_surat");
-        if (!empty($_SESSION['typearsip']) || $_SESSION['typearsip'] !== 'none'){
-            $type = $_SESSION['typearsip'];
+        if (empty($_SESSION['typearsip']) || $_SESSION['typearsip'] === 'none'){
+            $type = '';
         }
         else {
-            $type = '';
+           $type = $_SESSION['typearsip'];
         }
         $data['tablerow'] = $this->model_surat->getCountSurat($type);
         $config = array(
@@ -186,7 +186,8 @@ class Arsip extends MY_Controller
         }
         $callback = array(
             'rows' => $tablerow,
-            'type' => $type
+            'type' => $type,
+            'session' => $_SESSION['typearsip']
         );
         header('Content-Type: application/json');
         echo json_encode($callback);

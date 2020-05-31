@@ -152,19 +152,33 @@ if (!empty($_SESSION['typearsip'])) {
         </div>
     <?php } else { ?>
         <div class="container" id="div-table">
-            <div class="table-responsive-lg">
-            <table class="table hover table-striped table-borderless" id="tabel_arsip" style="width: 100%">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>No. Arsip</th>
-                        <th>Klasifikasi</th>
-                        <th><?=$th?></th>
-                        <th>Tgl. Masuk Arsip</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
+            <div class='form-row my-3'>
+                <div class="col-6">
+                    <input type="text" class="form-control" name="search" id="ar_search" aria-describedby="helpSearch" placeholder="Pencarian...">
+                    <small id='helpSearch' class="form-text text-muted">Pencarian akan dilakukan jika melebihi 2 karakter huruf di kolom pencarian.</small>
+                    <small id='helpSearch' class="form-text text-muted">Kosongkan kolom pencarian jika ingin melihat semua arsip.</small>
+                </div>
+                <div class="col-3">
+                    <button id="ar_btnsearch" class='btn disabled'>Cari</button>
+                </div>
+            </div>
+            <div class="row">
 
-            </table>
+            </div>
+
+            <div class="table-responsive-lg">
+                <table class="table hover table-striped table-borderless" id="tabel_arsip" style="width: 100%">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>No. Arsip</th>
+                            <th>Klasifikasi</th>
+                            <th><?= $th ?></th>
+                            <th>Tgl. Masuk Arsip</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                </table>
             </div>
         </div>
     <?php } ?>

@@ -2,6 +2,10 @@ var baseurl = 'http://localhost/LideArsipan/';
 $(document).ready(function () {
   var table = '';
   var tp_arsip = '';
+  var tempsearch = '';var tempsearch2 = '';
+  var searchbox = '';
+  var searchbox2 = '';
+
   $.ajax({
     url: baseurl + "ajaxarsip/count",
     type: 'post',
@@ -39,6 +43,7 @@ $(document).ready(function () {
             "serverSide": true,
             "ordering": true,
             "order": [[0, 'asc']], // Default sortingnya berdasarkan kolom /field ke 0 (paling pertama)
+            "sDom": "ltipr",
             "ajax": {
               "url": "http://localhost/LideArsipan/ajaxarsip/table", // URL file untuk proses select datanya
               "type": "POST"
@@ -90,13 +95,52 @@ $(document).ready(function () {
           });
 
           $('#tabel_arsip tbody').on('click', '.edit', function () {
-           resetmodal();
+            resetmodal();
             var data = table.row($(this).parents('tr')).data();
             $('#modalLabel').text('Mengubah Data Arsip');
             $('#modalarsip').modal('show');
             $('#okID').show();
             editpage(data[tp_arsip]);
           });
+
+          var search = $.fn.dataTable.util.throttle(
+            function (val) {
+              table.search(val).draw();
+            },
+            1000
+          );
+
+          $('#ar_search').keyup(function () {
+            searchbox2 = $('#ar_search').val();
+            if (searchbox2.length > 2){
+              $('#ar_btnsearch').removeClass('disabled');
+              $('#ar_btnsearch').addClass('btn-outline-freespeechblue');
+            }
+            else {
+              if (tempsearch2 != searchbox && searchbox2.length==0){
+                search(searchbox2);
+                tempsearch2 = searchbox;
+              }
+              $('#ar_btnsearch').addClass('disabled ');
+              $('#ar_btnsearch').removeClass('btn-outline-freespeechblue');
+            }
+          });
+
+          $('#ar_btnsearch').click(function () {
+            searchbox = $('#ar_search').val();
+            if (tempsearch != searchbox && searchbox.length >= 3) {
+              search(searchbox);
+              tempsearch = searchbox;
+            }
+          });
+
+          $('#ar_search').keypress(function (e) {
+            var key = e.which;
+            if (key == 13) {
+              $('#ar_btnsearch').click();
+            }
+          });
+
         }
       }
     }
@@ -124,6 +168,7 @@ $('#formarsip').submit(function (e) {
     type: 'post',
     data: { 'send': send },
     dataType: "html",
+
     beforeSend: function () {
       $('#ar_spinner').show();
       $('#modal_footer').hide();
@@ -235,265 +280,3 @@ function resetmodal() {
   $('#ar_content').hide();
   $('#ar_form').hide();
 }
-
-
-// $("#flip_arsip").click(function () {
-//   $("#panel_arsip").slideToggle("2000", 'linear', function () {
-//     $("#chevron_nav").removeClass('fa-chevron-down');
-//     $("#chevron_nav").addClass('fa-chevron-up');
-//   },
-//     function () {
-//       $("#chevron_nav").addClass('fa-chevron-down');
-//       $("#chevron_nav").removeClass('fa-chevron-up');
-//     });
-// });
-
-// $("#form_kategori").autocomplete({
-//   source: function (request, response) {
-//     // Fetch data
-//     $.ajax({
-//       url: "http://localhost/LideArsipan/ksurat/kategori",
-//       type: 'get',
-//       dataType: "JSON",
-//       data: {
-//         search: request.term
-//       },
-//       success: function (data) {
-//         response(data.slice(0, 10));
-//       }
-//     });
-//   }, // Kode php untuk prosesing data.
-
-//   select: function (event, ui) {
-//     $(".btn_form_pilih").prop("disabled", false);
-//     $(".btn_form_ulang").prop("disabled", false);
-//     var valid = "";
-//     var str = ui.item.label;
-//     var tentang = str.split(" ");
-//     var kode = tentang[0].split(".");
-//     var tentangstr = "";
-//     for (var i = 0; i < tentang.length; i++) {
-//       if (i == 0) {
-//         continue;
-//       }
-//       tentangstr += tentang[i] + " ";
-//       console.log(tentang[i]);
-//     }
-//     var kodestr = kode.join("/");
-//     $.ajax({
-//       url: "http://localhost/LideArsipan/ksurat/kode",
-//       type: 'post',
-//       data: {
-//         kodevar: kode,
-//       }
-//     });
-//     $("#form_kategori").val();
-//     $("#kode").html("Kode yang dipilih: " + kodestr);
-//     $("#tentang").html(tentangstr);
-//     $("#div_form_kategori").hide(500);
-//     $.ajax({
-//       url: "http://localhost/LideArsipan/ksurat/cekkode/kode",
-//       type: 'post',
-//       data: {
-//         kodevar: kode,
-//       },
-//       dataType: "text",
-//       success: function (data) {
-//         console.log(data);
-//         valid = data;
-//         if (valid != 0) {
-//           $("#div_form_kode").delay(550).show(500);
-//           $.ajax({
-//             url: "http://localhost/LideArsipan/ksurat/kodeutama",
-//             type: 'post',
-//             dataType: "",
-//             success: function (data) {
-//               console.log(data);
-//               $("#form_kode").html(data);
-//             }
-//           });
-//         }
-//         else
-//           $("#div_form_done").delay(550).show(500);
-//       }
-//     });
-//   }
-// });
-
-
-// $("#form_kode").on('change', function () {
-//   var kode = $("#form_kode option:selected").val();
-//   console.log(kode);
-//   $.ajax({
-//     url: "http://localhost/LideArsipan/ksurat/kode",
-//     type: 'post',
-//     data: {
-//       kodevar: kode,
-//     },
-//     success: function () {
-//       $.ajax({
-//         url: "http://localhost/LideArsipan/ksurat/desckode",
-//         type: 'post',
-//         dataType: 'text',
-//         success: function (data) {
-//           console.log(data);
-//           $("#tentang").html("Deskripsi Kode: " + data);
-//         }
-//       });
-//     }
-//   });
-//   $("#kode").html("Kode yang dipilih: " + kode);
-//   $.ajax({
-//     url: "http://localhost/LideArsipan/ksurat/cekkode/subkode1",
-//     type: 'post',
-//     data: {
-//       kodevar: kode,
-//     },
-//     dataType: "text",
-//     success: function (data) {
-//       valid = data;
-//       if (valid != 0) {
-//         $("#div_form_kode").delay(550).show(500);
-//         $.ajax({
-//           url: "http://localhost/LideArsipan/ksurat/subkode1",
-//           type: 'post',
-//           dataType: "html",
-//           success: function (data) {
-//             $("#div_form_subkode1").show(500);
-//             console.log(data);
-//             $("#form_subkode1").html(data);
-//           }
-//         });
-//       }
-//       else
-//         $("#div_form_subkode1").hide(500);
-//       $("#div_form_subkode2").hide(500);
-//     }
-//   });
-// });
-
-
-
-// $("#form_subkode1").on('change', function () {
-//   var kode = $("#form_subkode1 option:selected").val();
-//   $.ajax({
-//     url: "http://localhost/LideArsipan/ksurat/kode",
-//     type: 'post',
-//     data: {
-//       kodevar: kode,
-//     },
-//     success: function () {
-//       $.ajax({
-//         url: "http://localhost/LideArsipan/ksurat/desckode",
-//         type: 'post',
-//         dataType: 'text',
-//         success: function (data) {
-//           console.log(data);
-//           $("#tentang").html("Deskripsi Kode: " + data);
-//         }
-//       });
-//     }
-//   });
-
-//   $("#kode").html("Kode yang dipilih: " + kode);
-//   $.ajax({
-//     url: "http://localhost/LideArsipan/ksurat/cekkode/subkode2",
-//     type: 'post',
-//     data: {
-//       kodevar: kode,
-//     },
-//     dataType: "text",
-//     success: function (data) {
-//       console.log("Sebanyak:" + data);
-//       valid = data;
-//       if (valid != 0) {
-//         $("#div_form_kode").delay(550).show(500);
-//         $.ajax({
-//           url: "http://localhost/LideArsipan/ksurat/subkode2",
-//           type: 'post',
-//           dataType: "html",
-//           success: function (data) {
-//             $("#div_form_subkode2").show(500);
-//             console.log(data);
-//             $("#form_subkode2").html(data);
-//           }
-//         });
-//       }
-//       else
-//         $("#div_form_subkode2").hide(500);
-//     }
-//   });
-
-// });
-
-// $("#form_subkode2").on('change', function () {
-//   var kode = $("#form_subkode2 option:selected").val();
-//   $.ajax({
-//     url: "http://localhost/LideArsipan/ksurat/kode",
-//     type: 'post',
-//     data: {
-//       kodevar: kode,
-//     },
-//     success: function () {
-//       $.ajax({
-//         url: "http://localhost/LideArsipan/ksurat/desckode",
-//         type: 'post',
-//         dataType: 'text',
-//         success: function (data) {
-//           console.log(data);
-//           $("#tentang").html("Deskripsi Kode: " + data);
-//         }
-//       });
-//     }
-//   });
-//   $("#kode").html("Kode yang dipilih: " + kode);
-// });
-
-// $(".btn_form_ulang").click(function () {
-//   $("#div_container_donekode").hide(1000);
-//   $("#div_container_kode").delay(1000).show(500);
-//   $.ajax({
-//     url: "http://localhost/LideArsipan/ksurat/kode",
-//     type: 'post',
-//     data: {
-//       kodevar: "000/0/0/0",
-//     }
-//   });
-//   $("#kode").html("Kode yang dipilih: 000/0/0/0")
-//   $("#tentang").html("Deskripsi Kode: Belum dipilih")
-//   $("#div_form_kode").hide(500);
-//   $("#div_form_subkode1").hide(500);
-//   $("#div_form_subkode2").hide(500);
-//   $("#div_form_done").hide(500);
-//   $("#form_kode").html("");
-//   $("#form_subkode1").html("");
-//   $("#form_subkode2").html("");
-//   $("#form_kategori").val("");
-//   $("#div_form_kategori").delay(550).show(500);
-//   $(".btn_form_ulang").prop('disabled', true);
-//   $(".btn_form_pilih").prop('disabled', true);
-// });
-
-// $(".btn_form_pilih").click(function () {
-//   $("#div_container_kode").hide(500);
-//   $("#div_container_donekode").delay(550).show(500);
-//   $.ajax({
-//     url: "http://localhost/LideArsipan/ksurat/desckode",
-//     type: 'post',
-//     dataType: 'text',
-//     success: function (data) {
-//       $('#tentang_pilih').html(data);
-//     }
-//   });
-//   $.ajax({
-//     url: "http://localhost/LideArsipan/ksurat/getkode",
-//     type: 'post',
-//     dataType: 'text',
-//     success: function (data) {
-//       $("#kode_pilih").html(data);
-//     }
-//   });
-//   $(".btn_form_pilih").prop('disabled', true);
-// });
-
-
