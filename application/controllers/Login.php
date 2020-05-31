@@ -33,10 +33,10 @@ class Login extends MY_Controller
 
     public function logout()
     {
-        
+
         $this->session->sess_destroy();
         session_write_close();
-        header("Location: " . base_url("home"));
+        header("Location: " . base_url("dashboard"));
     }
 
     public function validateLogin()
@@ -58,9 +58,9 @@ class Login extends MY_Controller
         if ($data['valid']) {
             $this->session->set_userdata('idlogin', $data['id']);
             if ($data['type'] === 'user')
-                header('Location: ' . base_url("home"));
+                header('Location: ' . base_url("dashboard"));
             else
-                header('Location: ' . base_url("admin/admhome"));
+                header('Location: ' . base_url("admin/dashboard"));
         } else {
             $message = "Username/Email dengan Password tidak cocok!";
             header('Location: ' . base_url("login"));

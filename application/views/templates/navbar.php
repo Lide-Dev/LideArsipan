@@ -8,7 +8,7 @@
     <?php } ?>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ml-3 mr-auto">
-        <a class="navbar-brand d-none d-md-block" href="<?= base_url('Home') ?>">
+        <a class="navbar-brand d-none d-md-block" href="<?= base_url('dashboard') ?>">
           <img src=<?=base_url(PATHIMG.'Logo_Navbar.svg')?> alt="Sleman">
         </a>
         </div>

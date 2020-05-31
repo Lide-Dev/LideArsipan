@@ -129,7 +129,7 @@ class Form_Surat extends MY_Controller
         if ($this->form_validation->run() == FALSE) {
             $message = "Kesalahan: Terdapat form penting yang belum terisi. Mohon di isi! (Error Code: 401) ";
             $this->messagePage($message,3);
-            header('Location: '.base_url('form_surat'));
+            header('Location: '.base_url('registrasi_surat'));
             $this->session->unset_userdata('kodesurat');
         } else {
             $valid = $this->validation_kode();
@@ -155,7 +155,7 @@ class Form_Surat extends MY_Controller
                     $this->model_surat->TambahSurat($value,$_SESSION['idlogin']);
                     $message= "Berhasil! Surat berhasil di input ke arsip online.";
                     $this->messagePage($message,1);
-                    header('Location: '.base_url('form_surat'));
+                    header('Location: '.base_url('registrasi_surat'));
                     $this->session->unset_userdata('kodesurat');
                 }
             }

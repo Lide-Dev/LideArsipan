@@ -87,8 +87,8 @@
                     <div class="row">
                         <div class="container">
                             <div class="row">
-                                <a href="<?= base_url('Login') ?>" class="intro-banner-vdo-play-btn pinkBg">
-                                    <i class="glyphicon glyphicon-play whiteText" data-toggle="tooltip" data-placement="top" title="Login Ke Akun Anda" aria-hidden="true">
+                                <a href="<?= $url ?>" class="intro-banner-vdo-play-btn pinkBg">
+                                    <i class="glyphicon glyphicon-play whiteText" data-toggle="tooltip" data-placement="top" title='<?=$direct_tooltip?>' aria-hidden="true">
                                         <i class="fas fa-sign-in-alt" style="color: white"></i>
                                     </i>
                                     <span class="ripple pinkBg"></span>

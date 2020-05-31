@@ -6,17 +6,17 @@
             </a>
         </li>
         <li>
-            <a href="<?=base_url('Home')?>">Dashboard</a>
+            <a href="<?=base_url('dashboard')?>">Dashboard</a>
         </li>
         <li>
-            <a href="<?=base_url('Form_Surat')?>">Registrasi Surat</a>
+            <a href="<?=base_url('registrasi_surat')?>">Registrasi Surat</a>
         </li>
         <li>
             <a href="<?=base_url('Arsip')?>">Cari Arsip</a>
         </li>
         <?php if (!empty($accadmin)&&$accadmin==='admin') {?>
         <li>
-            <a href="<?=base_url('admin/admhome')?>">Dashboard Admin</a>
+            <a href="<?=base_url('admin/dashboard')?>">Dashboard Admin</a>
         </li>
         <?php  }?>
     </ul>

@@ -53,7 +53,7 @@ $route['default_controller'] = 'landing';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['admin/admhome']="admin_dashboard/index";
+$route['admin/dashboard']="admin_dashboard/index";
 
 $route['admin/admdatauser']="admin_datauser/index";
 $route['admin/admdatauser/form/request']='admin_datauser/submitrequest';
@@ -68,6 +68,7 @@ $route["ajaxadmin/set/clickbutton"]="admin_datauser/setclickbutton";
 
 $route['go/logout']="login/logout";
 
+$route["dashboard"]="home";
 $route["registrasi_surat"]= "form_surat";
 $route["ksurat/kategori"]= "form_surat/get_autocomplete/kategori";
 $route["ksurat/kodeutama"]= "form_surat/get_autocomplete/kodeutama";

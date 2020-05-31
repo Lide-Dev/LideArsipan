@@ -18,7 +18,7 @@
 
                  <div class="row text-center">
                      <div class="col-md-6">
-                         <a href="<?= base_url('Form_Surat') ?>" style="text-decoration: none; color: white;">
+                         <a href="<?= base_url('registrasi_surat') ?>" style="text-decoration: none; color: white;">
                              <div class="d-none d-lg-block">
                                  <div class="button">
                                      <div class="icons">
