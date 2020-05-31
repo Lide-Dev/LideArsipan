@@ -160,6 +160,10 @@ $(document).ready(function () {
 
 
   var table;
+  var tempsearch = ''; var tempsearch2 = '';
+  var searchbox = '';
+  var searchbox2 = '';
+
   $.ajax({
 
     url: "http://localhost/LideArsipan/ajaxadmin/user/count",
@@ -167,32 +171,32 @@ $(document).ready(function () {
     dataType: "json",
     success: function (data) {
       if (data.tablerow > 0) {
-         table = $('#tabel_user').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ordering": true,
-            "order": [[0, 'asc']], // Default sortingnya berdasarkan kolom /field ke 0 (paling pertama)
-            "ajax": {
-              "url": "http://localhost/LideArsipan/ajaxadmin/user/table/normal", // URL file untuk proses select datanya
-              "type": "POST"
-            },
-            "deferRender": true,
-            "aLengthMenu": [[20, 10, 50], [5, 10, 50]], // Combobox Limit
-            "columns": [
-              { "data": "id_user" }, // Tampilkan nis
-              { "data": "email" },  // Tampilkan nama
-              { "data": "username" },
-              {
-                "render": function (data, type, row) {
-                  // Tampilkan kolom aksi
-                  var html = "<button class='btn btn-primary edit' >EDIT</button> | ";
-                  html += "<button class='btn btn-danger delete' >BAN</button>";
-                  return html;
-                }
+        table = $('#tabel_user').DataTable({
+          "processing": true,
+          "serverSide": true,
+          "ordering": true,
+          "order": [[0, 'asc']], // Default sortingnya berdasarkan kolom /field ke 0 (paling pertama)
+          "ajax": {
+            "url": "http://localhost/LideArsipan/ajaxadmin/user/table/normal", // URL file untuk proses select datanya
+            "type": "POST"
+          },
+          "deferRender": true,
+          "aLengthMenu": [[20, 10, 50], [5, 10, 50]], // Combobox Limit
+          "columns": [
+            { "data": "id_user" }, // Tampilkan nis
+            { "data": "email" },  // Tampilkan nama
+            { "data": "username" },
+            {
+              "render": function (data, type, row) {
+                // Tampilkan kolom aksi
+                var html = "<button class='btn btn-primary edit' >EDIT</button> | ";
+                html += "<button class='btn btn-danger delete' >BAN</button>";
+                return html;
               }
-            ],
+            }
+          ],
 
-          });
+        });
 
 
       }
@@ -201,12 +205,12 @@ $(document).ready(function () {
         $.ajax({
           url: 'http://localhost/LideArsipan/ajaxadmin/user/mode',
           dataType: 'JSON',
-          success: function (data){
-            if (data.request=='normal'){
+          success: function (data) {
+            if (data.request == 'normal') {
               $('table thead tr th:nth-child(4)').html('Tanggal Selesai');
               $.ajax({
                 url: 'http://localhost/LideArsipan/ajaxadmin/user/mode',
-                data: {mode: 'ban'},
+                data: { mode: 'ban' },
                 type: 'post'
               });
               $('#ad_banmode').removeClass('btn btn-outline-darkpriwinkle');
@@ -230,27 +234,27 @@ $(document).ready(function () {
                   {
                     "render": function (data, type, row) {
                       // Tampilkan kolom aksi
-                      var html = '<b>'+row.finish_date+' </b> ';
+                      var html = '<b>' + row.finish_date + ' </b> ';
                       html += "| <button class='btn btn-danger unban' >UNBAN</button>";
                       return html;
                     }
                   }
                 ]
-            });
+              });
 
             }
-            else{
+            else {
               $('table thead tr th:nth-child(4)').html('Aksi');
 
               $.ajax({
                 url: 'http://localhost/LideArsipan/ajaxadmin/user/mode',
-                data: {mode: 'normal'},
+                data: { mode: 'normal' },
                 type: 'post'
               });
               $('#ad_banmode').removeClass('btn btn-darkpriwinkle');
               $('#ad_banmode').addClass('btn btn-outline-darkpriwinkle');
               $('#tabel_user').DataTable().destroy();
-              table=$('#tabel_user').DataTable({
+              table = $('#tabel_user').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ordering": true,
@@ -312,6 +316,45 @@ $(document).ready(function () {
         ajaxunban(data);
         //alert( data.id_user +"'s email: "+ data.email );
       });
+
+      var search = $.fn.dataTable.util.throttle(
+        function (val) {
+          table.search(val).draw();
+        },
+        1000
+      );
+
+      $('#ad_search').keyup(function () {
+        searchbox2 = $('#ar_search').val();
+        if (searchbox2.length > 2) {
+          $('#ar_btnsearch').removeClass('disabled');
+          $('#ar_btnsearch').addClass('btn-outline-freespeechblue');
+        }
+        else {
+          if (tempsearch2 != searchbox && searchbox2.length == 0) {
+            search(searchbox2);
+            tempsearch2 = searchbox;
+          }
+          $('#ar_btnsearch').addClass('disabled ');
+          $('#ar_btnsearch').removeClass('btn-outline-freespeechblue');
+        }
+      });
+
+      $('#ar_btnsearch').click(function () {
+        searchbox = $('#ar_search').val();
+        if (tempsearch != searchbox && searchbox.length >= 3) {
+          search(searchbox);
+          tempsearch = searchbox;
+        }
+      });
+
+      $('#ar_search').keypress(function (e) {
+        var key = e.which;
+        if (key == 13) {
+          $('#ar_btnsearch').click();
+        }
+      });
+
     }
   });
 });

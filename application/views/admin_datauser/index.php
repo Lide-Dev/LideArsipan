@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="col-md-6 align-self-end d-flex justify-content-start px-2">
-                <button type="button" class="btn btn-primary">Mencari</button>
+                <button type="button" id="ad_btnsearch" class="btn btn-primary">Mencari</button>
                 <button type="button" id="ad_add" class="btn btn-success mx-2"><i class="fas fa-plus-square fa-sm "></i></button>
                 <button type="button" id="ad_banmode" class="btn btn-outline-darkpriwinkle">Blacklist Mode</button>
             </div>

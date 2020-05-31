@@ -18,7 +18,7 @@ $shadowdefault = '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1
                     <div class="col-8 my-3">
                         <h6 class='text-white text-center'> Total arsip yang disimpan </h6>
                         <h3 class='text-white text-center'> <?=$countsurat?> </h3>
-                        <div class="text-white text-center"><a href="<?=base_url('#')?>" class="text-white"><i class="fas fa-chevron-circle-right fa-sm"></i> Data Arsip</a></div>
+                        <div class="text-white text-center"><a href="<?=base_url('arsip')?>" class="text-white"><i class="fas fa-chevron-circle-right fa-sm"></i> Data Arsip</a></div>
                     </div>
                     <div class="col-4 d-flex justify-content-center ">
                         <i class="fas fa-mail-bulk fa-4x text-white align-self-center"></i>
