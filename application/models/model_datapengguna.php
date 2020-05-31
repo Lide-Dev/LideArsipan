@@ -11,6 +11,15 @@ class Model_DataPengguna extends MY_Model
         return $query->row();
     }
 
+    function GetUserbyIDUser($id,$column=null){
+        $this->db->where("id_user",$id);
+        if (!empty($column)){
+            $this->db->select($column);
+        }
+        $query=$this->db->get('datapengguna');
+        return $query->row();
+    }
+
     function CheckEmail($email)
     {
         $this->db->where('email', $email);
