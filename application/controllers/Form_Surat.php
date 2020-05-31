@@ -125,33 +125,44 @@ class Form_Surat extends MY_Controller
     {
         $data['statemessage'] = true;
         $data['page'] = "form_surat";
+        echo 'Test1';
+        print_r($data);
         $this->validation_init();
         if ($this->form_validation->run() == FALSE) {
+            echo '<br>Test1 IF 1';
+
             $message = "Kesalahan: Terdapat form penting yang belum terisi. Mohon di isi! (Error Code: 401) ";
             $this->messagePage($message,3);
             header('Location: '.base_url('registrasi_surat'));
             $this->session->unset_userdata('kodesurat');
         } else {
+            echo '<br>Test1 IF ELSE 1';
             $valid = $this->validation_kode();
             if ($valid === false) {
+                echo '<br>Test1 IF ELSE 1 IF 2';
                 $message= "Kesalahan: Kode belum di isi! (Error Code: 403)";
                 $this->messagePage($message,3);
                 //header('Location: '.base_url('form_surat'));
                 $this->session->unset_userdata('kodesurat');
             } else {
+                echo '<br>Test1 IF ELSE 1 IF ELSE 2';
                 $valid = $this->upload_doc();
+                echo $valid;
                 if ($valid === false) {
+                    echo '<br>Test1 IF ELSE 1 IF ELSE 2 IF 3';
                     $message= "Kesalahan: Perhatikan ekstensi dan besar ukuran filenya (Error Code: 402)";
                     $this->messagePage($message,3);
                     //header('Location: '.base_url('form_surat'));
                     $this->session->unset_userdata('kodesurat');
                 } else {
+                    echo '<br>Test1 IF ELSE 1 IF ELSE 2 IF ELSE 3';
                     $value = $this->input->post();
                     $value['id_dokumen']= $this->iddokumen;
                     $value['klasifikasi']= $this->session->kodesurat;
                     $this->load->model('model_kode');
                     //$value['desckode'] = $this->model_kode->get_desckode($this->session->kodesurat);
                     $this->load->model("model_surat");
+                    print_r($value);
                     $this->model_surat->TambahSurat($value,$_SESSION['idlogin']);
                     $message= "Berhasil! Surat berhasil di input ke arsip online.";
                     $this->messagePage($message,1);

@@ -200,7 +200,7 @@ class Model_Surat extends MY_Model
             //'klasifikasi' => $data['desckode'],
             'id_dokumen' => $data['id_dokumen'],
             'id_kode' => $data['klasifikasi'],
-            'id_upload' => 'ADM0000000',
+            'id_upload' => $iduser,
             'tgl_pembuatan' => $this->FixDatePicker($data['tglpembuatansurat']),
             'tgl_penerimaan' => $this->FixDatePicker($data['tglpenerimaansurat']),
             'create_time' => $date,
