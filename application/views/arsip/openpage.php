@@ -35,7 +35,9 @@ if (!empty($_SESSION['typearsip'])) {
     <h3>File Arsip: </h3>
     <div class="row justify-content-center">
         <div class="col-auto">
-            <table class='table my-4'>
+            <div class="">
+            <table class='table table-responsive my-4'>
+                <tbody>
                 <tr>
                     <td colspan=3 class='text-center'>
                         <?= $imagefile ?>
@@ -86,7 +88,9 @@ if (!empty($_SESSION['typearsip'])) {
                          <a href="<?= base_url('arsip/dokumen/get/') . $dokumen['id_dokumen'] ?>">Download Disini</a>
                     </td>
                 </tr>
+                </tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>

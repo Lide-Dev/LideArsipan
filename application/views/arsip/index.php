@@ -17,6 +17,7 @@ if (!empty($_SESSION['typearsip'])) {
 
 <div class="container mb-5">
     <!-- Menu Surat -->
+
     <div class="p-3">
         <section class="page-section" id="services">
             <div class="container border border-hintofelusive rounded p-3">
@@ -25,48 +26,64 @@ if (!empty($_SESSION['typearsip'])) {
                         <h4 class="section-heading text-uppercase mt-2 mb-4">Pilih jenis Surat</h4>
                     </div>
                 </div>
+                <div class="table-responsive-lg">
+                    <table class="table table-borderless" style="width: 100%">
 
-                <div class="shadow d-flex text-center btn-group btn-group-toggle justify-content-center">
-                    <a href="<?= base_url('arsip/suratmasuk') ?>" class="col-md-4 btn btn-hintofelusive <?= $active[0] ?>">
-                        <div id="arsip-sm" class="">
-                            <span class="fa-stack fa-4x">
-                                <i class="fas fa-circle fa-stack-2x text-info"></i>
-                                <i class="fas fa-arrow-circle-down fa-stack-1x fa-inverse"></i>
-                            </span>
-                            <h5 class="service-heading">Surat Masuk</h5>
-                        </div>
-                    </a>
-                    <a href="<?= base_url('arsip/suratkeluar') ?>" class="col-md-4 btn btn-hintofelusive <?= $active[1] ?>">
-                        <div id="arsip-sk">
-                            <span class="fa-stack fa-4x">
-                                <i class="fas fa-circle fa-stack-2x text-info"></i>
-                                <i class="fas fa-arrow-circle-up fa-stack-1x fa-inverse"></i>
-                            </span>
-                            <h5 class="service-heading">Surat Keluar</h5>
-                        </div>
-                    </a>
-                    <a href="<?= base_url('arsip/disposisi') ?>" class="col-md-4 btn btn-hintofelusive <?= $active[2] ?>">
-                        <div id="arsip-dp">
-                            <span class="fa-stack fa-4x">
-                                <i class="fas fa-circle fa-stack-2x text-warning"></i>
-                                <i class="fas fa-inbox fa-stack-1x fa-inverse"></i>
-                            </span>
-                            <h5 class="service-heading">Disposisi</h5>
-                        </div>
-                    </a>
+                        <tr class="text-center mx-auto my-auto">
+                            <td class=" ">
+                                <div class="shadow text-center justify-content-center">
+                                    <a href="<?= base_url('arsip/suratmasuk') ?>" class="col-md-4 <?= $active[0] ?>">
+                                        <div id="arsip-sm" class="">
+                                            <span class="fa-stack fa-4x">
+                                                <i class="fas fa-circle fa-stack-2x text-info"></i>
+                                                <i class="fas fa-arrow-circle-down fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                            <h5 class="service-heading">Surat Masuk</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="">
+                                <div class="shadow text-center justify-content-center">
+                                    <a href="<?= base_url('arsip/suratkeluar') ?>" class="col-md-4 btn <?= $active[1] ?>">
+                                        <div id="arsip-sk">
+                                            <span class="fa-stack fa-4x">
+                                                <i class="fas fa-circle fa-stack-2x text-info"></i>
+                                                <i class="fas fa-arrow-circle-up fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                            <h5 class="service-heading">Surat Keluar</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                            </td>
+                            <td class=" ">
+                                <div class="shadow text-center justify-content-center">
+                                    <a href="<?= base_url('arsip/disposisi') ?>" class="col-md-4 btn <?= $active[2] ?>">
+                                        <div id="arsip-dp">
+                                            <span class="fa-stack fa-4x">
+                                                <i class="fas fa-circle fa-stack-2x text-warning"></i>
+                                                <i class="fas fa-inbox fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                            <h5 class="service-heading">Disposisi</h5>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-        </section>
     </div>
-    <!-- End of Menu Surat -->
+    </section>
+</div>
+<!-- End of Menu Surat -->
 
-    <div class="container">
-        <!-- <div id="flip_arsip" class="bg-white mt-2 text-center">
+<div class="container">
+    <!-- <div id="flip_arsip" class="bg-white mt-2 text-center">
             <div class="col-md-12"><i class="fa fa-search" aria-hidden="true"></i> <strong>Klik disini untuk memulai pencarian</strong></div>
             <div class="col-md-12"><i id="chevron_nav" class="fas fa-chevron-down fa-lg"></i></div>
         </div> -->
 
-        <!-- <div id="panel_arsip" style="display: none">
+    <!-- <div id="panel_arsip" style="display: none">
             <div class="card shadow mb-2 bg-white rounded">
                 Card-Body
                 <div class="mt-2 mb-2">
@@ -140,47 +157,52 @@ if (!empty($_SESSION['typearsip'])) {
                 End Form
             </div>
         </div> -->
+</div>
+
+<!--Tabel-->
+
+<?php if (empty($tablerow) || $tablerow === 0 || (empty($_SESSION['typearsip']))) { ?>
+    <div class="container" style="margin-top:20vh; margin-bottom:20vh; display:none">
+        <p class="text-center">
+            Tidak terdapat arsip disini. Silahkan di isi terlebih dahulu untuk melihat tabel data arsip!
+        </p>
     </div>
+<?php } else { ?>
+    <div class="container" id="div-table">
+        <div class='form-row my-3'>
+            <div class="col-6">
 
-    <!--Tabel-->
 
-    <?php if (empty($tablerow) || $tablerow === 0 || (empty($_SESSION['typearsip']))) { ?>
-        <div class="container" style="margin-top:20vh; margin-bottom:20vh; display:none">
-            <p class="text-center">
-                Tidak terdapat arsip disini. Silahkan di isi terlebih dahulu untuk melihat tabel data arsip!
-            </p>
-        </div>
-    <?php } else { ?>
-        <div class="container" id="div-table">
-            <div class='form-row my-3'>
-                <div class="col-6">
-                    <input type="text" class="form-control" name="search" id="ar_search" aria-describedby="helpSearch" placeholder="Pencarian...">
-                    <small id='helpSearch' class="form-text text-muted">Pencarian akan dilakukan jika melebihi 2 karakter huruf di kolom pencarian.</small>
-                    <small id='helpSearch' class="form-text text-muted">Kosongkan kolom pencarian jika ingin melihat semua arsip.</small>
+                <div class="input-group md-form form-sm form-2 pl-0">
+                    <input class="form-control my-0 py-1 red-border" type="text" name="search" id="ar_search" aria-describedby="helpSearch" placeholder="Pencarian..." aria-label="Search">
+                    <div class="input-group-append">
+                        <button id="ar_btnsearch" class="btn disabled input-group-text red lighten-3" id="basic-text1"><i class="fas fa-search text-grey" aria-hidden="true"></i></button>
+                    </div>
                 </div>
-                <div class="col-3">
-                    <button id="ar_btnsearch" class='btn disabled'>Cari</button>
-                </div>
+
+                <small id='helpSearch' class="form-text text-muted">Pencarian akan dilakukan jika melebihi 2 karakter huruf di kolom pencarian.</small>
+                <small id='helpSearch' class="form-text text-muted">Kosongkan kolom pencarian jika ingin melihat semua arsip.</small>
             </div>
-            <div class="row">
+            <div class="col-3">
 
-            </div>
-
-            <div class="table-responsive-lg">
-                <table class="table hover table-striped table-borderless" id="tabel_arsip" style="width: 100%">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>No. Arsip</th>
-                            <th>Klasifikasi</th>
-                            <th><?= $th ?></th>
-                            <th>Tgl. Masuk Arsip</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-
-                </table>
             </div>
         </div>
-    <?php } ?>
+
+        <div class="table-responsive-lg">
+            <table class="table hover table-striped table-borderless" id="tabel_arsip" style="width: 100%">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>No. Arsip</th>
+                        <th>Klasifikasi</th>
+                        <th><?= $th ?></th>
+                        <th>Tgl. Masuk Arsip</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+<?php } ?>
 
 </div>

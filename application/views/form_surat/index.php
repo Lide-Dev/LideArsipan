@@ -18,15 +18,15 @@
       <label for="form_nosurat">Tipe Surat</label>
       <ul class="nav nav-pills">
         <li class="nav-item m-2">
-          <label class="nav-link active" for="form_tipesurat1" id="label_tipesurat1" data-toggle="tab" aria-selected="true"><i class="fa fa-arrow-circle-down"></i> Surat Masuk</label>
+          <label class="nav-link active border border-primary" for="form_tipesurat1" id="label_tipesurat1" data-toggle="tab" aria-selected="true"><i class="fa fa-arrow-circle-down"></i> Surat Masuk</label>
           <input type="radio" name="tipesurat" id="form_tipesurat1" value="suratmasuk" style="display:none" checked>
         </li>
         <li class="nav-item m-2">
-          <label class="nav-link" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false"><i class="fa fa-arrow-circle-up"></i> Surat Keluar</label>
+          <label class="nav-link border border-primary" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false"><i class="fa fa-arrow-circle-up"></i> Surat Keluar</label>
           <input type="radio" name="tipesurat" id="form_tipesurat2" value="suratkeluar" style="display:none">
         </li>
         <li class="nav-item m-2">
-          <label class="nav-link" for="form_tipesurat3" id="label_tipesurat3" data-toggle="tab" aria-selected="false"><i class="fa fa-inbox"></i> Disposisi</label>
+          <label class="nav-link border border-primary" for="form_tipesurat3" id="label_tipesurat3" data-toggle="tab" aria-selected="false"><i class="fa fa-inbox"></i> Disposisi</label>
           <input type="radio" name="tipesurat" id="form_tipesurat3" value="disposisi" style="display:none">
         </li>
       </ul>

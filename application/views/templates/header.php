@@ -21,11 +21,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <link rel="icon" type="image/png" sizes="32x32" href=<?= base_url('assets/img/favicon-32x32.png') ?>>
 
     <?php if(empty($landing)||(!empty($landing)&&!$landing)){?>
+    <link rel="stylesheet" href=<?= base_url('assets/css/bootstrap.min.css') ?>>
+    <link rel="stylesheet" href=<?= base_url('assets/css/all.min.css') ?>>
+    <link href="<?= base_url('assets/css/fontawesome.min.css') ?>" rel="stylesheet">
     <link rel="stylesheet" href=<?= base_url('assets/css/lidearsip.css') ?>>
     <link rel="stylesheet" href=<?= base_url('assets/css/sidebar.css') ?>>
     <link rel="stylesheet" href=<?= base_url('assets/css/jquery-ui.min.css') ?>>
     <?php } else { ?>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href=<?= base_url('assets/css/all.min.css') ?>>
+    <link href="<?= base_url('assets/css/fontawesome.min.css') ?>" rel="stylesheet">
+    <link rel="stylesheet" href=<?= base_url('assets/css/bootstrap.min.css') ?>>
     <link rel="icon" type="image/png" sizes="32x32" href=<?= base_url('assets/img/favicon-32x32.png') ?>>
     <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href=<?= base_url('assets/css/animation_landing.css') ?>>
@@ -34,6 +39,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <?php if (!empty($page)&&$page==="login"){ ?>
     <link rel="stylesheet" href=<?= base_url('assets/css/login_css.css') ?>>
     <link rel="stylesheet" href=<?= base_url('assets/css/bug_report.css') ?>>
+    <link rel="stylesheet" href=<?= base_url('assets/css/lidearsip.css') ?>>
     <?php }?>
     <?php if (!empty($page)&&$page==="form_surat"){ ?>
     <link rel="stylesheet" href=<?= base_url('assets/css/ceklis_form_surat.css') ?>>
@@ -50,7 +56,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/sp-1.0.1/sl-1.3.1/datatables.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto&display=swap" rel="stylesheet">
 <!--For Font awesome only-->
-    <script src="https://kit.fontawesome.com/c2282643fa.js" crossorigin="anonymous"></script>
+    
     <script src="https://code.highcharts.com/highcharts.js"></script>
 
 
