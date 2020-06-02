@@ -1,10 +1,19 @@
 <div class="container h-100">
     <div class="d-flex justify-content-center h-100">
         <div class="user_card">
+            <div class="d-none d-md-block">
             <div class="d-flex justify-content-center">
                 <div class="brand_logo_container">
                     <img class="img-register brand_logo" src="<?= PATHIMG ?>Sleman.svg" alt="" />
                 </div>
+            </div>
+            </div>
+            <div class="d-block d-md-none">
+            <div class="d-flex justify-content-center">
+                <div class="brand_logo_container_child">
+                    <img class="img-register brand_logo_child" src="<?= PATHIMG ?>Sleman.svg" alt="" />
+                </div>
+            </div>
             </div>
             <form id="login_form" action="go/loginvalid/token" method="POST">
                 <div class="form_container">
@@ -19,7 +28,7 @@
                     <div class="row d-flex justify-content-center ">
                         <div class="col-md-10 input-group mb-3">
                             <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                <span class="input-group-text"><i class="fa fa-key"></i></span>
                             </div>
                             <input type="password" name="login_pass" class="form-control input_pass" value="" placeholder="password">
                         </div>
