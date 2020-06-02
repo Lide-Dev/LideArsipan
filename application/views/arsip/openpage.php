@@ -33,14 +33,13 @@ if (!empty($_SESSION['typearsip'])) {
 
 <div class="container my-2">
     <h3>File Arsip: </h3>
-    <div class="row justify-content-center">
-        <div class="col-auto">
+    <div class="text-center">
+    <?= $imagefile ?>
+    </div>
+    <!-- <div class="row justify-content-center">
+        <div class=""> -->
             <table class='table my-4'>
-                <tr>
-                    <td colspan=3 class='text-center'>
-                        <?= $imagefile ?>
-                    </td>
-                </tr>
+               
                 <tr>
                     <td>
                         <p>Nama File</p>
@@ -87,16 +86,16 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                 </tr>
             </table>
-        </div>
-    </div>
+        <!-- </div>
+    </div> -->
 </div>
 
 
 <div class="container my-2">
     <h3>Detail Arsip: </h3>
-    <div class="row justify-content-center">
-        <div class="">
-            <table class='table my-4'>
+    <!-- <div class="row justify-content-center">
+        <div class=""> -->
+            <table class='table table-responsive my-4'>
                 <tr>
                     <td>
                         <p><?= $columnst[0] ?></p>
@@ -170,6 +169,6 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                 </tr>
             </table>
-        </div>
-    </div>
+        <!-- </div>
+    </div> -->
 </div>

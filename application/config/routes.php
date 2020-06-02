@@ -58,6 +58,7 @@ $route['admin/dashboard']="admin_dashboard/index";
 $route['admin/admdatauser']="admin_datauser/index";
 $route['admin/admdatauser/form/request']='admin_datauser/submitrequest';
 $route['admin/admdatauser/put/user']="admin_datauser/addaccount";
+$route['admin/sampah']='admin_boxsampah/index';
 //$route['admin/admdatauser/put/banuser']="admin_datauser/banaccount";
 $route["ajaxadmin/user/table/(:any)"]="admin_datauser/gettable/$1";
 $route["ajaxadmin/user/count"]="admin_datauser/getcountajax";

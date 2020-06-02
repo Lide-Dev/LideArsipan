@@ -252,7 +252,9 @@ if ($page === "adm_datauser") {
 if ($page === "adm_dashboard") {
   echo "<script src=" . base_url('assets/js/page/admin/chartdashboard.js') . "></script>";
 }
-
+if ($page === "adm_boxsampah"){
+  echo "<script src=" . base_url('assets/js/page/admin/boxsmp.js') . "></script>";
+}
 ?>
 <?php
 if ($page === "dashboard") {

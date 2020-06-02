@@ -91,7 +91,7 @@ class Model_Login extends MY_Model
                 if (!empty($params['length']) && $params['length'] <= $config['limitmax']) {
                     $limit = $params['length'];
                 } else {
-                    $limit = 20;
+                    $limit = 10;
                 }
                 $this->db->limit($limit, $start);
             }

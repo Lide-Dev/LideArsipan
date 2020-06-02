@@ -1,6 +1,6 @@
-<div class="container" style="margin-top:30vh">
+<div class="container" style="margin-top:30vh; margin-bottom:20vh">
 <?=!empty($_SESSION['message']) ? cetak($_SESSION['message']) : ""?>
-    <form action="" method="get">
+
         <div class="row mb-5">
             <div class="col-md-6">
                 <label class="px-4" for="">Pencarian Data User</label>
@@ -9,10 +9,10 @@
                         <span class="input-group-text" id="basic-addon3"><i class="fas fa-search fa-sm  "></i></span>
                     </div>
                     <input type="text" class="form-control" name="search" id="ad_search" aria-describedby="HelpPencarianUser" placeholder="Mencari Data...">
-                    <!--<small id="HelpPencarianUser" class="form-text text-muted">Help text</small>-->
+                    <small id='HelpPencarianUser' class="text-muted">Pencarian akan dilakukan jika melebihi 2 karakter huruf di kolom pencarian.<br>Kosongkan kolom pencarian jika ingin melihat semua arsip.</small>
                 </div>
             </div>
-            <div class="col-md-6 align-self-end d-flex justify-content-start px-2">
+            <div class="col-md-6 align-self-center d-flex justify-content-start px-2">
                 <button type="button" id="ad_btnsearch" class="btn btn-primary">Mencari</button>
                 <button type="button" id="ad_add" class="btn btn-success mx-2"><i class="fas fa-plus-square fa-sm "></i></button>
                 <button type="button" id="ad_banmode" class="btn btn-outline-darkpriwinkle">Blacklist Mode</button>
@@ -20,7 +20,7 @@
         </div>
         <div class="row">
         </div>
-    </form>
+
 
     <div class="row">
     <!-- End of Menu Surat -->

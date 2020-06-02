@@ -176,12 +176,13 @@ $(document).ready(function () {
           "serverSide": true,
           "ordering": true,
           "order": [[0, 'asc']], // Default sortingnya berdasarkan kolom /field ke 0 (paling pertama)
+          "sDom": "ltipr",
           "ajax": {
             "url": "http://localhost/LideArsipan/ajaxadmin/user/table/normal", // URL file untuk proses select datanya
             "type": "POST"
           },
           "deferRender": true,
-          "aLengthMenu": [[20, 10, 50], [5, 10, 50]], // Combobox Limit
+          "aLengthMenu": [[5, 10, 30], [5, 10, 30]], // Combobox Limit
           "columns": [
             { "data": "id_user" }, // Tampilkan nis
             { "data": "email" },  // Tampilkan nama
@@ -221,6 +222,7 @@ $(document).ready(function () {
                 "serverSide": true,
                 "ordering": true,
                 "order": [[0, 'asc']], // Default sortingnya berdasarkan kolom /field ke 0 (paling pertama)
+                "sDom": "ltipr",
                 "ajax": {
                   "url": "http://localhost/LideArsipan/ajaxadmin/user/table/ban", // URL file untuk proses select datanya
                   "type": "POST"
@@ -259,6 +261,7 @@ $(document).ready(function () {
                 "serverSide": true,
                 "ordering": true,
                 "order": [[0, 'asc']], // Default sortingnya berdasarkan kolom /field ke 0 (paling pertama)
+                "sDom": "ltipr",
                 "ajax": {
                   "url": "http://localhost/LideArsipan/ajaxadmin/user/table/normal", // URL file untuk proses select datanya
                   "type": "POST"
@@ -325,33 +328,33 @@ $(document).ready(function () {
       );
 
       $('#ad_search').keyup(function () {
-        searchbox2 = $('#ar_search').val();
-        if (searchbox2.length > 2) {
-          $('#ar_btnsearch').removeClass('disabled');
-          $('#ar_btnsearch').addClass('btn-outline-freespeechblue');
+        searchbox2 = $('#ad_search').val();
+        if (searchbox2.length > 1) {
+          $('#ad_btnsearch').removeClass('disabled');
+          $('#ad_btnsearch').addClass('btn-outline-freespeechblue');
         }
         else {
           if (tempsearch2 != searchbox && searchbox2.length == 0) {
             search(searchbox2);
             tempsearch2 = searchbox;
           }
-          $('#ar_btnsearch').addClass('disabled ');
-          $('#ar_btnsearch').removeClass('btn-outline-freespeechblue');
+          $('#ad_btnsearch').addClass('disabled ');
+          $('#ad_btnsearch').removeClass('btn-outline-freespeechblue');
         }
       });
 
-      $('#ar_btnsearch').click(function () {
-        searchbox = $('#ar_search').val();
-        if (tempsearch != searchbox && searchbox.length >= 3) {
+      $('#ad_btnsearch').click(function () {
+        searchbox = $('#ad_search').val();
+        if (tempsearch != searchbox && searchbox.length >= 2) {
           search(searchbox);
           tempsearch = searchbox;
         }
       });
 
-      $('#ar_search').keypress(function (e) {
+      $('#ad_search').keypress(function (e) {
         var key = e.which;
         if (key == 13) {
-          $('#ar_btnsearch').click();
+          $('#ad_btnsearch').click();
         }
       });
 

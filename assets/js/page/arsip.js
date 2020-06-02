@@ -49,7 +49,7 @@ $(document).ready(function () {
               "type": "POST"
             },
             "deferRender": true,
-            "aLengthMenu": [[20, 10, 50], [5, 10, 50]], // Combobox Limit
+            "aLengthMenu": [[5, 10, 30], [5, 10, 30]], // Combobox Limit
             "columns": [
               { "data": columns[0] }, // Tampilkan nis
               { "data": columns[1] },  // Tampilkan nama

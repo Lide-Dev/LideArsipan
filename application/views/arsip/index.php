@@ -26,8 +26,9 @@ if (!empty($_SESSION['typearsip'])) {
                     </div>
                 </div>
 
-                <div class="shadow d-flex text-center btn-group btn-group-toggle justify-content-center">
-                    <a href="<?= base_url('arsip/suratmasuk') ?>" class="col-md-4 btn btn-hintofelusive <?= $active[0] ?>">
+                <div class="row shadow text-center">
+                    <div class="col-md-4 btn btn-hintofelusive  <?= $active[0] ?>">
+                    <a href="<?= base_url('arsip/suratmasuk') ?>" >
                         <div id="arsip-sm" class="">
                             <span class="fa-stack fa-4x">
                                 <i class="fas fa-circle fa-stack-2x text-info"></i>
@@ -36,7 +37,9 @@ if (!empty($_SESSION['typearsip'])) {
                             <h5 class="service-heading">Surat Masuk</h5>
                         </div>
                     </a>
-                    <a href="<?= base_url('arsip/suratkeluar') ?>" class="col-md-4 btn btn-hintofelusive <?= $active[1] ?>">
+                    </div>
+                    <div class="col-md-4 btn btn-hintofelusive <?= $active[1] ?>">
+                    <a href="<?= base_url('arsip/suratkeluar') ?>" >
                         <div id="arsip-sk">
                             <span class="fa-stack fa-4x">
                                 <i class="fas fa-circle fa-stack-2x text-info"></i>
@@ -45,7 +48,9 @@ if (!empty($_SESSION['typearsip'])) {
                             <h5 class="service-heading">Surat Keluar</h5>
                         </div>
                     </a>
-                    <a href="<?= base_url('arsip/disposisi') ?>" class="col-md-4 btn btn-hintofelusive <?= $active[2] ?>">
+                    </div>
+                    <div class="col-md-4 btn btn-hintofelusive <?= $active[2] ?>">
+                    <a href="<?= base_url('arsip/disposisi') ?>">
                         <div id="arsip-dp">
                             <span class="fa-stack fa-4x">
                                 <i class="fas fa-circle fa-stack-2x text-warning"></i>
@@ -54,6 +59,7 @@ if (!empty($_SESSION['typearsip'])) {
                             <h5 class="service-heading">Disposisi</h5>
                         </div>
                     </a>
+                    </div>
                 </div>
             </div>
         </section>
