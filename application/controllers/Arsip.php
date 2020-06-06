@@ -90,6 +90,7 @@ class Arsip extends MY_Controller
         $this->ajaxFunction();
         $this->load->model("model_surat", "ms");
         $this->load->model("model_dokumen", "md");
+        $this->load->model("model_kode", "mk");
         $this->load->model("model_datapengguna", "mdp");
         //AJAX View Modal
         //if (!$this->input->is_ajax_request()) exit("Unknown Address (401)");
@@ -99,7 +100,7 @@ class Arsip extends MY_Controller
             if (!empty($data['arsip'])) {
                 if ($type === "open") {
                     $data['arsip'] = $this->ms->GetSuratbyID($request, $_SESSION['typearsip']);
-                    $data['klasifikasi'] = $this->ms->get_desckode($data['arsip']['id_kode']);
+                    $data['klasifikasi'] = $this->mk->get_desckode($data['arsip']['id_kode']);
                     $data['user'] = $this->mdp->GetUserbyID($data['arsip']['id_upload'], "nama");
                     $data['namauploader'] = $data['user']->nama;
                     $data['dokumen'] = $this->md->GetDokumenbyID($data['arsip']['id_dokumen'], $_SESSION['typearsip']);

@@ -20,14 +20,14 @@ $(document).ready(function () {
         var columns = [''];
         if (data['type'] === "dp") {
           columns[0] = "id_kode";
-          columns[1] = "klasifikasi";
+          columns[1] = "nama";
           columns[2] = "perihal";
           columns[3] = "tgl_penerimaan";
           columns[4] = 'id_disposisi';
         }
         else {
           columns[0] = "id_kode";
-          columns[1] = "klasifikasi";
+          columns[1] = "nama";
           columns[2] = "keterangan";
           columns[3] = "tgl_penerimaan";
           if (data['type'] === 'sm')
