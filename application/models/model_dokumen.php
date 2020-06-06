@@ -54,16 +54,7 @@ class Model_Dokumen extends MY_Model
         SELECT sampah, id_dokumen from disposisi where sampah={$sampah}";
         $join = 'dokumen b on a.id_dokumen = b.id_dokumen';
 
-        /*SELECT a.sampah, a.id_dokumen , b.byte_file
-            FROM
-            (
-            SELECT sampah, id_dokumen from surat_masuk where sampah=0
-            UNION ALL
-            SELECT sampah, id_dokumen from surat_keluar where sampah=0
-            UNION ALL
-            SELECT sampah, id_dokumen from disposisi where sampah=0
-            ) a
-        JOIN dokumen b on a.id_dokumen = b.id_dokumen */
+        
         $query =$this->db->query('SELECT '.$select.' FROM ('.$table.') a JOIN '. $join);
         $arr =  $query->result_array();
         $sum = 0;
