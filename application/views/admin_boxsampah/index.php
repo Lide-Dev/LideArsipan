@@ -1,17 +1,29 @@
 <div class="container " style="margin-top:20vh; margin-bottom:20vh">
     <div class="container">
         <div class="row my-5 bg-londonsquare rounded d-flex align-content-center">
-            <div id="progress1" class='bg-mintygreen text-center text-white col-auto rounded-left' style="width: 0%;">
-                <h3 style="color: rgba(0, 0, 0, 0);">30%</h3>
-                <p style="color: rgba(0, 0, 0, 0);">Surat Aktif</p>
+            <div id="progress1" class='bg-mintygreen text-center text-white rounded-left' style="width: 0%;" data-percentage=<?= $percentagearsip ?>>
+                <?php if ($percentagearsip > 10) { ?>
+                    <h3 style="color: rgba(0, 0, 0, 0);"><?=$percentagearsip?>%</h3>
+                    <p style="color: rgba(0, 0, 0, 0);">Surat Aktif</p>
+                <?php } ?>
             </div>
-            <div id="progress2" class='bg-chromeyellow text-center text-white col-auto' style="width: 0%;">
-                <h3 style="color: rgba(0, 0, 0, 0);">10%</h3>
-                <p style="color: rgba(0, 0, 0, 0);">Sampah Surat</p>
+            <div id="progress2" class='bg-chromeyellow text-center text-white' style="width: 0%;" data-percentage=<?= $percentagesampah ?>>
+                <?php if ($percentagesampah > 10) { ?>
+                    <h3 style="color: rgba(0, 0, 0, 0);"><?=$percentagesampah?>%</h3>
+                    <p style="color: rgba(0, 0, 0, 0);">Sampah Surat</p>
+                <?php } ?>
             </div>
-            <div id="progress3" class='bg-londonsquare text-center text-white col-auto rounded-right' style="width: 0%;">
-                <h3 style="color: rgba(0, 0, 0, 0);">60%</h3>
-                <p style="color: rgba(0, 0, 0, 0);">Penyimpanan Server</p>
+            <div id="progress3" class='bg-blackpearl text-center text-white ' style="width: 0%;" data-percentage=<?= $percentagesystem ?>>
+                <?php if ($percentagesystem > 10) { ?>
+                    <h3 style="color: rgba(0, 0, 0, 0);"><?=$percentagesystem?>%</h3>
+                    <p style="color: rgba(0, 0, 0, 0);">Reserved System</p>
+                <?php } ?>
+            </div>
+            <div id="progress4" class='bg-londonsquare text-center text-whiteo rounded-right' style="width: 0%;" data-percentage=<?= $percentagetotal ?>>
+                <?php if ($percentagetotal > 10) { ?>
+                    <h3 style="color: rgba(0, 0, 0, 0);"><?=$percentagetotal?>%</h3>
+                    <p style="color: rgba(0, 0, 0, 0);">Penyimpanan Server</p>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -29,7 +41,7 @@
                             :
                         </td>
                         <td>
-                            220 MB
+                            <?=$totalarsip?>
                         </td>
                     </tr>
                     <tr>
@@ -40,7 +52,7 @@
                             :
                         </td>
                         <td>
-                            120 MB
+                            <?=$totalsampah?>
                         </td>
                     </tr>
                     <tr>
@@ -51,7 +63,7 @@
                             :
                         </td>
                         <td>
-                            110 MB
+                            <?=$reservedsystem?>
                         </td>
                     </tr>
                 </table>
@@ -66,7 +78,7 @@
                             :
                         </td>
                         <td>
-                            550 MB
+                            <?=$space?>
                         </td>
                     </tr>
                     <tr>
@@ -77,7 +89,7 @@
                             :
                         </td>
                         <td>
-                            1 GB
+                             <?=$totalserver?>
                         </td>
                     </tr>
                 </table>
@@ -96,14 +108,14 @@
                 <button id="ar_btnsearch" class='btn disabled'>Cari</button>
             </div>
             <div class="col-4">
-                  <input type="text" class="form-control" name="tglhapus" id="ar_tglhapus" placeholder="Tanggal Hapus">
+                <input type="text" class="form-control" name="tglhapus" id="ar_tglhapus" placeholder="Tanggal Hapus">
             </div>
         </div>
     </div>
 
     <div class="container my-3">
         <div class="table-responsive">
-            <table class="table table-inverse " id='table-sampah'>
+            <table class="table table-inverse " id='table_sampah'>
                 <thead class="thead-inverse">
                     <tr>
                         <th>ID Surat</th>
