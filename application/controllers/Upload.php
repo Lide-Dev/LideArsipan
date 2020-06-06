@@ -15,6 +15,7 @@ class Upload extends CI_Controller {
         $config['upload_path'] = './assets/doc';
         $config['allowed_types'] = 'pdf|jpg|png|doc|docx';
         $config['max_size']     = '10240';
+        $config['encrypt_name'] = true;
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('berkas')) {
             $error = array('error' => $this->upload->display_errors());
@@ -22,7 +23,9 @@ class Upload extends CI_Controller {
             $this->load->view('form_surat/upload', $error);
         } else {
             $data = array('upload_data' => $this->upload->data());
-
+            $name=explode('.',$data['upload_data']['client_name']);
+            array_pop($name);
+            print_r($name);
             $this->load->view('form_surat/complete', $data);
         }
     }

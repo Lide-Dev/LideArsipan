@@ -164,8 +164,9 @@ class Arsip extends MY_Controller
     {
         $this->load->model("model_dokumen", "md");
         $data = $this->md->GetDokumenbyID($id);
-        if (file_exists('assets/doc/' . $data['nama'] . $data['ekstensi'])) {
-            redirect(base_url('assets/doc/' . $data['nama'] . $data['ekstensi']));
+        if (file_exists('assets/doc/' . $data['nama_file'] . $data['ekstensi'])) {
+            redirect(base_url('assets/doc/' . $data['nama_file'] . $data['ekstensi']));
+
         } else {
             $config['title'] = 'File Hilang';
             $config['code'] = '404';

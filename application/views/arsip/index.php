@@ -75,9 +75,9 @@ if (!empty($_SESSION['typearsip'])) {
     <!--Tabel-->
 
     <?php if (empty($tablerow) || $tablerow === 0 || (empty($_SESSION['typearsip']))) { ?>
-        <div class="container" style="margin-top:20vh; margin-bottom:20vh; display:none">
+        <div class="container" style="margin-top:20vh; margin-bottom:20vh; ">
             <p class="text-center">
-                Tidak terdapat arsip disini. Silahkan di isi terlebih dahulu untuk melihat tabel data arsip!
+                Tidak terdapat arsip disini. Silahkan di isi terlebih dahulu untuk melihat tabel data arsip.
             </p>
         </div>
     <?php } else { ?>
