@@ -15,12 +15,20 @@ class Model_Dokumen extends MY_Model
      */
     function TambahDokumen($data)
     {
+        $date = date("Y-m-d H:i:s");
         $id = $this->getIdRandom('dokumen', 20, 'DK');
+        $name = explode('.',$data['client_name']);
+        array_pop($name);
+        if (is_array($name))
+            $name=$name[0];
+
         $value = array(
             'id_dokumen' => $id,
-            'nama' => $data['raw_name'],
+            'nama' => $name,
+            'nama_file' => $data['raw_name'],
             'ekstensi' => $data['file_ext'],
             'byte_file' => $data['file_size'],
+            'create_time' => $date
         );
         $this->db->insert('dokumen', $value);
         return $id;
@@ -54,7 +62,7 @@ class Model_Dokumen extends MY_Model
         SELECT sampah, id_dokumen from disposisi where sampah={$sampah}";
         $join = 'dokumen b on a.id_dokumen = b.id_dokumen';
 
-        
+
         $query =$this->db->query('SELECT '.$select.' FROM ('.$table.') a JOIN '. $join);
         $arr =  $query->result_array();
         $sum = 0;

@@ -110,6 +110,7 @@ class Model_DataPengguna extends MY_Model
 
     function addNewAccount($data,$id_user)
     {
+        $date = date("Y-m-d H:i:s");
         $id = $this->getIdRandom('userlogin',10,'USL');
         $id2 = $this->getIdRandom('datapengguna',10,'DP');
         if (empty($data['username']))
@@ -154,7 +155,9 @@ class Model_DataPengguna extends MY_Model
             'foto_profil'=>'undefined',
             'id_gender'=> $gender,
             'id_jabatan'=> $data['jabatan'],
-            'id_user'=> $id
+            'id_user'=> $id,
+            'create_time'=> $date,
+            'update_time'=> $date
         );
         $this->db->insert('datapengguna',$value2);
 

@@ -228,6 +228,7 @@ class Form_Surat extends MY_Controller
         $config['upload_path'] = './assets/doc';
         $config['allowed_types'] = 'pdf|jpg|png|doc|docx';
         $config['max_size']     = '10240';
+        $config['encrypt_name'] = true;
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('uploaddoc')) {
             $error = array('error' => $this->upload->display_errors());
