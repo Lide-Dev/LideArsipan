@@ -43,7 +43,7 @@
             <?=
                 empty($_SESSION['idlogin'])
                     ? "<a class='nav-item nav-link' href='" . base_url('Login') . "'><i class='glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='MASUK' aria-hidden='true'><i class='fas fa-sign-in-alt'></i></i><span class='ml-2 d-md-none'>Login</span></a>"
-                    : "<a class='nav-item nav-link' href='" . base_url('go/logout') . "'><i class='glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='KELUAR' aria-hidden='true'><i class='fas fa-sign-out-alt white'></i></i></i><span class='ml-2 d-md-none'>Logout</span></a>";
+                    : "<a class='nav-item nav-link' href='" . base_url('go/logout') . "'><i class='glyphicon glyphicon-play whiteText' data-toggle='tooltip' data-placement='top' title='KELUAR' aria-hidden='true'><i class='fas fa-sign-out-alt white'></i></i><span class='ml-2 d-md-none'>Logout</span></a>";
             ?>
         </div>
     </div>

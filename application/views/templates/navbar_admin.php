@@ -14,6 +14,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="<?=base_url('Admin_Dashboard')?>">Bantuan</a>
                         <a class="dropdown-item" href="<?=base_url('admin/admdatauser')?>">Data User</a>
+                        <a class="dropdown-item" href="<?=base_url('admin/filemanager')?>">File Manager</a>
                         <a class="dropdown-item" href="<?=base_url('admin_Registrasi_User')?>">Registrasi</a>
                         <a class="dropdown-item" href="<?=base_url('dashboard')?>">Dashboard User</a>
                     </div>
