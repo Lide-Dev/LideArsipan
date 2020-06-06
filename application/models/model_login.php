@@ -217,12 +217,14 @@ class Model_Login extends MY_Model
 
     function updateDataLogin($id, $data,$iduser)
     {
+        $date = date("Y-m-d H:i:s");
         if (empty($data['email'])) {
             $data['email'] = 'undefined';
         }
         $data = array(
             'username' => $data['username'],
-            'email' => $data['email']
+            'email' => $data['email'],
+            'update_time' => $date
         );
 
         $this->db->where('id_user', $id);
