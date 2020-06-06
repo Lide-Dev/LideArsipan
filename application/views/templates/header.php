@@ -25,7 +25,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <link rel="stylesheet" href=<?= base_url('assets/css/all.min.css') ?>>
         <link href="<?= base_url('assets/css/fontawesome.min.css') ?>" rel="stylesheet">
         <link rel="stylesheet" href=<?= base_url('assets/css/lidearsip.css') ?>>
-        <?php if (empty($admin) || !$admin) { ?>
+        <?php if ((empty($admin) || !$admin) && $page !== 'errorpage') { ?>
             <link rel="stylesheet" href=<?= base_url('assets/css/sidebar.css') ?>>
         <?php } ?>
         <link rel="stylesheet" href=<?= base_url('assets/css/jquery-ui.min.css') ?>>
@@ -59,7 +59,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto&display=swap" rel="stylesheet">
     <!--For Font awesome only-->
 
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+  
 
 
 </head>

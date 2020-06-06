@@ -209,6 +209,7 @@
 <?php }
 } ?>
 
+</div>
 </body>
 
 <!--  <script src= base_url('assets/js/tooltips_landing.js') ></script>
@@ -227,6 +228,7 @@
 <script src=<?= base_url('assets/js/fontawesome.min.js') ?>></script>
 <script src=<?= base_url('assets/js/bootstrap.bundle.min.js') ?>></script>
 <script src=<?= base_url('assets/js/slider_landing.js') ?>></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
 <script type="text/javascript">
   $('[data-toggle="tooltip"]').tooltip()
 </script>
