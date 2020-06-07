@@ -4,6 +4,26 @@
  * Pages: Form Surat
  * Pages ini berfungsi untuk membuat surat.
  */
+$typeallowed = array('sm'=>false,'sk'=>false,'dp'=>false);
+$active = array('','','');
+$ariaactive = array('false','false','false');
+$role = strtolower($permission->nama);
+
+if ($role === 'admin') {
+  $typeallowed['sm']= $typeallowed['sk'] = $typeallowed['dp'] = true;
+  $active[0]='active';
+  $ariaactive[0]='true';
+}
+else if ($role === 'operator'){
+  $typeallowed['sm']= $typeallowed['sk']= true;
+  $active[0]='active';
+  $ariaactive[0]='true';
+}
+else {
+  $typeallowed['dp'] = true;
+  $active[2]='active';
+  $ariaactive[2]='true';
+}
 ?>
 
 <div class="container">
@@ -17,25 +37,31 @@
     <div class="form-group col-md-6">
       <label for="form_nosurat">Tipe Surat</label>
       <ul class="nav nav-pills">
+      <?php if ($typeallowed['sm']){ ?>
         <li class="nav-item m-2">
-          <label class="nav-link active border border-primary" for="form_tipesurat1" id="label_tipesurat1" data-toggle="tab" aria-selected="true"><i class="fa fa-arrow-circle-down"></i> Surat Masuk</label>
+          <label class="nav-link border border-primary <?=$active[0]?>" for="form_tipesurat1" id="label_tipesurat1" data-toggle="tab" aria-selected="<?=$ariaactive[0]?>"><i class="fa fa-arrow-circle-down"></i> Surat Masuk</label>
           <input type="radio" name="tipesurat" id="form_tipesurat1" value="suratmasuk" style="display:none" checked>
         </li>
+      <?php } ?>
+      <?php if ($typeallowed['sk']){ ?>
         <li class="nav-item m-2">
-          <label class="nav-link border border-primary" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="false"><i class="fa fa-arrow-circle-up"></i> Surat Keluar</label>
+          <label class="nav-link border border-primary <?=$active[1]?>" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="<?=$ariaactive[1]?>"><i class="fa fa-arrow-circle-up"></i> Surat Keluar</label>
           <input type="radio" name="tipesurat" id="form_tipesurat2" value="suratkeluar" style="display:none">
         </li>
+      <?php } ?>
+      <?php if ($typeallowed['dp']){ ?>
         <li class="nav-item m-2">
-          <label class="nav-link border border-primary" for="form_tipesurat3" id="label_tipesurat3" data-toggle="tab" aria-selected="false"><i class="fa fa-inbox"></i> Disposisi</label>
+          <label class="nav-link border border-primary <?=$active[2]?>" for="form_tipesurat3" id="label_tipesurat3" data-toggle="tab" aria-selected="<?=$ariaactive[2]?>"><i class="fa fa-inbox"></i> Disposisi</label>
           <input type="radio" name="tipesurat" id="form_tipesurat3" value="disposisi" style="display:none">
         </li>
+      <?php } ?>
       </ul>
     </div>
   </div>
   <div class="mt-2 mb-3">
     <p><b class="text-danger ">*</b>Klasifikasi Surat</p>
     <div class="container border border-hintofelusive rounded p-3">
-      <div id="div_container_kode" >
+      <div id="div_container_kode">
         <div class="row">
           <div class="col-md-6">
             <p id="kode">Kode yang dipilih: 000/0/0/0</p>
