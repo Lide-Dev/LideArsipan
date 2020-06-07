@@ -172,6 +172,166 @@ class MY_Controller extends CI_Controller
         return $config;
     }
 
+
+    /**
+     * Menvalidasi role pengguna. Sangat berguna untuk inisialisasi page yang mempunyai permission.
+     * Perlu diketahui key array config harus sama dengan yang ada di jelaskan dibawah. Jika config
+     * string maka yang akan dikomparasi adalah semua key walaupun $mode = 'key'.
+     *
+     * @param array|string $config
+     * - Array key pada config:
+     * 1. 'r_arsip' = Read Arsip
+     * 2. 'w_suratmasuk' / 'w_suratkeluar' / 'w_disposisi' = Write Arsip sesuai tipe (Perlu dimasukkan semua jika komparasi key ini)
+     * 3. 'dt_arsip' = Delete Temporary Arsip
+     * 4. 'dtu_arsip' = Delete Temporary Arsip hanya berlaku untuk Arsip yang di Upload pengguna akun
+     * 5. 'dp_arsip' = Delete Permanent Arsip
+     * 6. 'admin' = Akses Page Admin dan fitur-fitur lainnya.
+     * - String key pada config: 'admin', 'operator', 'chief', 'member'
+     *
+     * @param string $mode
+     * - Mode komparasi antar array. Ada dua value:
+     * 1. 'all' = Mengkomparasi semua array role permission dengan array $config
+     * 2. 'key' (Default) = Mengkomparasi beberapa array tergantung key yang dimasukkan.
+     * @return array
+     * - Pengembalian key array:
+     * 1. 'valid' = Bertipe bool. Mengembalikan validasi role.
+     * 2. 'upermission' =  Bertipe array. Mengembalikan data permission dari user.
+     *
+     */
+    public function roleValidate($config, $mode = 'key')
+    {
+        $this->load->model('model_login', 'mdl');
+        $this->load->model('model_datapengguna', 'mdp');
+        $configv = array(
+            'r_arsip' => 0,
+            'w_suratmasuk' => 0,
+            'w_suratkeluar' => 0,
+            'w_disposisi' => 0,
+            'dt_arsip' => 0,
+            'dtu_arsip' => 0,
+            'dp_arsip' => 0,
+            'admin' => 0
+        );
+
+        if (!is_array($config)) {
+            switch ($config) {
+                case 'admin':
+                    $configv = array(
+                        'r_arsip' => 1,
+                        'w_suratmasuk' => 1,
+                        'w_suratkeluar' => 1,
+                        'w_disposisi' => 1,
+                        'dt_arsip' => 1,
+                        'dtu_arsip' => 1,
+                        'dp_arsip' => 1,
+                        'admin' => 1
+                    );
+                    break;
+                case 'operator':
+                    $configv = array(
+                        'r_arsip' => 1,
+                        'w_suratmasuk' => 1,
+                        'w_suratkeluar' => 1,
+                        'w_disposisi' => 0,
+                        'dt_arsip' => 1,
+                        'dtu_arsip' => 1,
+                        'dp_arsip' => 0,
+                        'admin' => 0
+                    );
+                    break;
+                case 'chief':
+                    $configv = array(
+                        'r_arsip' => 1,
+                        'w_suratmasuk' => 0,
+                        'w_suratkeluar' => 0,
+                        'w_disposisi' => 1,
+                        'dt_arsip' => 0,
+                        'dtu_arsip' => 1,
+                        'dp_arsip' => 0,
+                        'admin' => 0
+                    );
+                    break;
+                case 'member':
+                    $configv = array(
+                        'r_arsip' => 1,
+                        'w_suratmasuk' => 0,
+                        'w_suratkeluar' => 0,
+                        'w_disposisi' => 0,
+                        'dt_arsip' => 0,
+                        'dtu_arsip' => 0,
+                        'dp_arsip' => 0,
+                        'admin' => 0
+                    );
+                    break;
+                default:
+                    $configv = '';
+                    break;
+            }
+        } else {
+            $configv = $config;
+        }
+        $user = $this->mdl->getDataUser($_SESSION['idlogin']);
+        $dp = $this->mdp->GetUserbyIDUser($user->id_user, 'id_jabatan');
+        $permission = (array) $this->rolePermission($dp->id_jabatan);
+        $valid = true;
+        if (empty($config)) {
+            $valid = false;
+        } else {
+            if ($mode === 'all')
+                $valid = ($permission === $configv);
+            else {
+                $key = array_keys($configv);
+                $a = sizeof($key);
+                $b = $c = 0;
+                $vl = array();
+                for ($i = 0; $i < $a; $i++) {
+                    if ($key[$i] === 'w_suratmasuk' || $key[$i] === 'w_suratkeluar' || $key[$i] === 'w_disposisi') {
+                        if ($permission[$key[$i]] == $configv[$key[$i]])
+                            $vl['w'][$b] = 1;
+                        else
+                            $vl['w'][$b] = 0;
+                        $b++;
+                    } else {
+                        if ($permission[$key[$i]] == $configv[$key[$i]])
+                            $vl['o'][$c] = 1;
+                        else
+                            $vl['o'][$c] = 0;
+                        $c++;
+                    }
+                }
+
+                if (!empty($vl['w'])) {
+                    foreach ($vl['w'] as $va) {
+
+                        $va1 = $va === 1 ? true : false;
+                        if ($va1 === true) {
+                            break;
+                        }
+                    }
+                } else {
+                    $va1 = true;
+                }
+                if (!empty($vl['o'])) {
+                    foreach ($vl['o'] as $va) {
+                        $va2 = $va === 1 ? true : false;
+                        if ($va2 === false) {
+                            break;
+                        }
+                    }
+                } else {
+                    $va2 = true;
+                }
+
+                if ($va1 && $va2) {
+                    $valid = true;
+                } else
+                    $valid = false;
+            }
+        }
+
+        return array('valid'=>$valid,'upermission'=>$permission);
+    }
+
     /**
      * Fungsi ini untuk menginisialisasi sebuah view page yang akan di outputkan ke browser.
      *
@@ -189,6 +349,8 @@ class MY_Controller extends CI_Controller
      */
     public function initView($pageURI, $config, $navbar = true, $sidebar = true, $modal = false, $landing = false)
     {
+        $this->load->model('model_login', 'mdl');
+        $this->load->model('model_datapengguna', 'mdp');
         $config['sidebar'] = $sidebar;
         $config['landing'] = $landing;
         if ($landing) {
@@ -199,7 +361,6 @@ class MY_Controller extends CI_Controller
             if ($navbar)
                 $this->load->view('templates/navbar', $config);
 
-
             $this->load->view($pageURI, $config);
             if ($modal)
                 $this->load->view('templates/modal', $config);
@@ -207,8 +368,8 @@ class MY_Controller extends CI_Controller
         } else {
             if (empty($_SESSION['idlogin'])) {
                 if ($pageURI === "login/index") {
-                    $message = "Anda telah logout dari Arsip ini. Silahkan login lagi.";
-                    $this->messagePage($message, 1);
+                    // $message = "Anda telah logout dari Arsip ini. Silahkan login lagi.";
+                    // $this->messagePage($message, 1);
                     $this->load->view('templates/header', $config);
 
                     if ($sidebar)
@@ -228,24 +389,25 @@ class MY_Controller extends CI_Controller
                     $this->messagePage($message, 1);
                 }
             } else {
-                $this->load->model('model_login', 'mdl');
                 $admin = $this->mdl->getDataUser($_SESSION['idlogin']);
-                $accadmin = $admin->tipe;
-                $config['accadmin'] = $accadmin;
+                $dp = $this->mdp->GetUserbyIDUser($admin->id_user, 'id_jabatan');
+                $permission = $this->rolePermission($dp->id_jabatan);
+                $config['permission'] = $permission;
+                $accadmin = $permission->admin;
+
                 $row = $this->mdl->validBan($_SESSION['idlogin']);
                 empty($row) ? '' : $bandate = strtotime($row->finish_date);
                 $date = strtotime(date("Y-m-d H:i:s"));
-                if ((!empty($config['admin']) && $config['admin']) && ($accadmin !== 'admin')) {
-                    $message = "Authorized Access. Anda perlu login menjadi admin! ";
+                if ((!empty($config['admin']) && $config['admin']) && ($accadmin !== 1)) {
+                    $config['title'] = 'Tidak di Ijinkan';
+                    $config['code'] = '403';
+                    $config['desc'] = 'Mohon maaf kami tidak bisa membawa anda kesana karena masalah perijinan';
+                    $this->errorPage($config);
+                } else if (!empty($row) && $date < $bandate) {
+                    $message = "Anda telah di ban sampai tanggal " . date("d-m-Y", strtotime($row->finish_date)) . " dengan alasan: " . $row->alasan;
                     header('Location: ' . base_url("login"));
                     $this->messagePage($message, 3);
-                }
-                else if (!empty($row) && $date<$bandate) {
-                    $message = "Anda telah di ban sampai tanggal ".date("d-m-Y",strtotime($row->finish_date))." dengan alasan: ".$row->alasan;
-                    header('Location: ' . base_url("login"));
-                    $this->messagePage($message, 3);
-                }
-                else {
+                } else {
                     $this->load->view('templates/header', $config);
                     if ($sidebar) {
                         if (!empty($config['admin']) && $config['admin'])
@@ -269,7 +431,6 @@ class MY_Controller extends CI_Controller
                 }
             }
         }
-
     }
 
     /**
@@ -308,26 +469,24 @@ class MY_Controller extends CI_Controller
     /**
      * Fungsi untuk membawa user ke page Error.
      *
-     * @param [array] $config
+     * @param array $config
      * - Konfigurasi untuk page error. Mempunyai nilai default.
-     * @param [array] $config['title']
-     * - Judul page error.
-     * @param [array] $config['code']
-     * - Code response dari page error tadi.
-     * @param [array] $config['desc']
-     * - Deskripsi error.
+     * - $config['title'] : Judul page error.
+     * - $config['code'] : Code response dari page error tadi.
+     * - $config['desc'] : Deskripsi error.
      * @return void
      */
-    public function errorPage($config){
+    public function errorPage($config)
+    {
         if (empty($config['title']))
-        $config['title']='Kesalahan Halaman';
+            $config['title'] = 'Kesalahan Halaman';
         if (empty($config['code']))
-        $config['code']='404';
+            $config['code'] = '404';
         if (empty($config['desc']))
-        $config['desc']='Terjadi sebuah kesalahan pada halaman web ini. Coba di refresh page atau perhatikan
+            $config['desc'] = 'Terjadi sebuah kesalahan pada halaman web ini. Coba di refresh page atau perhatikan
         url web dengan benar. Jika masih berlanjut cobalah kontak admin web ini';
 
-        $this->session->set_flashdata('configer',$config);
+        $this->session->set_flashdata('configer', $config);
         redirect(base_url('error'));
     }
 
@@ -336,12 +495,32 @@ class MY_Controller extends CI_Controller
      *
      * @return void
      */
-    public function ajaxFunction(){
-        if (!$this->input->is_ajax_request()){
-            $config['title']='Kesalahan URL';
-            $config['code']='403';
-            $config['desc']='URL yang anda tuju tidak bisa kami bawa kesana karena berbahaya';
+    public function ajaxFunction()
+    {
+        if (!$this->input->is_ajax_request()) {
+            $config['title'] = 'Tidak di Ijinkan';
+            $config['code'] = '403';
+            $config['desc'] = 'Mohon maaf kami tidak bisa membawa anda kesana karena masalah perijinan';
             $this->errorPage($config);
         }
+    }
+
+    /**
+     * Fungsi untuk mendapatkan data permission user bisa melakukan aksi apa saja di sistem ini.
+     *
+     * @param string $id_jabatan
+     * @return object Data permission akan dikembalikan didalamnya. Key array dijelaskan dibawah:
+     * - r_arsip = Read Arsip
+     * - w_suratmasuk / w_suratkeluar / w_disposisi = Write Arsip sesuai tipe
+     * - dt_arsip = Delete Temporary Arsip
+     * - dtu_arsip = Delete Temporary Arsip hanya berlaku untuk Arsip yang di Upload pengguna akun
+     * - dp_arsip = Delete Permanent Arsip
+     * - admin = Akses Page Admin dan fitur-fitur lainnya
+     */
+    public function rolePermission($id_jabatan)
+    {
+        $this->load->model('model_role', 'mr');
+        $data = $this->mr->getRole($id_jabatan);
+        return $data;
     }
 }

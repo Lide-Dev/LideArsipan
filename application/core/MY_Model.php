@@ -127,7 +127,7 @@ class MY_Model extends CI_Model
      * @param string $tipe
      * Tipe berisi angka untuk identitas log. Di isi tiga digit nomor. Tipe yang ada adalah:
      * - 001 = New Account
-     * - 002 = Delete Account
+     * - 002 = Recover Surat
      * - 003 = Edit Account
      * - 004 = Change Password
      * - 005 = New Surat
@@ -136,8 +136,9 @@ class MY_Model extends CI_Model
      * - 008 = Upload Document
      * - 009 = Ban Account
      * - 010 = Unban Account
-     * - 011 = Default Value
+     * - 011 = Unknown Type
      * - 012 = Temporary Delete Surat
+     * - 013 = Download File
      * - Nilai diluar jangkauan akan menjadi nilai default. Nilai yang kurang dari tiga digit akan di konversi kan menjadi tiga digit.
      * @param string $desc
      * Deskripsi log yang dimasukkan atau berubah. Biasanya berisi siapa yang mengubah dll.
@@ -152,7 +153,7 @@ class MY_Model extends CI_Model
             $tipe = sprintf("%03d", $tipe);
         }
         $temp = intval($tipe);
-        if ($temp < 1 || $temp > 12) {
+        if ($temp < 1 || $temp > 13) {
             $tipe = "011";
         }
         if (empty($data)) {
