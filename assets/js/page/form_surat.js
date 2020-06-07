@@ -1,8 +1,9 @@
 $(document).ready( function ()
 {
-  $("#form_tipesurat1").prop("checked", true);
+
   $("#form_tipesurat2").prop("checked", false);
-  $("#form_tipesurat3").prop("checked", false);
+  $("#form_tipesurat3").prop("checked", true);
+  $("#form_tipesurat1").prop("checked", true);
   $("#form_perihal").rules("remove");
   $("#form_noagenda").rules("remove");
   $("#div_noagenda").hide();
