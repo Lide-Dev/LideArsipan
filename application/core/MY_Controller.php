@@ -270,7 +270,7 @@ class MY_Controller extends CI_Controller
         } else {
             $configv = $config;
         }
-      
+
         $permission = (array) $this->rolePermission($_SESSION['idlogin']);
         $valid = true;
         if (empty($config)) {
