@@ -44,6 +44,7 @@ class Login extends MY_Controller
         $post = $this->input->post();
         print_r($post);
         $this->load->model('model_login', 'mdl');
+
         $email = $this->test_input($post["login_name"]);
         // check if e-mail address is well-formed
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -57,7 +58,8 @@ class Login extends MY_Controller
 
         if ($data['valid']) {
             $this->session->set_userdata('idlogin', $data['id']);
-            if ($data['type'] === 'user')
+            $role = $this->rolePermission($data['id']);
+            if (strtolower($role->nama) !== 'admin')
                 header('Location: ' . base_url("dashboard"));
             else
                 header('Location: ' . base_url("admin/dashboard"));
