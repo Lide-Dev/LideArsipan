@@ -125,7 +125,6 @@ class Model_DataPengguna extends MY_Model
             'username'=>$data['username'],
             'email'=>$data['email'],
             'password'=>$data['password'],
-            'tipe'=>'user'
 
         );
         $this->db->insert('userlogin',$value1);
@@ -164,16 +163,12 @@ class Model_DataPengguna extends MY_Model
         $c1 = array_keys($value1);
         $c2 = array_keys($value2);
         $d1 = $d2 = '';
-        for ($i=0;$i<5;$i++){
+        for ($i=0;$i<4;$i++){
             if ($i===3){
                 continue;
             }
-            if ($i===4){
-                $d1 .= $c1[$i]." => ".$value1[$c1[$i]];
-            }
-            else{
                 $d1 .= $c1[$i]." => ".$value1[$c1[$i]].", ";
-            }
+          
         }
         for ($i=0;$i<1;$i++){
             $d2 .= $c2[$i]." => ".$value2[$c2[$i]];
