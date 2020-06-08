@@ -2,7 +2,7 @@ var baseurl = 'http://localhost/LideArsipan/';
 $(document).ready(function () {
   var table = '';
   var tp_arsip = '';
-  var tempsearch = '';var tempsearch2 = '';
+  var tempsearch = ''; var tempsearch2 = '';
   var searchbox = '';
   var searchbox2 = '';
 
@@ -12,7 +12,6 @@ $(document).ready(function () {
     dataType: "JSON",
     success: function (data) {
       if (data['type'] === "emp") {
-        console.log('1');
         $('#tabel_arsip').html('');
         $('#div-table').hide();
       }
@@ -58,22 +57,34 @@ $(document).ready(function () {
               // Tampilkan telepon
               // Tampilkan alamat
               {
-                "data": columns[4],
-                "render": function (data, type, row) {
+                "render": function (data, type, meta, full) {
+
+                  role = full.settings.json.custom.role
+                  typearsip = full.settings.json.custom.typearsip
                   // Tampilkan kolom aksi
                   var classs = "btn glyphicon glyphicon-play whiteText";
                   var content1 = "<i class='fas fa-edit' style='color: #05c46b'></i>";
                   var content2 = "<i class='fas fa-envelope-open-text' style='color: #00d8d6''></i>";
                   var content3 = "<i class='fas fa-trash-alt' style='color: #ff3f34'></i>";
-                  var html = "<i class='" + classs + " edit' data-toggle='tooltip' data-placement='top' title='Edit Surat' aria-hidden='true'>" + content1 + "</i>"
-                  html += " <i class='" + classs + " open' data-toggle='tooltip' data-placement='top' title='Buka Surat' aria-hidden='true'>" + content2 + "</i> "
-                  html += "<i class='" + classs + " delete' data-toggle='tooltip' data-placement='top' title='Hapus Surat' aria-hidden='true'>" + content3 + "</i>"
+
+                  var html = " <i class='" + classs + " open' data-toggle='tooltip' data-placement='top' title='Buka Surat' aria-hidden='true'>" + content2 + "</i> "
+                  if ( (role == 'admin' ||(typearsip=='sm'||typearsip=='sk')&& role == 'operator') || (typearsip == 'dp' && role == 'chief')) {
+                    html += "<i class='" + classs + " edit' data-toggle='tooltip' data-placement='top' title='Edit Surat' aria-hidden='true'>" + content1 + "</i>"
+                  }
+                  if ( (role == 'admin' ||(typearsip=='sm'||typearsip=='sk')&& role == 'operator') || (typearsip == 'dp' && role == 'chief')) {
+                    html += "<i class='" + classs + " delete' data-toggle='tooltip' data-placement='top' title='Hapus Surat' aria-hidden='true'>" + content3 + "</i>"
+                  }
 
                   return html
                 },
                 "orderable": false
               }
-            ]
+            ],
+            "drawCallback": function (settings) {
+              // Here the response
+              var response = settings.json;
+              console.log(response);
+            }
           });
 
           $('#tabel_arsip tbody').on('click', '.open', function () {
@@ -112,12 +123,12 @@ $(document).ready(function () {
 
           $('#ar_search').keyup(function () {
             searchbox2 = $('#ar_search').val();
-            if (searchbox2.length > 2){
+            if (searchbox2.length > 2) {
               $('#ar_btnsearch').removeClass('disabled');
               $('#ar_btnsearch').addClass('btn-outline-freespeechblue');
             }
             else {
-              if (tempsearch2 != searchbox && searchbox2.length==0){
+              if (tempsearch2 != searchbox && searchbox2.length == 0) {
                 search(searchbox2);
                 tempsearch2 = searchbox;
               }

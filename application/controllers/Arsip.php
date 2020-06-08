@@ -5,13 +5,13 @@ class Arsip extends MY_Controller
 
     public function index()
     {
+
         $data = $this->initConfig("arsip", "Data Arsip");
         $this->load->model("model_surat");
-        if (empty($_SESSION['typearsip']) || $_SESSION['typearsip'] === 'none'){
+        if (empty($_SESSION['typearsip']) || $_SESSION['typearsip'] === 'none') {
             $type = '';
-        }
-        else {
-           $type = $_SESSION['typearsip'];
+        } else {
+            $type = $_SESSION['typearsip'];
         }
         $data['tablerow'] = $this->model_surat->getCountSurat($type);
         $config = array(
@@ -94,6 +94,29 @@ class Arsip extends MY_Controller
         $this->load->model("model_datapengguna", "mdp");
         //AJAX View Modal
         //if (!$this->input->is_ajax_request()) exit("Unknown Address (401)");
+
+        $permission = $this->rolePermission($_SESSION['idlogin']);
+        switch ($_SESSION['typearsip']) {
+            case 'sm':
+                $validw = $permission->w_suratmasuk;
+                break;
+            case 'sk':
+                $validw = $permission->w_suratkeluar;
+                break;
+            case 'dp':
+                $validw = $permission->w_disposisi;
+                break;
+            default:
+                $validw = 0;
+                break;
+        }
+
+        if ($validw && $permission->dt_arsip){
+            $validd = 1;
+        }
+        else{
+            $validd = 0;
+        }
         $request = $this->input->get('send');
         if (!empty($type)) {
             $data['arsip'] = $this->ms->GetSuratbyID($request, $_SESSION['typearsip']);
@@ -107,11 +130,11 @@ class Arsip extends MY_Controller
                     $data['dokumen']['byte_file'] = $this->formatBytes($data['dokumen']['byte_file']);
                     $data['extfile'] = $this->file_check($data['dokumen']['ekstensi']);
                     $load = $this->load->view("arsip/openpage", $data, true); //MODAL VIEW (ARSIP/OPENPAGE)
-                } else if ($type === "delete") {
+                } else if ($type === "delete" && $validd) {
                     //$data['arsip'] = $this->ms->GetSuratbyID($request, $_SESSION['typearsip']);
                     $this->session->set_tempdata('id_surat', $request, 120);
                     $load = $this->load->view("arsip/deletepage", $data, true);
-                } else if ($type === 'edit') {
+                } else if ($type === 'edit' && $validw) {
                     $this->session->set_tempdata('id_surat', $request, 300);
                     $typearsip = $_SESSION['typearsip'];
                     $column = array_keys($data['arsip']);
@@ -143,8 +166,14 @@ class Arsip extends MY_Controller
                     }
                     $load = $this->load->view("arsip/editpage", $data, true);
                 } else {
-                    $data['title'] = 'Kesalahan Pengiriman';
-                    $data['desc'] = 'Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
+                    if (!$validw||!$validd) {
+                        $data['title'] = 'Tidak di Ijinkan';
+                        $data['desc'] = 'Aksi yang anda lakukan tidak di ijinkan!';
+                    } else {
+                        $data['title'] = 'Kesalahan Pengiriman';
+                        $data['desc'] = 'Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
+                    }
+
                     $load = $this->load->view("arsip/errorpage", $data, true);
                 }
             } else {
@@ -166,7 +195,6 @@ class Arsip extends MY_Controller
         $data = $this->md->GetDokumenbyID($id);
         if (file_exists('assets/doc/' . $data['nama_file'] . $data['ekstensi'])) {
             redirect(base_url('assets/doc/' . $data['nama_file'] . $data['ekstensi']));
-
         } else {
             $config['title'] = 'File Hilang';
             $config['code'] = '404';
@@ -198,13 +226,20 @@ class Arsip extends MY_Controller
     public function getTable()
     {
         $this->ajaxFunction();
+        $role = $this->rolePermission($_SESSION['idlogin']);
+        $role = $role->nama;
+
         $this->load->model("model_surat");
         $result = $this->model_surat->getDataTableSurat($this->input->post(null, true), $_SESSION['typearsip']);
+
+
         $callback = array(
             'draw' =>  $this->input->post('draw', true),
             'recordsTotal' => $result['total'],
             'recordsFiltered' => $result['totalFilter'],
-            'data' => $result['data']
+            'data' => $result['data'],
+            'custom' => array('role' => strtolower($role), 'typearsip' => $_SESSION['typearsip'])
+
         );
 
         header('Content-Type: application/json');
