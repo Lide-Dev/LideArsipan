@@ -270,9 +270,8 @@ class MY_Controller extends CI_Controller
         } else {
             $configv = $config;
         }
-        $user = $this->mdl->getDataUser($_SESSION['idlogin']);
-        $dp = $this->mdp->GetUserbyIDUser($user->id_user, 'id_jabatan');
-        $permission = (array) $this->rolePermission($dp->id_jabatan);
+      
+        $permission = (array) $this->rolePermission($_SESSION['idlogin']);
         $valid = true;
         if (empty($config)) {
             $valid = false;
@@ -389,20 +388,22 @@ class MY_Controller extends CI_Controller
                     $this->messagePage($message, 1);
                 }
             } else {
-                $admin = $this->mdl->getDataUser($_SESSION['idlogin']);
-                $dp = $this->mdp->GetUserbyIDUser($admin->id_user, 'id_jabatan');
-                $permission = $this->rolePermission($dp->id_jabatan);
+
+                $permission = $this->rolePermission($_SESSION['idlogin']);
                 $config['permission'] = $permission;
                 $accadmin = $permission->admin;
 
                 $row = $this->mdl->validBan($_SESSION['idlogin']);
                 empty($row) ? '' : $bandate = strtotime($row->finish_date);
                 $date = strtotime(date("Y-m-d H:i:s"));
-                if ((!empty($config['admin']) && $config['admin']) && ($accadmin !== 1)) {
+                //echo $config['admin'].$accadmin;
+                if ((!empty($config['admin']) && $config['admin']) && ($accadmin == 0)) {
+
                     $config['title'] = 'Tidak di Ijinkan';
                     $config['code'] = '403';
-                    $config['desc'] = 'Mohon maaf kami tidak bisa membawa anda kesana karena masalah perijinan';
+                    $config['desc'] = 'Mohon maaf kami tidak bisa membawa anda kesana karena masalah perijinan.';
                     $this->errorPage($config);
+
                 } else if (!empty($row) && $date < $bandate) {
                     $message = "Anda telah di ban sampai tanggal " . date("d-m-Y", strtotime($row->finish_date)) . " dengan alasan: " . $row->alasan;
                     header('Location: ' . base_url("login"));
@@ -508,7 +509,8 @@ class MY_Controller extends CI_Controller
     /**
      * Fungsi untuk mendapatkan data permission user bisa melakukan aksi apa saja di sistem ini.
      *
-     * @param string $id_jabatan
+     * @param string $id_user
+     * - Id yang sedang login.
      * @return object Data permission akan dikembalikan didalamnya. Key array dijelaskan dibawah:
      * - r_arsip = Read Arsip
      * - w_suratmasuk / w_suratkeluar / w_disposisi = Write Arsip sesuai tipe
@@ -517,10 +519,15 @@ class MY_Controller extends CI_Controller
      * - dp_arsip = Delete Permanent Arsip
      * - admin = Akses Page Admin dan fitur-fitur lainnya
      */
-    public function rolePermission($id_jabatan)
+    public function rolePermission($id_user)
     {
+        //echo $id_user;
+        $this->load->model('model_login', 'mdl');
+        $this->load->model('model_datapengguna', 'mdp');
+        $user = $this->mdl->getDataUser($id_user);
+        $dp = $this->mdp->GetUserbyIDUser($user->id_user, 'id_jabatan');
         $this->load->model('model_role', 'mr');
-        $data = $this->mr->getRole($id_jabatan);
+        $data = $this->mr->getRole($dp->id_jabatan);
         return $data;
     }
 }
