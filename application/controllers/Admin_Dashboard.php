@@ -13,9 +13,9 @@ class Admin_Dashboard extends MY_Controller
         $count['sm'] = $this->ms->getCountSurat('sm');
         $count['sk'] = $this->ms->getCountSurat('sk');
         $count['dp'] = $this->ms->getCountSurat('dp');
-        $data['chartcount']['sm']= floatval(number_format($count['sm']/$data['countsurat']*100,2));
-        $data['chartcount']['sk']= floatval(number_format($count['sk']/$data['countsurat']*100,2));
-        $data['chartcount']['dp']= floatval(number_format($count['dp']/$data['countsurat']*100,2));
+        $data['chartcount']['sm']= number_format(floatval($count['sm']/$data['countsurat']*100),2);
+        $data['chartcount']['sk']= number_format(floatval($count['sk']/$data['countsurat']*100),2);
+        $data['chartcount']['dp']= number_format(floatval($count['dp']/$data['countsurat']*100),2);
 
         $data['countlogin'] = $this->ml->getCountLogin();
         $data['countfile'] = $this->countBytes();
