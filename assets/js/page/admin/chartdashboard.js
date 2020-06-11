@@ -49,22 +49,22 @@ Highcharts.chart('chart1', {
 Highcharts.chart('chart2', {
 
 title: {
-    text: 'Solar Employment Growth by Sector, 2010-2016'
+    text: 'Surat Yang Di Data Hari Ini'
 },
 
 subtitle: {
-    text: 'Source: thesolarfoundation.com'
+    text: 'Lide Arsipan'
 },
 
 yAxis: {
     title: {
-        text: 'Number of Employees'
+        text: 'Surat yang di Data'
     }
 },
 
 xAxis: {
     accessibility: {
-        rangeDescription: 'Range: 2010 to 2017'
+        rangeDescription: 'Range: 7 hari kebelakang hingga hari ini'
     }
 },
 

@@ -1,4 +1,24 @@
-<?php if (!empty($footerext) && $footerext === true) {
+<?php
+if (!empty($chartdata)) {
+  $cd = json_encode($chartdata);
+}
+
+if (!empty($chartcount)) {
+  $cc = array(
+    array(
+    "type" => 'pie',
+    "name" => 'Arsip yang disimpan',
+    "innerSize" => '50%',
+    'data' => array(
+      array('Surat Masuk', $chartcount['sm']),
+      array('Surat Keluar', $chartcount['sk']),
+      array('Disposisi', $chartcount['dp'])
+    ))
+  );
+  $cc = json_encode($cc);
+}
+
+if (!empty($footerext) && $footerext === true) {
   if (!empty($landing) && !$landing) { ?>
     <!-- Footer -->
     <footer class="page-footer font-small bg-blackpearl pt-4">
@@ -160,7 +180,7 @@
 
             <!--Copyright-->
             <p class="text-center text-md-left" style="color: white;">© 2020 Copyright :
-                Pemerintah Desa Condongcatur
+              Pemerintah Desa Condongcatur
             </p>
 
           </div>
@@ -252,9 +272,122 @@ if ($page === "adm_datauser") {
   echo "<script src=" . base_url('assets/js/page/admin/duser.js') . "></script>";
 }
 if ($page === "adm_dashboard") {
-  echo "<script src=" . base_url('assets/js/page/admin/chartdashboard.js') . "></script>";
+  //echo "<script src=" . base_url('assets/js/page/admin/chartdashboard.js') . "></script>";
+?>
+  <script>
+    var d = new Date();
+    d.setHours(0, 0, 0, 0);
+    const timezone = new Date().getTimezoneOffset()
+
+    Highcharts.setOptions({
+      global: {
+        timezoneOffset: timezone
+      }
+    });
+    //console.log(d);
+    Highcharts.chart('chart1', {
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: 0,
+        plotShadow: false
+      },
+      title: {
+        text: 'Total Arsip<br>yang<br>Disimpan',
+        align: 'center',
+        verticalAlign: 'middle',
+        y: 60
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      accessibility: {
+        point: {
+          valueSuffix: '%'
+        }
+      },
+      plotOptions: {
+        pie: {
+          dataLabels: {
+            enabled: true,
+            distance: 20,
+            style: {
+              fontWeight: 'bold',
+              color: 'white'
+            }
+          },
+          startAngle: -90,
+          endAngle: 90,
+          center: ['50%', '65%'],
+          size: '110%'
+        }
+      },
+      series: <?=$cc?>
+    });
+
+
+
+    Highcharts.chart('chart2', {
+
+      title: {
+        text: 'Surat Yang Di Data Hari Ini'
+      },
+
+      subtitle: {
+        text: 'Lide Arsipan'
+      },
+
+      yAxis: {
+        title: {
+          text: 'Surat yang di Data'
+        }
+      },
+
+      xAxis: {
+        type: 'datetime',
+        accessibility: {
+          rangeDescription: 'Range: 7 hari kebelakang hingga hari ini'
+        }
+      },
+
+      legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+      },
+
+      plotOptions: {
+        series: {
+          label: {
+            connectorAllowed: false
+          },
+          pointStart: d,
+          pointInterval: 1000 * 60 * 60 * 24 * 1
+        }
+      },
+
+      series: <?= $cd ?>,
+
+
+      responsive: {
+        rules: [{
+          condition: {
+            maxWidth: 500
+          },
+          chartOptions: {
+            legend: {
+              layout: 'horizontal',
+              align: 'center',
+              verticalAlign: 'bottom'
+            }
+          }
+        }]
+      }
+
+    });
+  </script>
+<?php
 }
-if ($page === "adm_boxsampah"){
+if ($page === "adm_boxsampah") {
   echo "<script src=" . base_url('assets/js/page/admin/boxsmp.js') . "></script>";
 }
 ?>
