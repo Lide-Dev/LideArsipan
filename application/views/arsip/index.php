@@ -17,12 +17,12 @@ if (!empty($_SESSION['typearsip'])) {
 
 <div class="container mb-5">
     <!-- Menu Surat -->
-
     <div class="p-3">
         <section class="page-section" id="services">
             <div class="container border border-hintofelusive rounded p-3">
                 <div class="row">
                     <div class="col-lg-12 text-center">
+                        <input type="hidden" class="inputhid" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
                         <h4 class="section-heading text-uppercase mt-2 mb-4">Pilih jenis Surat</h4>
                     </div>
                 </div>
@@ -73,14 +73,24 @@ if (!empty($_SESSION['typearsip'])) {
 
 
     <!--Tabel-->
-
-    <?php if (empty($tablerow) || $tablerow === 0 || (empty($_SESSION['typearsip']))) { ?>
+    <?php if (empty($_SESSION['typearsip'])||$_SESSION['typearsip']==='emp') { ?>
+        <div class="container" style="margin-top:20vh; margin-bottom:20vh; ">
+            <p class="text-center">
+                Silahkan memilih Tipe Arsip yang ingin dilihat. Setelah itu tabel akan muncul.
+            </p>
+        </div>
+    <?php } else if (empty($tablerow) || $tablerow === 0 || (empty($_SESSION['typearsip']))) { ?>
         <div class="container" style="margin-top:20vh; margin-bottom:20vh; ">
             <p class="text-center">
                 Tidak terdapat arsip disini. Silahkan di isi terlebih dahulu untuk melihat tabel data arsip.
             </p>
         </div>
     <?php } else { ?>
+        <div id="nonerow" class="container" style="margin-top:20vh; margin-bottom:20vh; display:none; ">
+            <p class="text-center">
+                Tidak terdapat arsip disini. Silahkan di isi terlebih dahulu untuk melihat tabel data arsip.
+            </p>
+        </div>
         <div class="container" id="div-table">
             <div class='form-row my-3'>
                 <div class="col-6">

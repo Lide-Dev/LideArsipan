@@ -52,6 +52,7 @@ class Form_Surat extends MY_Controller
 
         $this->load->model('model_kode');
         $i = 0;
+        $arr = array();
         if ($idtext === 'kategori') {
             $result = $this->model_kode->search_kategori($_GET['search']);
             if (count($result) > 0) {
@@ -64,49 +65,40 @@ class Form_Surat extends MY_Controller
             if (count($result) > 0) {
                 foreach ($result as $row) {
                     if ($i === 0) {
-?>
-                        <option value=<?= $row->id_kode ?>> <?= $row->id_kode . " " . $row->nama . " (Dipilih) " ?> </option>
-                    <?php
+                        $arr['result'] = "<option value = '{$row->id_kode}' > {$row->id_kode}  {$row->nama} (Dipilih)  </option>";
                     } else {
-                    ?>
-                        <option value=<?= $row->id_kode ?>> <?= "&emsp; " . $row->id_kode . " " . $row->nama ?> </option>
-                    <?php
+                        $arr['result'] .= "<option value = '{$row->id_kode}' > &emsp; {$row->id_kode}  {$row->nama} </option>";
                     }
                     $i++;
                 }
             }
+            echo json_encode($arr);
         } else if ($idtext === 'subkode1') {
             $result = $this->model_kode->search_subkode1($this->session->kodesurat);
             if (count($result) > 0) {
                 foreach ($result as $row) {
                     if ($i === 0) {
-                    ?>
-                        <option value=<?= $row->id_kode ?>> <?= $row->id_kode . " " . $row->nama . " (Dipilih) " ?> </option>
-                    <?php
+                        $arr['result'] = "<option value = '{$row->id_kode}' > {$row->id_kode}  {$row->nama} (Dipilih)  </option>";
                     } else {
-                    ?>
-                        <option value=<?= $row->id_kode ?>> <?= "&emsp; " . $row->id_kode . " " . $row->nama ?> </option>
-                    <?php
+                        $arr['result'] .= "<option value = '{$row->id_kode}' > &emsp; {$row->id_kode}  {$row->nama} </option>";
                     }
                     $i++;
                 }
             }
+            echo json_encode($arr);
         } else {
             $result = $this->model_kode->search_subkode2($this->session->kodesurat);
             if (count($result) > 0) {
                 foreach ($result as $row) {
                     if ($i === 0) {
-                    ?>
-                        <option value=<?= $row->id_kode ?>> <?= $row->id_kode . " " . $row->nama . " (Dipilih) " ?> </option>
-                    <?php
+                        $arr['result'] = "<option value = '{$row->id_kode}' > {$row->id_kode}  {$row->nama} (Dipilih)  </option>";
                     } else {
-                    ?>
-                        <option value=<?= $row->id_kode ?>> <?= "&emsp; " . $row->id_kode . " " . $row->nama ?> </option>
-<?php
+                        $arr['result'] .= "<option value = '{$row->id_kode}' > &emsp; {$row->id_kode}  {$row->nama} </option>";
                     }
                     $i++;
                 }
             }
+            echo json_encode($arr);
         }
     }
 
@@ -134,6 +126,8 @@ class Form_Surat extends MY_Controller
         else {
             $this->session->set_userdata("kodesurat", explode(".", $kodevar));
         }
+        header('Content-Type: application/json');
+        echo json_encode(array('token' => $this->security->get_csrf_hash()));
     }
 
     public function form_submit()
@@ -169,7 +163,7 @@ class Form_Surat extends MY_Controller
                 //echo '<br>Test1 IF 1';
                 $message = "Kesalahan: Terdapat form penting yang belum terisi. Mohon di isi! (Error Code: 401) ";
                 $this->messagePage($message, 3);
-                header('Location: ' . base_url('registrasi_surat'));
+                header('Location: ' . base_url('registrasi-surat'));
                 $this->session->unset_userdata('kodesurat');
             } else {
                 //echo '<br>Test1 IF ELSE 1';
@@ -188,7 +182,7 @@ class Form_Surat extends MY_Controller
                         //echo '<br>Test1 IF ELSE 1 IF ELSE 2 IF 3';
                         $message = "Kesalahan: Perhatikan ekstensi dan besar ukuran filenya (Error Code: 402)";
                         $this->messagePage($message, 3);
-                        header('Location: ' . base_url('form_surat'));
+                        header('Location: ' . base_url('registrasi-surat'));
                         $this->session->unset_userdata('kodesurat');
                     } else {
                         //echo '<br>Test1 IF ELSE 1 IF ELSE 2 IF ELSE 3';
@@ -202,7 +196,7 @@ class Form_Surat extends MY_Controller
                         $this->model_surat->TambahSurat($value, $user->id_datapengguna);
                         $message = "Berhasil! Surat berhasil di input ke arsip online.";
                         $this->messagePage($message, 1);
-                        header('Location: ' . base_url('registrasi_surat'));
+                        header('Location: ' . base_url('registrasi-surat'));
                         $this->session->unset_userdata('kodesurat');
                     }
                 }
@@ -210,7 +204,7 @@ class Form_Surat extends MY_Controller
         } else {
             $message = "Kesalahan: Aksi yang anda lakukan tidak di ijinkan! (Error Code: 403) ";
             $this->messagePage($message, 3);
-            header('Location: ' . base_url('registrasi_surat'));
+            header('Location: ' . base_url('registrasi-surat'));
             $this->session->unset_userdata('kodesurat');
         }
     }
@@ -322,12 +316,15 @@ class Form_Surat extends MY_Controller
      */
     function cek_kode($idform)
     {
-        $kodevar = $this->input->post('kodevar', true);
+        $kodevar = $this->input->get('kodevar');
+        //print_r($kodevar);
         if (!is_array($kodevar))
             $kodevar = explode(".", $kodevar);
         $this->load->model('model_kode');
         $count = $this->model_kode->check_kode($idform, $kodevar);
-        echo ($count);
+        $arr = array('count' => $count);
+        header('Content-Type: application/json');
+        echo json_encode($arr);
     }
 
 
@@ -338,7 +335,9 @@ class Form_Surat extends MY_Controller
         if (is_array($result)) {
             $result = implode(".", $result);
         }
-        echo $result;
+        $arr = array('result' => $result);
+        header('Content-Type: application/json');
+        echo json_encode($arr);
     }
 
     function get_desckode()
@@ -348,7 +347,9 @@ class Form_Surat extends MY_Controller
             $result = $this->model_kode->get_desckode($this->session->kodesurat);
         else
             $result = $this->model_kode->get_desckode($this->input->post('desckode'));
-        echo $result;
+        $arr = array('result' => $result);
+        header('Content-Type: application/json');
+        echo json_encode($arr);
     }
 
 

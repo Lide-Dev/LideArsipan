@@ -1,6 +1,9 @@
-$(document).ready( function ()
-{
+var baseurl = "http://localhost/LideArsipan/";
+var csrfN = "vldt";
+var csrfH = "";
 
+$(document).ready(function () {
+  csrfH = $("input[name='vldt']").val();
   $("#form_tipesurat2").prop("checked", false);
   $("#form_tipesurat3").prop("checked", true);
   $("#form_tipesurat1").prop("checked", true);
@@ -11,8 +14,7 @@ $(document).ready( function ()
   $("#label-asalsurat").html("<b class='text-danger'>*</b>Asal Surat");
   $("#label-lokasiarsip").html("<b class='text-danger'>*</b>Lokasi Arsip");
   $("#label-isi").html("Isi Ringkas");
-  }
-);
+});
 
 $(".form-tgl").datepicker({
   changeMonth: true,
@@ -20,7 +22,7 @@ $(".form-tgl").datepicker({
   showButtonPanel: true,
   dateFormat: 'dd/mm/yy',
   maxDate: 0
-})
+});
 
 $("#label_tipesurat1").click(function () {
   $("#form_tipesurat1").prop("checked", true);
@@ -81,7 +83,7 @@ $("#form_kategori").autocomplete({
   source: function (request, response) {
     // Fetch data
     $.ajax({
-      url: "http://localhost/LideArsipan/ksurat/kategori",
+      url: baseurl + "registrasi_surat/kode/search/get/kategori",
       type: 'get',
       dataType: "JSON",
       data: {
@@ -106,14 +108,18 @@ $("#form_kategori").autocomplete({
         continue;
       }
       tentangstr += tentang[i] + " ";
-      console.log(tentang[i]);
     }
     var kodestr = kode.join("/");
     $.ajax({
-      url: "http://localhost/LideArsipan/ksurat/kode",
+      url: baseurl + "registrasi-surat/kode/patch",
       type: 'post',
       data: {
-        kodevar: kode,
+        kodevar: kode, //[csrfN]: csrfH
+      },
+      dataType: 'JSON',
+      success: function (data) {
+        // $("input[name='vldt']").val(data.token);
+        // csrfH = $("input[name='vldt']").val();
       }
     });
     $("#form_kategori").val();
@@ -121,24 +127,23 @@ $("#form_kategori").autocomplete({
     $("#tentang").html(tentangstr);
     $("#div_form_kategori").hide(500);
     $.ajax({
-      url: "http://localhost/LideArsipan/ksurat/cekkode/kode",
-      type: 'post',
+      url: baseurl + "registrasi-surat/kode/valid/get/kode",
+      type: 'get',
       data: {
-        kodevar: kode,
+        kodevar: kode
       },
-      dataType: "text",
+      dataType: "JSON",
       success: function (data) {
-        console.log(data);
-        valid = data;
+
+        valid = data.count;
         if (valid != 0) {
           $("#div_form_kode").delay(550).show(500);
           $.ajax({
-            url: "http://localhost/LideArsipan/ksurat/kodeutama",
-            type: 'post',
-            dataType: "",
+            url: baseurl + "registrasi_surat/kode/search/get/kodeutama",
+            type: 'get',
+            dataType: "JSON",
             success: function (data) {
-              console.log(data);
-              $("#form_kode").html(data);
+              $("#form_kode").html(data.result);
             }
           });
         }
@@ -152,51 +157,54 @@ $("#form_kategori").autocomplete({
 
 $("#form_kode").on('change', function () {
   var kode = $("#form_kode option:selected").val();
-  console.log(kode);
+
   $.ajax({
-    url: "http://localhost/LideArsipan/ksurat/kode",
+    url: baseurl + "registrasi-surat/kode/patch",
     type: 'post',
     data: {
-      kodevar: kode,
+      kodevar: kode//, [csrfN]: csrfH
     },
-    success: function () {
+    dataType: 'JSON',
+    success: function (data) {
+      // $("input[name='vldt']").val(data.token);
+      // csrfH = $("input[name='vldt']").val();
       $.ajax({
-        url: "http://localhost/LideArsipan/ksurat/desckode",
-        type: 'post',
-        dataType: 'text',
+        url: baseurl + "registrasi-surat/kode/get/description",
+        type: 'get',
+        dataType: 'JSON',
         success: function (data) {
-          console.log(data);
-          $("#tentang").html("Deskripsi Kode: " + data);
+
+          $("#tentang").html("Deskripsi Kode: " + data.result);
         }
       });
     }
   });
   $("#kode").html("Kode yang dipilih: " + kode);
   $.ajax({
-    url: "http://localhost/LideArsipan/ksurat/cekkode/subkode1",
-    type: 'post',
+    url: baseurl + "registrasi-surat/kode/valid/get/subkode1",
+    type: 'get',
     data: {
-      kodevar: kode,
+      kodevar: kode
     },
-    dataType: "text",
+    dataType: "JSON",
     success: function (data) {
-      valid = data;
+
+      valid = data.count;
       if (valid != 0) {
         $("#div_form_kode").delay(550).show(500);
         $.ajax({
-          url: "http://localhost/LideArsipan/ksurat/subkode1",
-          type: 'post',
-          dataType: "html",
+          url: baseurl + "registrasi_surat/kode/search/get/subkode1",
+          type: 'get',
+          dataType: "JSON",
           success: function (data) {
             $("#div_form_subkode1").show(500);
-            console.log(data);
-            $("#form_subkode1").html(data);
+            $("#form_subkode1").html(data.result);
           }
         });
       }
       else
         $("#div_form_subkode1").hide(500);
-      $("#div_form_subkode2").hide(500);
+        $("#div_form_subkode2").hide(500);
     }
   });
 });
@@ -206,19 +214,22 @@ $("#form_kode").on('change', function () {
 $("#form_subkode1").on('change', function () {
   var kode = $("#form_subkode1 option:selected").val();
   $.ajax({
-    url: "http://localhost/LideArsipan/ksurat/kode",
+    url: baseurl + "registrasi-surat/kode/patch",
     type: 'post',
     data: {
-      kodevar: kode,
+      kodevar: kode, [csrfN]: csrfH
     },
-    success: function () {
+    dataType: 'JSON',
+    success: function (data) {
+      $("input[name='vldt']").val(data.token);
+      csrfH = $("input[name='vldt']").val();
       $.ajax({
-        url: "http://localhost/LideArsipan/ksurat/desckode",
-        type: 'post',
-        dataType: 'text',
+        url: baseurl + "registrasi-surat/kode/get/description",
+        type: 'get',
+        dataType: 'JSON',
         success: function (data) {
-          console.log(data);
-          $("#tentang").html("Deskripsi Kode: " + data);
+
+          $("#tentang").html("Deskripsi Kode: " + data.result);
         }
       });
     }
@@ -226,24 +237,23 @@ $("#form_subkode1").on('change', function () {
 
   $("#kode").html("Kode yang dipilih: " + kode);
   $.ajax({
-    url: "http://localhost/LideArsipan/ksurat/cekkode/subkode2",
-    type: 'post',
+    url: baseurl + "registrasi-ssurat/kode/valid/get/subkode2",
+    type: 'get',
     data: {
-      kodevar: kode,
+      kodevar: kode
     },
-    dataType: "text",
+    dataType: "JSON",
     success: function (data) {
-      console.log("Sebanyak:" + data);
-      valid = data;
+
+      valid = data.count;
       if (valid != 0) {
         $("#div_form_kode").delay(550).show(500);
         $.ajax({
-          url: "http://localhost/LideArsipan/ksurat/subkode2",
-          type: 'post',
-          dataType: "html",
+          url: baseurl + "registrasi_surat/kode/search/get/subkode2",
+          type: 'get',
+          dataType: "JSON",
           success: function (data) {
             $("#div_form_subkode2").show(500);
-            console.log(data);
             $("#form_subkode2").html(data);
           }
         });
@@ -258,19 +268,21 @@ $("#form_subkode1").on('change', function () {
 $("#form_subkode2").on('change', function () {
   var kode = $("#form_subkode2 option:selected").val();
   $.ajax({
-    url: "http://localhost/LideArsipan/ksurat/kode",
+    url: baseurl + "registrasi-surat/kode/patch",
     type: 'post',
     data: {
-      kodevar: kode,
+      kodevar: kode,// [csrfN]: csrfH
     },
-    success: function () {
+    dataType: 'JSON',
+    success: function (data) {
+      // $("input[name='vldt']").val(data.token);
+      // csrfH = $("input[name='vldt']").val();
       $.ajax({
-        url: "http://localhost/LideArsipan/ksurat/desckode",
-        type: 'post',
-        dataType: 'text',
+        url: baseurl + "registrasi-surat/kode/get/description",
+        type: 'get',
+        dataType: 'JSON',
         success: function (data) {
-          console.log(data);
-          $("#tentang").html("Deskripsi Kode: " + data);
+          $("#tentang").html("Deskripsi Kode: " + data.result);
         }
       });
     }
@@ -282,10 +294,15 @@ $(".btn_form_ulang").click(function () {
   $("#div_container_donekode").hide(1000);
   $("#div_container_kode").delay(1000).show(500);
   $.ajax({
-    url: "http://localhost/LideArsipan/ksurat/kode",
+    url: baseurl + "registrasi-surat/kode/patch",
     type: 'post',
     data: {
-      kodevar: "000/0/0/0",
+      kodevar: "000/0/0/0",// [csrfN]: csrfH
+    },
+    dataType: 'JSON',
+    success: function (data) {
+      // $("input[name='vldt']").val(data.token);
+      // csrfH = $("input[name='vldt']").val();
     }
   });
   $("#kode").html("Kode yang dipilih: 000/0/0/0")
@@ -307,19 +324,19 @@ $(".btn_form_pilih").click(function () {
   $("#div_container_kode").hide(500);
   $("#div_container_donekode").delay(550).show(500);
   $.ajax({
-    url: "http://localhost/LideArsipan/ksurat/desckode",
-    type: 'post',
-    dataType: 'text',
+    url: baseurl + "registrasi-surat/kode/get/description",
+    type: 'get',
+    dataType: 'JSON',
     success: function (data) {
-      $('#tentang_pilih').html(data);
+      $('#tentang_pilih').html(data.result);
     }
   });
   $.ajax({
-    url: "http://localhost/LideArsipan/ksurat/getkode",
-    type: 'post',
-    dataType: 'text',
+    url: baseurl + "registrasi-surat/kode/get",
+    type: 'get',
+    dataType: 'json',
     success: function (data) {
-      $("#kode_pilih").html(data);
+      $("#kode_pilih").html(data.result);
     }
   });
   $(".btn_form_pilih").prop('disabled', true);

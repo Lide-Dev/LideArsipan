@@ -24,6 +24,9 @@ else {
   $active[2]='active';
   $ariaactive[2]='true';
 }
+
+
+
 ?>
 
 <div class="container">
@@ -31,8 +34,9 @@ else {
     <h2>REGISTRASI SURAT</h2>
   </div>
   <?= (empty($this->session->flashdata('message'))) ? ""  : $this->session->flashdata('message') ?>
-  <?php echo form_open_multipart('/surat/go/add/newsurat', array("id" => "form_surat")) //<form> tag tetapi di panggil lewat CodeIgniter
+  <?php echo form_open_multipart(base_url('registrasi-surat/form'), array("id" => "form_surat")) //<form> tag tetapi di panggil lewat CodeIgniter
   ?>
+
   <div class="form-row mt-5">
     <div class="form-group col-md-6">
       <label for="form_nosurat">Tipe Surat</label>

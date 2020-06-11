@@ -26,7 +26,7 @@ $colorOption3 = $modal["color"]["option3"];
 
 
 <!-- Modal -->
-<?php echo $stateForm ? "<form id='{$formID}' >" : ""?>
+<?php echo $stateForm ? form_open('',array('id'=>$formID)) : "" //"<form id='{$formID}' >" ?>
   <div class="modal fade" id=<?= $modalID ?> tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog <?= $dialogpos ?>" role="document">
       <div class="modal-content">
@@ -61,4 +61,4 @@ $colorOption3 = $modal["color"]["option3"];
       </div>
     </div>
   </div>
-<?php echo $stateForm ? "</form>" : ""?>
+<?php echo $stateForm ? form_close() : ""?>

@@ -15,7 +15,8 @@
                 </div>
             </div>
             </div>
-            <form id="login_form" action="go/loginvalid/token" method="POST">
+
+            <?=form_open("go/loginvalid/token",array('id'=>'login_form','method'=>"POST")) ;?>
                 <div class="form_container">
                     <div class="row d-flex justify-content-center ">
                         <div class="col-md-10 input-group mb-3">
@@ -38,7 +39,8 @@
                 <div class="d-flex justify-content-center mt-3 login_container">
                     <button type="submit" class="btn btn-primary">Login</button>
                 </div>
-            </form>
+        
+            <?=form_close()?>
             <?=!empty($_SESSION['message']) ? $_SESSION['message'] : ""?>
             <div class="mt-4">
                 <div class="d-flex justify-content-center links">

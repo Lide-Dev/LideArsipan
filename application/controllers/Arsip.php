@@ -214,10 +214,12 @@ class Arsip extends MY_Controller
             $type = $_SESSION['typearsip'];
             $tablerow = $this->model_surat->getCountSurat();
         }
+
         $callback = array(
             'rows' => $tablerow,
             'type' => $type,
-            'session' => $_SESSION['typearsip']
+            'session' => $_SESSION['typearsip'],
+            'token' =>$this->security->get_csrf_hash()
         );
         header('Content-Type: application/json');
         echo json_encode($callback);
@@ -238,7 +240,8 @@ class Arsip extends MY_Controller
             'recordsTotal' => $result['total'],
             'recordsFiltered' => $result['totalFilter'],
             'data' => $result['data'],
-            'custom' => array('role' => strtolower($role), 'typearsip' => $_SESSION['typearsip'])
+            'custom' => array('role' => strtolower($role), 'typearsip' => $_SESSION['typearsip'], 'token' =>$this->security->get_csrf_hash())
+
 
         );
 
@@ -270,7 +273,10 @@ class Arsip extends MY_Controller
             $data['desc'] = 'Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
             $load = $this->load->view("arsip/errorpage", $data, true);
         }
-        echo $load;
+
+        $callback = array('html'=>$load,'token'=>$this->security->get_csrf_hash());
+        header('Content-Type: application/json');
+        echo json_encode($callback);
     }
 
     public function deleteSurat($id)

@@ -1,21 +1,31 @@
 var baseurl = 'http://localhost/LideArsipan/';
+var csrfN = '';
+var csrfH = '';
 $(document).ready(function () {
+
   var table = '';
   var tp_arsip = '';
   var tempsearch = ''; var tempsearch2 = '';
   var searchbox = '';
   var searchbox2 = '';
+  csrfN = $('.inputhid').attr('name');
+  csrfH = $('.inputhid').val();
 
   $.ajax({
     url: baseurl + "ajaxarsip/count",
     type: 'post',
+    data: {[csrfN]: csrfH}, //Send Token
     dataType: "JSON",
     success: function (data) {
       if (data['type'] === "emp") {
+        $('.inputhid').val(data.token); //Refresh Token
+        csrfH = $('.inputhid').val();
         $('#tabel_arsip').html('');
         $('#div-table').hide();
       }
       else {
+        $('.inputhid').val(data.token);
+        csrfH = $('.inputhid').val();  //Refresh Token
         var columns = [''];
         if (data['type'] === "dp") {
           columns[0] = "id_kode";
@@ -45,8 +55,13 @@ $(document).ready(function () {
             "sDom": "ltipr",
             "ajax": {
               "url": "http://localhost/LideArsipan/ajaxarsip/table", // URL file untuk proses select datanya
-              "type": "POST"
+              "type": "POST",
+              "data": function (d){
+                d[csrfN] = csrfH;  //Send Token
+                return d
+              }
             },
+            "searchDelay": 1000,
             "deferRender": true,
             "aLengthMenu": [[5, 10, 30], [5, 10, 30]], // Combobox Limit
             "columns": [
@@ -81,9 +96,14 @@ $(document).ready(function () {
               }
             ],
             "drawCallback": function (settings) {
-              // Here the response
-              var response = settings.json;
-              console.log(response);
+              $('.inputhid').val(settings.json.custom.token); //Refresh Token
+              if( settings.json.recordsTotal < 1){
+                $('#div-table').html('');
+                $('#nonerow').show();
+              }
+              csrfH = $('.inputhid').val();
+              // var response = settings.json;
+              // console.log(response);
             }
           });
 
@@ -177,8 +197,8 @@ $('#formarsip').submit(function (e) {
   $.ajax({
     url: "http://localhost/LideArsipan/arsip/request/" + type1,
     type: 'post',
-    data: { 'send': send },
-    dataType: "html",
+    data: { 'send': send, [csrfN]:csrfH}, //Send Token
+    dataType: "json",
 
     beforeSend: function () {
       $('#ar_spinner').show();
@@ -189,7 +209,9 @@ $('#formarsip').submit(function (e) {
       $('#ar_form').hide();
     },
     success: function (data) {
-      $("#ar_content").html(data);
+      $('.inputhid').val(data.token); //Refresh Token
+      csrfH =  $('.inputhid').val();
+      $("#ar_content").html(data.html);
       $('#ar_spinner').hide();
       $('#modal_footer').show();
       $('#ar_content').show();
