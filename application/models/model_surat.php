@@ -19,6 +19,20 @@ class Model_Surat extends MY_Model
         return $query->row_array();
     }
 
+    function GetSuratbyGroup($group,$surat,$chart=false)
+    {
+        $this->db->select("count(*) as count , (UNIX_TIMESTAMP(create_time)) as create_time"); //
+        $this->db->from($surat);
+        $this->db->where("create_time >=", " date_sub(curdate(), interval 7 day)");
+       // $this->db->order_by("create_time","DESC");
+        $query = $this->db->get_compiled_select();
+        $query .= " group by ".$group. " order by create_time ASC ";
+        $result = $this->db->query($query);
+        print_r($result->result_array());
+        return $result->result_array();
+
+    }
+
     function DeleteTempSuratbyID($id, $type, $iduser)
     {
         $date = date("Y-m-d H:i:s");
