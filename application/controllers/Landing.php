@@ -3,11 +3,10 @@
 class Landing extends MY_Controller {
 
     public function index(){
-        $this->load->model('model_login','mdl');
         $config = $this->initConfig('landing','Condongcatur',true,false);
         if (!empty($_SESSION['idlogin'])){
-            $user = $this->mdl->getDataUser($_SESSION['idlogin']);
-            $role = $user->tipe;
+            $user = $this->rolePermission($_SESSION['idlogin']);
+            $role = strtolower($user->nama);
             if ($role==='admin'){
                 $config['direct_tooltip']='Ke Dashboard Admin';
                 $config['url']=base_url('admin/dashboard');
