@@ -11,7 +11,7 @@
         <?php if (!empty($permission) && ($permission->w_suratmasuk == 1 || $permission->w_suratkeluar == 1 || $permission->w_disposisi == 1)) { ?>
         <li>
 
-            <a href="<?=base_url('registrasi_surat')?>"><i class="fas fa-save"></i><span style="margin-left: 12.7px;">Registrasi Surat</span></a>
+            <a href="<?=base_url('registrasi-surat')?>"><i class="fas fa-save"></i><span style="margin-left: 12.7px;">Registrasi Surat</span></a>
 
         </li>
         <?php } ?>
