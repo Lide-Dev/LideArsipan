@@ -26,7 +26,6 @@ class Form_Surat extends MY_Controller
             $data['statemessage'] = 0;
             $this->initView('form_surat/index', $data);
         } else {
-
             $config['title'] = 'Tidak di Ijinkan';
             $config['code'] = '403';
             $config['desc'] = 'Mohon maaf kami tidak bisa membawa anda kesana karena masalah perijinan';
@@ -65,9 +64,9 @@ class Form_Surat extends MY_Controller
             if (count($result) > 0) {
                 foreach ($result as $row) {
                     if ($i === 0) {
-                        $arr['result'] = "<option value = '{$row->id_kode}' > {$row->id_kode}  {$row->nama} (Dipilih)  </option>";
+                        $arr['result'] = "<option value = '".$this->security->xss_clean($row->id_kode)."' > ".$this->security->xss_clean($row->id_kode)."  ".$this->security->xss_clean($row->nama)." (Dipilih)  </option>";
                     } else {
-                        $arr['result'] .= "<option value = '{$row->id_kode}' > &emsp; {$row->id_kode}  {$row->nama} </option>";
+                        $arr['result'] .= "<option value = '".$this->security->xss_clean($row->id_kode)."' > &emsp; ".$this->security->xss_clean($row->id_kode)."  ".$this->security->xss_clean($row->nama)." </option>";
                     }
                     $i++;
                 }
@@ -78,9 +77,9 @@ class Form_Surat extends MY_Controller
             if (count($result) > 0) {
                 foreach ($result as $row) {
                     if ($i === 0) {
-                        $arr['result'] = "<option value = '{$row->id_kode}' > {$row->id_kode}  {$row->nama} (Dipilih)  </option>";
+                        $arr['result'] = "<option value = '".$this->security->xss_clean($row->id_kode)."' > ".$this->security->xss_clean($row->id_kode)."  ".$this->security->xss_clean($row->nama)." (Dipilih)  </option>";
                     } else {
-                        $arr['result'] .= "<option value = '{$row->id_kode}' > &emsp; {$row->id_kode}  {$row->nama} </option>";
+                        $arr['result'] .= "<option value = '".$this->security->xss_clean($row->id_kode)."' > &emsp; ".$this->security->xss_clean($row->id_kode)."  ".$this->security->xss_clean($row->nama)." </option>";
                     }
                     $i++;
                 }
@@ -91,9 +90,9 @@ class Form_Surat extends MY_Controller
             if (count($result) > 0) {
                 foreach ($result as $row) {
                     if ($i === 0) {
-                        $arr['result'] = "<option value = '{$row->id_kode}' > {$row->id_kode}  {$row->nama} (Dipilih)  </option>";
+                        $arr['result'] = "<option value = '".$this->security->xss_clean($row->id_kode)."' > ".$this->security->xss_clean($row->id_kode)."  ".$this->security->xss_clean($row->nama)." (Dipilih)  </option>";
                     } else {
-                        $arr['result'] .= "<option value = '{$row->id_kode}' > &emsp; {$row->id_kode}  {$row->nama} </option>";
+                        $arr['result'] .= "<option value = '".$this->security->xss_clean($row->id_kode)."' > &emsp; ".$this->security->xss_clean($row->id_kode)."  ".$this->security->xss_clean($row->nama)." </option>";
                     }
                     $i++;
                 }
@@ -331,7 +330,7 @@ class Form_Surat extends MY_Controller
 
     function get_kode($page = null)
     {
-        $result = $this->session->kodesurat;
+        $result = $this->security->xss_clean($this->session->kodesurat);
         if (is_array($result)) {
             $result = implode(".", $result);
         }
@@ -347,7 +346,7 @@ class Form_Surat extends MY_Controller
             $result = $this->model_kode->get_desckode($this->session->kodesurat);
         else
             $result = $this->model_kode->get_desckode($this->input->post('desckode'));
-        $arr = array('result' => $result);
+        $arr = array('result' => $this->security->xss_clean($result));
         header('Content-Type: application/json');
         echo json_encode($arr);
     }

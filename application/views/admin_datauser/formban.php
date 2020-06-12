@@ -11,7 +11,6 @@
             <option value="4">1 Tahun</option>
             <option value="5">10 Tahun</option>
           </select>
-
         </div>
         <div class="form-group">
           <label for="ad_descban">Alasan Ban</label>
@@ -19,6 +18,5 @@
             class="form-control" name="desc" id="ad_descban" aria-describedby="helpId" placeholder="">
           <small id="helpId" class="form-text text-muted">Alasan diperlukan karena ini akan memberitahu User bahwa apa yang salah karena ban ini.</small>
         </div>
-
     </div>
 </div>

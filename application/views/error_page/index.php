@@ -7,8 +7,8 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12 text-center">
-                <span class="display-1 d-block"><?=$error['code']?></span>
-                <div class="mb-4 lead"><?=$error['desc']?></div>
+                <span class="display-1 d-block"><?=$this->security->xss_clean($error['code'])?></span>
+                <div class="mb-4 lead"><?=$this->security->xss_clean($error['desc'])?></div>
                 <a href="https://www.arsipcondongcatur.com/#" class="btn btn-link">Kembali ke Home</a>
             </div>
         </div>

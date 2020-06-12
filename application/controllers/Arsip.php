@@ -2,10 +2,8 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Arsip extends MY_Controller
 {
-
     public function index()
     {
-
         $data = $this->initConfig("arsip", "Data Arsip");
         $this->load->model("model_surat");
         if (empty($_SESSION['typearsip']) || $_SESSION['typearsip'] === 'none') {
@@ -234,15 +232,12 @@ class Arsip extends MY_Controller
         $this->load->model("model_surat");
         $result = $this->model_surat->getDataTableSurat($this->input->post(null, true), $_SESSION['typearsip']);
 
-
         $callback = array(
             'draw' =>  $this->input->post('draw', true),
             'recordsTotal' => $result['total'],
             'recordsFiltered' => $result['totalFilter'],
             'data' => $result['data'],
-            'custom' => array('role' => strtolower($role), 'typearsip' => $_SESSION['typearsip'], 'token' =>$this->security->get_csrf_hash())
-
-
+            'custom' => array('role' => $this->security->xss_clean(strtolower($role)), 'typearsip' => $this->security->xss_clean($_SESSION['typearsip']), 'token' =>$this->security->get_csrf_hash())
         );
 
         header('Content-Type: application/json');
@@ -300,7 +295,6 @@ class Arsip extends MY_Controller
 
     public function editSurat($id, $data)
     {
-
         $request = $id;
         $this->load->model("model_surat", "ms");
         $get['arsip'] = $this->ms->GetSuratbyID($request, $_SESSION['typearsip']);

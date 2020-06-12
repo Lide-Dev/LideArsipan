@@ -307,8 +307,8 @@ class Admin_DataUser extends MY_Controller
     public function changePassword()
     {
         if (!empty($_SESSION['changepass'])) {
-            echo "a";
-            print_r($_POST);
+         //   echo "a";
+         //   print_r($_POST);
             if (empty($_POST['newpass']) ||  $_POST['newpass'] != $_POST['cekpass'] || strlen($_POST['newpass']) < 4 ) {
                 echo "b";
                 $error = '';
@@ -325,7 +325,7 @@ class Admin_DataUser extends MY_Controller
                 $this->messagePage($error, 3);
                 redirect(base_url("gantipass/" . $_SESSION['changepass']['link']));
             } else {
-                echo "c";
+               // echo "c";
                 $data['id_change'] = $_SESSION['changepass']['id_change'];
                 $data['pass'] = $_POST['newpass'];
                 $this->load->model('model_login','mdl');
@@ -337,7 +337,7 @@ class Admin_DataUser extends MY_Controller
             }
         }
         else{
-            echo "d";
+          //  echo "d";
             $this->messagePage("Session Habis", 2);
             redirect(base_url("gantipass/" . $_SESSION['changepass']['link']));
         }
@@ -370,7 +370,15 @@ class Admin_DataUser extends MY_Controller
     {
         //if (!$this->input->is_ajax_request()) exit("Unknown Address (401)");
         $this->load->model("model_login", "mdl");
-        echo json_encode($this->mdl->getDataUser($this->input->get("iduser", true)));
+        $result=(array)$this->mdl->getDataUser($this->input->get("iduser", true));
+        $row=sizeof($result);
+        $key=array_keys($result);
+        for($i=0;$i<$row;$i++){
+            $result[$key[$i]]=$this->security->xss_clean($result[$key[$i]]);
+        }
+
+       // foreach($result)
+        echo json_encode($result);
     }
 
     public function setClickButton()
@@ -394,7 +402,7 @@ class Admin_DataUser extends MY_Controller
             $view = array();
             $view["jabatan"] = "";
             foreach ($option as $row) {
-                $view['jabatan'] .= "<option value='{$row->id_jabatan}'>{$row->nama}</option>";
+                $view['jabatan'] .= "<option value='".$this->security->xss_clean($row->id_jabatan)."'>".$this->security->xss_clean($row->nama)."</option>";
             }
             $load = $this->load->view("admin_datauser/formnew", $view, true);
         } else if ($this->session->tempdata('requestform') === "pss") {

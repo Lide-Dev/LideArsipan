@@ -15,7 +15,7 @@
                         <a class="dropdown-item" href="<?=base_url('Admin_Dashboard')?>">Bantuan</a>
                         <a class="dropdown-item" href="<?=base_url('admin/admdatauser')?>">Data User</a>
                         <a class="dropdown-item" href="<?=base_url('admin/filemanager')?>">File Manager</a>
-                        <a class="dropdown-item" href="<?=base_url('admin_Registrasi_User')?>">Registrasi</a>
+<!--dissapear-->
                         <a class="dropdown-item" href="<?=base_url('dashboard')?>">Dashboard User</a>
                     </div>
                 </li>
@@ -29,3 +29,7 @@
             ?>
         </div>
     </nav>
+
+    <?php
+//<a class="dropdown-item" href="<?=base_url('admin_Registrasi_User')">Registrasi</a>
+    ?>

@@ -12,25 +12,25 @@ $csrf = array(
         <div class="row my-5 bg-londonsquare rounded d-flex align-content-center">
             <div id="progress1" class='bg-mintygreen text-center text-white rounded-left' style="width: 0%;" data-percentage=<?= $percentagearsip ?>>
                 <?php if ($percentagearsip > 10) { ?>
-                    <h3 style="color: rgba(0, 0, 0, 0);"><?= $percentagearsip ?>%</h3>
+                    <h3 style="color: rgba(0, 0, 0, 0);"><?= $this->security->xss_clean($percentagearsip) ?>%</h3>
                     <p style="color: rgba(0, 0, 0, 0);">Surat Aktif</p>
                 <?php } ?>
             </div>
             <div id="progress2" class='bg-chromeyellow text-center text-white' style="width: 0%;" data-percentage=<?= $percentagesampah ?>>
                 <?php if ($percentagesampah > 10) { ?>
-                    <h3 style="color: rgba(0, 0, 0, 0);"><?= $percentagesampah ?>%</h3>
+                    <h3 style="color: rgba(0, 0, 0, 0);"><?= $this->security->xss_clean($percentagesampah) ?>%</h3>
                     <p style="color: rgba(0, 0, 0, 0);">Sampah Surat</p>
                 <?php } ?>
             </div>
             <div id="progress3" class='bg-blackpearl text-center text-white ' style="width: 0%;" data-percentage=<?= $percentagesystem ?>>
                 <?php if ($percentagesystem > 10) { ?>
-                    <h3 style="color: rgba(0, 0, 0, 0);"><?= $percentagesystem ?>%</h3>
+                    <h3 style="color: rgba(0, 0, 0, 0);"><?= $this->security->xss_clean($percentagesystem) ?>%</h3>
                     <p style="color: rgba(0, 0, 0, 0);">Reserved System</p>
                 <?php } ?>
             </div>
             <div id="progress4" class='bg-londonsquare text-center text-whiteo rounded-right' style="width: 0%;" data-percentage=<?= $percentagetotal ?>>
                 <?php if ($percentagetotal > 10) { ?>
-                    <h3 style="color: rgba(0, 0, 0, 0);"><?= $percentagetotal ?>%</h3>
+                    <h3 style="color: rgba(0, 0, 0, 0);"><?= $this->security->xss_clean($percentagetotal) ?>%</h3>
                     <p style="color: rgba(0, 0, 0, 0);">Penyimpanan Server</p>
                 <?php } ?>
             </div>
@@ -50,7 +50,7 @@ $csrf = array(
                             :
                         </td>
                         <td>
-                            <?= $totalarsip ?>
+                            <?= $this->security->xss_clean($totalarsip) ?>
                         </td>
                     </tr>
                     <tr>
@@ -61,7 +61,7 @@ $csrf = array(
                             :
                         </td>
                         <td>
-                            <?= $totalsampah ?>
+                            <?= $this->security->xss_clean($totalsampah) ?>
                         </td>
                     </tr>
                     <tr>
@@ -72,7 +72,7 @@ $csrf = array(
                             :
                         </td>
                         <td>
-                            <?= $reservedsystem ?>
+                            <?= $this->security->xss_clean($reservedsystem) ?>
                         </td>
                     </tr>
                 </table>
@@ -87,7 +87,7 @@ $csrf = array(
                             :
                         </td>
                         <td>
-                            <?= $space ?>
+                            <?= $this->security->xss_clean($space) ?>
                         </td>
                     </tr>
                     <tr>
@@ -98,7 +98,7 @@ $csrf = array(
                             :
                         </td>
                         <td>
-                            <?= $totalserver ?>
+                            <?= $this->security->xss_clean($totalserver) ?>
                         </td>
                     </tr>
                 </table>

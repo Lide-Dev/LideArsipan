@@ -17,7 +17,7 @@ $shadowdefault = '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1
                 <div class="row m-1 bg-freshturquoise rounded" style='box-shadow:<?= $shadowdefault ?>;'>
                     <div class="col-8 my-3">
                         <h6 class='text-white text-center'> Total arsip yang disimpan </h6>
-                        <h3 class='text-white text-center'> <?= $countsurat ?> </h3>
+                        <h3 class='text-white text-center'> <?= $this->security->xss_clean($countsurat) ?> </h3>
                         <div class="text-white text-center"><a href="<?= base_url('arsip') ?>" class="text-white"><i class="fas fa-chevron-circle-right fa-sm"></i> Data Arsip</a></div>
                     </div>
                     <div class="col-4 d-flex justify-content-center ">
@@ -29,7 +29,7 @@ $shadowdefault = '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1
                 <div class="row m-1 bg-londonsquare rounded" style='box-shadow:<?= $shadowdefault ?>;'>
                     <div class="col-8 my-3">
                         <h6 class='text-white text-center'> User Yang Terdaftar </h6>
-                        <h3 class='text-white text-center'> <?= $countlogin ?> </h3>
+                        <h3 class='text-white text-center'> <?= $this->security->xss_clean($countlogin) ?> </h3>
                         <div class="text-white text-center"><a href="<?= base_url('admin/admdatauser') ?>" class="text-white"><i class="fas fa-chevron-circle-right fa-sm"></i> Data User</a></div>
                     </div>
                     <div class="col-4 d-flex justify-content-center">
@@ -41,7 +41,7 @@ $shadowdefault = '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1
                 <div class="row m-1 bg-narenjiorange rounded" style='box-shadow:<?= $shadowdefault ?>;'>
                     <div class="col-8 my-3">
                         <h6 class='text-white text-center'> Total File Arsip </h6>
-                        <h3 class='text-white text-center'> <?= $countfile ?> </h3>
+                        <h3 class='text-white text-center'> <?= $this->security->xss_clean($countfile) ?> </h3>
                         <div class="text-white text-center"><a href="<?= base_url('admin/filemanager') ?>" class="text-white"><i class="fas fa-chevron-circle-right fa-sm"></i> Data Penyimpanan</a></div>
                     </div>
                     <div class="col-4 d-flex justify-content-center ">

@@ -46,7 +46,7 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                     <td><p>:</p></td>
                     <td>
-                        <p> <?= $dokumen['nama'] . $dokumen['ekstensi'] ?></p>
+                        <p> <?= $this->security->xss_clean($dokumen['nama'] . $dokumen['ekstensi']) ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -55,7 +55,7 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                     <td><p>:</p></td>
                     <td>
-                        <p> <?= $dokumen['byte_file'] ?></p>
+                        <p> <?= $this->security->xss_clean($dokumen['byte_file']) ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -73,7 +73,7 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                     <td><p>:</p></td>
                     <td>
-                        <p> <?= $namauploader ?></p>
+                        <p> <?= $this->security->xss_clean($namauploader) ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -82,7 +82,7 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                     <td><p>:</p></td>
                     <td>
-                         <a href="<?= base_url('arsip/dokumen/get/') . $dokumen['id_dokumen'] ?>">Download Disini</a>
+                         <a href="<?= base_url('arsip/dokumen/get/') . $this->security->xss_clean($dokumen['id_dokumen']) ?>">Download Disini</a>
                     </td>
                 </tr>
                 </tbody>
@@ -103,7 +103,7 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                     <td><p>:</p></td>
                     <td>
-                        <p><?= $arsip[$columns[0]] ?></p>
+                        <p><?= $this->security->xss_clean($arsip[$columns[0]]) ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -112,7 +112,7 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                     <td><p>:</p></td>
                     <td>
-                        <p> <?= $arsip[$columns[1]] ?></p>
+                        <p> <?= $this->security->xss_clean($arsip[$columns[1]]) ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -121,7 +121,7 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                     <td><p>:</p></td>
                     <td>
-                        <p> <?= $arsip[$columns[2]] ?></p>
+                        <p> <?= $this->security->xss_clean($arsip[$columns[2]]) ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -130,7 +130,7 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                     <td><p>:</p></td>
                     <td>
-                        <p> <?= $klasifikasi . " ({$arsip['id_kode']})" ?></p>
+                        <p> <?= $this->security->xss_clean($klasifikasi . " ({$arsip['id_kode']})") ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -139,7 +139,7 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                     <td><p>:</p></td>
                     <td>
-                        <p> <?= $arsip[$columns[4]] ?></p>
+                        <p> <?= $this->security->xss_clean($arsip[$columns[4]]) ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -148,7 +148,7 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                     <td><p>:</p></td>
                     <td>
-                        <p> <?= $arsip[$columns[5]] ?></p>
+                        <p> <?= $this->security->xss_clean($arsip[$columns[5]]) ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -157,7 +157,7 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                     <td><p>:</p></td>
                     <td>
-                        <p> <?= $arsip[$columns[6]] ?></p>
+                        <p> <?= $this->security->xss_clean($arsip[$columns[6]]) ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -166,7 +166,7 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                     <td><p>:</p></td>
                     <td>
-                        <p> <?= $arsip[$columns[7]] ?></p>
+                        <p> <?= $this->security->xss_clean($arsip[$columns[7]]) ?></p>
                     </td>
                 </tr>
             </table>
