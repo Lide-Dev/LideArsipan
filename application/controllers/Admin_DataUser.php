@@ -29,37 +29,55 @@ class Admin_DataUser extends MY_Controller
         $this->initView("admin_datauser/index", $data, true, false, true);
     }
 
+    public function viewCP($idlink = null)
+    {
+        $data['valid'] = false;
+        $data = $this->initConfig('gpass', 'Ganti Password', true, true);
+        if (!empty($_SESSION['changepass']['link'])) {
+            //$data['v']= "w";
+            if ($_SESSION['changepass']['link'] === $idlink) {
+                $data['valid'] = true;
+                //$data['v']= "w";
+            }
+        }
+
+        $this->initView("login/gantipassword", $data, true, false);
+    }
+
 
     //------ MAIN FUNCTION ------------------
 
     public function submitRequest()
     {
+
         $request = $this->session->tempdata('requestform');
         if ($request === 'new') {
-            $this->addAccount();
+            $data = $this->addAccount();
         } else if ($request === 'edit') {
-            $this->editAccount();
+            $data = $this->editAccount();
         } else if ($request === 'pss') {
-            $this->editPassword();
+            $data = $this->editPassword();
         } else if ($request === 'ban') {
-            $this->banAccount();
+            $data = $this->banAccount();
         } else if ($request === 'unban') {
-            $this->unbanAccount();
+            $data = $this->unbanAccount();
         } else {
             $data['valid'] = false;
             $data['message'] = 'Session pada form ini habis! Silahkan ulang lagi.';
             $data['request'] = 'ssnexp';
-            echo json_encode($data);
         }
+        $data['token'] = $this->security->get_csrf_hash();
+        echo json_encode($data);
     }
 
     public function addAccount()
     {
         $valid = $valid2 = $validname = $validemail = false;
         $this->load->model('model_datapengguna', 'mdp');
+        parse_str($_POST['pst'], $_POST['pst']);
         $config = array(
             array(
-                'field' => 'password',
+                'field' => "pst[password]",
                 'label' => 'Password',
                 'rules' => 'required',
                 'min_length' => 8,
@@ -69,7 +87,7 @@ class Admin_DataUser extends MY_Controller
                 ),
             ),
             array(
-                'field' => 'nip',
+                'field' => 'pst[nip]',
                 'label' => 'NIP',
                 'rules' => 'required',
                 'errors' => array(
@@ -78,7 +96,7 @@ class Admin_DataUser extends MY_Controller
             ),
 
             array(
-                'field' => 'tgllahir',
+                'field' => 'pst[tgllahir]',
                 'label' => 'Tanggal Lahir',
                 'rules' => 'required',
                 'errors' => array(
@@ -90,23 +108,24 @@ class Admin_DataUser extends MY_Controller
 
         $this->form_validation->set_rules($config);
         if ($this->form_validation->run() == FALSE) {
+
             $data['valid'] = false;
             $data['message'] = 'Terdapat kesalahan pada penginputan data. Mohon di perhatikan kembali';
-            $data['return'] = $_POST;
+            $data['return'] = $_POST['pst'];
+            $data['error'] = validation_errors();
             $data['request'] = 'new';
-            echo json_encode($data);
         } else {
-            if (!empty($_POST['username'])) {
+            if (!empty($_POST['pst']['username'])) {
                 $validname = true;
             }
-            if (!empty($_POST['email'])) {
+            if (!empty($_POST['pst']['email'])) {
                 $validemail = true;
             }
-            if ($validname && (!empty($_POST['username']) && strlen($_POST['username']) > 3))
+            if ($validname && (!empty($_POST['pst']['username']) && strlen($_POST["pst"]['username']) > 3))
                 $validname = true;
             else
                 $validname = false;
-            if ($validemail && (!empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)))
+            if ($validemail && (!empty($_POST["pst"]['email']) && filter_var($_POST['pst']['email'], FILTER_VALIDATE_EMAIL)))
                 $validemail = true;
             else
                 $validemail = false;
@@ -118,47 +137,46 @@ class Admin_DataUser extends MY_Controller
             }
 
             if ($valid) {
-                $valid2 = $this->mdp->getAccountDataWhere($_POST, true);
+                $valid2 = $this->mdp->getAccountDataWhere($_POST['pst'], true);
                 if ($valid2) {
-                    $this->mdp->addNewAccount($_POST, $_SESSION['idlogin']);
+                    $this->mdp->addNewAccount($_POST['pst'], $_SESSION['idlogin']);
                     $data['valid'] = true;
                     $data['message'] = 'Akun telah dibuat!';
                     $data['request'] = 'new';
-                    echo json_encode($data);
                 } else {
                     $data['valid'] = false;
                     $data['message'] = 'Username atau email telah digunakan';
-                    $data['return'] = $_POST;
+                    $data['return'] = $_POST['pst'];
                     $data['request'] = 'new';
-                    echo json_encode($data);
                 }
             } else {
                 $data['valid'] = false;
                 $data['message'] = 'Terdapat kesalahan pada inputan Username & Email!';
-                $data['return'] = $_POST;
+                $data['return'] = $_POST['pst'];
                 $data['request'] = 'new';
-                echo json_encode($data);
             }
         }
+        return $data;
     }
 
     public function editAccount()
     {
         $valid  = $validname = $validemail = false;
+        parse_str($_POST['pst'], $_POST['pst']);
+        $data['test'] = $_POST['pst'];
         if (empty($this->session->tempdata("iduser"))) {
             $data['valid'] = false;
             $data['message'] = 'Sesi pada pengeditan akun habis. Coba ulangi lagi!';
-            $data['return'] = $_POST;
+            $data['return'] = $_POST['pst'];
             $data['request'] = 'edit';
-            echo json_encode($data);
         } else {
             $dataerror = '';
             $id = $this->session->tempdata('iduser');
             $this->load->model('model_login', 'mdl');
             $isAvailable = $this->mdl->validIDData($id);
-            if (empty($_POST['cek_email'])) {
-                $_POST['cek_email'] = false;
-                $_POST['email'] = 'undefined';
+            if (empty($_POST['pst']['cek_email'])) {
+                $_POST['pst']['cek_email'] = false;
+                $_POST['pst']['email'] = 'undefined';
             }
             if ($isAvailable > 0) {
                 $isAvailable = true;
@@ -167,11 +185,11 @@ class Admin_DataUser extends MY_Controller
                 $dataerror .= ' ID yang dipilih tidak ada. ';
             }
 
-            if ($_POST['cek_email']) {
-                if (!empty($_POST['email'])) {
+            if ($_POST['pst']['cek_email']) {
+                if (!empty($_POST['pst']['email'])) {
                     $validemail = true;
                 }
-                if ($validemail && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+                if ($validemail && filter_var($_POST['pst']['email'], FILTER_VALIDATE_EMAIL))
                     $validemail = true;
                 else {
                     $validemail = false;
@@ -179,18 +197,18 @@ class Admin_DataUser extends MY_Controller
                 }
             }
 
-            if (!empty($_POST['username'])) {
+            if (!empty($_POST['pst']['username'])) {
                 $validname = true;
             }
 
-            if ($validname && strlen($_POST['username']) > 3)
+            if ($validname && strlen($_POST['pst']['username']) > 3)
                 $validname = true;
             else {
                 $validname = false;
                 $dataerror .= 'Kesalahan format pada input data username. ';
             }
 
-            if ($_POST['cek_email']) {
+            if ($_POST['pst']['cek_email']) {
                 if ($isAvailable && $validname && $validemail) {
                     $valid = true;
                 } else {
@@ -205,79 +223,68 @@ class Admin_DataUser extends MY_Controller
             }
 
             if ($valid) {
-                $this->mdl->updateDataLogin($id, $_POST, $_SESSION['idlogin']);
+                $this->mdl->updateDataLogin($id, $_POST['pst'], $_SESSION['idlogin']);
                 $data['valid'] = true;
                 $data['message'] = 'Data akun berhasil di ubah!';
-                $data['return'] = $_POST;
+                $data['return'] = $_POST['pst'];
                 $data['request'] = 'edit';
-                echo json_encode($data);
             } else {
                 $data['valid'] = false;
                 $data['message'] = 'Terdapat kesalahan saat pengiriman form: ' . $dataerror;
-                $data['return'] = $_POST;
+                $data['return'] = $_POST['pst'];
                 $data['request'] = 'edit';
-                echo json_encode($data);
             }
         }
+        return $data;
     }
 
     public function editPassword()
     {
+        parse_str($_POST['pst'], $_POST['pst']);
         $data['valid'] = false;
         $data['message'] = 'menuju ke pass!';
-        $data['return'] = $_POST;
+        $data['return'] = $_POST['pst'];
         $data['request'] = 'new';
-        echo json_encode($data);
+        return $data;
     }
 
     public function banAccount()
     {
+
         $id = $this->session->tempdata('iduser');
         $this->load->model('model_login', 'mdl');
         $dataerror = '';
         $valid = true;
-        $config = array(
-            array(
-                'field' => 'desc',
-                'label' => 'Alasan Ban',
-                'rules' => 'required',
-                'errors' => array(
-                    'required' => 'Alasan perlu di isi!'
-                )
+        parse_str($_POST['pst'], $_POST['pst']);
 
-            ),
-        );
+        if (!empty($_POST['pst']['desc'])) {
 
-        $this->form_validation->set_rules($config);
-        if ($this->form_validation->run()) {
-            if (empty($_POST['date'])) {
+            if (empty($_POST['pst']['date'])) {
                 $dataerror .= 'Terjadi kesalahan pada input tenggat waktu.';
                 $valid = false;
             }
-            if ($_POST['date'] < 1 && $_POST['date'] > 6) {
-                $_POST['date'] = 1;
+            if ($_POST['pst']['date'] < 1 && $_POST['pst']['date'] > 6) {
+                $_POST['pst']['date'] = 1;
             }
 
             if ($valid) {
-                $this->mdl->banAccount($id, $_POST, $_SESSION['idlogin']);
+                $this->mdl->banAccount($id, $_POST['pst'], $_SESSION['idlogin']);
                 $data['valid'] = true;
                 $data['message'] = 'Akun telah di Ban! Cek di Blacklist Mode.';
                 $data['request'] = 'ban';
-                echo json_encode($data);
             } else {
                 $data['valid'] = false;
                 $data['message'] = 'Terdapat kesalahan saat pengiriman form: ' . $dataerror;
-                $data['return'] = $_POST;
+                $data['return'] = $_POST['pst'];
                 $data['request'] = 'ban';
-                echo json_encode($data);
             }
         } else {
             $data['valid'] = false;
             $data['message'] = 'Tolong di isi alasan ban pada form!';
-            $data['return'] = $_POST;
+            $data['return'] = $_POST['pst'];
             $data['request'] = 'ban';
-            echo json_encode($data);
         }
+        return $data;
     }
 
     public function unbanAccount()
@@ -289,23 +296,81 @@ class Admin_DataUser extends MY_Controller
             $data['valid'] = true;
             $data['message'] = 'Akun telah di unban!';
             $data['request'] = 'unban';
-            echo json_encode($data);
-        }
-        else {
+        } else {
             $data['valid'] = false;
             $data['message'] = 'Session form ini telah habis!';
             $data['request'] = 'ban';
-            echo json_encode($data);
+        }
+        return $data;
+    }
+
+    public function changePassword()
+    {
+        if (!empty($_SESSION['changepass'])) {
+            echo "a";
+            print_r($_POST);
+            if (empty($_POST['newpass']) ||  $_POST['newpass'] != $_POST['cekpass'] || strlen($_POST['newpass']) < 4 ) {
+                echo "b";
+                $error = '';
+                if (empty($_POST['newpass'])) {
+                    $error .= "Isilah form yang telah di sediakan. ";
+                }
+                else {
+                if ($_POST['newpass'] != $_POST['cekpass']) {
+                    $error .= "Isi pengecekan password dengan benar. ";
+                }
+                if (strlen($_POST['newpass']) < 4)
+                    $error .= "Password kurang dari 3 karakter.";
+                }
+                $this->messagePage($error, 3);
+                redirect(base_url("gantipass/" . $_SESSION['changepass']['link']));
+            } else {
+                echo "c";
+                $data['id_change'] = $_SESSION['changepass']['id_change'];
+                $data['pass'] = $_POST['newpass'];
+                $this->load->model('model_login','mdl');
+                $this->mdl->changePassword($data);
+                $this->messagePage("Password telah berhasil diganti di user dengan id ".$data['id_change'], 1);
+                $this->session->unset_tempdata('changepass');
+                unset($_SESSION['changepass']);
+                redirect(base_url("admin/admdatauser"));
+            }
+        }
+        else{
+            echo "d";
+            $this->messagePage("Session Habis", 2);
+            redirect(base_url("gantipass/" . $_SESSION['changepass']['link']));
         }
     }
 
+
     //---------------------------AJAX REQUEST----------------------------------------------
+
+    public function createLinkCP($id)
+    {
+        //$this->load->model('model_datapengguna', "model_dp");
+        //$this->model_dp->CreateCodePass($id);
+
+        if (!empty($_SESSION["idlogin"])) {
+            $role = $this->rolePermission($_SESSION["idlogin"]);
+            if ($role->admin == 1) {
+                $link = bin2hex(random_bytes(24));
+                $arr = array("id_change" => $id, "link" => $link);
+                $this->session->set_tempdata("changepass", $arr, 900);
+                redirect(base_url("gantipass/" . $link));
+            } else {
+                $this->errorPage(array('title' => 'Tidak di Ijinkan', 'code' => '403', 'desc' => 'Kami tidak bisa membawa anda ke URL yang di tuju karena masalah perijinan'));
+            }
+        } else {
+            $this->errorPage(array('title' => 'Tidak di Ijinkan', 'code' => '403', 'desc' => 'Kami tidak bisa membawa anda ke URL yang di tuju karena masalah perijinan'));
+        }
+    }
 
     public function getEditDataUser()
     {
         //if (!$this->input->is_ajax_request()) exit("Unknown Address (401)");
         $this->load->model("model_login", "mdl");
-        echo json_encode($this->mdl->getDataUser($this->input->post("iduser", true)));
+        echo json_encode($this->mdl->getDataUser($this->input->get("iduser", true)));
     }
 
     public function setClickButton()
@@ -316,7 +381,7 @@ class Admin_DataUser extends MY_Controller
 
         $request = $this->input->post("request", true);
         $this->session->set_tempdata("requestform", $request, 180);
-        echo $request . $_POST['iduser'];
+        echo json_encode(array('token' => $this->security->get_csrf_hash()));
     }
 
     public function getViewModal()
@@ -354,8 +419,8 @@ class Admin_DataUser extends MY_Controller
 
     public function tableMode($return = '')
     {
-        if (!empty($_POST['mode']))
-            $this->session->set_userdata('tablemode', $_POST['mode']);
+        if (!empty($_GET['mode']))
+            $this->session->set_userdata('tablemode', $_GET['mode']);
 
         if (empty($return) || !$return) {
             $data['request'] = $this->session->userdata('tablemode');
@@ -368,9 +433,9 @@ class Admin_DataUser extends MY_Controller
     public function getTable($mode)
     {
         $this->load->model("model_login", "mdl");
-        $result = $this->mdl->getDataLogin($this->input->post(null, true), $mode);
+        $result = $this->mdl->getDataLogin($this->input->get(null, true), $mode);
         $callback = array(
-            'draw' =>  $this->input->post('draw', true),
+            'draw' =>  $this->input->get('draw', true),
             'recordsTotal' => $result['total'],
             'recordsFiltered' => $result['totalFilter'],
             'data' => $result['data']

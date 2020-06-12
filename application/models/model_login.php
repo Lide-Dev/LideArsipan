@@ -197,6 +197,15 @@ class Model_Login extends MY_Model
         }
     }
 
+    function changePassword($data){
+        $id=$data['id_change'];
+        $pass=$data['pass'];
+        $pass= password_hash($pass, PASSWORD_BCRYPT);
+        $arr = array('password'=>$pass);
+        $this->db->where('id_user',$id);
+        $this->db->update('userlogin',$arr);
+    }
+
     //-------------------------------------------------------------------------
 
     function getDataUser($id)

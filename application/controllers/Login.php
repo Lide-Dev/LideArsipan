@@ -81,7 +81,7 @@ class Login extends MY_Controller
             $data = $this->model_dp->CreateCodePass($email);
             //echo $state;
             if ($state) {
-                $this->SendMail($email, $data);
+               // $this->SendMail($email, $data);
                 echo 1;
             } else {
                 echo 0;
@@ -89,56 +89,50 @@ class Login extends MY_Controller
 
     }
 
-    public function SendMail($to, $data)
-    {
-        $email = "bebc62626f8efd";
-        $pass = "2371a11f65834f";
+    // public function SendMail($to, $data)
+    // {
+    //     $email = "bebc62626f8efd";
+    //     $pass = "2371a11f65834f";
 
-        $config = array(
-            'protocol' => 'smtp', // 'mail', 'sendmail', or 'smtp'
-            'smtp_host' => 'smtp.mailtrap.io',
-            'smtp_port' => 2525,
-            'smtp_user' => $email,
-            'smtp_pass' => $pass,
-            'crlf' => "\r\n",
-            'newline' => "\r\n",
-            'mailtype' => 'html'
-            /*'smtp_crypto' => 'ssl', //can be 'ssl' or 'tls' for example
-            'mailtype' => 'text', //plaintext 'text' mails or 'html'
-            'smtp_timeout' => '4', //in seconds
-            'charset' => 'iso-8859-1',
-            'wordwrap' => TRUE*/
+    //     $config = array(
+    //         'protocol' => 'smtp', // 'mail', 'sendmail', or 'smtp'
+    //         'smtp_host' => 'smtp.mailtrap.io',
+    //         'smtp_port' => 2525,
+    //         'smtp_user' => $email,
+    //         'smtp_pass' => $pass,
+    //         'crlf' => "\r\n",
+    //         'newline' => "\r\n",
+    //         'mailtype' => 'html'
+    //         /*'smtp_crypto' => 'ssl', //can be 'ssl' or 'tls' for example
+    //         'mailtype' => 'text', //plaintext 'text' mails or 'html'
+    //         'smtp_timeout' => '4', //in seconds
+    //         'charset' => 'iso-8859-1',
+    //         'wordwrap' => TRUE*/
 
-        );
-        $this->load->library('email', $config);
-        $this->email->set_newline("\r\n");
-        $this->email->from($email, 'Lide Arsipan');
-        $this->email->to($to);
-        $this->email->subject('Tindakan Ganti Password');
-        $this->email->message(
-            "
-        <center><b>Anda telah melakukan sebuah tindakan untuk mengganti password.</b><br><br>
-        Ini adalah link untuk mengganti password anda <a href='" . base_url('gantipass/' . $data['id_lupapass'] . $data['kodeganti']) . "'>disini!</a> .<br>
-        Jika ini bukan anda maka klik link <a href='" . base_url('gantipass/batal/' . $data['id_lupapass'] . $data['kodeganti']) . "'>disini</a> agar kami akan membatalkan link ganti anda.
-        </center>"
-        );
-        if ($this->email->send()) {
-            //echo "Email berhasil terkirim.";
-        } else {
-            //echo "Email gagal dikirim.";
-        }
-        //Send mail
-    }
+    //     );
+    //     $this->load->library('email', $config);
+    //     $this->email->set_newline("\r\n");
+    //     $this->email->from($email, 'Lide Arsipan');
+    //     $this->email->to($to);
+    //     $this->email->subject('Tindakan Ganti Password');
+    //     $this->email->message(
+    //         "
+    //     <center><b>Anda telah melakukan sebuah tindakan untuk mengganti password.</b><br><br>
+    //     Ini adalah link untuk mengganti password anda <a href='" . base_url('gantipass/' . $data['id_lupapass'] . $data['kodeganti']) . "'>disini!</a> .<br>
+    //     Jika ini bukan anda maka klik link <a href='" . base_url('gantipass/batal/' . $data['id_lupapass'] . $data['kodeganti']) . "'>disini</a> agar kami akan membatalkan link ganti anda.
+    //     </center>"
+    //     );
+    //     if ($this->email->send()) {
+    //         //echo "Email berhasil terkirim.";
+    //     } else {
+    //         //echo "Email gagal dikirim.";
+    //     }
+    //     //Send mail
+    // }
 
     public function changePassword($method, $idlink)
     {
     }
 
-    public function viewCP($idlink = null)
-    {
-        $this->load->model("model_login", 'mdl');
-        $data = $this->initConfig('gpass', 'Ganti Password');
-        $data['valid'] = $this->mdl->cekLinkCP($idlink);
-        $this->initView("login/gantipassword", $data, true, true);
-    }
+
 }
