@@ -55,7 +55,7 @@ class Admin_Dashboard extends MY_Controller
         $a = 0;
         for ($i = 0; $i < 7; $i++) {
             if (!empty($arr[$a]) && ($arr[$a]['create_time'] > $timeoffset && $arr[$a]['create_time'] < $time)) {
-                echo
+
                     array_push($result, array('x' => intval($timeoffset * 1000), 'y' => intval($arr[$a]['count'])));
                 $a++;
             } else {
@@ -88,4 +88,6 @@ class Admin_Dashboard extends MY_Controller
 
         return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
     }
+
+
 }

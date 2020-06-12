@@ -1,4 +1,10 @@
 <?php
+$nochart=false;
+if (empty($countsurat)){
+  $nochart = true;
+}
+
+
 if (!empty($chartdata)) {
   $cd = json_encode($chartdata);
 }
@@ -10,9 +16,9 @@ if (!empty($chartcount)) {
     "name" => 'Arsip yang disimpan',
     "innerSize" => '50%',
     'data' => array(
-      array('Surat Masuk', $chartcount['sm']),
-      array('Surat Keluar', $chartcount['sk']),
-      array('Disposisi', $chartcount['dp'])
+      array('Surat Masuk', floatval($chartcount['sm'])),
+      array('Surat Keluar', floatval($chartcount['sk'])),
+      array('Disposisi', floatval($chartcount['dp']))
     ))
   );
   $cc = json_encode($cc);
@@ -271,7 +277,7 @@ if ($page === "login") {
 if ($page === "adm_datauser") {
   echo "<script src=" . base_url('assets/js/page/admin/duser.js') . "></script>";
 }
-if ($page === "adm_dashboard") {
+if ($page === "adm_dashboard" && !$nochart) {
   //echo "<script src=" . base_url('assets/js/page/admin/chartdashboard.js') . "></script>";
 ?>
   <script>

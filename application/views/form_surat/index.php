@@ -33,8 +33,8 @@ else {
   <div style="text-align: center;" class="mt-3 mb-3">
     <h2>REGISTRASI SURAT</h2>
   </div>
-  <?= (empty($this->session->flashdata('message'))) ? ""  : $this->session->flashdata('message') ?>
-  <?php echo form_open_multipart(base_url('registrasi-surat/form'), array("id" => "form_surat")) //<form> tag tetapi di panggil lewat CodeIgniter
+  <?= (empty($this->session->flashdata('message'))) ? ""  : $this->session->flashdata('message')  ?>
+  <?php $hidden = array('vldt' => ''); echo form_open_multipart(base_url('registrasi-surat/form'), array("id" => "form_surat")) //<form> tag tetapi di panggil lewat CodeIgniter
   ?>
 
   <div class="form-row mt-5">

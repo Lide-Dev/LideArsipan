@@ -1,27 +1,36 @@
+<?php
+$csrf = array(
+    'name' => $this->security->get_csrf_token_name(),
+    'hash' => $this->security->get_csrf_hash()
+
+)
+?>
+
 <div class="container " style="margin-top:20vh; margin-bottom:20vh">
     <div class="container">
+
         <div class="row my-5 bg-londonsquare rounded d-flex align-content-center">
             <div id="progress1" class='bg-mintygreen text-center text-white rounded-left' style="width: 0%;" data-percentage=<?= $percentagearsip ?>>
                 <?php if ($percentagearsip > 10) { ?>
-                    <h3 style="color: rgba(0, 0, 0, 0);"><?=$percentagearsip?>%</h3>
+                    <h3 style="color: rgba(0, 0, 0, 0);"><?= $percentagearsip ?>%</h3>
                     <p style="color: rgba(0, 0, 0, 0);">Surat Aktif</p>
                 <?php } ?>
             </div>
             <div id="progress2" class='bg-chromeyellow text-center text-white' style="width: 0%;" data-percentage=<?= $percentagesampah ?>>
                 <?php if ($percentagesampah > 10) { ?>
-                    <h3 style="color: rgba(0, 0, 0, 0);"><?=$percentagesampah?>%</h3>
+                    <h3 style="color: rgba(0, 0, 0, 0);"><?= $percentagesampah ?>%</h3>
                     <p style="color: rgba(0, 0, 0, 0);">Sampah Surat</p>
                 <?php } ?>
             </div>
             <div id="progress3" class='bg-blackpearl text-center text-white ' style="width: 0%;" data-percentage=<?= $percentagesystem ?>>
                 <?php if ($percentagesystem > 10) { ?>
-                    <h3 style="color: rgba(0, 0, 0, 0);"><?=$percentagesystem?>%</h3>
+                    <h3 style="color: rgba(0, 0, 0, 0);"><?= $percentagesystem ?>%</h3>
                     <p style="color: rgba(0, 0, 0, 0);">Reserved System</p>
                 <?php } ?>
             </div>
             <div id="progress4" class='bg-londonsquare text-center text-whiteo rounded-right' style="width: 0%;" data-percentage=<?= $percentagetotal ?>>
                 <?php if ($percentagetotal > 10) { ?>
-                    <h3 style="color: rgba(0, 0, 0, 0);"><?=$percentagetotal?>%</h3>
+                    <h3 style="color: rgba(0, 0, 0, 0);"><?= $percentagetotal ?>%</h3>
                     <p style="color: rgba(0, 0, 0, 0);">Penyimpanan Server</p>
                 <?php } ?>
             </div>
@@ -41,7 +50,7 @@
                             :
                         </td>
                         <td>
-                            <?=$totalarsip?>
+                            <?= $totalarsip ?>
                         </td>
                     </tr>
                     <tr>
@@ -52,7 +61,7 @@
                             :
                         </td>
                         <td>
-                            <?=$totalsampah?>
+                            <?= $totalsampah ?>
                         </td>
                     </tr>
                     <tr>
@@ -63,7 +72,7 @@
                             :
                         </td>
                         <td>
-                            <?=$reservedsystem?>
+                            <?= $reservedsystem ?>
                         </td>
                     </tr>
                 </table>
@@ -78,7 +87,7 @@
                             :
                         </td>
                         <td>
-                            <?=$space?>
+                            <?= $space ?>
                         </td>
                     </tr>
                     <tr>
@@ -89,7 +98,7 @@
                             :
                         </td>
                         <td>
-                             <?=$totalserver?>
+                            <?= $totalserver ?>
                         </td>
                     </tr>
                 </table>
@@ -100,6 +109,7 @@
     <div class="container my-5">
         <div class='form-row my-5'>
             <div class="col-6">
+                <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                 <input type="text" class="form-control" name="search" id="ar_search" aria-describedby="helpSearch" placeholder="Pencarian ID">
                 <small id='helpSearch' class="form-text text-muted">Pencarian akan dilakukan jika melebihi 2 karakter huruf di kolom pencarian.</small>
                 <small id='helpSearch' class="form-text text-muted">Kosongkan kolom pencarian jika ingin melihat semua arsip.</small>

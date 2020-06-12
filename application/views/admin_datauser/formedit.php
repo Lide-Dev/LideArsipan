@@ -21,7 +21,7 @@
     <small id="ad_help" class="form-text text-muted">Email atau Username ini akan digunakan untuk login. Pastikan Username lebih dari 3 karakter</small>
 
     <div class="my-3">
-        <a href="#" aria-describedby="ad_helppass">Ubah Password</a>
+        <a class="link-edit" href="<?=base_url("admdatauser/gantipass/id/")?>" aria-describedby="ad_helppass">Ubah Password</a>
         <small id="ad_passwordlink" class="form-text text-muted">Jika ingin mengubah password silahkan klik link diatas.</small>
     </div>
 </div>

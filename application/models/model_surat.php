@@ -28,7 +28,7 @@ class Model_Surat extends MY_Model
         $query = $this->db->get_compiled_select();
         $query .= " group by ".$group. " order by create_time ASC ";
         $result = $this->db->query($query);
-        print_r($result->result_array());
+        //print_r($result->result_array());
         return $result->result_array();
 
     }

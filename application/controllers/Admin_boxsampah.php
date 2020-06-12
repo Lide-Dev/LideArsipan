@@ -72,9 +72,9 @@ class Admin_Boxsampah extends MY_Controller
     {
         $this->ajaxFunction();
         $this->load->model("model_surat", "ms");
-        $result = $this->ms->getDataTableSurat($this->input->post(null, true),'',true);
+        $result = $this->ms->getDataTableSurat($this->input->get(null, true),'',true);
         $callback = array(
-            'draw' =>  $this->input->post('draw', true),
+            'draw' =>  $this->input->get('draw', true),
             'recordsTotal' => $result['total'],
             'recordsFiltered' => $result['totalFilter'],
             'data' => $result['data']
@@ -162,8 +162,9 @@ class Admin_Boxsampah extends MY_Controller
         $this->ajaxFunction();
         //echo $request;
         //print_r($_SESSION);
+        $result['token']=  $this->security->get_csrf_hash();
         $typear= strtolower(substr($_SESSION['id_surat'],0,2));
-        echo $_SESSION['id_surat'];
+        //echo $_SESSION['id_surat'];
         if ($typear==='sk'){
             $valid=true;
         }
@@ -178,24 +179,24 @@ class Admin_Boxsampah extends MY_Controller
         }
         if (!empty($request)&&$valid) {
             if ($request === 'delete') {
-                $load = $this->deleteSurat($_SESSION['id_surat'],$typear);
+                $result['load'] = $this->deleteSurat($_SESSION['id_surat'],$typear);
             } else if ($request === 'recover') {
-                $load = $this->recoverSurat($_SESSION['id_surat'],$typear);
+                $result['load'] = $this->recoverSurat($_SESSION['id_surat'],$typear);
             } else {
-                echo 'kosong';
+                //echo 'kosong';
                 $this->output->set_status_header('400');
                 $data['title'] = 'Kesalahan Pengiriman';
                 $data['desc'] = 'Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
-                $load = $this->load->view("arsip/errorpage", $data, true);
+                $request['load'] = $this->load->view("arsip/errorpage", $data, true);
             }
         } else {
-            echo 'galat';
+            //echo 'galat';
             $this->output->set_status_header('400');
             $data['title'] = 'Kesalahan Pengiriman';
             $data['desc'] = 'Terjadi kesalahan pada pengiriman data. Silahkan kontak ke web admin ini untuk lebih lanjutnya.';
-            $load = $this->load->view("arsip/errorpage", $data, true);
+            $result['load'] = $this->load->view("arsip/errorpage", $data, true);
         }
-        echo $load;
+        echo json_encode($result);
     }
 
 
