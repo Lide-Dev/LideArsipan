@@ -13,8 +13,19 @@ class Admin_Dashboard extends MY_Controller
         $count['sm'] = $this->ms->getCountSurat('sm');
         $count['sk'] = $this->ms->getCountSurat('sk');
         $count['dp'] = $this->ms->getCountSurat('dp');
+        if (empty($count['sm']))
+        $data['chartcount']['sm']= 0;
+        else
         $data['chartcount']['sm']= number_format(floatval($count['sm']/$data['countsurat']*100),2);
+
+        if (empty($count['sk']))
+        $data['chartcount']['sk']=0;
+        else
         $data['chartcount']['sk']= number_format(floatval($count['sk']/$data['countsurat']*100),2);
+
+        if (empty($count['dp']))
+        $data['chartcount']['dp']=0;
+        else
         $data['chartcount']['dp']= number_format(floatval($count['dp']/$data['countsurat']*100),2);
 
         $data['countlogin'] = $this->ml->getCountLogin();
