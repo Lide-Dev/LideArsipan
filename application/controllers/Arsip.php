@@ -253,6 +253,7 @@ class Arsip extends MY_Controller
             if ($request === 'delete') {
                 $load = $this->deleteSurat($_SESSION['id_surat']);
             } else if ($request === 'patch') {
+                //print_r($this->input->post('send'));
                 $params = array();
                 parse_str($this->input->post('send'), $params);
                 $load = $this->editSurat($_SESSION['id_surat'], $params);

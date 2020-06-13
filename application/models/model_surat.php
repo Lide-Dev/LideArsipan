@@ -99,31 +99,31 @@ class Model_Surat extends MY_Model
             $table = 'surat_masuk';
             $type = 'suratmasuk';
             $data = array(
-                'no_surat' => $data['nosurat_'],
-                'asal_surat' => $data['asalsurat_'],
-                'isi_ringkas' => $data['isiringkas_'],
-                'keterangan' => $data['keterangan_'],
-                'lokasi_arsip' => $data['lokasiarsip_']
+                'no_surat' => $data['nosurat'],
+                'asal_surat' => $data['asalsurat'],
+                'isi_ringkas' => $data['isiringkas'],
+                'keterangan' => $data['keterangan'],
+                'lokasi_arsip' => $data['lokasiarsip']
             );
         } else if ($type === 'sk') {
             $table = 'surat_keluar';
             $type = 'suratkeluar';
             $data = array(
-                'no_surat' => $data['nosurat_'],
-                'surat_dikirim' => $data['pengirim_'],
-                'isi_ringkas' => $data['isiringkas_'],
-                'keterangan' => $data['keterangan_'],
-                'lokasi_arsip' => $data['lokasiarsip_']
+                'no_surat' => $data['nosurat'],
+                'surat_dikirim' => $data['pengirim'],
+                'isi_ringkas' => $data['isiringkas'],
+                'keterangan' => $data['keterangan'],
+                'lokasi_arsip' => $data['lokasiarsip']
             );
         } else {
             $table = 'disposisi';
             $type = 'disposisi';
             $data = array(
-                'no_agenda' => $data['noagenda_'],
-                'perihal' => $data['perihal_'],
-                'dituju' => $data['dituju_'],
-                'pengirim' => $data['pengirim_'],
-                'isi_disposisi' => $data['isidisposisi_']
+                'no_agenda' => $data['noagenda'],
+                'perihal' => $data['perihal'],
+                'dituju' => $data['dituju'],
+                'pengirim' => $data['pengirim'],
+                'isi_disposisi' => $data['isidisposisi']
             );
         }
 
@@ -135,35 +135,36 @@ class Model_Surat extends MY_Model
 
     function EditSuratValidatebyID($id, $type, $data)
     {
+        //xprint_r($data);
         if ($type === 'sm') {
             $table = 'surat_masuk';
             $type = 'suratmasuk';
             $data = array(
-                'no_surat' => $data['nosurat_'],
-                'asal_surat' => $data['asalsurat_'],
-                'isi_ringkas' => $data['isiringkas_'],
-                'keterangan' => $data['keterangan_'],
-                'lokasi_arsip' => $data['lokasiarsip_']
+                'no_surat' => $data['nosurat'],
+                'asal_surat' => $data['asalsurat'],
+                'isi_ringkas' => $data['isiringkas'],
+                'keterangan' => $data['keterangan'],
+                'lokasi_arsip' => $data['lokasiarsip']
             );
         } else if ($type === 'sk') {
             $table = 'surat_keluar';
             $type = 'suratkeluar';
             $data = array(
-                'no_surat' => $data['nosurat_'],
-                'surat_dikirim' => $data['pengirim_'],
-                'isi_ringkas' => $data['isiringkas_'],
-                'keterangan' => $data['keterangan_'],
-                'lokasi_arsip' => $data['lokasiarsip_']
+                'no_surat' => $data['nosurat'],
+                'surat_dikirim' => $data['pengirim'],
+                'isi_ringkas' => $data['isiringkas'],
+                'keterangan' => $data['keterangan'],
+                'lokasi_arsip' => $data['lokasiarsip']
             );
         } else {
             $table = 'disposisi';
             $type = 'disposisi';
             $data = array(
-                'no_agenda' => $data['noagenda_'],
-                'perihal' => $data['perihal_'],
-                'dituju' => $data['dituju_'],
-                'pengirim' => $data['pengirim_'],
-                'isi_disposisi' => $data['isidisposisi_']
+                'no_agenda' => $data['noagenda'],
+                'perihal' => $data['perihal'],
+                'dituju' => $data['dituju'],
+                'pengirim' => $data['pengirim'],
+                'isi_disposisi' => $data['isidisposisi']
             );
         }
         $column = array_keys($data);

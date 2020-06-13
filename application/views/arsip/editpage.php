@@ -5,7 +5,7 @@
             $content ="<input type='".$this->security->xss_clean($type[$i])."' name= '".$this->security->xss_clean($name[$i])."' id= '".$this->security->xss_clean($id[$i])."' class='form-control' placeholder='' aria-describedby='helpId".$this->security->xss_clean($i)."' value='".$this->security->xss_clean($desc[$i])."'>";
         }
         else{
-            $content ="<textarea name= '".$this->security->xss_clean($name[$i])." ' id= '".$this->security->xss_clean($id[$i])."' class='form-control' placeholder='' aria-describedby='helpId".$this->security->xss_clean($i)."'>".$this->security->xss_clean($desc[$i])."</textarea>";
+            $content ="<textarea name= '".$this->security->xss_clean($name[$i])."' id= '".$this->security->xss_clean($id[$i])."' class='form-control' placeholder='' aria-describedby='helpId".$this->security->xss_clean($i)."'>".$this->security->xss_clean($desc[$i])."</textarea>";
         }
     ?>
         <div class="form-row">
