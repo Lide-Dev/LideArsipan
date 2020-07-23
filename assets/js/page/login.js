@@ -19,6 +19,21 @@ function validateEmail(email) {
     return re.test(email);
 }
 
+$('#pass_eye').on('click', function(event) {
+    event.preventDefault();
+    var type = $(".input_pass").attr("type")
+    if( type == "text"){
+        $(".input_pass").attr("type","password")
+        $("#pass_eye").addClass("fa-eye-slash")
+        $("#pass_eye").removeClass("fa-eye")
+    }
+    else{
+        $(".input_pass").attr("type","text")
+        $("#pass_eye").addClass("fa-eye")
+        $("#pass_eye").removeClass("fa-eye-slash")
+    }
+})
+
 $('#login_form').validate({
     rules: {
         login_name: 'required',

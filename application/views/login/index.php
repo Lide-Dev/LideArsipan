@@ -32,6 +32,9 @@
                                 <span class="input-group-text"><i class="fa fa-key"></i></span>
                             </div>
                             <input type="password" name="login_pass" class="form-control input_pass" value="" placeholder="password">
+                            <div class="input-group-addon">
+                                <i id="pass_eye" class="fa fa-eye-slash" aria-hidden="true"></i>
+                            </div>
                         </div>
                     </div>
 
