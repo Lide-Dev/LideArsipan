@@ -58,7 +58,7 @@ $route['admin/dashboard']="admin_dashboard/index";
 $route['admin/admdatauser']="admin_datauser/index";
 $route['admin/admdatauser/form/request']='admin_datauser/submitrequest';
 $route['admin/admdatauser/put/user']="admin_datauser/addaccount";
-$route['admdatauser/gantipass/id/(:any)']="admin_datauser/createlinkcp/$1";
+$route['admdatauser/change/pass/id/(:any)']="admin_datauser/createlinkcp/$1";
 $route['admin/filemanager']='admin_boxsampah/index';
 $route['admin/filemanager/table']='admin_boxsampah/gettable';
 $route['admin/filemanager/modal/get/(:any)']='admin_boxsampah/getviewmodal/$1';
@@ -93,7 +93,7 @@ $route["registrasi-surat/form"]="form_surat/form_submit";
 $route["arsip/suratmasuk"]= "arsip/showtable/sm";
 $route["arsip/suratkeluar"]= "arsip/showtable/sk";
 $route["arsip/disposisi"]= "arsip/showtable/dp";
-$route["arsip/dokumen/get/(:any)"] = "arsip/getdokumendownload/$1";
+$route["arsip/document/get/(:any)"] = "arsip/getdokumendownload/$1";
 $route["arsip/request/(:any)"] = "arsip/requestmodal/$1";
 $route["arsip/modal/get/(:any)"] = "arsip/getviewmodal/$1";
 
@@ -104,5 +104,5 @@ $route["ajaxlogin/emailcek"]="login/LP_CheckEmail";
 
 $route["error"]="error_page/index";
 $route['go/loginvalid/token']="login/validateLogin";
-$route['gantipass/(:any)']="admin_datauser/viewCP/$1";
-$route['gantipass/accept/go']="admin_datauser/changePassword";
+$route['change/pass/(:any)']="admin_datauser/viewCP/$1";
+$route['change/pass/accept/go']="admin_datauser/changePassword";

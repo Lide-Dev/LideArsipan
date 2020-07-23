@@ -82,7 +82,7 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                     <td><p>:</p></td>
                     <td>
-                         <a href="<?= base_url('arsip/dokumen/get/') . $this->security->xss_clean($dokumen['id_dokumen']) ?>">Download Disini</a>
+                         <a href="<?= base_url('arsip/document/get/') . $this->security->xss_clean($dokumen['id_dokumen']) ?>">Download Disini</a>
                     </td>
                 </tr>
                 </tbody>

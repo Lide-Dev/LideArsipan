@@ -9,7 +9,7 @@ $valid=false;
         <div class="card-body <?= $valid ? '' : 'my-5' ?>">
         <?=!empty($_SESSION['message'])?$_SESSION['message']:""?>
             <?php if ($valid) {
-                echo form_open("gantipass/accept/go", array("id" => "gp_form"))
+                echo form_open(base_url("change/pass/accept/go"), array("id" => "gp_form"))
             ?>
                     <div class="row">
                         <div class="col-md-6 d-md-none pb-3">

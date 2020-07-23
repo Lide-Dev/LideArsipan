@@ -323,7 +323,7 @@ class Admin_DataUser extends MY_Controller
                     $error .= "Password kurang dari 3 karakter.";
                 }
                 $this->messagePage($error, 3);
-                redirect(base_url("gantipass/" . $_SESSION['changepass']['link']));
+                redirect(base_url("change/pass/" . $_SESSION['changepass']['link']));
             } else {
                // echo "c";
                 $data['id_change'] = $_SESSION['changepass']['id_change'];
@@ -339,7 +339,7 @@ class Admin_DataUser extends MY_Controller
         else{
           //  echo "d";
             $this->messagePage("Session Habis", 2);
-            redirect(base_url("gantipass/" . $_SESSION['changepass']['link']));
+            redirect(base_url("change/pass/" . $_SESSION['changepass']['link']));
         }
     }
 
@@ -357,7 +357,7 @@ class Admin_DataUser extends MY_Controller
                 $link = bin2hex(random_bytes(24));
                 $arr = array("id_change" => $id, "link" => $link);
                 $this->session->set_tempdata("changepass", $arr, 900);
-                redirect(base_url("gantipass/" . $link));
+                redirect(base_url("change/pass/" . $link));
             } else {
                 $this->errorPage(array('title' => 'Tidak di Ijinkan', 'code' => '403', 'desc' => 'Kami tidak bisa membawa anda ke URL yang di tuju karena masalah perijinan'));
             }
