@@ -396,6 +396,7 @@ class Admin_DataUser extends MY_Controller
     {
         //AJAX View Modal
         //if (!$this->input->is_ajax_request()) exit("Unknown Address (401)");
+        $response = array();
         if ($this->session->tempdata('requestform') === "new") {
             $this->load->model("model_datapengguna", "mdp");
             $option = $this->mdp->getJabatanAll();
@@ -405,16 +406,43 @@ class Admin_DataUser extends MY_Controller
                 $view['jabatan'] .= "<option value='".$this->security->xss_clean($row->id_jabatan)."'>".$this->security->xss_clean($row->nama)."</option>";
             }
             $load = $this->load->view("admin_datauser/formnew", $view, true);
+            $response = array(
+                "load"=>$load
+            );
         } else if ($this->session->tempdata('requestform') === "pss") {
             $load = $this->load->view("admin_datauser/formpassword", "", true);
+            $response = array(
+                "load"=>$load
+            );
         } else if ($this->session->tempdata('requestform') === "ban") {
-            $load = $this->load->view("admin_datauser/formban", "", true);
+            $this->load->model("model_login", "mdl");
+            $valid = $this->mdl->validBan($_SESSION['iduser']);
+            empty($valid) ? '' : $bandate = strtotime($valid->finish_date);
+            $date = strtotime(date("Y-m-d H:i:s"));
+            $is_ban = false;
+            if (!empty($valid) && $date < $bandate){
+                $is_ban = true;
+                $load = $this->load->view("admin_datauser/formhasban", "", true);
+            }
+            else {
+                $load = $this->load->view("admin_datauser/formban", "", true);
+            }
+            $response = array(
+                "load"=>$load,
+                "is_ban"=>$is_ban
+            );
         } else if ($this->session->tempdata('requestform') === "unban") {
             $load = $this->load->view("admin_datauser/formunban", "", true);
+            $response = array(
+                "load"=>$load
+            );
         } else {
             $load = $this->load->view("admin_datauser/formedit", "", true);
+            $response = array(
+                "load"=>$load
+            );
         }
-        echo $load;
+        echo json_encode($response);
     }
 
     function getCountAjax()

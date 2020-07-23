@@ -1,4 +1,14 @@
 //var vldtH = '';
+var enforceModalFocusFn = $.fn.modal.Constructor.prototype._enforceFocus;
+
+$.fn.modal.Constructor.prototype._enforceFocus = function() {};
+
+$("#modaladm").on('hidden', function() {
+    $.fn.modal.Constructor.prototype.enforceFocus = enforceModalFocusFn;
+});
+
+// $("#modaladm").modal({ backdrop : false });
+
 function ajaxedit(dataid) {
   $.ajax({
     url: "http://localhost/LideArsipan/ajaxadmin/set/clickbutton",
@@ -10,9 +20,11 @@ function ajaxedit(dataid) {
       $.ajax({
         url: "http://localhost/LideArsipan/ajaxadmin/get/modal",
         type: "get",
-        dataType: "html",
+        dataType: "json",
         success: function (data) {
-          $("#ad_form").html(data);
+          $('#ad_failed').hide();
+          $('#ad_success').hide();
+          $("#ad_form").html(data.load);
           $('#ad_spinner').hide();
           $('#ad_form').show();
           $('#modal_footer').show();
@@ -57,9 +69,11 @@ function ajaxadd() {
       $.ajax({
         url: "http://localhost/LideArsipan/ajaxadmin/get/modal",
         type: "get",
-        dataType: "html",
+        dataType: "json",
         success: function (data) {
-          $("#ad_form").html(data);
+          $('#ad_failed').hide();
+          $('#ad_success').hide();
+          $("#ad_form").html(data.load);
           $('#ad_spinner').hide();
           $('#ad_form').show();
           $('#modal_footer').show();
@@ -80,10 +94,11 @@ function ajaxpassword() {
       $.ajax({
         url: "http://localhost/LideArsipan/ajaxadmin/get/modal",
         type: "get",
-        dataType: "html",
+        dataType: "json",
         success: function (data) {
-          console.log(data);
-          $("#ad_form").html(data);
+          $('#ad_failed').hide();
+          $('#ad_success').hide();
+          $("#ad_form").html(data.load);
           $('#ad_spinner').hide();
           $('#ad_form').show();
           $('#modal_footer').show();
@@ -103,12 +118,20 @@ function ajaxban(dataid) {
       $.ajax({
         url: "http://localhost/LideArsipan/ajaxadmin/get/modal",
         type: "get",
-        dataType: "html",
+        dataType: "json",
         success: function (data) {
-          $("#ad_form").html(data);
+          $('#ad_failed').hide();
+          $('#ad_success').hide();
+          $("#ad_form").html(data.load);
           $('#ad_spinner').hide();
           $('#ad_form').show();
-          $('#modal_footer').show();
+          if (data.is_ban){
+            $('#modal_footer').hide();
+          }
+          else{
+            $('#modal_footer').show();
+          }
+
         }
       });
     }
@@ -126,9 +149,11 @@ function ajaxunban(dataid) {
       $.ajax({
         url: "http://localhost/LideArsipan/ajaxadmin/get/modal",
         type: "get",
-        dataType: "html",
+        dataType: "json",
         success: function (data) {
-          $("#ad_form").html(data);
+          $('#ad_failed').hide();
+          $('#ad_success').hide();
+          $("#ad_form").html(data.load);
           $('#ad_spinner').hide();
           $('#ad_form').show();
           $('#modal_footer').show();
