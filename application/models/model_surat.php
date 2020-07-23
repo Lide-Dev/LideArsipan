@@ -383,7 +383,7 @@ class Model_Surat extends MY_Model
     function querySampah($type = 'all', $params, $filter = false)
     {
         $option = '';
-
+        $search = '';
         $this->db->select('id_suratmasuk as id, update_time');
         $this->db->from('surat_masuk');
         $this->db->where('sampah', 1);
@@ -405,8 +405,7 @@ class Model_Surat extends MY_Model
                 1 => 'update_time'
             );
             if (!empty($params['search']['value'])) {
-                $this->db->like($columns[1], $params['search']['value']);
-                $this->db->or_like($columns[0], $params['search']['value']);
+                $search = " WHERE id LIKE '%".$this->db->escape_str($params['search']['value'])."%' ESCAPE '!' ";
             }
 
             $ordercol = $this->db->escape_str($params['columns'][$order_field]['data']);
@@ -432,7 +431,7 @@ class Model_Surat extends MY_Model
             }
 
             //$xa=$query1. " UNION ALL " . $query2. " UNION ALL ". $query3. $option;
-            $query = $this->db->query($query1 . " UNION ALL " . $query2 . " UNION ALL " . $query3 . $option);
+            $query = $this->db->query("SELECT id, update_time FROM(".$query1 . " UNION ALL " . $query2 . " UNION ALL " . $query3.") as tbl " . $search . $option);
             return $query->result();
         } else {
             $this->db->select('id_suratmasuk as id, update_time');

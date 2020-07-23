@@ -1,4 +1,5 @@
 var baseurl = 'http://localhost/LideArsipan/';
+var searchbox, searchbox2, tempsearch, tempsearch2
 
 $(document).ready(function () {
   var table = $('#table_sampah').DataTable({
@@ -33,7 +34,45 @@ $(document).ready(function () {
       }
     ]
   });
+  //--------------------------------
+  var search = $.fn.dataTable.util.throttle(
+    function (val) {
+      table.search(val).draw();
+    },
+    1000
+  );
 
+  $('#ar_search').keyup(function () {
+    searchbox2 = $('#ar_search').val();
+    if (searchbox2.length > 1) {
+      $('#ar_btnsearch').removeClass('disabled');
+      $('#ar_btnsearch').addClass('btn-outline-freespeechblue');
+    }
+    else {
+      if (tempsearch2 != searchbox && searchbox2.length == 0) {
+        search(searchbox2);
+        tempsearch2 = searchbox;
+      }
+      $('#ar_btnsearch').addClass('disabled ');
+      $('#ar_btnsearch').removeClass('btn-outline-freespeechblue');
+    }
+  });
+
+  $('#ar_btnsearch').click(function () {
+    searchbox = $('#ar_search').val();
+    if (tempsearch != searchbox && searchbox.length >= 2) {
+      search(searchbox);
+      tempsearch = searchbox;
+    }
+  });
+
+  $('#ar_search').keypress(function (e) {
+    var key = e.which;
+    if (key == 13) {
+      $('#ar_btnsearch').click();
+    }
+  });
+  //-------------------------------
   $('#table_sampah tbody').on('click', '.open', function () {
     resetmodal();
     var data = table.row($(this).parents('tr')).data();
