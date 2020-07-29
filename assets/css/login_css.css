@@ -94,3 +94,12 @@
     .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
         background-color: #485460 !important;
     }
+    
+    .eye {
+        background-color: white;
+        padding-top: 7px;
+        padding-left: 7px;
+        width: 35px;
+        height: 37.5px;
+        border-radius: 0px 4px 4px 0px;
+    }
