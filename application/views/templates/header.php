@@ -35,7 +35,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <link rel="stylesheet" href=<?= base_url('assets/css/bootstrap.min.css') ?>>
         <link rel="icon" type="image/png" sizes="32x32" href=<?= base_url('assets/img/favicon-32x32.png') ?>>
         <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href=<?= base_url('assets/css/animation_landing.css') ?>>
+        <link rel="stylesheet" href=<?= base_url('assets/css/page/animation_landing.css') ?>>
     <?php } ?>
     <!--For CSS Pages-->
     <?php if (!empty($page) && $page === "login") { ?>

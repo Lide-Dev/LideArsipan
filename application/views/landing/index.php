@@ -5,104 +5,38 @@
         <a class="navbar-brand d-none d-md-block" href="#">
           <img src=<?=base_url(PATHIMG.'Logo_Navbar.svg')?> alt="Sleman">
         </a>
-        <div style="color: white" class="my-auto">Website Arsip Pemerintah Desa Condongcatur</div>
+        <div style="color: white" class="my-auto">Pemerintah Desa Condongcatur</div>
         </div>
     </div>
 </nav>
-    <!-- slider -->
-    <section class="banner-sec secslider" style="background-color: #d2dae2">
-        <div class="container">
-        
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card"> <img src="<?= PATHIMG ?>F1.svg" class="img-fluid" alt="">
-                        
-                    </div>
-                    <div class="card"> <img src="<?= PATHIMG ?>F2.svg" class="img-fluid" alt="">
-                        
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card"> <img src="<?= PATHIMG ?>F3.svg" class="img-fluid" alt="">
-                        
-                    </div>
-                    <div class="card"> <img src="<?= PATHIMG ?>F4.svg" class="img-fluid" alt="">
-                        
-                    </div>
-                </div>
-                <div class="col-md-6 top-slider">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="d-none carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                        </ol>
 
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active">
-                                <div class="news-block">
-                                    <div class="news-media"><img src="<?= PATHIMG ?>F1.svg" class="img-fluid" style="width: 100%;" alt=""></div>
-                                    <div class="news-title">
-                                        <h2 class=" title-large"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></h2>
-                                    </div>
-                                    <div class="news-des">Vestibulum id purus vel nunc ullamcorper ultricies. Fusce a metus at ante malesuada pellentesque. In hac habitasse platea dictumst.</div>
-                                    <div></div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="news-block">
-                                    <div class="news-media"><img src="<?= PATHIMG ?>F2.svg" class="img-fluid" style="width: 100%;" alt=""></div>
-                                    <div class="news-title">
-                                        <h2 class=" title-large"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></h2>
-                                    </div>
-                                    <div class="news-des">Vestibulum id purus vel nunc ullamcorper ultricies. Fusce a metus at ante malesuada pellentesque. In hac habitasse platea dictumst.</div>
-                                    <div></div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="news-block">
-                                    <div class="news-media"><img src="<?= PATHIMG ?>F3.svg" class="img-fluid" style="width: 100%;" alt=""></div>
-                                    <div class="news-title">
-                                        <h2 class=" title-large"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></h2>
-                                    </div>
-                                    <div class="news-des">Vestibulum id purus vel nunc ullamcorper ultricies. Fusce a metus at ante malesuada pellentesque. In hac habitasse platea dictumst.</div>
-                                    <div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- end of slider -->
+<!-- jumbotron -->
+<div class="jumbotron jumbotron-fluid bg-dark">
+
+<div class="jumbotron-background">
+    <img src=<?= base_url(PATHIMG . 'F1.svg') ?> class="blur" style="width: 100%; height: 100%;" alt="Sleman">
 </div>
 
-<nav class="navbar navbar" style="height: 150px; background: linear-gradient(to bottom, #1e272e 50%, white 50%);">
-    <ul class="nav navbar-nav">
-        <li class="active"><a href="#">
-                <div class="container">
-                    <div class="row">
-                        <div class="container">
-                            <div class="row">
-                                <a href="<?= $url ?>" class="intro-banner-vdo-play-btn pinkBg">
-                                    <i class="glyphicon glyphicon-play whiteText" data-toggle="tooltip" data-placement="top" title='<?=$direct_tooltip?>' aria-hidden="true">
-                                        <i class="fas fa-sign-in-alt" style="color: white"></i>
-                                    </i>
-                                    <span class="ripple pinkBg"></span>
-                                    <span class="ripple pinkBg"></span>
-                                    <span class="ripple pinkBg"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </li>
-    </ul>
-</nav>
+<div class="container text-white">
+
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1 class="section-heading text-uppercase mt-4 mb-4">Selamat Datang Di Website Arsip Pemerintah Desa Condongcatur</h1>
+        </div>
+    </div>
+
+    <div class="text-center">
+                     <div class="align-content-lg-center">
+                     <a href="<?= $url ?>" <button type="button" class="btn btn-success"><h6>LOGIN</h6></button></a>
+                         </a>
+                     </div>
+                 </div>
+
+</div>
+<!-- /.container -->
+</div>
+<!-- /.jumbotron -->
+</div>
 
 <div class="container-fluid">
     <div class="container">
@@ -170,17 +104,6 @@
 
                     <div style="height:30px"></div>
 
-                    <!--Third row-->
-                    <div class="row">
-                        <div class="col-1 mr-3">
-                            <i class="fas fa-plus-square fa-2x cyan-text"></i>
-                        </div>
-                        <div class="col-10">
-                            <h5 class="feature-title">Buat Surat</h5>
-                            <p class="grey-text">Buat surat dengan template yang telah di sediakan.</p>
-                        </div>
-                    </div>
-                    <!--/Third row-->
                 </div>
             </div>
         </section>
