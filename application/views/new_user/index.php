@@ -40,13 +40,13 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="ne_pass">Password<b class="text-danger">*</b></label>
-                            <input type="text" class="form-control" name="pass" id="ne_pass" aria-describedby="helpId3" placeholder="">
+                            <input type="password" class="form-control" name="pass" id="ne_pass" aria-describedby="helpId3" placeholder="">
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="ne_passc">Ulangi Password<b class="text-danger">*</b></label>
-                            <input type="text" class="form-control" name="passc" id="ne_passc" aria-describedby="helpId3" placeholder="">
+                            <input type="password" class="form-control" name="passc" id="ne_passc" aria-describedby="helpId3" placeholder="">
                         </div>
                     </div>
                     <div class="col-lg-12 mb-4">
