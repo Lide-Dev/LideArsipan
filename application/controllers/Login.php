@@ -59,10 +59,25 @@ class Login extends MY_Controller
         if ($data['valid']) {
             $this->session->set_userdata('idlogin', $data['id']);
             $role = $this->rolePermission($data['id']);
-            if (strtolower($role->nama) !== 'admin')
-                header('Location: ' . base_url("dashboard"));
-            else
-                header('Location: ' . base_url("admin/dashboard"));
+            $row = $this->mdl->getDataUser($data['id']);
+            if (substr($row->username, 0, 3) == 'usl' && strlen($row->username) == 10) {
+                $hash = bin2hex(random_bytes(20));
+                echo $hash;
+                $this->session->set_tempdata(
+                    'new_user',
+                    array(
+                        'id' => $_SESSION["idlogin"],
+                        'hash' => $hash
+                    ),
+                    500
+                );
+                redirect(base_url("newuser/" . $hash));
+            } else {
+                if (strtolower($role->nama) !== 'admin')
+                    header('Location: ' . base_url("dashboard"));
+                else
+                    header('Location: ' . base_url("admin/dashboard"));
+            }
         } else {
             $message = "Username/Email dengan Password tidak cocok!";
             header('Location: ' . base_url("login"));
@@ -74,19 +89,18 @@ class Login extends MY_Controller
     {
         if (!$this->input->is_ajax_request()) exit("Unauthorized Request (401)");
 
-            $state = false;
-            $this->load->model('model_datapengguna', "model_dp");
-            $email = $this->input->post("email", true);
-            $state = $this->model_dp->checkEmail($email);
-            $data = $this->model_dp->CreateCodePass($email);
-            //echo $state;
-            if ($state) {
-               // $this->SendMail($email, $data);
-                echo 1;
-            } else {
-                echo 0;
-            }
-
+        $state = false;
+        $this->load->model('model_datapengguna', "model_dp");
+        $email = $this->input->post("email", true);
+        $state = $this->model_dp->checkEmail($email);
+        $data = $this->model_dp->CreateCodePass($email);
+        //echo $state;
+        if ($state) {
+            // $this->SendMail($email, $data);
+            echo 1;
+        } else {
+            echo 0;
+        }
     }
 
     // public function SendMail($to, $data)
@@ -133,6 +147,4 @@ class Login extends MY_Controller
     public function changePassword($method, $idlink)
     {
     }
-
-
 }

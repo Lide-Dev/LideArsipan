@@ -63,6 +63,12 @@ class Model_DataPengguna extends MY_Model
     //     $query = $this->db->get('userlogin');
     //     $result = $query->row("id_user");
     // }
+    function getJabatanbyID($id){
+        $this->db->where("id_jabatan", $id);
+        $query = $this->db->get("jabatan");
+
+        return $query->row();
+    }
 
     function getJabatanAll()
     {
@@ -183,5 +189,19 @@ class Model_DataPengguna extends MY_Model
         }
         $desclog = 'Login Data ( ' . $d1 . ' ), User Data ( ' . $d2 . ' ). ID_TriggerUser => ' . $id_user;
         $this->createLog("001", $desclog);
+    }
+
+    function updateAccountData($id,$data){
+        $date = date("Y-m-d H:i:s");
+        if (empty($data['nip'])){
+            $data['nip']='undefined';
+        }
+        $d = array(
+            'nama'=>$data['nama'],
+            'nip'=>$data['nip'],
+            'update_time'=>$date
+        );
+        $this->db->where('id_user',$id);
+        $this->db->update('datapengguna',$d);
     }
 }

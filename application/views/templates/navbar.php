@@ -22,7 +22,7 @@
                     <li class="list-group-item">
                         <a href="<?= base_url('dashboard') ?>"><i class="fas fa-home"></i><span style="margin-left: 10px;">Dashboard</span></a>
                     </li>
-                    <?php echo 'test';print_r($permission); if (!empty($permission) && ($permission->w_suratmasuk === 1 || $permission->w_suratkeluar === 1 || $permission->w_disposisi === 1)) { ?>
+                    <?php if (!empty($permission) && ($permission->w_suratmasuk === 1 || $permission->w_suratkeluar === 1 || $permission->w_disposisi === 1)) { ?>
                     <li class="list-group-item">
                         <a href="<?= base_url('registrasi-surat') ?>"><i class="fas fa-save"></i><span style="margin-left: 12.7px;">Registrasi Surat</span></a>
                     </li>

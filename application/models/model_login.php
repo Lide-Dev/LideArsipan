@@ -166,7 +166,6 @@ class Model_Login extends MY_Model
                 $query = $this->db->get('userlogin');
                 $row = $query->row();
                 $id = $row->id_user;
-                $type = $row->tipe;
                 $hash = $row->password;
             }
         }
@@ -177,7 +176,6 @@ class Model_Login extends MY_Model
             if (password_verify($pass, $hash)) {
                 $value['valid'] = true;
                 $value['id'] = $id;
-                $value['type'] = $type;
                 return $value;
             }
         }
