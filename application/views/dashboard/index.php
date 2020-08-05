@@ -3,7 +3,7 @@
 
          <!-- jumbotron -->
          <div class="jumbotron jumbotron-fluid bg-dark">
-
+         <?=!empty($_SESSION['message']) ? $_SESSION['message'] : ""?>
              <div class="jumbotron-background">
                  <img src=<?= base_url(PATHIMG . 'bg1.svg') ?> class="blur" style="width: 100%; height: 100%;" alt="Sleman">
              </div>

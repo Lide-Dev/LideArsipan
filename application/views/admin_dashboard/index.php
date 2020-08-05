@@ -9,7 +9,7 @@ $shadowdefault = '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1
     </div>
 </div>
 <div class='content-wrapper d-none d-lg-block'>
-
+    <?=!empty($_SESSION['message']) ? $_SESSION['message'] : ""?>
     <!--START Data Dashboard-->
     <div class="container rounded mt-5">
         <div class="row bg-light rounded p-3">

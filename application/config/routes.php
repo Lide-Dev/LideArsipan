@@ -55,6 +55,9 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['admin/dashboard']="admin_dashboard/index";
 
+$route['newuser/(:any)']="new_user/index/$1";
+$route['newuser/go/change']="new_user/change_data";
+
 $route['admin/admdatauser']="admin_datauser/index";
 $route['admin/admdatauser/form/request']='admin_datauser/submitrequest';
 $route['admin/admdatauser/put/user']="admin_datauser/addaccount";
