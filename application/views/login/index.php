@@ -32,12 +32,15 @@
                                 <span class="input-group-text"><i class="fa fa-key"></i></span>
                             </div>
                             <input type="password" name="login_pass" class="form-control input_pass" value="" placeholder="password">
-                            <div class="input-group-addon">
+
+                            <div class="input-group-addon eye"> 
                                 <i id="pass_eye" class="fa fa-eye-slash" aria-hidden="true"></i>
                             </div>
+
+                            <label id="login_pass-error" class="error" for="login_pass"></label>
+
                         </div>
                     </div>
-
                 </div> <!-- form-group// -->
                 <div class="d-flex justify-content-center mt-3 login_container">
                     <button type="submit" class="btn btn-primary">Login</button>
