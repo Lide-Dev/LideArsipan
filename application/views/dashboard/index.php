@@ -224,7 +224,7 @@
                                  <div class="how-section1 text-black">
                                      <div class="row">
                                          <div class="col-md-6 how-img">
-                                             <img src=<?= base_url(PATHIMG . '1.svg') ?> style="width: 100%;" class="img-fluid" alt="" />
+                                             <img src=<?= base_url(PATHIMG . '1C.png') ?> style="width: 100%;" class="img-fluid" alt="" />
                                          </div>
                                          <div class="col-md-6">
                                              <h4 class="subheading">Langkah #1</h4>
@@ -237,12 +237,12 @@
                                              <p class="text-muted">Masukan Kode Surat yang dicari lalu klik tombol cari.</p>
                                          </div>
                                          <div class="col-md-6 how-img">
-                                             <img src=<?= base_url(PATHIMG . '2.svg') ?> style="width: 100%;" class="img-fluid" alt="" />
+                                             <img src=<?= base_url(PATHIMG . '2C.png') ?> style="width: 100%;" class="img-fluid" alt="" />
                                          </div>
                                      </div>
                                      <div class="row">
                                          <div class="col-md-6 how-img">
-                                             <img src=<?= base_url(PATHIMG . '3.svg') ?> style="width: 100%;" class="img-fluid" alt="" />
+                                             <img src=<?= base_url(PATHIMG . '3C.png') ?> style="width: 100%;" class="img-fluid" alt="" />
                                          </div>
                                          <div class="col-md-6">
                                              <h4 class="subheading">Langkah #3</h4>
