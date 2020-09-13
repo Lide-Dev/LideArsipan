@@ -44,13 +44,7 @@ if (!empty($footerext) && $footerext === true) {
 
           <hr class="w-100 clearfix d-md-none">
 
-          <!-- Grid column -->
-          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3 text-londonsquare">
-            <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
-            <p>
-              <a href="#!">LideDev</a>
-            </p>
-          </div>
+        
 
           <!-- Grid column -->
           <hr class="w-100 clearfix d-md-none">
@@ -148,13 +142,7 @@ if (!empty($footerext) && $footerext === true) {
 
           <hr class="w-100 clearfix d-md-none">
 
-          <!-- Grid column -->
-          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3" style="color: #808e9b;">
-            <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
-            <p>
-              <a href="#!">LideDev</a>
-            </p>
-          </div>
+         
 
           <!-- Grid column -->
           <hr class="w-100 clearfix d-md-none">
