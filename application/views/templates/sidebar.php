@@ -18,6 +18,11 @@
         <li>
             <a href="<?=base_url('Arsip')?>"><i class="fas fa-search"></i><span style="margin-left: 11.5px;">Cari Arsip</span></a>
         </li>
+
+        <li>
+            <a href="<?=base_url('Bantuan')?>"><i class="far fa-question-circle"></i><span style="margin-left: 11.5px;">Bantuan</span></a>
+        </li>
+
         <?php if (!empty($permission)&&$permission->admin==1) {?>
         <li>
             <a href="<?=base_url('admin/dashboard')?>"><i class="fas fa-users-cog"></i><span style="margin-left: 9px;">Dashboard Admin</span></a>
