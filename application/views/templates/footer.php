@@ -277,6 +277,9 @@ if ($page === "login") {
 if ($page === "adm_datauser") {
   echo "<script src=" . base_url('assets/js/page/admin/duser.js') . "></script>";
 }
+if ($page === "new_user") {
+  echo "<script src=" . base_url('assets/js/page/new_user.js') ."></script>";
+ }
 if ($page === "adm_dashboard" && !$nochart) {
   //echo "<script src=" . base_url('assets/js/page/admin/chartdashboard.js') . "></script>";
 ?>
