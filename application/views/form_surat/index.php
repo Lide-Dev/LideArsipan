@@ -4,25 +4,23 @@
  * Pages: Form Surat
  * Pages ini berfungsi untuk membuat surat.
  */
-$typeallowed = array('sm'=>false,'sk'=>false,'dp'=>false);
-$active = array('','','');
-$ariaactive = array('false','false','false');
+$typeallowed = array('sm' => false, 'sk' => false, 'dp' => false);
+$active = array('', '', '');
+$ariaactive = array('false', 'false', 'false');
 $role = strtolower($permission->nama);
 
 if ($role === 'admin') {
-  $typeallowed['sm']= $typeallowed['sk'] = $typeallowed['dp'] = true;
-  $active[0]='active';
-  $ariaactive[0]='true';
-}
-else if ($role === 'operator'){
-  $typeallowed['sm']= $typeallowed['sk']= true;
-  $active[0]='active';
-  $ariaactive[0]='true';
-}
-else {
+  $typeallowed['sm'] = $typeallowed['sk'] = $typeallowed['dp'] = true;
+  $active[0] = 'active';
+  $ariaactive[0] = 'true';
+} else if ($role === 'operator') {
+  $typeallowed['sm'] = $typeallowed['sk'] = true;
+  $active[0] = 'active';
+  $ariaactive[0] = 'true';
+} else {
   $typeallowed['dp'] = true;
-  $active[2]='active';
-  $ariaactive[2]='true';
+  $active[2] = 'active';
+  $ariaactive[2] = 'true';
 }
 
 
@@ -34,34 +32,33 @@ else {
     <h2>REGISTRASI SURAT</h2>
   </div>
   <?= (empty($this->session->flashdata('message'))) ? ""  : $this->session->flashdata('message')  ?>
-  <?php $hidden = array('vldt' => ''); echo form_open_multipart(base_url('registrasi-surat/form'), array("id" => "form_surat")) //<form> tag tetapi di panggil lewat CodeIgniter
+  <?php $hidden = array('vldt' => '');
+  echo form_open_multipart(base_url('registrasi-surat/form'), array("id" => "form_surat")) //<form> tag tetapi di panggil lewat CodeIgniter
   ?>
 
-  <div class="form-row mt-5">
-    <div class="form-group col-md-6">
-      <label for="form_nosurat">Tipe Surat</label>
-      <ul class="nav nav-pills">
-      <?php if ($typeallowed['sm']){ ?>
-        <li class="nav-item m-2">
-          <label class="nav-link border border-primary <?=$active[0]?>" for="form_tipesurat1" id="label_tipesurat1" data-toggle="tab" aria-selected="<?=$ariaactive[0]?>"><i class="fa fa-arrow-circle-down"></i> Surat Masuk</label>
-          <input type="radio" name="tipesurat" id="form_tipesurat1" value="suratmasuk" style="display:none" checked>
-        </li>
-      <?php } ?>
-      <?php if ($typeallowed['sk']){ ?>
-        <li class="nav-item m-2">
-          <label class="nav-link border border-primary <?=$active[1]?>" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="<?=$ariaactive[1]?>"><i class="fa fa-arrow-circle-up"></i> Surat Keluar</label>
-          <input type="radio" name="tipesurat" id="form_tipesurat2" value="suratkeluar" style="display:none">
-        </li>
-      <?php } ?>
-      <?php if ($typeallowed['dp']){ ?>
-        <li class="nav-item m-2">
-          <label class="nav-link border border-primary <?=$active[2]?>" for="form_tipesurat3" id="label_tipesurat3" data-toggle="tab" aria-selected="<?=$ariaactive[2]?>"><i class="fa fa-inbox"></i> Disposisi</label>
-          <input type="radio" name="tipesurat" id="form_tipesurat3" value="disposisi" style="display:none">
-        </li>
-      <?php } ?>
-      </ul>
-    </div>
+  <!-- form disposisi -->
+  <p><b>Form Disposisi</b></p>
+  <div class="container border border-hintofelusive rounded p-3">
+
+  <div class="form-group">
+    <label id="label-ditujukan" for="form_ditujukan"><b class="text-danger">*</b>Ditujukan kepada</label>
+    <input type="text" id="form_ditujukan" class="form-control" placeholder="" name="">
   </div>
+
+  <div class="form-group">
+    <label id="label-pengirimsurat" for="form_pengirimsurat"><b class="text-danger">*</b>Pengirim surat</label>
+    <input type="text" id="form_pengirimsurat" class="form-control" placeholder="" name="">
+  </div>
+
+  <div class="form-group">
+    <label id="label-isi_disposisi" for="form_isi_disposisi">Isi Disposisi</label>
+    <textarea type="text" id="form_isi_disposisi" class="form-control" placeholder="" name=""></textarea>
+  </div>
+
+  </div>
+
+  <!-- end of form disposisi -->
+
   <div class="mt-2 mb-3">
     <p><b class="text-danger ">*</b>Klasifikasi Surat</p>
     <div class="container border border-hintofelusive rounded p-3">
@@ -162,11 +159,6 @@ else {
       <label id="label-perihal" for="form_perihal"><b class="text-danger">*</b>Perihal</label>
       <input type="text" id="form_perihal" class="form-control" placeholder="" name="perihal">
     </div>
-  </div>
-
-  <div class="form-group">
-    <label id="label-asalsurat" for="form_asalsurat"><b class="text-danger">*</b>Asal Surat</label>
-    <input type="text" id="form_asalsurat" class="form-control" placeholder="" name="asalsurat">
   </div>
 
   <div class="form-group">
