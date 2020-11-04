@@ -1,4 +1,10 @@
-var baseurl = 'http://localhost/LideArsipan/';
+if (typeof config !== 'undefined') {
+  var baseurl = config.baseurl();
+}
+else {
+  var baseurl = "https://arsipcondongcatur.com/"
+}
+
 var searchbox, searchbox2, tempsearch, tempsearch2
 
 $(document).ready(function () {

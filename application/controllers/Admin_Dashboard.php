@@ -30,9 +30,9 @@ class Admin_Dashboard extends MY_Controller
 
         $data['countlogin'] = $this->ml->getCountLogin();
         $data['countfile'] = $this->countBytes();
-        $arr['sm'] = $this->dataCharts($this->ms->getSuratbyGroup('date(create_time)', 'surat_masuk'));
-        $arr['sk'] = $this->dataCharts($this->ms->getSuratbyGroup('date(create_time)', 'surat_keluar'));
-        $arr['dp'] = $this->dataCharts($this->ms->getSuratbyGroup('date(create_time)', 'disposisi'));
+        $arr['sm'] = $this->dataCharts($this->ms->getSuratbyGroup('create_time', 'surat_masuk'));
+        $arr['sk'] = $this->dataCharts($this->ms->getSuratbyGroup('create_time', 'surat_keluar'));
+        $arr['dp'] = $this->dataCharts($this->ms->getSuratbyGroup('create_time', 'disposisi'));
         $data['chartdata'] = array(
             array(
                 'name' => 'Surat Masuk',

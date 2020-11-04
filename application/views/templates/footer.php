@@ -1,6 +1,6 @@
 <?php
-$nochart=false;
-if (empty($countsurat)){
+$nochart = false;
+if (empty($countsurat)) {
   $nochart = true;
 }
 
@@ -12,14 +12,15 @@ if (!empty($chartdata)) {
 if (!empty($chartcount)) {
   $cc = array(
     array(
-    "type" => 'pie',
-    "name" => 'Arsip yang disimpan',
-    "innerSize" => '50%',
-    'data' => array(
-      array('Surat Masuk', floatval($chartcount['sm'])),
-      array('Surat Keluar', floatval($chartcount['sk'])),
-      array('Disposisi', floatval($chartcount['dp']))
-    ))
+      "type" => 'pie',
+      "name" => 'Arsip yang disimpan',
+      "innerSize" => '50%',
+      'data' => array(
+        array('Surat Masuk', floatval($chartcount['sm'])),
+        array('Surat Keluar', floatval($chartcount['sk'])),
+        array('Disposisi', floatval($chartcount['dp']))
+      )
+    )
   );
   $cc = json_encode($cc);
 }
@@ -44,7 +45,7 @@ if (!empty($footerext) && $footerext === true) {
 
           <hr class="w-100 clearfix d-md-none">
 
-        
+
 
           <!-- Grid column -->
           <hr class="w-100 clearfix d-md-none">
@@ -142,7 +143,7 @@ if (!empty($footerext) && $footerext === true) {
 
           <hr class="w-100 clearfix d-md-none">
 
-         
+
 
           <!-- Grid column -->
           <hr class="w-100 clearfix d-md-none">
@@ -248,9 +249,15 @@ if (!empty($footerext) && $footerext === true) {
 </script>
 
 <?php
+if (file_exists(APPPATH . '../assets/js/page/constant.js')) {
+?>
+  <script type="text/javascript" src=<?= base_url('assets/js/page/constant.js') ?>></script>
+<?php } ?>
+
+<?php
 if ($page === "form_surat") {
 ?>
-  <script src=<?= base_url('assets/js/page/form_surat.js') ?>></script>
+  <script type="text/javascript" src=<?= base_url('assets/js/page/form_surat.js') ?>></script>
 <?php
 }
 if ($page === "arsip") {
@@ -266,8 +273,8 @@ if ($page === "adm_datauser") {
   echo "<script src=" . base_url('assets/js/page/admin/duser.js') . "></script>";
 }
 if ($page === "new_user") {
-  echo "<script src=" . base_url('assets/js/page/new_user.js') ."></script>";
- }
+  echo "<script src=" . base_url('assets/js/page/new_user.js') . "></script>";
+}
 if ($page === "adm_dashboard" && !$nochart) {
   //echo "<script src=" . base_url('assets/js/page/admin/chartdashboard.js') . "></script>";
 ?>
@@ -318,7 +325,7 @@ if ($page === "adm_dashboard" && !$nochart) {
           size: '110%'
         }
       },
-      series: <?=$cc?>
+      series: <?= $cc ?>
     });
 
 
