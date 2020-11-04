@@ -1,3 +1,10 @@
+if (typeof config !== 'undefined') {
+  var baseurl = config.baseurl();
+}
+else {
+  var baseurl = "https://arsipcondongcatur.com/"
+}
+
 //var vldtH = '';
 var enforceModalFocusFn = $.fn.modal.Constructor.prototype._enforceFocus;
 
@@ -11,14 +18,14 @@ $("#modaladm").on('hidden', function() {
 
 function ajaxedit(dataid) {
   $.ajax({
-    url: "http://localhost/LideArsipan/ajaxadmin/set/clickbutton",
+    url: baseurl+"ajaxadmin/set/clickbutton",
     type: "post",
     data: { request: "edit", iduser: dataid.id_user , vldt:getvldt()},
     dataType: "JSON",
     success: function (data) {
       setvldt(data.token);
       $.ajax({
-        url: "http://localhost/LideArsipan/ajaxadmin/get/modal",
+        url: baseurl+"ajaxadmin/get/modal",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -29,7 +36,7 @@ function ajaxedit(dataid) {
           $('#ad_form').show();
           $('#modal_footer').show();
           $.ajax({
-            url: "http://localhost/LideArsipan/ajaxadmin/get/edituser",
+            url: baseurl+"ajaxadmin/get/edituser",
             type: "get",
             dataType: "json",
             data: { iduser: dataid.id_user },
@@ -60,14 +67,14 @@ function ajaxedit(dataid) {
 }
 function ajaxadd() {
   $.ajax({
-    url: "http://localhost/LideArsipan/ajaxadmin/set/clickbutton",
+    url: baseurl+"ajaxadmin/set/clickbutton",
     type: "post",
     data: { request: "new" ,vldt:getvldt()},
     dataType: "JSON",
     success: function (data) {
       setvldt(data.token);
       $.ajax({
-        url: "http://localhost/LideArsipan/ajaxadmin/get/modal",
+        url: baseurl+"ajaxadmin/get/modal",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -85,14 +92,14 @@ function ajaxadd() {
 function ajaxpassword() {
   $('#modal_footer').hide();
   $.ajax({
-    url: "http://localhost/LideArsipan/ajaxadmin/set/clickbutton",
+    url: baseurl+"ajaxadmin/set/clickbutton",
     type: "post",
     data: { request: "pss" ,vldt:getvldt()},
     dataType: "JSON",
     success: function (data) {
       setvldt(data.token);
       $.ajax({
-        url: "http://localhost/LideArsipan/ajaxadmin/get/modal",
+        url: baseurl+"ajaxadmin/get/modal",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -109,14 +116,14 @@ function ajaxpassword() {
 }
 function ajaxban(dataid) {
   $.ajax({
-    url: "http://localhost/LideArsipan/ajaxadmin/set/clickbutton",
+    url: baseurl+"ajaxadmin/set/clickbutton",
     type: "post",
     data: { request: "ban", iduser: dataid.id_user ,vldt:getvldt()},
     dataType: "JSON",
     success: function (data) {
       setvldt(data.token);
       $.ajax({
-        url: "http://localhost/LideArsipan/ajaxadmin/get/modal",
+        url: baseurl+"ajaxadmin/get/modal",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -140,14 +147,14 @@ function ajaxban(dataid) {
 
 function ajaxunban(dataid) {
   $.ajax({
-    url: "http://localhost/LideArsipan/ajaxadmin/set/clickbutton",
+    url: baseurl+"ajaxadmin/set/clickbutton",
     type: "post",
     data: { request: "unban", iduser: dataid.id_user ,vldt:getvldt()},
     dataType: "JSON",
     success: function (data) {
       setvldt(data.token);
       $.ajax({
-        url: "http://localhost/LideArsipan/ajaxadmin/get/modal",
+        url: baseurl+"ajaxadmin/get/modal",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -174,7 +181,7 @@ $(document).ready(function () {
       $('#ad_spinner').show();
       var pst = $(this).serialize();
       $.ajax({
-        url: "http://localhost/LideArsipan/admin/admdatauser/form/request",
+        url: baseurl+"admin/admdatauser/form/request",
         type: 'post',
         data: {pst, vldt:getvldt()},
         dataType: 'json',
@@ -207,7 +214,7 @@ $(document).ready(function () {
 
   $.ajax({
 
-    url: "http://localhost/LideArsipan/ajaxadmin/user/count",
+    url: baseurl+"ajaxadmin/user/count",
     type: 'get',
     dataType: "json",
     success: function (data) {
@@ -219,7 +226,7 @@ $(document).ready(function () {
           "order": [[0, 'asc']], // Default sortingnya berdasarkan kolom /field ke 0 (paling pertama)
           "sDom": "ltipr",
           "ajax": {
-            "url": "http://localhost/LideArsipan/ajaxadmin/user/table/normal", // URL file untuk proses select datanya
+            "url": baseurl+"ajaxadmin/user/table/normal", // URL file untuk proses select datanya
             "type": "get"
           },
           "deferRender": true,
@@ -245,13 +252,13 @@ $(document).ready(function () {
 
       $("#ad_banmode").click(function () {
         $.ajax({
-          url: 'http://localhost/LideArsipan/ajaxadmin/user/mode',
+          url: baseurl+'ajaxadmin/user/mode',
           dataType: 'JSON',
           success: function (data) {
             if (data.request == 'normal') {
               $('table thead tr th:nth-child(4)').html('Tanggal Selesai');
               $.ajax({
-                url: 'http://localhost/LideArsipan/ajaxadmin/user/mode',
+                url: baseurl+'ajaxadmin/user/mode',
                 data: { mode: 'ban' },
                 type: 'get'
               });
@@ -265,7 +272,7 @@ $(document).ready(function () {
                 "order": [[0, 'asc']], // Default sortingnya berdasarkan kolom /field ke 0 (paling pertama)
                 "sDom": "ltipr",
                 "ajax": {
-                  "url": "http://localhost/LideArsipan/ajaxadmin/user/table/ban", // URL file untuk proses select datanya
+                  "url": baseurl+"ajaxadmin/user/table/ban", // URL file untuk proses select datanya
                   "type": "get"
                 },
                 "deferRender": true,
@@ -290,7 +297,7 @@ $(document).ready(function () {
               $('table thead tr th:nth-child(4)').html('Aksi');
 
               $.ajax({
-                url: 'http://localhost/LideArsipan/ajaxadmin/user/mode',
+                url: baseurl+'ajaxadmin/user/mode',
                 data: { mode: 'normal' },
                 type: 'get'
               });
@@ -304,7 +311,7 @@ $(document).ready(function () {
                 "order": [[0, 'asc']], // Default sortingnya berdasarkan kolom /field ke 0 (paling pertama)
                 "sDom": "ltipr",
                 "ajax": {
-                  "url": "http://localhost/LideArsipan/ajaxadmin/user/table/normal", // URL file untuk proses select datanya
+                  "url": baseurl+"ajaxadmin/user/table/normal", // URL file untuk proses select datanya
                   "type": "get"
                 },
                 "deferRender": true,

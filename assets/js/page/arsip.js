@@ -1,4 +1,10 @@
-var baseurl = 'http://localhost/LideArsipan/';
+if (typeof config !== 'undefined') {
+  var baseurl = config.baseurl();
+}
+else {
+  var baseurl = "https://arsipcondongcatur.com/"
+}
+
 var csrfN = '';
 var csrfH = '';
 $(document).ready(function () {
@@ -16,6 +22,7 @@ $(document).ready(function () {
     type: 'post',
     data: {[csrfN]: csrfH}, //Send Token
     dataType: "JSON",
+
     success: function (data) {
       if (data['type'] === "emp") {
         $('.inputhid').val(data.token); //Refresh Token
@@ -54,7 +61,7 @@ $(document).ready(function () {
             "order": [[0, 'asc']], // Default sortingnya berdasarkan kolom /field ke 0 (paling pertama)
             "sDom": "ltipr",
             "ajax": {
-              "url": "http://localhost/LideArsipan/ajaxarsip/table", // URL file untuk proses select datanya
+              "url": baseurl+"ajaxarsip/table", // URL file untuk proses select datanya
               "type": "POST",
               "data": function (d){
                 d[csrfN] = csrfH;  //Send Token
