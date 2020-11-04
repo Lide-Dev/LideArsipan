@@ -21,9 +21,16 @@ class Model_Surat extends MY_Model
 
     function GetSuratbyGroup($group,$surat,$chart=false)
     {
-        $this->db->select("count(*) as count , (UNIX_TIMESTAMP(create_time)) as create_time"); //
+        $this->db->select("count(*) as count , create_time"); //
         $this->db->from($surat);
-        $this->db->where("create_time >=", " date_sub(curdate(), interval 7 day)");
+        $now=date('Y-m-d',time());
+        $subs = date_create($now);
+        date_sub($subs,date_interval_create_from_date_string("7 days"));
+        $now =$now." 23:59:59";
+        $subs = date('Y-m-d',$subs->getTimestamp())." 00:00:00";
+
+        $this->db->where("create_time >=", $subs);
+        $this->db->where("create_time <=", $now);
        // $this->db->order_by("create_time","DESC");
         $query = $this->db->get_compiled_select();
         $query .= " group by ".$group. " order by create_time ASC ";
