@@ -37,26 +37,25 @@ if ($role === 'admin') {
   ?>
 
   <!-- form disposisi -->
-  <p><b>Form Disposisi</b></p>
-  <div class="container border border-hintofelusive rounded p-3">
-
-  <div class="form-group">
-    <label id="label-ditujukan" for="form_ditujukan"><b class="text-danger">*</b>Ditujukan kepada</label>
-    <input type="text" id="form_ditujukan" class="form-control" placeholder="" name="">
+  <div class="form-row mt-5">
+    <div class="form-group col-md-6">
+      <label for="form_nosurat">Tipe Surat</label>
+      <ul class="nav nav-pills">
+        <?php if ($typeallowed['sm']) { ?>
+          <li class="nav-item m-2">
+            <label class="nav-link border border-primary <?= $active[0] ?>" for="form_tipesurat1" id="label_tipesurat1" data-toggle="tab" aria-selected="<?= $ariaactive[0] ?>"><i class="fa fa-arrow-circle-down"></i> Surat Masuk</label>
+            <input type="radio" name="tipesurat" id="form_tipesurat1" value="suratmasuk" style="display:none" checked>
+          </li>
+        <?php } ?>
+        <?php if ($typeallowed['sk']) { ?>
+          <li class="nav-item m-2">
+            <label class="nav-link border border-primary <?= $active[1] ?>" for="form_tipesurat2" id="label_tipesurat2" data-toggle="tab" aria-selected="<?= $ariaactive[1] ?>"><i class="fa fa-arrow-circle-up"></i> Surat Keluar</label>
+            <input type="radio" name="tipesurat" id="form_tipesurat2" value="suratkeluar" style="display:none">
+          </li>
+        <?php } ?>
+      </ul>
+    </div>
   </div>
-
-  <div class="form-group">
-    <label id="label-pengirimsurat" for="form_pengirimsurat"><b class="text-danger">*</b>Pengirim surat</label>
-    <input type="text" id="form_pengirimsurat" class="form-control" placeholder="" name="">
-  </div>
-
-  <div class="form-group">
-    <label id="label-isi_disposisi" for="form_isi_disposisi">Isi Disposisi</label>
-    <textarea type="text" id="form_isi_disposisi" class="form-control" placeholder="" name=""></textarea>
-  </div>
-
-  </div>
-
   <!-- end of form disposisi -->
 
   <div class="mt-2 mb-3">
@@ -144,10 +143,10 @@ if ($role === 'admin') {
       <label for="form_penerimaansurat"><b class="text-danger">*</b>Tanggal Penerimaan Surat</label>
       <input type="text" id="form_penerimaansurat" class="form-control form-tgl" name="tglpenerimaansurat" placeholder="">
     </div>
-    <div class="form-group col-md-3">
+    <!-- div class="form-group col-md-3">
       <label for="form_pembuatansurat"><b class="text-danger">*</b>Tanggal Pembuatan Surat</label>
       <input type="text" id="form_pembuatansurat" class="form-control form-tgl" name="tglpembuatansurat" placeholder="">
-    </div>
+    </div -->
   </div>
 
   <div class="form-row" id="div_noagenda">
@@ -162,8 +161,8 @@ if ($role === 'admin') {
   </div>
 
   <div class="form-group">
-    <label id="label-lokasiarsip" for="form_lokasiarsip"><b class="text-danger">*</b>Lokasi Arsip</label>
-    <input type="text" id="form_lokasiarsip" class="form-control" placeholder="" name="lokasiarsip">
+    <label id="label-perihal" for="form_perihal"><b class="text-danger">*</b>Perihal</label>
+    <input type="text" id="form_perihal" class="form-control" placeholder="" name="lokasiarsip">
   </div>
 
   <div class="form-group">
