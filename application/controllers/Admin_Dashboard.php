@@ -12,7 +12,7 @@ class Admin_Dashboard extends MY_Controller
         $data['countsurat'] = $this->ms->getCountSurat();
         $count['sm'] = $this->ms->getCountSurat('sm');
         $count['sk'] = $this->ms->getCountSurat('sk');
-        $count['dp'] = $this->ms->getCountSurat('dp');
+        // $count['dp'] = $this->ms->getCountSurat('dp');
         if (empty($count['sm']))
         $data['chartcount']['sm']= 0;
         else
@@ -23,16 +23,17 @@ class Admin_Dashboard extends MY_Controller
         else
         $data['chartcount']['sk']= number_format(floatval($count['sk']/$data['countsurat']*100),2);
 
-        if (empty($count['dp']))
-        $data['chartcount']['dp']=0;
-        else
-        $data['chartcount']['dp']= number_format(floatval($count['dp']/$data['countsurat']*100),2);
+        // if (empty($count['dp']))
+        // $data['chartcount']['dp']=0;
+        // else
+        // $data['chartcount']['dp']= number_format(floatval($count['dp']/$data['countsurat']*100),2);
 
         $data['countlogin'] = $this->ml->getCountLogin();
         $data['countfile'] = $this->countBytes();
         $arr['sm'] = $this->dataCharts($this->ms->getSuratbyGroup('create_time', 'surat_masuk'));
         $arr['sk'] = $this->dataCharts($this->ms->getSuratbyGroup('create_time', 'surat_keluar'));
-        $arr['dp'] = $this->dataCharts($this->ms->getSuratbyGroup('create_time', 'disposisi'));
+        // $arr['dp'] = $this->dataCharts($this->ms->getSuratbyGroup('create_time', 'disposisi'));
+//        print_r ($arr);
         $data['chartdata'] = array(
             array(
                 'name' => 'Surat Masuk',
@@ -42,10 +43,10 @@ class Admin_Dashboard extends MY_Controller
                 'name' => 'Surat Keluar',
                 'data' => $arr['sk']
             ),
-            array(
-                'name' => 'Disposisi',
-                'data' => $arr['dp']
-            )
+            // array(
+            //     'name' => 'Disposisi',
+            //     'data' => $arr['dp']
+            // )
         );
 
         $this->initView('admin_dashboard/index', $data, true, false);
@@ -66,7 +67,6 @@ class Admin_Dashboard extends MY_Controller
         $a = 0;
         for ($i = 0; $i < 7; $i++) {
             if (!empty($arr[$a]) && ($arr[$a]['create_time'] > $timeoffset && $arr[$a]['create_time'] < $time)) {
-
                     array_push($result, array('x' => intval($timeoffset * 1000), 'y' => intval($arr[$a]['count'])));
                 $a++;
             } else {

@@ -96,10 +96,10 @@ class Arsip extends MY_Controller
         $permission = $this->rolePermission($_SESSION['idlogin']);
         switch ($_SESSION['typearsip']) {
             case 'sm':
-                $validw = $permission->w_suratmasuk;
+                $validw = $permission->w_arsip;
                 break;
             case 'sk':
-                $validw = $permission->w_suratkeluar;
+                $validw = $permission->w_arsip;
                 break;
             case 'dp':
                 $validw = $permission->w_disposisi;
@@ -143,24 +143,16 @@ class Arsip extends MY_Controller
                         $data['id'] = array('id-nosurat', 'id-asalsurat', 'id-isiringkas', 'id-keterangan', 'id-lokasiarsip');
                         $data['name'] = array('nosurat', 'asalsurat', 'isiringkas', 'keterangan', 'lokasiarsip');
                         $data['type'] = array('text', 'text', 'textarea', 'textarea', 'text');
-                        $data['helpon'] = array(false, false, false, false, true);
-                        $data['help'] = array('', '', '', '', 'Test');
+                        $data['helpon'] = array(false, false, false, false, false);
+                        $data['help'] = array('', '', '', '', '');
                     } else if ($typearsip === 'sk') {
                         $data['row'] = 5;
                         $data['label'] = array('No. Surat', 'Pengirim', 'Isi Ringkas', 'Keterangan', 'Lokasi Arsip');
                         $data['id'] = array('id-nosurat', 'id-pengirim', 'id-isiringkas', 'id-keterangan', 'id-lokasiarsip');
                         $data['name'] = array('nosurat', 'pengirim', 'isiringkas', 'keterangan', 'lokasiarsip');
                         $data['type'] = array('text', 'text', 'textarea', 'textarea', 'text');
-                        $data['helpon'] = array(false, false, false, false, true);
-                        $data['help'] = array('', '', '', '', 'Test');
-                    } else {
-                        $data['row'] = 5;
-                        $data['label'] = array('No. Agenda', 'Perihal', 'Dituju', 'Pengirim', 'Isi Disposisi');
-                        $data['id'] = array('id-noagenda', 'id-perihal', 'id-dituju', 'id-pengirim', 'id-isidisposisi');
-                        $data['name'] = array('noagenda', 'perihal', 'dituju', 'pengirim', 'isidisposisi');
-                        $data['type'] = array('text', 'text', 'text', 'text', 'textarea');
-                        $data['helpon'] = array(false, false, false, false, true);
-                        $data['help'] = array('', '', '', '', 'Test');
+                        $data['helpon'] = array(false, false, false, false, false);
+                        $data['help'] = array('', '', '', '', '');
                     }
                     $load = $this->load->view("arsip/editpage", $data, true);
                 } else {

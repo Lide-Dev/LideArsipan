@@ -179,9 +179,20 @@ class MY_Controller extends CI_Controller
      * string maka yang akan dikomparasi adalah semua key walaupun $mode = 'key'.
      *
      * @param array|string $config
+     * v.1
      * - Array key pada config:
      * 1. 'r_arsip' = Read Arsip
      * 2. 'w_suratmasuk' / 'w_suratkeluar' / 'w_disposisi' = Write Arsip sesuai tipe (Perlu dimasukkan semua jika komparasi key ini)
+     * 3. 'dt_arsip' = Delete Temporary Arsip
+     * 4. 'dtu_arsip' = Delete Temporary Arsip hanya berlaku untuk Arsip yang di Upload pengguna akun
+     * 5. 'dp_arsip' = Delete Permanent Arsip
+     * 6. 'admin' = Akses Page Admin dan fitur-fitur lainnya.
+     * - String key pada config: 'admin', 'operator', 'chief', 'member'
+     * 
+     * v.2
+     * - Array key pada config:
+     * 1. 'r_arsip' = Read Arsip
+     * 2. 'w_arsip' / 'w_disposisi' = Write Arsip sesuai tipe (Perlu dimasukkan semua jika komparasi key ini)
      * 3. 'dt_arsip' = Delete Temporary Arsip
      * 4. 'dtu_arsip' = Delete Temporary Arsip hanya berlaku untuk Arsip yang di Upload pengguna akun
      * 5. 'dp_arsip' = Delete Permanent Arsip
@@ -202,133 +213,49 @@ class MY_Controller extends CI_Controller
     {
         $this->load->model('model_login', 'mdl');
         $this->load->model('model_datapengguna', 'mdp');
-        $configv = array(
-            'r_arsip' => 0,
-            'w_suratmasuk' => 0,
-            'w_suratkeluar' => 0,
-            'w_disposisi' => 0,
-            'dt_arsip' => 0,
-            'dtu_arsip' => 0,
-            'dp_arsip' => 0,
-            'admin' => 0
-        );
+        //$init = $this->mdp->getAllRole();
 
-        if (!is_array($config)) {
-            switch ($config) {
-                case 'admin':
-                    $configv = array(
-                        'r_arsip' => 1,
-                        'w_suratmasuk' => 1,
-                        'w_suratkeluar' => 1,
-                        'w_disposisi' => 1,
-                        'dt_arsip' => 1,
-                        'dtu_arsip' => 1,
-                        'dp_arsip' => 1,
-                        'admin' => 1
-                    );
-                    break;
-                case 'operator':
-                    $configv = array(
-                        'r_arsip' => 1,
-                        'w_suratmasuk' => 1,
-                        'w_suratkeluar' => 1,
-                        'w_disposisi' => 0,
-                        'dt_arsip' => 1,
-                        'dtu_arsip' => 1,
-                        'dp_arsip' => 0,
-                        'admin' => 0
-                    );
-                    break;
-                case 'chief':
-                    $configv = array(
-                        'r_arsip' => 1,
-                        'w_suratmasuk' => 0,
-                        'w_suratkeluar' => 0,
-                        'w_disposisi' => 1,
-                        'dt_arsip' => 0,
-                        'dtu_arsip' => 1,
-                        'dp_arsip' => 0,
-                        'admin' => 0
-                    );
-                    break;
-                case 'member':
-                    $configv = array(
-                        'r_arsip' => 1,
-                        'w_suratmasuk' => 0,
-                        'w_suratkeluar' => 0,
-                        'w_disposisi' => 0,
-                        'dt_arsip' => 0,
-                        'dtu_arsip' => 0,
-                        'dp_arsip' => 0,
-                        'admin' => 0
-                    );
-                    break;
-                default:
-                    $configv = '';
-                    break;
-            }
+        if (empty($configv) && !is_array($config)) {
+            $configv = [
+                'r_arsip' => 0,
+                'w_arsip' => 0,
+                'w_disposisi' => 0,
+                'dt_arsip' => 0,
+                'dtu_arsip' => 0,
+                'dp_arsip' => 0,
+                'admin' => 0
+            ];
         } else {
             $configv = $config;
+            unset($configv['id_role']);
+            unset($configv['nama']);
         }
-
+       // print_r($configv);
         $permission = (array) $this->rolePermission($_SESSION['idlogin']);
         $valid = true;
+        $validarr=[];
         if (empty($config)) {
             $valid = false;
         } else {
             if ($mode === 'all')
                 $valid = ($permission === $configv);
             else {
-                $key = array_keys($configv);
-                $a = sizeof($key);
-                $b = $c = 0;
-                $vl = array();
-                for ($i = 0; $i < $a; $i++) {
-                    if ($key[$i] === 'w_suratmasuk' || $key[$i] === 'w_suratkeluar' || $key[$i] === 'w_disposisi') {
-                        if ($permission[$key[$i]] == $configv[$key[$i]])
-                            $vl['w'][$b] = 1;
-                        else
-                            $vl['w'][$b] = 0;
-                        $b++;
-                    } else {
-                        if ($permission[$key[$i]] == $configv[$key[$i]])
-                            $vl['o'][$c] = 1;
-                        else
-                            $vl['o'][$c] = 0;
-                        $c++;
+                foreach ($configv as $key => $value) {
+                    $perm_key= array_keys($permission);
+                    if (in_array($key,$perm_key)) {
+                        array_push($validarr, (intval($permission[$key]) === 1));
                     }
                 }
-
-                if (!empty($vl['w'])) {
-                    foreach ($vl['w'] as $va) {
-
-                        $va1 = $va === 1 ? true : false;
-                        if ($va1 === true) {
-                            break;
-                        }
-                    }
-                } else {
-                    $va1 = true;
+                if (empty($validarr)){
+                    $valid=false;
                 }
-                if (!empty($vl['o'])) {
-                    foreach ($vl['o'] as $va) {
-                        $va2 = $va === 1 ? true : false;
-                        if ($va2 === false) {
-                            break;
-                        }
-                    }
-                } else {
-                    $va2 = true;
+                else{
+                    $valid = !in_array(false,$validarr);
                 }
-
-                if ($va1 && $va2) {
-                    $valid = true;
-                } else
-                    $valid = false;
             }
         }
 
-        return array('valid'=>$valid,'upermission'=>$permission);
+        return array('valid' => $valid, 'upermission' => $permission);
     }
 
     /**
@@ -403,7 +330,6 @@ class MY_Controller extends CI_Controller
                     $config['code'] = '403';
                     $config['desc'] = 'Mohon maaf kami tidak bisa membawa anda kesana karena masalah perijinan.';
                     $this->errorPage($config);
-
                 } else if (!empty($row) && $date < $bandate) {
                     $message = "Anda telah di ban sampai tanggal " . date("d-m-Y", strtotime($row->finish_date)) . " dengan alasan: " . $row->alasan;
                     header('Location: ' . base_url("login"));

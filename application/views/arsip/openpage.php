@@ -32,13 +32,13 @@ if (!empty($_SESSION['typearsip'])) {
 ?>
 
 <div class="container my-2">
-    <h3>File Arsip: </h3>
+    <h3>File Arsip</h3><i id='id_showfile' class="fa fa-chevron-right" aria-hidden="true"></i>
     <div class="text-center">
     <?= $imagefile ?>
     </div>
     <!-- <div class="row justify-content-center">
         <div class=""> -->
-            <table class='table table-responsive my-4'>
+            <table class='table table-responsive my-4' style="display:none">
 
                 <tr>
                     <td>
@@ -82,7 +82,7 @@ if (!empty($_SESSION['typearsip'])) {
                     </td>
                     <td><p>:</p></td>
                     <td>
-                         <a href="<?= base_url('arsip/document/get/') . $this->security->xss_clean($dokumen['id_dokumen']) ?>">Download Disini</a>
+                        <a href="<?= base_url('arsip/document/get/') . $this->security->xss_clean($dokumen['id_dokumen']) ?>">Download Disini</a>
                     </td>
                 </tr>
                 </tbody>
@@ -93,10 +93,10 @@ if (!empty($_SESSION['typearsip'])) {
 
 
 <div class="container my-2">
-    <h3>Detail Arsip: </h3>
+    <h3>Detail Arsip</h3><i id='id_showdetail' class="fa fa-chevron-right" aria-hidden="true"></i>
     <!-- <div class="row justify-content-center">
         <div class=""> -->
-            <table class='table table-responsive my-4'>
+            <table class='table table-responsive my-4' style="display:none">
                 <tr>
                     <td>
                         <p><?= $columnst[0] ?></p>

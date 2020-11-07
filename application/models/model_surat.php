@@ -21,16 +21,9 @@ class Model_Surat extends MY_Model
 
     function GetSuratbyGroup($group,$surat,$chart=false)
     {
-        $this->db->select("count(*) as count , create_time"); //
+        $this->db->select("count(*) as count , (UNIX_TIMESTAMP(create_time)) as create_time"); //
         $this->db->from($surat);
-        $now=date('Y-m-d',time());
-        $subs = date_create($now);
-        date_sub($subs,date_interval_create_from_date_string("7 days"));
-        $now =$now." 23:59:59";
-        $subs = date('Y-m-d',$subs->getTimestamp())." 00:00:00";
-
-        $this->db->where("create_time >=", $subs);
-        $this->db->where("create_time <=", $now);
+        $this->db->where("create_time >= date_sub(curdate(), interval 7 day)",null);
        // $this->db->order_by("create_time","DESC");
         $query = $this->db->get_compiled_select();
         $query .= " group by ".$group. " order by create_time ASC ";
@@ -257,10 +250,11 @@ class Model_Surat extends MY_Model
 
     function getCountSurat($type = null,$sampah=false)
     {
-        if ($type === 'dp') {
-            $this->db->where('sampah',0);
-            $num_rows = $this->db->count_all_results('disposisi');
-        } else if ($type === 'sm') {
+        // if ($type === 'dp') {
+        //     $this->db->where('sampah',0);
+        //     $num_rows = $this->db->count_all_results('disposisi');
+        //}
+        if ($type === 'sm') {
             $this->db->where('sampah',0);
             $num_rows = $this->db->count_all_results('surat_masuk');
         } else if ($type === 'sk') {
@@ -278,8 +272,8 @@ class Model_Surat extends MY_Model
             $num_rows = $this->db->count_all_results('surat_masuk');
             $this->db->where('sampah',0);
             $num_rows += $this->db->count_all_results('surat_keluar');
-            $this->db->where('sampah',0);
-            $num_rows += $this->db->count_all_results('disposisi');
+            // $this->db->where('sampah',0);
+            // $num_rows += $this->db->count_all_results('disposisi');
 
         }
         return $num_rows;

@@ -2,13 +2,13 @@
     <ul class="sidebar-nav">
         <li class="sidebar-brand mb-2">
             <a style="display: none;" href="#">
-             Menu
+                Menu
             </a>
         </li>
         <li>
             <a href="<?=base_url('dashboard')?>"><i class="fas fa-home"></i><span style="margin-left: 10px;">Dashboard</span></a>
         </li>
-        <?php if (!empty($permission) && ($permission->w_suratmasuk == 1 || $permission->w_suratkeluar == 1 || $permission->w_disposisi == 1)) { ?>
+        <?php if (!empty($permission) && ($permission->w_arsip == 1)) { ?>
         <li>
 
             <a href="<?=base_url('registrasi-surat')?>"><i class="fas fa-save"></i><span style="margin-left: 12.7px;">Registrasi Surat</span></a>

@@ -15,9 +15,7 @@ class Form_Surat extends MY_Controller
     public function index()
     {
         $validate = array(
-            'w_suratmasuk' => 1,
-            'w_suratkeluar' => 1,
-            'w_disposisi' => 1
+            'w_arsip' => 1,
         );
         $init = $this->roleValidate($validate);
         if ($init['valid']) {
@@ -26,6 +24,7 @@ class Form_Surat extends MY_Controller
             $data['statemessage'] = 0;
             $this->initView('form_surat/index', $data);
         } else {
+           // print_r ($init);
             $config['title'] = 'Tidak di Ijinkan';
             $config['code'] = '403';
             $config['desc'] = 'Mohon maaf kami tidak bisa membawa anda kesana karena masalah perijinan';

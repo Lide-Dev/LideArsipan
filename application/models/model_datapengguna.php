@@ -34,6 +34,7 @@ class Model_DataPengguna extends MY_Model
             return false;
     }
 
+
     // function CreateCodePass($iduser)
     // {
     //     $this->db->where('id_user', $iduser);
