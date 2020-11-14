@@ -20,7 +20,7 @@ $(document).ready(function () {
   $.ajax({
     url: baseurl + "ajaxarsip/count",
     type: 'post',
-    data: {[csrfN]: csrfH}, //Send Token
+    data: { [csrfN]: csrfH }, //Send Token
     dataType: "JSON",
 
     success: function (data) {
@@ -61,9 +61,9 @@ $(document).ready(function () {
             "order": [[0, 'asc']], // Default sortingnya berdasarkan kolom /field ke 0 (paling pertama)
             "sDom": "ltipr",
             "ajax": {
-              "url": baseurl+"ajaxarsip/table", // URL file untuk proses select datanya
+              "url": baseurl + "ajaxarsip/table", // URL file untuk proses select datanya
               "type": "POST",
-              "data": function (d){
+              "data": function (d) {
                 d[csrfN] = csrfH;  //Send Token
                 return d
               }
@@ -80,7 +80,6 @@ $(document).ready(function () {
               // Tampilkan alamat
               {
                 "render": function (data, type, meta, full) {
-
                   role = full.settings.json.custom.role
                   typearsip = full.settings.json.custom.typearsip
                   // Tampilkan kolom aksi
@@ -88,13 +87,17 @@ $(document).ready(function () {
                   var content1 = "<i class='fas fa-edit' style='color: #05c46b'></i>";
                   var content2 = "<i class='fas fa-envelope-open-text' style='color: #00d8d6''></i>";
                   var content3 = "<i class='fas fa-trash-alt' style='color: #ff3f34'></i>";
+                  var content4 = "<i class='fas  fa-paper-plane' style='color: orange'></i>";
 
                   var html = " <i class='" + classs + " open' data-toggle='tooltip' data-placement='top' title='Buka Surat' aria-hidden='true'>" + content2 + "</i> "
-                  if ( (role == 'admin' ||(typearsip=='sm'||typearsip=='sk')&& role == 'operator') || (typearsip == 'dp' && role == 'chief')) {
+                  if ((role == 'admin' || (typearsip == 'sm' || typearsip == 'sk') && (role != 'user'))) {
                     html += "<i class='" + classs + " edit' data-toggle='tooltip' data-placement='top' title='Edit Surat' aria-hidden='true'>" + content1 + "</i>"
                   }
-                  if ( (role == 'admin' ||(typearsip=='sm'||typearsip=='sk')&& role == 'operator') || (typearsip == 'dp' && role == 'chief')) {
+                  if ((role == 'admin' || (typearsip == 'sm' || typearsip == 'sk') && role == 'operator')) {
                     html += "<i class='" + classs + " delete' data-toggle='tooltip' data-placement='top' title='Hapus Surat' aria-hidden='true'>" + content3 + "</i>"
+                  }
+                  if ((role == 'admin' || (typearsip == 'sm' || typearsip == 'sk') && (role != 'user'))) {
+                    html += "<i class='" + classs + " disposisi' data-toggle='tooltip' data-placement='top' title='Disposisikan Surat' aria-hidden='true'>" + content4 + "</i>"
                   }
 
                   return html
@@ -104,7 +107,7 @@ $(document).ready(function () {
             ],
             "drawCallback": function (settings) {
               $('.inputhid').val(settings.json.custom.token); //Refresh Token
-              if( settings.json.recordsTotal < 1){
+              if (settings.json.recordsTotal < 1) {
                 $('#div-table').html('');
                 $('#nonerow').show();
               }
@@ -139,6 +142,16 @@ $(document).ready(function () {
             $('#modalarsip').modal('show');
             $('#okID').show();
             editpage(data[tp_arsip]);
+          });
+
+          $('#tabel_arsip tbody').on('click', '.disposisi', function () {
+            resetmodal();
+            var data = table.row($(this).parents('tr')).data();
+
+            $('#modalLabel').text('Disposisi Surat');
+            $('#modalarsip').modal('show');
+            $('#okID').show();
+            disposisipage(data[tp_arsip]);
           });
 
           var search = $.fn.dataTable.util.throttle(
@@ -187,24 +200,73 @@ $(document).ready(function () {
 
 });
 
+$(document.body).on('click', '.chevronbtn', function () {
+  var id = $(this).attr('id');
+  var selector = '';
+  switch (id) {
+    case 'id_showfile':
+      selector = 'file'
+      break;
+    case 'id_showdetail':
+      selector = 'detail'
+      break;
+    case 'id_showdisposisi':
+      selector = 'disposisi'
+      break;
+    default:
+      break;
+  }
+  if ($("#id_icon" + selector).hasClass("fa-chevron-right")) {
+    $("#id_icon" + selector).addClass('fa-chevron-down')
+    $("#id_icon" + selector).removeClass('fa-chevron-right')
+    $("#id_table" + selector).show()
+  }
+  else {
+    $("#id_icon" + selector).addClass('fa-chevron-right')
+    $("#id_icon" + selector).removeClass('fa-chevron-down')
+    $("#id_table" + selector).hide()
+  }
+})
+
+$(document.body).on('click', '.select-process', function () {
+  console.log('click')
+  var id = $(this).attr('id')
+
+  if (id == 'id_active') {
+    $("#inputform").show();
+    // $("#id_active").prop("checked",true);
+    // $("#id_deactive").prop("checked",false);
+  }
+  else {
+    $("#inputform").hide();
+    // $("#id_active").prop("checked",true);
+  }
+})
+
 $('#formarsip').submit(function (e) {
   e.preventDefault();
   var send = $(this).serialize();
+  console.log(send);
+
   var type1 = '';
+  var disposisi = false;
   if ($('#formarsip').hasClass('del')) {
     type1 = 'delete'
   }
-  else if ($('#formarsip').hasClass('edit')) {
+  else if ($('#formarsip').hasClass('edit') || $('#formarsip').hasClass('disposisi')) {
     type1 = 'patch'
+    disposisi = $('#formarsip').hasClass('disposisi')
   }
   else {
     type1 = ''
   }
+  var senddata = { 'send': send, [csrfN]: csrfH };
+  if (disposisi) senddata['disposisi'] = disposisi;
 
   $.ajax({
-    url: "http://localhost/LideArsipan/arsip/request/" + type1,
+    url: baseurl + "arsip/request/" + type1,
     type: 'post',
-    data: { 'send': send, [csrfN]:csrfH}, //Send Token
+    data: senddata, //Send Token
     dataType: "json",
 
     beforeSend: function () {
@@ -217,7 +279,7 @@ $('#formarsip').submit(function (e) {
     },
     success: function (data) {
       $('.inputhid').val(data.token); //Refresh Token
-      csrfH =  $('.inputhid').val();
+      csrfH = $('.inputhid').val();
       $("#ar_content").html(data.html);
       $('#ar_spinner').hide();
       $('#modal_footer').show();
@@ -227,6 +289,18 @@ $('#formarsip').submit(function (e) {
       $('#formarsip').removeClass('edit');
       $('#tabel_arsip').DataTable().ajax.reload();
       //$('#ar_form').show();
+    },
+    error: function(xhr, error){
+      data =  xhr.responseJSON;
+      $('.inputhid').val(data.token); //Refresh Token
+      csrfH = $('.inputhid').val();
+      $("#ar_content").html(data.html);
+      $('#ar_spinner').hide();
+      $('#modal_footer').show();
+      $('#ar_content').show();
+      $('#okID').hide();
+      $('#formarsip').removeClass('del');
+      $('#formarsip').removeClass('edit');
     }
   });
 });
@@ -244,7 +318,7 @@ $('#cancelID, .close').click(function () {
 
 function openpage(data) {
   $.ajax({
-    url: "http://localhost/LideArsipan/arsip/modal/get/open",
+    url: baseurl + "arsip/modal/get/open",
     data: { 'send': data },
     type: "get",
     dataType: "html",
@@ -268,7 +342,7 @@ function openpage(data) {
 
 function deletepage(data) {
   $.ajax({
-    url: "http://localhost/LideArsipan/arsip/modal/get/delete",
+    url: baseurl + "arsip/modal/get/delete",
     data: { 'send': data },
     type: "get",
     dataType: "html",
@@ -293,7 +367,7 @@ function deletepage(data) {
 
 function editpage(data) {
   $.ajax({
-    url: "http://localhost/LideArsipan/arsip/modal/get/edit",
+    url: baseurl + "arsip/modal/get/edit",
     data: { 'send': data },
     type: "get",
     dataType: "html",
@@ -309,6 +383,29 @@ function editpage(data) {
       $('#modal_footer').show();
       $('#ar_form').show();
       $('#formarsip').addClass('edit');
+      //$('#ar_form').show();
+    }
+  });
+}
+
+function disposisipage(data) {
+  $.ajax({
+    url: baseurl + "arsip/modal/get/disposisi",
+    data: { 'send': data },
+    type: "get",
+    dataType: "html",
+    beforeSend: function () {
+      $('#ar_spinner').show();
+      $('#modal_footer').hide();
+      $('#ar_content').hide();
+      $('#ar_form').hide();
+    },
+    success: function (data) {
+      $("#ar_form").html(data);
+      $('#ar_spinner').hide();
+      $('#modal_footer').show();
+      $('#ar_form').show();
+      $('#formarsip').addClass('disposisi');
       //$('#ar_form').show();
     }
   });

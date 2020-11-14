@@ -456,4 +456,20 @@ class MY_Controller extends CI_Controller
         $data = $this->mr->getRole($dp->id_jabatan);
         return $data;
     }
+
+    /**
+     * Untuk testing dan debugging sebuah fungsi dengan memasukkan variable.
+     *
+     * @param int $method Output yang keluar di debug.
+     * - 1 untuk print_r
+     * - 2 untuk var_dump
+     * @param mixed ...$params
+     *
+     * @return void
+     */
+    public function dd($method,...$params){
+        redirect(base_url('debug'));
+        $this->load->view('templates/debug',[ 'method'=>$method, 'params'=>$params]);
+        exit(0);
+    }
 }

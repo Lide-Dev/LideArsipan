@@ -10,9 +10,12 @@ class MY_Model extends CI_Model
         } else if ($tipe === 'datapengguna') {
             $this->db->where('id_datapengguna', $id);
             $num_rows = $this->db->count_all_results('datapengguna');
-        } else if ($tipe === 'disposisi') {
+        } else if ($tipe === 'disposisi_sm') {
             $this->db->where('id_disposisi', $id);
-            $num_rows = $this->db->count_all_results('disposisi');
+            $num_rows = $this->db->count_all_results('disposisi_sm');
+        } else if ($tipe === 'disposisi_sk') {
+            $this->db->where('id_disposisi', $id);
+            $num_rows = $this->db->count_all_results('disposisi_sk');
         } else if ($tipe === 'userlogin') {
             $this->db->where('id_user', $id);
             $num_rows = $this->db->count_all_results('userlogin');
@@ -78,7 +81,7 @@ class MY_Model extends CI_Model
             $len = $slice;
         }
         $id = bin2hex(random_bytes($idsize - $len));
-        $id = substr($id,0,$idsize - $len);
+        $id = substr($id, 0, $idsize - $len);
         if (!empty($alias))
             $uid = $alias;
         else
@@ -94,12 +97,11 @@ class MY_Model extends CI_Model
                 $result = $this->cekIdAvailable($cid, $tipe);
                 if ($result) {
                     $id = bin2hex(random_bytes($idsize - $len));
-                    $id = substr($id,0,$idsize - $len);
+                    $id = substr($id, 0, $idsize - $len);
                 } else {
                     break;
                 }
-            }
-            else {
+            } else {
                 $result = true;
                 break;
             }

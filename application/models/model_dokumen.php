@@ -17,10 +17,10 @@ class Model_Dokumen extends MY_Model
     {
         $date = date("Y-m-d H:i:s");
         $id = $this->getIdRandom('dokumen', 20, 'DK');
-        $name = explode('.',$data['client_name']);
+        $name = explode('.', $data['client_name']);
         array_pop($name);
         if (is_array($name))
-            $name=$name[0];
+            $name = $name[0];
 
         $value = array(
             'id_dokumen' => $id,
@@ -52,25 +52,31 @@ class Model_Dokumen extends MY_Model
 
     function GetByteFileArsip($sampah = false)
     {
-        $sampah ? $sampah=1 : $sampah=0;
+        $retensi = date('m-d');
+        $tahun = intval(date('Y')) - 4;
+        $sampah ? $sampah = 1 : $sampah = 0;
         $this->db->escape($sampah);
         $select = 'a.sampah, a.id_dokumen , b.byte_file';
-        $table = "SELECT sampah, id_dokumen from surat_masuk where sampah={$sampah}
-        UNION ALL
-        SELECT sampah, id_dokumen from surat_keluar where sampah={$sampah}
-        UNION ALL
-        SELECT sampah, id_dokumen from disposisi where sampah={$sampah}";
+        if ($sampah) {
+            $table = "SELECT sampah, id_dokumen from surat_masuk where create_time <= '$tahun-$retensi 23:59:59' or sampah={$sampah}
+            UNION ALL
+            SELECT sampah, id_dokumen from surat_keluar  where create_time <= '$tahun-$retensi 23:59:59' or sampah={$sampah}";
+        } else {
+            $table="SELECT sampah, id_dokumen from surat_masuk where sampah={$sampah} and create_time > '$tahun-$retensi 23:59:59'
+            UNION ALL
+            SELECT sampah, id_dokumen from surat_keluar where sampah={$sampah} and create_time > '$tahun-$retensi 23:59:59'";
+        }
+
         $join = 'dokumen b on a.id_dokumen = b.id_dokumen';
 
 
-        $query =$this->db->query('SELECT '.$select.' FROM ('.$table.') a JOIN '. $join);
+        $query = $this->db->query('SELECT ' . $select . ' FROM (' . $table . ') a JOIN ' . $join);
         $arr =  $query->result_array();
         $sum = 0;
-        foreach($arr as $a){
+        foreach ($arr as $a) {
             $sum += floatval($a['byte_file']);
         }
         return $sum;
-
     }
 
     function DeleteDokumenbyID($id)

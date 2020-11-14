@@ -10,7 +10,10 @@ class Model_Surat extends MY_Model
             $table = 'surat_keluar';
             $type = 'suratkeluar';
         } else {
-            $table = 'disposisi';
+            if ($type === 'dpsm')
+                $table = 'disposisi_sm';
+            else
+                $table = 'disposisi_sk';
             $type = 'disposisi';
         }
         $this->db->where('id_' . $type, $id);
@@ -19,18 +22,17 @@ class Model_Surat extends MY_Model
         return $query->row_array();
     }
 
-    function GetSuratbyGroup($group,$surat,$chart=false)
+    function GetSuratbyGroup($group, $surat, $chart = false)
     {
         $this->db->select("count(*) as count , (UNIX_TIMESTAMP(create_time)) as create_time"); //
         $this->db->from($surat);
-        $this->db->where("create_time >= date_sub(curdate(), interval 7 day)",null);
-       // $this->db->order_by("create_time","DESC");
+        $this->db->where("create_time >= date_sub(curdate(), interval 7 day)", null);
+        // $this->db->order_by("create_time","DESC");
         $query = $this->db->get_compiled_select();
-        $query .= " group by ".$group. " order by create_time ASC ";
+        $query .= " group by " . $group . " order by create_time ASC ";
         $result = $this->db->query($query);
         //print_r($result->result_array());
         return $result->result_array();
-
     }
 
     function DeleteTempSuratbyID($id, $type, $iduser)
@@ -42,9 +44,6 @@ class Model_Surat extends MY_Model
         } else if ($type === 'sk') {
             $table = 'surat_keluar';
             $type = 'suratkeluar';
-        } else {
-            $table = 'disposisi';
-            $type = 'disposisi';
         }
         $this->db->where('id_' . $type, $id);
         $this->db->set('sampah', 1);
@@ -56,19 +55,30 @@ class Model_Surat extends MY_Model
 
     function RecoverSuratbyID($id, $type, $iduser)
     {
+        $is_retensi = false;
         $date = date("Y-m-d H:i:s");
         if ($type === 'sm') {
             $table = 'surat_masuk';
             $type = 'suratmasuk';
-        } else if ($type === 'sk') {
+        } else {
             $table = 'surat_keluar';
             $type = 'suratkeluar';
-        } else {
-            $table = 'disposisi';
-            $type = 'disposisi';
         }
+        $retensi = date('m-d');
+        $tahun = intval(date('Y')) - 4;
+        $this->db->where('id_' . $type, $id);
+        $this->db->where('create_time <=', $tahun . '-' . $retensi . ' 23:59:59');
+        $query = $this->db->get($table);
+        $result = $query->row_array();
+        if (!empty($result)) {
+            $is_retensi = true;
+        }
+
         $this->db->where('id_' . $type, $id);
         $this->db->set('sampah', 0);
+        if ($is_retensi) {
+            $this->db->set('create_time', $date);
+        }
         $this->db->set('update_time', $date);
         $this->db->update($table);
         $desclog = "Recover Surat {$table} ( ID_Surat => {$id} , ID_TriggerUser => {$iduser}, Date => {$date})";
@@ -80,15 +90,46 @@ class Model_Surat extends MY_Model
         if ($type === 'sm') {
             $table = 'surat_masuk';
             $type = 'suratmasuk';
-        } else if ($type === 'sk') {
+        } else {
             $table = 'surat_keluar';
             $type = 'suratkeluar';
-        } else {
-            $table = 'disposisi';
-            $type = 'disposisi';
         }
+
         $desclog = "Delete Surat {$table} ( ID_Surat => {$id} , ID_TriggerUser => {$iduser})";
         $this->db->where('id_' . $type, $id);
+        $query = $this->db->get($table);
+        $result = $query->row_array();
+        $this->db->where('id_' . $type, $id);
+        $this->db->delete($table);
+        if (isset($result['id_disposisi']) && !empty($result['id_disposisi'])) {
+            $id_disp = $result['id_disposisi'];
+            $this->db->where('id_disposisi', $id_disp);
+            $this->db->delete($type === 'suratmasuk' ? 'disposisi_sm' : 'disposisi_sk');
+        }
+        $this->createLog("007", $desclog);
+    }
+
+    function DeletePermDisposisibyID($id, $type, $iduser)
+    {
+
+        if ($type === 'dpsm') {
+            $table = 'disposisi_sm';
+            $table2 = 'surat_masuk';
+            $type = 'suratmasuk';
+        } else {
+            $table = 'disposisi_sk';
+            $table2 = 'surat_keluar';
+            $type = 'suratkeluar';
+        }
+        $desclog = "Delete Surat {$table} ( ID_Surat => {$id} , ID_TriggerUser => {$iduser})";
+        $this->db->where('id_disposisi', $id);
+        $query = $this->db->get($table2);
+        $surat = $query->row_array();
+        $idsurat = $surat["id_$type"];
+        $this->db->where('id_' . $type, $idsurat);
+        $this->db->update($table2, ['id_disposisi' => null]);
+
+        $this->db->where('id_disposisi', $id);
         $this->db->delete($table);
         $this->createLog("007", $desclog);
     }
@@ -98,8 +139,9 @@ class Model_Surat extends MY_Model
         if ($type === 'sm') {
             $table = 'surat_masuk';
             $type = 'suratmasuk';
-            $data = array(
+            $value = array(
                 'no_surat' => $data['nosurat'],
+                'perihal' => $data['perihal'],
                 'asal_surat' => $data['asalsurat'],
                 'isi_ringkas' => $data['isiringkas'],
                 'keterangan' => $data['keterangan'],
@@ -108,27 +150,37 @@ class Model_Surat extends MY_Model
         } else if ($type === 'sk') {
             $table = 'surat_keluar';
             $type = 'suratkeluar';
-            $data = array(
+            $value = array(
                 'no_surat' => $data['nosurat'],
+                'perihal' => $data['perihal'],
                 'surat_dikirim' => $data['pengirim'],
                 'isi_ringkas' => $data['isiringkas'],
                 'keterangan' => $data['keterangan'],
                 'lokasi_arsip' => $data['lokasiarsip']
             );
         } else {
-            $table = 'disposisi';
-            $type = 'disposisi';
-            $data = array(
-                'no_agenda' => $data['noagenda'],
-                'perihal' => $data['perihal'],
-                'dituju' => $data['dituju'],
-                'pengirim' => $data['pengirim'],
-                'isi_disposisi' => $data['isidisposisi']
-            );
-        }
+            $temp = 'disposisi';
 
+            if ($type === 'dpsm') {
+                $table = 'disposisi_sm';
+                $value = array(
+                    'isi_disposisi' => $data['isi'],
+                    'id_jabatan' => $data['dituju'],
+                    'pengirim' => $data['pengirim']
+
+                );
+            } else {
+                $table = 'disposisi_sk';
+                $value = array(
+                    'isi_disposisi' => $data['isi'],
+                    'id_metode' => $data['kirim'],
+                    'pengirim' => $data['pengirim']
+                );
+            }
+            $type = $temp;
+        }
         $this->db->where('id_' . $type, $id);
-        $this->db->update($table, $data);
+        $this->db->update($table, $value);
         $desclog = "Edit Surat {$table} ( ID_Surat => {$id} , ID_TriggerUser => {$iduser})";
         $this->createLog("003", $desclog);
     }
@@ -141,6 +193,7 @@ class Model_Surat extends MY_Model
             $type = 'suratmasuk';
             $data = array(
                 'no_surat' => $data['nosurat'],
+                'perihal' => $data['perihal'],
                 'asal_surat' => $data['asalsurat'],
                 'isi_ringkas' => $data['isiringkas'],
                 'keterangan' => $data['keterangan'],
@@ -151,21 +204,30 @@ class Model_Surat extends MY_Model
             $type = 'suratkeluar';
             $data = array(
                 'no_surat' => $data['nosurat'],
+                'perihal' => $data['perihal'],
                 'surat_dikirim' => $data['pengirim'],
                 'isi_ringkas' => $data['isiringkas'],
                 'keterangan' => $data['keterangan'],
                 'lokasi_arsip' => $data['lokasiarsip']
             );
         } else {
-            $table = 'disposisi';
-            $type = 'disposisi';
-            $data = array(
-                'no_agenda' => $data['noagenda'],
-                'perihal' => $data['perihal'],
-                'dituju' => $data['dituju'],
-                'pengirim' => $data['pengirim'],
-                'isi_disposisi' => $data['isidisposisi']
-            );
+            $temp = 'disposisi';
+            if ($type === 'dpsm') {
+                $table = 'disposisi_sm';
+                $data = array(
+                    'isi_disposisi' => $data['isi'],
+                    'id_jabatan' => $data['dituju'],
+                    'pengirim' => $data['pengirim']
+                );
+            } else {
+                $table = 'disposisi_sk';
+                $data = array(
+                    'isi_disposisi' => $data['isi'],
+                    'id_metode' => $data['kirim'],
+                    'pengirim' => $data['pengirim']
+                );
+            }
+            $type = $temp;
         }
         $column = array_keys($data);
         $muchkey = sizeof($data);
@@ -197,29 +259,16 @@ class Model_Surat extends MY_Model
         if (is_array($data['klasifikasi'])) {
             $data['klasifikasi'] = implode(".", $data['klasifikasi']);
         }
-
-        $date = date("Y-m-d H:i:s");
         if ($data['tipesurat'] === 'suratmasuk') {
             $id = $this->getIdRandom('suratmasuk', 20, 'SM');
             $tabel = 'surat_masuk';
             $value = array(
                 'id_suratmasuk' => $id,
                 'asal_surat' => $data['asalsurat'],
+                'perihal' => $data['perihal'],
                 'keterangan' => $data['keterangan'],
-                'lokasi_arsip' => $data['lokasiarsip'],
                 'isi_ringkas' => $data['isiringkas'],
                 'no_surat' => $data['nosurat']
-            );
-        } else if ($data['tipesurat'] === 'disposisi') {
-            $id = $this->getIdRandom('disposisi', 20, 'DI');
-            $tabel = 'disposisi';
-            $value = array(
-                'id_disposisi' => $id,
-                'dituju' => $data['asalsurat'],
-                'pengirim' => $data['lokasiarsip'],
-                'isi_disposisi' => $data['isiringkas'],
-                'perihal' => $data['perihal'],
-                'no_agenda' => $data['noagenda']
             );
         } else {
             $id = $this->getIdRandom('suratkeluar', 20, 'SK');
@@ -227,17 +276,19 @@ class Model_Surat extends MY_Model
             $value = array(
                 'id_suratkeluar' => $id,
                 'surat_dikirim' => $data['asalsurat'],
+                'perihal' => $data['perihal'],
                 'keterangan' => $data['keterangan'],
-                'lokasi_arsip' => $data['lokasiarsip'],
                 'isi_ringkas' => $data['isiringkas'],
                 'no_surat' => $data['nosurat']
             );
         }
+
         $date = date('Y-m-d H:i:s');
         $value += array(
             //'klasifikasi' => $data['desckode'],
             'id_dokumen' => $data['id_dokumen'],
             'id_kode' => $data['klasifikasi'],
+            'lokasi_arsip' => $data['lokasiarsip'],
             'id_upload' => $iduser,
             'tgl_pembuatan' => $this->FixDatePicker($data['tglpembuatansurat']),
             'tgl_penerimaan' => $this->FixDatePicker($data['tglpenerimaansurat']),
@@ -248,33 +299,80 @@ class Model_Surat extends MY_Model
         $this->db->insert($tabel, $value);
     }
 
-    function getCountSurat($type = null,$sampah=false)
+    function TambahDisposisi($data, $typesurat, $iduser, $idsurat)
+    {
+        $value = [];
+        $date = date('Y-m-d H:i:s');
+
+        if ($typesurat === 'dpsk') {
+            $id = $this->getIdRandom('disposisi_sk', 20, 'MD');
+            $tabel = 'disposisi_sk';
+            $value['id_metode'] = $data['kirim'];
+            $type = 'suratkeluar';
+            $tabel2 = 'surat_keluar';
+        } else {
+            $id = $this->getIdRandom('disposisi_sm', 20, 'KD');
+            $tabel = 'disposisi_sm';
+            $value['id_jabatan'] = $data['dituju'];
+            $type = 'suratmasuk';
+            $tabel2 = 'surat_masuk';
+        }
+        $value['id_disposisi'] = $id;
+        $value['id_upload'] = $iduser;
+        $value['isi_disposisi'] = $data['isi'];
+        $value['pengirim'] = $data['pengirim'];
+        $value['create_time'] = $date;
+        $value['update_time'] = $date;
+        $this->createLog(5, "Create New Surat {$tabel} ( ID_Surat => {$id} , ID_TriggerUser => {$iduser} )");
+        $this->db->insert($tabel, $value);
+        $this->db->where('id_' . $type, $idsurat);
+        $this->db->update($tabel2, ['id_disposisi' => $id]);
+    }
+
+    function getCountSurat($type = null, $sampah = false)
     {
         // if ($type === 'dp') {
         //     $this->db->where('sampah',0);
         //     $num_rows = $this->db->count_all_results('disposisi');
         //}
         if ($type === 'sm') {
-            $this->db->where('sampah',0);
+            $this->db->where('sampah', 0);
+            $retensi = date('m-d');
+            $tahun = intval(date('Y')) - 4;
+            $this->db->where('create_time >=', $tahun . '-' . $retensi . ' 00:00:00');
             $num_rows = $this->db->count_all_results('surat_masuk');
         } else if ($type === 'sk') {
-            $this->db->where('sampah',0);
+            $this->db->where('sampah', 0);
+            $retensi = date('m-d');
+            $tahun = intval(date('Y')) - 4;
+            $this->db->where('create_time >=', $tahun . '-' . $retensi . ' 00:00:00');
             $num_rows = $this->db->count_all_results('surat_keluar');
-        } else if ($sampah){
-            $this->db->where('sampah',1);
+        } else if ($sampah) {
+            $retensi = date('m-d');
+            $tahun = intval(date('Y')) - 4;
+            $this->db->where('create_time <=', $tahun . '-' . $retensi . ' 23:59:59');
+            $this->db->or_where('sampah', 1);
             $num_rows = $this->db->count_all_results('surat_masuk');
-            $this->db->where('sampah',1);
+            $retensi = date('m-d');
+            $tahun = intval(date('Y')) - 4;
+            $this->db->where('create_time <=', $tahun . '-' . $retensi . ' 23:59:59');
+            $this->db->or_where('sampah', 1);
             $num_rows += $this->db->count_all_results('surat_keluar');
-            $this->db->where('sampah',1);
-            $num_rows += $this->db->count_all_results('disposisi');
+            // $this->db->where('sampah', 1);
+            // $num_rows += $this->db->count_all_results('disposisi');
         } else {
-            $this->db->where('sampah',0);
+            $this->db->where('sampah', 0);
+            $retensi = date('m-d');
+            $tahun = intval(date('Y')) - 4;
+            $this->db->where('create_time >=', $tahun . '-' . $retensi . ' 00:00:00');
             $num_rows = $this->db->count_all_results('surat_masuk');
-            $this->db->where('sampah',0);
+            $this->db->where('sampah', 0);
+            $retensi = date('m-d');
+            $tahun = intval(date('Y')) - 4;
+            $this->db->where('create_time >=', $tahun . '-' . $retensi . ' 00:00:00');
             $num_rows += $this->db->count_all_results('surat_keluar');
             // $this->db->where('sampah',0);
             // $num_rows += $this->db->count_all_results('disposisi');
-
         }
         return $num_rows;
     }
@@ -290,9 +388,7 @@ class Model_Surat extends MY_Model
             $total = $queryAll->num_rows();
             $result = array('total' => $total, 'data' => $queryresult, 'totalFilter' => $totalFilter);
         } else {
-            if ($type === 'dp') {
-                $type = 'disposisi';
-            } else if ($type === 'sk') {
+            if ($type === 'sk') {
                 $type = 'surat_keluar';
             } else {
                 $type = 'surat_masuk';
@@ -320,18 +416,17 @@ class Model_Surat extends MY_Model
         );
         $this->db->join('kode', 'kode.id_kode = ' . $typesurat . '.id_kode');
         $this->db->where('sampah', 0);
+        $retensi = date('m-d');
+        $tahun = intval(date('Y')) - 4;
+        $this->db->where('create_time >=', $tahun . '-' . $retensi . ' 00:00:00');
         if ($type === 'datatables') {
-            $column2 = '.keterangan';
-            if ($typesurat === 'disposisi') {
-                $column2 = '.perihal';
-            }
             $order_field = $params['order'][0]['column'];
             $order_type = $params['order'][0]['dir'];
             $columns = array(
                 0 => $typesurat . '.id_kode',
                 1 => 'kode.nama',
                 2 => $typesurat . '.tgl_penerimaan',
-                3 =>  $typesurat . $column2
+                3 =>  $typesurat . '.keterangan'
             );
             if (!empty($params['search']['value'])) {
                 $this->db->like($columns[1], $params['search']['value']);
@@ -376,6 +471,9 @@ class Model_Surat extends MY_Model
             // }
             return $data;
         } else {
+            $retensi = date('m-d');
+            $tahun = intval(date('Y')) - 4;
+            $this->db->where('create_time >=', $tahun . '-' . $retensi . ' 00:00:00');
             $query = $this->db->get($typesurat);
             return $query;
         }
@@ -385,18 +483,27 @@ class Model_Surat extends MY_Model
     {
         $option = '';
         $search = '';
-        $this->db->select('id_suratmasuk as id, update_time');
+        $this->db->select('id_suratmasuk as id, update_time, create_time');
         $this->db->from('surat_masuk');
-        $this->db->where('sampah', 1);
+        $retensi = date('m-d');
+        $tahun = intval(date('Y')) - 4;
+        $this->db->where('create_time <=', $tahun . '-' . $retensi . ' 23:59:59');
+        $this->db->or_where('sampah', 1);
+        //$this->db->where('create_time >=', $tahun . '-' . $retensi . ' 00:00:00');
+
+
         $query1 = $this->db->get_compiled_select();
-        $this->db->select('id_suratkeluar as id, update_time');
+        $this->db->select('id_suratkeluar as id, update_time, create_time');
         $this->db->from('surat_keluar');
-        $this->db->where('sampah', 1);
+        $retensi = date('m-d');
+        $tahun = intval(date('Y')) - 4;
+        $this->db->where('create_time <=', $tahun . '-' . $retensi . ' 23:59:59');
+        $this->db->or_where('sampah', 1);
         $query2 = $this->db->get_compiled_select();
-        $this->db->select('id_disposisi as id, update_time');
-        $this->db->from('disposisi');
-        $this->db->where('sampah', 1);
-        $query3 = $this->db->get_compiled_select();
+        // $this->db->select('id_disposisi as id, update_time');
+        // $this->db->from('disposisi');
+        // $this->db->where('sampah', 1);
+        // $query3 = $this->db->get_compiled_select();
         if ($type === 'datatables') {
             $order_field = $this->db->escape(intval($params['order'][0]['column']));
             $order_type = $this->db->escape_str($params['order'][0]['dir']);
@@ -406,7 +513,7 @@ class Model_Surat extends MY_Model
                 1 => 'update_time'
             );
             if (!empty($params['search']['value'])) {
-                $search = " WHERE id LIKE '%".$this->db->escape_str($params['search']['value'])."%' ESCAPE '!' ";
+                $search = " WHERE id LIKE '%" . $this->db->escape_str($params['search']['value']) . "%' ESCAPE '!' ";
             }
 
             $ordercol = $this->db->escape_str($params['columns'][$order_field]['data']);
@@ -421,117 +528,42 @@ class Model_Surat extends MY_Model
                 } else
                     $start = 0;
 
-                    $limit = 10;
+                $limit = 10;
                 // if (!empty($params['length']) && $params['length'] <= $config['limitmax']) {
                 //     $limit = 6;//$this->db->escape(intval($params['length']));
                 // } else {
                 //     $limit = 5;
                 // }
-                $option.=' LIMIT '.$start.' , '.$limit;
+                $option .= ' LIMIT ' . $start . ' , ' . $limit;
                 //$this->db->limit($limit, $start);
             }
 
             //$xa=$query1. " UNION ALL " . $query2. " UNION ALL ". $query3. $option;
-            $query = $this->db->query("SELECT id, update_time FROM(".$query1 . " UNION ALL " . $query2 . " UNION ALL " . $query3.") as tbl " . $search . $option);
+            $query = $this->db->query("SELECT id, update_time, create_time FROM(" . $query1 . " UNION ALL " . $query2 . ") as tbl " . $search . $option);
             return $query->result();
         } else {
-            $this->db->select('id_suratmasuk as id, update_time');
+            $this->db->select('id_suratmasuk as id, update_time, create_time');
             $this->db->from('surat_masuk');
             $this->db->where('sampah', 1);
+            $retensi = date('m-d');
+            $tahun = intval(date('Y')) - 4;
+            $this->db->or_where('create_time <=', $tahun . '-' . $retensi . ' 23:59:59');
+            $this->db->or_where('create_time >', $tahun . '-' . $retensi . ' 00:00:00');
             $query1 = $this->db->get_compiled_select();
-            $this->db->select('id_suratkeluar as id, update_time');
+            $this->db->select('id_suratkeluar as id, update_time, create_time');
             $this->db->from('surat_keluar');
             $this->db->where('sampah', 1);
+            $retensi = date('m-d');
+            $tahun = intval(date('Y')) - 4;
+            $this->db->or_where('create_time <=', $tahun . '-' . $retensi . ' 23:59:59');
+            $this->db->or_where('create_time >', $tahun . '-' . $retensi . ' 00:00:00');
             $query2 = $this->db->get_compiled_select();
-            $this->db->select('id_disposisi as id, update_time');
-            $this->db->from('disposisi');
-            $this->db->where('sampah', 1);
-            $query3 = $this->db->get_compiled_select();
-            $query = $this->db->query($query1 . " UNION ALL " . $query2 . " UNION ALL " . $query3);
+            // $this->db->select('id_disposisi as id, update_time');
+            // $this->db->from('disposisi');
+            // $this->db->where('sampah', 1);
+            // $query3 = $this->db->get_compiled_select();
+            $query = $this->db->query($query1 . " UNION ALL " . $query2);
             return $query;
         }
     }
-
-    // function get_desckode($kode)
-    // {
-    //     if (!is_array($kode))
-    //         $kode = explode(".", $kode);
-
-    //     $this->db->where("id_kode", $kode[0] . ".0.0.0");
-    //     $query = $this->db->get('kode')->row(0);
-    //     $result = $query->nama;
-    //     $this->db->reset_query();
-    //     if ($kode[1] !== "0") {
-    //         $result .= " / ";
-    //         $temp = array_slice($kode, 0, 2);
-    //         $temp = implode(".", $temp);
-    //         $this->db->where("id_kode", $temp . ".0.0");
-    //         $query = $this->db->get('kode')->row(0);
-    //         $result .= $query->nama;
-    //         $this->db->reset_query();
-    //     }
-    //     if ($kode[2] !== "0") {
-    //         $result .= " / ";
-    //         $temp = array_slice($kode, 0, 3);
-    //         $temp = implode(".", $temp);
-    //         $this->db->where("id_kode", $temp . ".0");
-    //         $query = $this->db->get('kode')->row(0);
-    //         $result .= $query->nama;
-    //         $this->db->reset_query();
-    //     }
-    //     if ($kode[3] !== "0") {
-    //         $result .= " / ";
-    //         $temp = array_slice($kode, 0, 4);
-    //         $temp = implode(".", $temp);
-    //         $this->db->where("id_kode", $temp);
-    //         $query = $this->db->get('kode')->row(0);
-    //         $result .= $query->nama;
-    //         $this->db->reset_query();
-    //     }
-
-    //     return $result;
-    // }
-
-    // function get_desckode($kode)
-    // {
-    //     $result ='';
-    //     if (!is_array($kode))
-    //         $kode = explode(".", $kode);
-
-    //     if ($kode[3] !== "0") {
-    //         $result .= ".../.../.../";
-    //         $temp = array_slice($kode, 0, 4);
-    //         $temp = implode(".", $temp);
-    //         $this->db->where("id_kode", $temp);
-    //         $query = $this->db->get('kode')->row(0);
-    //         $result .= $query->nama;
-    //         $this->db->reset_query();
-    //     }
-    //     else if ($kode[2] !== "0") {
-    //         $result = ".../.../";
-    //         $temp = array_slice($kode, 0, 3);
-    //         $temp = implode(".", $temp);
-    //         $this->db->where("id_kode", $temp . ".0");
-    //         $query = $this->db->get('kode')->row(0);
-    //         $result .= $query->nama;
-    //         $this->db->reset_query();
-    //     }
-    //     else if ($kode[1] !== "0" &&$kode[0]==='180') {
-    //         $result .= ".../";
-    //         $temp = array_slice($kode, 0, 2);
-    //         $temp = implode(".", $temp);
-    //         $this->db->where("id_kode", $temp . ".0.0");
-    //         $query = $this->db->get('kode')->row(0);
-    //         $result .= $query->nama;
-    //         $this->db->reset_query();
-    //     }
-    //     else{
-    //         $this->db->where("id_kode", $kode[0] . ".0.0.0");
-    //         $query = $this->db->get('kode')->row(0);
-    //         $result = $query->nama;
-    //         $this->db->reset_query();
-    //     }
-
-    //     return $result;
-    // }
 }

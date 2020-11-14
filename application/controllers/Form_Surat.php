@@ -24,7 +24,7 @@ class Form_Surat extends MY_Controller
             $data['statemessage'] = 0;
             $this->initView('form_surat/index', $data);
         } else {
-           // print_r ($init);
+            // print_r ($init);
             $config['title'] = 'Tidak di Ijinkan';
             $config['code'] = '403';
             $config['desc'] = 'Mohon maaf kami tidak bisa membawa anda kesana karena masalah perijinan';
@@ -63,9 +63,9 @@ class Form_Surat extends MY_Controller
             if (count($result) > 0) {
                 foreach ($result as $row) {
                     if ($i === 0) {
-                        $arr['result'] = "<option value = '".$this->security->xss_clean($row->id_kode)."' > ".$this->security->xss_clean($row->id_kode)."  ".$this->security->xss_clean($row->nama)." (Dipilih)  </option>";
+                        $arr['result'] = "<option value = '" . $this->security->xss_clean($row->id_kode) . "' > " . $this->security->xss_clean($row->id_kode) . "  " . $this->security->xss_clean($row->nama) . " (Dipilih)  </option>";
                     } else {
-                        $arr['result'] .= "<option value = '".$this->security->xss_clean($row->id_kode)."' > &emsp; ".$this->security->xss_clean($row->id_kode)."  ".$this->security->xss_clean($row->nama)." </option>";
+                        $arr['result'] .= "<option value = '" . $this->security->xss_clean($row->id_kode) . "' > &emsp; " . $this->security->xss_clean($row->id_kode) . "  " . $this->security->xss_clean($row->nama) . " </option>";
                     }
                     $i++;
                 }
@@ -76,9 +76,9 @@ class Form_Surat extends MY_Controller
             if (count($result) > 0) {
                 foreach ($result as $row) {
                     if ($i === 0) {
-                        $arr['result'] = "<option value = '".$this->security->xss_clean($row->id_kode)."' > ".$this->security->xss_clean($row->id_kode)."  ".$this->security->xss_clean($row->nama)." (Dipilih)  </option>";
+                        $arr['result'] = "<option value = '" . $this->security->xss_clean($row->id_kode) . "' > " . $this->security->xss_clean($row->id_kode) . "  " . $this->security->xss_clean($row->nama) . " (Dipilih)  </option>";
                     } else {
-                        $arr['result'] .= "<option value = '".$this->security->xss_clean($row->id_kode)."' > &emsp; ".$this->security->xss_clean($row->id_kode)."  ".$this->security->xss_clean($row->nama)." </option>";
+                        $arr['result'] .= "<option value = '" . $this->security->xss_clean($row->id_kode) . "' > &emsp; " . $this->security->xss_clean($row->id_kode) . "  " . $this->security->xss_clean($row->nama) . " </option>";
                     }
                     $i++;
                 }
@@ -89,9 +89,9 @@ class Form_Surat extends MY_Controller
             if (count($result) > 0) {
                 foreach ($result as $row) {
                     if ($i === 0) {
-                        $arr['result'] = "<option value = '".$this->security->xss_clean($row->id_kode)."' > ".$this->security->xss_clean($row->id_kode)."  ".$this->security->xss_clean($row->nama)." (Dipilih)  </option>";
+                        $arr['result'] = "<option value = '" . $this->security->xss_clean($row->id_kode) . "' > " . $this->security->xss_clean($row->id_kode) . "  " . $this->security->xss_clean($row->nama) . " (Dipilih)  </option>";
                     } else {
-                        $arr['result'] .= "<option value = '".$this->security->xss_clean($row->id_kode)."' > &emsp; ".$this->security->xss_clean($row->id_kode)."  ".$this->security->xss_clean($row->nama)." </option>";
+                        $arr['result'] .= "<option value = '" . $this->security->xss_clean($row->id_kode) . "' > &emsp; " . $this->security->xss_clean($row->id_kode) . "  " . $this->security->xss_clean($row->nama) . " </option>";
                     }
                     $i++;
                 }
@@ -136,32 +136,19 @@ class Form_Surat extends MY_Controller
         $data['page'] = "form_surat";
         $value = $this->input->post();
 
-        if ($value['tipesurat'] === 'disposisi') {
-            $config = array(
-                'w_disposisi' => 1
-            );
-            $valid = $this->roleValidate($config);
-        } else if ($value['tipesurat'] === 'suratmasuk') {
-            $config = array(
-                'w_suratmasuk' => 1
-            );
-            $valid = $this->roleValidate($config);
-        } else if ($value['tipesurat'] === 'suratkeluar') {
-            $config = array(
-                'w_suratkeluar' => 1
-            );
-            $valid = $this->roleValidate($config);
-        } else {
-            $valid['valid'] = false;
-        }
+        $valid = $this->roleValidate(['w_arsip' => 1]);
 
         if ($valid['valid']) {
             $this->validation_init();
             if ($this->form_validation->run() == FALSE) {
                 //echo '<br>Test1 IF 1';
+                print_r($value);
+                print_r($this->form_validation->run());
                 $message = "Kesalahan: Terdapat form penting yang belum terisi. Mohon di isi! (Error Code: 401) ";
                 $this->messagePage($message, 3);
-                header('Location: ' . base_url('registrasi-surat'));
+                echo validation_errors();
+                //header('Location: ' . base_url('registrasi-surat'));
+
                 $this->session->unset_userdata('kodesurat');
             } else {
                 //echo '<br>Test1 IF ELSE 1';
@@ -210,49 +197,52 @@ class Form_Surat extends MY_Controller
     public function validation_init()
     {
         $config =
-            array(
-                array(
+            [
+                [
                     'field' => 'nosurat',
                     'label' => 'Nomor Surat',
-                    'rules' => 'required',
+                    'rules' => 'required|max_length[255]',
                     'error' => array(
-                        'required' => 'Nomor Surat perlu di isi!'
+                        'required' => 'Nomor Surat perlu di isi!',
+                        'max_length' => 'Karakter melebihi kapasitas validasi!'
                     )
-                ),
-                array(
+                ],
+                [
                     'field' => 'tglpenerimaansurat',
                     'label' => 'Tanggal Penerimaan Surat',
                     'rules' => 'required',
                     'error' => array(
-                        'required' => 'Tanggal Penerimaan Surat perlu di isi!'
+                        'required' => 'Tanggal Penerimaan Surat perlu di isi!',
                     )
 
-                ),
-                array(
+                ],
+                [
                     'field' => 'tglpembuatansurat',
                     'label' => 'Tanggal Pembuatan Surat',
                     'rules' => 'required',
                     'error' => array(
-                        'required' => 'Tanggal Pembuatan Surat perlu di isi!'
+                        'required' => 'Tanggal Pembuatan Surat perlu di isi!',
                     )
-                ),
-                array(
+                ],
+                [
                     'field' => 'asalsurat',
                     'label' => 'Asal Surat',
-                    'rules' => 'required',
+                    'rules' => 'required|max_length[255]',
                     'error' => array(
-                        'required' => 'Asal Surat perlu di isi!'
+                        'required' => 'Asal Surat perlu di isi!',
+                        'max_length' => 'Karakter melebihi kapasitas validasi!'
                     )
-                ),
-                array(
-                    'field' => 'lokasiarsip',
-                    'label' => 'Lokasi Arsip',
-                    'rules' => 'required',
+                ],
+                [
+                    'field' => 'perihal',
+                    'label' => 'Perihal',
+                    'rules' => 'required|max_length[255]',
                     'error' => array(
-                        'required' => 'Lokasi Arsip perlu di isi!'
+                        'required' => 'Lokasi Arsip perlu di isi!',
+                        'max_length' => 'Karakter melebihi kapasitas validasi!'
                     )
-                )
-            );
+                ]
+            ];
         $this->form_validation->set_rules($config);
     }
 

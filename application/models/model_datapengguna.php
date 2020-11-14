@@ -79,6 +79,20 @@ class Model_DataPengguna extends MY_Model
         return $query->result();
     }
 
+    function getPengirimanbyID($id){
+        $this->db->where("id_metode", $id);
+        $query = $this->db->get("metode_pengiriman");
+
+        return $query->row();
+    }
+
+    function getPengirimanAll()
+    {
+        $query = $this->db->get("metode_pengiriman");
+
+        return $query->result();
+    }
+
     function ValidateLogin($email)
     {
         $valid = $this->CheckEmail($email);

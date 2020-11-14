@@ -18,158 +18,215 @@ if ($extfile === 'pdf') {
 
 if (!empty($_SESSION['typearsip'])) {
     if ($_SESSION['typearsip'] == 'sm') {
-        $columnst = array('Tanggal Penerimaan', 'Tanggal Pembuatan', 'Nomor Surat', 'Klasifikasi', 'Asal Surat', 'Isi Ringkas', 'Keterangan', 'Lokasi Arsip');
-        $columns = array('tgl_penerimaan', 'tgl_pembuatan', 'no_surat', 'n', 'asal_surat', 'isi_ringkas', 'keterangan', 'lokasi_arsip');
+        $columnst = array('Tanggal Penerimaan', 'Tanggal Pembuatan', 'Nomor Surat', 'Klasifikasi', 'Perihal' ,'Asal Surat', 'Isi Ringkas', 'Keterangan', 'Lokasi Arsip');
+        $columns = array('tgl_penerimaan', 'tgl_pembuatan', 'no_surat', 'n',  'perihal','asal_surat',  'isi_ringkas', 'keterangan', 'lokasi_arsip');
+        $dispt = array('Pengirim', 'Dituju Kepada', 'Isi Disposisi');
+        $disp = array('pengirim', 'jabatan', 'isi_disposisi');
     } else if ($_SESSION['typearsip'] == 'sk') {
-        $columnst = array('Tanggal Penerimaan', 'Tanggal Pembuatan', 'Nomor Surat',  'Klasifikasi', 'Pengirim', 'Isi Ringkas', 'Keterangan', 'Lokasi Arsip');
-        $columns = array('tgl_penerimaan', 'tgl_pembuatan', 'no_surat',  'n', 'surat_dikirim', 'isi_ringkas', 'keterangan', 'lokasi_arsip');
-    } else {
-        $columnst = array('Tanggal Penerimaan', 'Tanggal Pembuatan', 'Nomor Agenda', 'Klasifikasi', 'Pengirim', 'Dituju ke', 'Perihal', 'Isi Disposisi');
-        $columns = array('tgl_penerimaan', 'tgl_pembuatan', 'no_agenda', 'n', 'pengirim', 'dituju', 'perihal', 'isi_disposisi');
+        $columnst = array('Tanggal Penerimaan', 'Tanggal Pembuatan', 'Nomor Surat',  'Klasifikasi', 'Perihal', 'Dituju Kepada', 'Isi Ringkas', 'Keterangan', 'Lokasi Arsip');
+        $columns = array('tgl_penerimaan', 'tgl_pembuatan', 'no_surat',  'n', 'perihal', 'surat_dikirim', 'isi_ringkas', 'keterangan', 'lokasi_arsip');
+        $dispt = array('Pengirim', 'Pengiriman', 'Isi Disposisi');
+        $disp = array('pengirim', 'metode', 'isi_disposisi');
     }
 }
 
 ?>
 
-<div class="container my-2">
-    <h3>File Arsip</h3><i id='id_showfile' class="fa fa-chevron-right" aria-hidden="true"></i>
-    <div class="text-center">
-    <?= $imagefile ?>
-    </div>
-    <!-- <div class="row justify-content-center">
-        <div class=""> -->
-            <table class='table table-responsive my-4' style="display:none">
+<div class="container my-3">
+    <h3 id='id_showfile' class="chevronbtn"><small><i id='id_iconfile' class="fa fa-chevron-right" aria-hidden="true"></i></small> File Arsip</h3>
 
-                <tr>
-                    <td>
-                        <p>Nama File</p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($dokumen['nama'] . $dokumen['ekstensi']) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Ukuran File</p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($dokumen['byte_file']) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Tipe File</p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $type ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Uploader</p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($namauploader) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Link Download</p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <a href="<?= base_url('arsip/document/get/') . $this->security->xss_clean($dokumen['id_dokumen']) ?>">Download Disini</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        <!-- </div>
-    </div> -->
+    <table id="id_tablefile" class='table table-responsive my-4' style="display:none">
+        <tr>
+            <td>
+                <p>Nama File</p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($dokumen['nama'] . $dokumen['ekstensi']) ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Ukuran File</p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($dokumen['byte_file']) ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Tipe File</p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $type ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Uploader</p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($namauploader) ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Lihat Dokumen</p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <a href="<?= base_url('arsip/document/get/') . $this->security->xss_clean($dokumen['id_dokumen']) ?>" target="_blank">Buka Disini</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
+<div class="container my-3">
+    <h3 id='id_showdisposisi' class="chevronbtn"><small><i id="id_icondisposisi" class="fa fa-chevron-right" aria-hidden="true"></small></i> Disposisi</h3>
+    <table id="id_tabledisposisi" class='table table-responsive my-4' style="display:none">
 
-<div class="container my-2">
-    <h3>Detail Arsip</h3><i id='id_showdetail' class="fa fa-chevron-right" aria-hidden="true"></i>
-    <!-- <div class="row justify-content-center">
-        <div class=""> -->
-            <table class='table table-responsive my-4' style="display:none">
+        <?php if (empty($disposisi)) : ?>
+            <tr>
+                <td>
+                    <p>Disposisi belum di proses.</p>
+                </td>
+            </tr>
+        <?php else : ?>
+            <?php foreach ($disp as $key => $value) : ?>
                 <tr>
                     <td>
-                        <p><?= $columnst[0] ?></p>
+                        <p><?=$dispt[$key]?></p>
                     </td>
-                    <td><p>:</p></td>
                     <td>
-                        <p><?= $this->security->xss_clean($arsip[$columns[0]]) ?></p>
+                        :
+                    </td>
+                    <td>
+                        <p><?=$this->security->xss_clean($disposisi[$value])?></p>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <p><?= $columnst[1] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($arsip[$columns[1]]) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><?= $columnst[2] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($arsip[$columns[2]]) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><?= $columnst[3] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($klasifikasi . " ({$arsip['id_kode']})") ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><?= $columnst[4] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($arsip[$columns[4]]) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><?= $columnst[5] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($arsip[$columns[5]]) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><?= $columnst[6] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($arsip[$columns[6]]) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><?= $columnst[7] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($arsip[$columns[7]]) ?></p>
-                    </td>
-                </tr>
-            </table>
-        <!-- </div>
-    </div> -->
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+
+    </table>
+
+</div>
+
+<div class="container my-3">
+    <h3 id='id_showdetail' class="chevronbtn"><small><i id="id_icondetail" class="fa fa-chevron-right" aria-hidden="true"></small></i> Detail Arsip</h3>
+    <table id="id_tabledetail" class='table table-responsive my-4' style="display:none">
+        <tr>
+            <td>
+                <p><?= $columnst[0] ?></p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p><?= $this->security->xss_clean($arsip[$columns[0]]) ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><?= $columnst[1] ?></p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($arsip[$columns[1]]) ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><?= $columnst[2] ?></p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($arsip[$columns[2]]) ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><?= $columnst[3] ?></p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($klasifikasi . " ({$arsip['id_kode']})") ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><?= $columnst[4] ?></p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($arsip[$columns[4]]) ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><?= $columnst[5] ?></p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($arsip[$columns[5]]) ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><?= $columnst[6] ?></p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($arsip[$columns[6]]) ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><?= $columnst[7] ?></p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($arsip[$columns[7]]) ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><?= $columnst[8] ?></p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($arsip[$columns[8]]) ?></p>
+            </td>
+        </tr>
+    </table>
 </div>

@@ -73,12 +73,29 @@ class Admin_Boxsampah extends MY_Controller
         $this->ajaxFunction();
         $this->load->model("model_surat", "ms");
         $result = $this->ms->getDataTableSurat($this->input->get(null, true),'',true);
+        foreach ($result['data'] as $key => $value) {
+            $result['data'][$key]=(array)$result['data'][$key];
+            foreach ($value as $key2 => $value2) {
+                if ($key2 == 'create_time'){
+                    $retensid = date('m-d');
+                    $tahun = intval(date('Y')) - 4;
+                    $retensi=strtotime($tahun . '-' . $retensid . ' 00:00:00')>=strtotime($value2);
+                }
+            }
+            if (isset($retensi)){
+                $result['data'][$key] += ['kadaluarsa'=>$retensi];
+            }
+        }
+        // array_map(function($a){
+        //     return $a+['kadaluarsa'=>$retensi];
+        // },$result['data']);
+
+
         $callback = array(
             'draw' =>  $this->input->get('draw', true),
             'recordsTotal' => $result['total'],
             'recordsFiltered' => $result['totalFilter'],
-            'data' => $result['data']
-
+            'data' => $result['data'],
         );
         //header('Content-Type: application/json');
         echo json_encode($callback);

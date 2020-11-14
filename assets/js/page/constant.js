@@ -7,6 +7,6 @@ var config = {
         else{
             return "http://localhost/LideArsipan/"
         }
-     }
+    }
 
 }

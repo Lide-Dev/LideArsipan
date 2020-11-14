@@ -143,26 +143,31 @@ if ($role === 'admin') {
       <label for="form_penerimaansurat"><b class="text-danger">*</b>Tanggal Penerimaan Surat</label>
       <input type="text" id="form_penerimaansurat" class="form-control form-tgl" name="tglpenerimaansurat" placeholder="">
     </div>
-    <!-- div class="form-group col-md-3">
+    <div class="form-group col-md-3">
       <label for="form_pembuatansurat"><b class="text-danger">*</b>Tanggal Pembuatan Surat</label>
       <input type="text" id="form_pembuatansurat" class="form-control form-tgl" name="tglpembuatansurat" placeholder="">
-    </div -->
+    </div>
   </div>
 
-  <div class="form-row" id="div_noagenda">
+  <div class="form-row">
     <div class="form-group col-md-6">
-      <label id="label-noagenda" for="form_noagenda"><b class="text-danger">*</b>Nomor Agenda</label>
-      <input type="text" id="form_noagenda" class="form-control" placeholder="" name="noagenda">
+      <label id="label-asalsurat" for="form_asalsurat"><b class="text-danger">*</b>Asal Surat</label>
+      <input type="text" id="form_asalsurat" class="form-control" placeholder="" name="asalsurat">
     </div>
+  </div>
+
+  <div class="form-row">
     <div class="form-group col-md-6">
       <label id="label-perihal" for="form_perihal"><b class="text-danger">*</b>Perihal</label>
       <input type="text" id="form_perihal" class="form-control" placeholder="" name="perihal">
     </div>
   </div>
 
-  <div class="form-group">
-    <label id="label-perihal" for="form_perihal"><b class="text-danger">*</b>Perihal</label>
-    <input type="text" id="form_perihal" class="form-control" placeholder="" name="lokasiarsip">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label id="label-lokasiarsip" for="form_lokasiarsip">Lokasi Arsip</label>
+      <input type="text" id="form_lokasiarsip" class="form-control" placeholder="" name="lokasiarsip"></input>
+    </div>
   </div>
 
   <div class="form-group">

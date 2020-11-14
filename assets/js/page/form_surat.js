@@ -12,12 +12,10 @@ $(document).ready(function () {
   $("#form_tipesurat2").prop("checked", false);
   $("#form_tipesurat3").prop("checked", true);
   $("#form_tipesurat1").prop("checked", true);
-  $("#form_perihal").rules("remove");
-  $("#form_noagenda").rules("remove");
   $("#div_noagenda").hide();
   $("#div_keterangan").show();
   $("#label-asalsurat").html("<b class='text-danger'>*</b>Asal Surat");
-  $("#label-lokasiarsip").html("<b class='text-danger'>*</b>Lokasi Arsip");
+  //$("#label-lokasiarsip").html("<b class='text-danger'>*</b>Lokasi Arsip");
   $("#label-isi").html("Isi Ringkas");
 });
 
@@ -33,12 +31,10 @@ $("#label_tipesurat1").click(function () {
   $("#form_tipesurat1").prop("checked", true);
   $("#form_tipesurat2").prop("checked", false);
   $("#form_tipesurat3").prop("checked", false);
-  $("#form_perihal").rules("remove");
-  $("#form_noagenda").rules("remove");
   $("#div_noagenda").hide();
   $("#div_keterangan").show();
   $("#label-asalsurat").html("<b class='text-danger'>*</b>Asal Surat");
-  $("#label-lokasiarsip").html("<b class='text-danger'>*</b>Lokasi Arsip");
+  // $("#label-lokasiarsip").html("<b class='text-danger'>*</b>Lokasi Arsip");
   $("#label-isi").html("Isi Ringkas");
 });
 
@@ -46,41 +42,11 @@ $("#label_tipesurat2").click(function () {
   $("#form_tipesurat2").prop("checked", true);
   $("#form_tipesurat3").prop("checked", false);
   $("#form_tipesurat1").prop("checked", false);
-  $("#form_perihal").rules("remove");
-  $("#form_noagenda").rules("remove");
   $("#div_noagenda").hide();
   $("#div_keterangan").show();
-  $("#label-asalsurat").html("<b class='text-danger'>*</b>Dituju Kepada");
-  $("#label-lokasiarsip").html("<b class='text-danger'>*</b>Lokasi Arsip");
+  $("#label-asalsurat").html("<b class='text-danger'>*</b>Pengirim");
+  // $("#label-lokasiarsip").html("<b class='text-danger'>*</b>Lokasi Arsip");
   $("#label-isi").html("Isi Ringkas");
-});
-
-$("#label_tipesurat3").click(function () {
-  $("#form_tipesurat3").prop("checked", true);
-  $("#form_tipesurat1").prop("checked", false);
-  $("#form_tipesurat2").prop("checked", false);
-  $("#div_noagenda").show();
-  $("#div_keterangan").hide();
-  $("#label-asalsurat").html("<b class='text-danger'>*</b>Dituju Kepada");
-  $("#label-lokasiarsip").html("<b class='text-danger'>*</b>Pengirim/Asal Surat");
-  $("#label-isi").html("Isi Disposisi");
-  $("#form_noagenda").rules("add", {
-    required: true,
-    maxlength: 254,
-    messages: {
-      required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi nomor agenda!</small>",
-      maxlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Teks tidak boleh melebihi 254 karakter!</small>",
-    }
-  });
-  $("#form_perihal").rules("add", {
-    required: true,
-    maxlength: 254,
-    messages: {
-      required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi perihal!</small>",
-      maxlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Teks tidak boleh melebihi 254 karakter!</small>",
-    }
-  });
-
 });
 
 
@@ -372,13 +338,19 @@ $("#form_surat").validate({
       maxlength: 11,
       pattern: /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/
     },
+    perihal:{
+      required: true,
+      maxlength: 255
+    },
     asalsurat: {
       required: true,
       maxlength: 255
     },
-    lokasiarsip: {
-      required: true,
-      maxlength: 255
+    isiringkas:{
+      maxlength: 500,
+    },
+    keterangan:{
+      maxlength: 500,
     },
     uploaddoc: {
       required: true,
@@ -387,11 +359,11 @@ $("#form_surat").validate({
   messages: {
     kategori: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Setidaknya memilih satu klasifikasi surat.</small>",
     nosurat: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi nomor suratnya</small>",
-    lokasiarsip: {
+    asalsurat: {
       required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi bagian ini</small>",
       maxlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Maksimal karakter kata adalah 255.</small>",
     },
-    asalsurat: {
+    perihal: {
       required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi bagian ini</small>",
       maxlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Maksimal karakter kata adalah 255.</small>",
     },
@@ -411,6 +383,13 @@ $("#form_surat").validate({
       required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di pilih file surat yang ingin di upload!</small>",
       accept: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Format file tidak benar!</small>",
     },
+    isiringkas: {
+      maxlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Maksimal karakter kata adalah 255.</small>",
+    },
+    keterangan: {
+      maxlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Maksimal karakter kata adalah 255.</small>",
+    },
+
     submitHandler: function (form) {
       form.submit();
     }
