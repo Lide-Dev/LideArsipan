@@ -1,5 +1,5 @@
 var config = {
-    development_ando: false,
+    development_ando: true,
     baseurl: function() {
         if (this.development_ando) {
             return "http://lidearsipan.test/"

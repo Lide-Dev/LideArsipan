@@ -139,7 +139,7 @@ if ($role === 'admin') {
     </div>
   </div>
   <div class="form-row">
-    <div class="form-group col-md-3">
+    <div id="input_tglpenerimaan" class="form-group col-md-3">
       <label for="form_penerimaansurat"><b class="text-danger">*</b>Tanggal Penerimaan Surat</label>
       <input type="text" id="form_penerimaansurat" class="form-control form-tgl" name="tglpenerimaansurat" placeholder="">
     </div>

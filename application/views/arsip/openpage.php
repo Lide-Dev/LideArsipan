@@ -18,13 +18,13 @@ if ($extfile === 'pdf') {
 
 if (!empty($_SESSION['typearsip'])) {
     if ($_SESSION['typearsip'] == 'sm') {
-        $columnst = array('Tanggal Penerimaan', 'Tanggal Pembuatan', 'Nomor Surat', 'Klasifikasi', 'Perihal' ,'Asal Surat', 'Isi Ringkas', 'Keterangan', 'Lokasi Arsip');
-        $columns = array('tgl_penerimaan', 'tgl_pembuatan', 'no_surat', 'n',  'perihal','asal_surat',  'isi_ringkas', 'keterangan', 'lokasi_arsip');
+        $columnst = array('Tanggal Penerimaan', 'Tanggal Pembuatan', 'Nomor Surat', 'Klasifikasi', 'Perihal', 'Asal Surat', 'Isi Ringkas', 'Keterangan', 'Lokasi Arsip');
+        $columns = array('tgl_penerimaan', 'tgl_pembuatan', 'no_surat', 'n',  'perihal', 'asal_surat',  'isi_ringkas', 'keterangan', 'lokasi_arsip');
         $dispt = array('Pengirim', 'Dituju Kepada', 'Isi Disposisi');
         $disp = array('pengirim', 'jabatan', 'isi_disposisi');
     } else if ($_SESSION['typearsip'] == 'sk') {
-        $columnst = array('Tanggal Penerimaan', 'Tanggal Pembuatan', 'Nomor Surat',  'Klasifikasi', 'Perihal', 'Dituju Kepada', 'Isi Ringkas', 'Keterangan', 'Lokasi Arsip');
-        $columns = array('tgl_penerimaan', 'tgl_pembuatan', 'no_surat',  'n', 'perihal', 'surat_dikirim', 'isi_ringkas', 'keterangan', 'lokasi_arsip');
+        $columnst = array('Tanggal Pembuatan', 'Nomor Surat',  'Klasifikasi', 'Perihal', 'Dituju Kepada', 'Isi Ringkas', 'Keterangan', 'Lokasi Arsip');
+        $columns = array('tgl_pembuatan', 'no_surat',  'n', 'perihal', 'surat_dikirim', 'isi_ringkas', 'keterangan', 'lokasi_arsip');
         $dispt = array('Pengirim', 'Pengiriman', 'Isi Disposisi');
         $disp = array('pengirim', 'metode', 'isi_disposisi');
     }
@@ -109,13 +109,13 @@ if (!empty($_SESSION['typearsip'])) {
             <?php foreach ($disp as $key => $value) : ?>
                 <tr>
                     <td>
-                        <p><?=$dispt[$key]?></p>
+                        <p><?= $dispt[$key] ?></p>
                     </td>
                     <td>
                         :
                     </td>
                     <td>
-                        <p><?=$this->security->xss_clean($disposisi[$value])?></p>
+                        <p><?= $this->security->xss_clean($disposisi[$value]) ?></p>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -129,104 +129,22 @@ if (!empty($_SESSION['typearsip'])) {
 <div class="container my-3">
     <h3 id='id_showdetail' class="chevronbtn"><small><i id="id_icondetail" class="fa fa-chevron-right" aria-hidden="true"></small></i> Detail Arsip</h3>
     <table id="id_tabledetail" class='table table-responsive my-4' style="display:none">
-        <tr>
-            <td>
-                <p><?= $columnst[0] ?></p>
-            </td>
-            <td>
-                <p>:</p>
-            </td>
-            <td>
-                <p><?= $this->security->xss_clean($arsip[$columns[0]]) ?></p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p><?= $columnst[1] ?></p>
-            </td>
-            <td>
-                <p>:</p>
-            </td>
-            <td>
-                <p> <?= $this->security->xss_clean($arsip[$columns[1]]) ?></p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p><?= $columnst[2] ?></p>
-            </td>
-            <td>
-                <p>:</p>
-            </td>
-            <td>
-                <p> <?= $this->security->xss_clean($arsip[$columns[2]]) ?></p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p><?= $columnst[3] ?></p>
-            </td>
-            <td>
-                <p>:</p>
-            </td>
-            <td>
-                <p> <?= $this->security->xss_clean($klasifikasi . " ({$arsip['id_kode']})") ?></p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p><?= $columnst[4] ?></p>
-            </td>
-            <td>
-                <p>:</p>
-            </td>
-            <td>
-                <p> <?= $this->security->xss_clean($arsip[$columns[4]]) ?></p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p><?= $columnst[5] ?></p>
-            </td>
-            <td>
-                <p>:</p>
-            </td>
-            <td>
-                <p> <?= $this->security->xss_clean($arsip[$columns[5]]) ?></p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p><?= $columnst[6] ?></p>
-            </td>
-            <td>
-                <p>:</p>
-            </td>
-            <td>
-                <p> <?= $this->security->xss_clean($arsip[$columns[6]]) ?></p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p><?= $columnst[7] ?></p>
-            </td>
-            <td>
-                <p>:</p>
-            </td>
-            <td>
-                <p> <?= $this->security->xss_clean($arsip[$columns[7]]) ?></p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p><?= $columnst[8] ?></p>
-            </td>
-            <td>
-                <p>:</p>
-            </td>
-            <td>
-                <p> <?= $this->security->xss_clean($arsip[$columns[8]]) ?></p>
-            </td>
-        </tr>
+        <?php foreach ($columns as $key => $value) : ?>
+            <tr>
+                <td>
+                    <p><?= $columnst[$key] ?></p>
+                </td>
+                <td>
+                    <p>:</p>
+                </td>
+                <td>
+                    <?php if ($value == 'n') : ?>
+                        <p> <?= $this->security->xss_clean($klasifikasi . " ({$arsip['id_kode']})") ?></p>
+                    <?php else : ?>
+                        <p><?= $this->security->xss_clean($arsip[$value]) ?></p>
+                    <?php endif ?>
+                </td>
+            </tr>
+        <?php endforeach ?>
     </table>
 </div>

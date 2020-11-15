@@ -24,7 +24,7 @@ date_default_timezone_set("Asia/Jakarta");
 | a PHP script and you can easily do that on your own.
 |
 */
-$devando = false;
+$devando = true;
 
 if ($devando) {
     $config['base_url'] = 'http://lidearsipan.test/';

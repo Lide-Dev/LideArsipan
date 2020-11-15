@@ -34,7 +34,7 @@ $(document).ready(function () {
           var content1 = "<i class='fa fa-history' style='color: #05c46b'></i>";
           var content2 = "<i class='fas fa-envelope-open-text' style='color: #00d8d6''></i>";
           var content3 = "<i class='fas fa-trash-alt' style='color: #ff3f34'></i>";
-          var html = "<i class='" + classs + " recover' data-toggle='tooltip' data-placement='top' title='Edit Surat' aria-hidden='true'>" + content1 + "</i>"
+          var html = "<i class='" + classs + " recover' data-toggle='tooltip' data-placement='top' title='Kembalikan Surat' aria-hidden='true'>" + content1 + "</i>"
           html += " <i class='" + classs + " open' data-toggle='tooltip' data-placement='top' title='Buka Surat' aria-hidden='true'>" + content2 + "</i> "
           html += "<i class='" + classs + " delete' data-toggle='tooltip' data-placement='top' title='Hapus Surat' aria-hidden='true'>" + content3 + "</i>"
           return html
@@ -105,7 +105,7 @@ $(document).ready(function () {
   $('#table_sampah tbody').on('click', '.recover', function () {
     resetmodal();
     var data = table.row($(this).parents('tr')).data();
-    $('#modalLabel').text('Mengubah Data Arsip');
+    $('#modalLabel').text('Mengembalikan ke Arsip');
     $('#modalbox').modal('show');
     $('#okID').show();
     var arrkey = Object.keys(data);
@@ -224,6 +224,8 @@ function resetmodal() {
   $('#ab_form').html('');
   $('#ab_content').hide();
   $('#ab_form').hide();
+  $('#formbox').removeClass('del');
+  $('#formbox').removeClass('recover');
 }
 
 

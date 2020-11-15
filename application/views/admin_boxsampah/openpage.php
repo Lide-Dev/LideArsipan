@@ -1,6 +1,7 @@
 <?php
 $imagefile = '';
 $columns = array();
+// print_r($arsip);
 
 if ($extfile === 'pdf') {
     $imagefile = '<i class="fa fa-5x fa-file-pdf-o" aria-hidden="true"></i>';
@@ -21,8 +22,8 @@ if (!empty($typearsip)) {
         $columnst = array('Tanggal Penerimaan', 'Tanggal Pembuatan', 'Nomor Surat', 'Klasifikasi', 'Asal Surat', 'Isi Ringkas', 'Keterangan', 'Lokasi Arsip');
         $columns = array('tgl_penerimaan', 'tgl_pembuatan', 'no_surat', 'n', 'asal_surat', 'isi_ringkas', 'keterangan', 'lokasi_arsip');
     } else if ($typearsip == 'sk') {
-        $columnst = array('Tanggal Penerimaan', 'Tanggal Pembuatan', 'Nomor Surat',  'Klasifikasi', 'Pengirim', 'Isi Ringkas', 'Keterangan', 'Lokasi Arsip');
-        $columns = array('tgl_penerimaan', 'tgl_pembuatan', 'no_surat',  'n', 'surat_dikirim', 'isi_ringkas', 'keterangan', 'lokasi_arsip');
+        $columnst = array('Tanggal Pembuatan', 'Nomor Surat',  'Klasifikasi', 'Pengirim', 'Isi Ringkas', 'Keterangan', 'Lokasi Arsip');
+        $columns = array('tgl_pembuatan', 'no_surat',  'n', 'surat_dikirim', 'isi_ringkas', 'keterangan', 'lokasi_arsip');
     } else {
         $columnst = array('Tanggal Penerimaan', 'Tanggal Pembuatan', 'Nomor Agenda', 'Klasifikasi', 'Pengirim', 'Dituju ke', 'Perihal', 'Isi Disposisi');
         $columns = array('tgl_penerimaan', 'tgl_pembuatan', 'no_agenda', 'n', 'pengirim', 'dituju', 'perihal', 'isi_disposisi');
@@ -34,51 +35,59 @@ if (!empty($typearsip)) {
 <div class="container my-2">
     <h3>File Arsip: </h3>
     <div class="text-center">
-    <?= $imagefile ?>
+        <?= $imagefile ?>
     </div>
     <!-- <div class="row justify-content-center">
         <div class=""> -->
-            <table class='table table-responsive my-4'>
+    <table class='table table-responsive my-4'>
 
-                <tr>
-                    <td>
-                        <p>Nama File</p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($dokumen['nama'] . $dokumen['ekstensi']) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Ukuran File</p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($dokumen['byte_file']) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Tipe File</p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($type) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Uploader</p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($namauploader) ?></p>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        <!-- </div>
+        <tr>
+            <td>
+                <p>Nama File</p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($dokumen['nama'] . $dokumen['ekstensi']) ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Ukuran File</p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($dokumen['byte_file']) ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Tipe File</p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($type) ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Uploader</p>
+            </td>
+            <td>
+                <p>:</p>
+            </td>
+            <td>
+                <p> <?= $this->security->xss_clean($namauploader) ?></p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- </div>
     </div> -->
 </div>
 
@@ -87,80 +96,26 @@ if (!empty($typearsip)) {
     <h3>Detail Arsip: </h3>
     <!-- <div class="row justify-content-center">
         <div class=""> -->
-            <table class='table table-responsive my-4'>
-                <tr>
-                    <td>
-                        <p><?= $columnst[0] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p><?= $this->security->xss_clean($arsip[$columns[0]]) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><?= $columnst[1] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($arsip[$columns[1]]) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><?= $columnst[2] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($arsip[$columns[2]]) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><?= $columnst[3] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
+    <table class='table table-responsive my-4'>
+        <?php foreach ($columns as $key => $value) : ?>
+            <tr>
+                <td>
+                    <p><?= $columnst[$key] ?></p>
+                </td>
+                <td>
+                    <p>:</p>
+                </td>
+                <td>
+                    <?php if ($value == 'n') : ?>
                         <p> <?= $this->security->xss_clean($klasifikasi . " ({$arsip['id_kode']})") ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><?= $columnst[4] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($arsip[$columns[4]]) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><?= $columnst[5] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($arsip[$columns[5]]) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><?= $columnst[6] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($arsip[$columns[6]]) ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><?= $columnst[7] ?></p>
-                    </td>
-                    <td><p>:</p></td>
-                    <td>
-                        <p> <?= $this->security->xss_clean($arsip[$columns[7]]) ?></p>
-                    </td>
-                </tr>
-            </table>
-        <!-- </div>
+                    <?php else : ?>
+
+                        <p><?= $this->security->xss_clean($arsip[$value]) ?></p>
+                    <?php endif ?>
+                </td>
+            </tr>
+        <?php endforeach ?>
+    </table>
+    <!-- </div>
     </div> -->
 </div>

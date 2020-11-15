@@ -35,6 +35,20 @@ $("#label_tipesurat1").click(function () {
   $("#div_keterangan").show();
   $("#label-asalsurat").html("<b class='text-danger'>*</b>Asal Surat");
   // $("#label-lokasiarsip").html("<b class='text-danger'>*</b>Lokasi Arsip");
+  $("#input_tglpenerimaan").show()
+  $("#input_tglpenerimaan").rules("remove")
+  $("#input_tglpenerimaan").rules("add", {
+    required: true,
+    minlength: 10,
+    maxlength: 10,
+    pattern: /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/,
+    messages: {
+      required: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Mohon di isi tanggal penerimaan suratnya</small>",
+      minlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Format tanggal tidak benar!</small>",
+      maxlength: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Format tanggal tidak benar!</small>",
+      pattern: "<small class='text-danger'><i class='fas fa-exclamation-triangle'></i> Format tanggal tidak benar!</small>"
+    }
+  })
   $("#label-isi").html("Isi Ringkas");
 });
 
@@ -45,6 +59,8 @@ $("#label_tipesurat2").click(function () {
   $("#div_noagenda").hide();
   $("#div_keterangan").show();
   $("#label-asalsurat").html("<b class='text-danger'>*</b>Pengirim");
+  $("#input_tglpenerimaan").rules("remove")
+  $("#input_tglpenerimaan").hide()
   // $("#label-lokasiarsip").html("<b class='text-danger'>*</b>Lokasi Arsip");
   $("#label-isi").html("Isi Ringkas");
 });
@@ -175,7 +191,7 @@ $("#form_kode").on('change', function () {
       }
       else
         $("#div_form_subkode1").hide(500);
-        $("#div_form_subkode2").hide(500);
+      $("#div_form_subkode2").hide(500);
     }
   });
 });
@@ -338,7 +354,7 @@ $("#form_surat").validate({
       maxlength: 11,
       pattern: /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/
     },
-    perihal:{
+    perihal: {
       required: true,
       maxlength: 255
     },
@@ -346,10 +362,10 @@ $("#form_surat").validate({
       required: true,
       maxlength: 255
     },
-    isiringkas:{
+    isiringkas: {
       maxlength: 500,
     },
-    keterangan:{
+    keterangan: {
       maxlength: 500,
     },
     uploaddoc: {

@@ -268,7 +268,8 @@ class Model_Surat extends MY_Model
                 'perihal' => $data['perihal'],
                 'keterangan' => $data['keterangan'],
                 'isi_ringkas' => $data['isiringkas'],
-                'no_surat' => $data['nosurat']
+                'no_surat' => $data['nosurat'],
+                'tgl_penerimaan' => $this->FixDatePicker($data['tglpenerimaansurat']),
             );
         } else {
             $id = $this->getIdRandom('suratkeluar', 20, 'SK');
@@ -291,7 +292,6 @@ class Model_Surat extends MY_Model
             'lokasi_arsip' => $data['lokasiarsip'],
             'id_upload' => $iduser,
             'tgl_pembuatan' => $this->FixDatePicker($data['tglpembuatansurat']),
-            'tgl_penerimaan' => $this->FixDatePicker($data['tglpenerimaansurat']),
             'create_time' => $date,
             'update_time' => $date
         );

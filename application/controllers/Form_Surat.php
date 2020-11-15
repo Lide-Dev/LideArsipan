@@ -139,16 +139,15 @@ class Form_Surat extends MY_Controller
         $valid = $this->roleValidate(['w_arsip' => 1]);
 
         if ($valid['valid']) {
-            $this->validation_init();
+            $this->validation_init($data['tipesurat']=='suratmasuk');
             if ($this->form_validation->run() == FALSE) {
                 //echo '<br>Test1 IF 1';
-                print_r($value);
-                print_r($this->form_validation->run());
+                //print_r($value);
+                //print_r($this->form_validation->run());
                 $message = "Kesalahan: Terdapat form penting yang belum terisi. Mohon di isi! (Error Code: 401) ";
                 $this->messagePage($message, 3);
                 echo validation_errors();
-                //header('Location: ' . base_url('registrasi-surat'));
-
+                header('Location: ' . base_url('registrasi-surat'));
                 $this->session->unset_userdata('kodesurat');
             } else {
                 //echo '<br>Test1 IF ELSE 1';
@@ -194,7 +193,7 @@ class Form_Surat extends MY_Controller
         }
     }
 
-    public function validation_init()
+    public function validation_init($is_sm = true)
     {
         $config =
             [
@@ -206,15 +205,6 @@ class Form_Surat extends MY_Controller
                         'required' => 'Nomor Surat perlu di isi!',
                         'max_length' => 'Karakter melebihi kapasitas validasi!'
                     )
-                ],
-                [
-                    'field' => 'tglpenerimaansurat',
-                    'label' => 'Tanggal Penerimaan Surat',
-                    'rules' => 'required',
-                    'error' => array(
-                        'required' => 'Tanggal Penerimaan Surat perlu di isi!',
-                    )
-
                 ],
                 [
                     'field' => 'tglpembuatansurat',
@@ -243,6 +233,17 @@ class Form_Surat extends MY_Controller
                     )
                 ]
             ];
+        if ($is_sm){
+            array_push($config,[
+                'field' => 'tglpenerimaansurat',
+                'label' => 'Tanggal Penerimaan Surat',
+                'rules' => 'required',
+                'error' => array(
+                    'required' => 'Tanggal Penerimaan Surat perlu di isi!',
+                )
+
+            ],);
+        }
         $this->form_validation->set_rules($config);
     }
 
