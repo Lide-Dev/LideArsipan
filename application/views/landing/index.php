@@ -1,41 +1,43 @@
 <div>
-<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e272e">
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ml-3 mr-auto">
-        <a class="navbar-brand d-none d-md-block" href="#">
-          <img src=<?=base_url(PATHIMG.'Logo_Navbar.svg')?> alt="Sleman">
-        </a>
-        <div style="color: white" class="my-auto">Pemerintah Desa Condongcatur</div>
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e272e">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-3 mr-auto">
+                <a class="navbar-brand d-none d-md-block" href="#">
+                    <img src=<?= base_url(PATHIMG . 'Logo_Navbar.svg') ?> alt="Sleman">
+                </a>
+                <div style="color: white" class="my-auto">Pemerintah Desa Condongcatur</div>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<!-- jumbotron -->
-<div class="jumbotron jumbotron-fluid bg-dark">
+    <!-- jumbotron -->
+    <div class="jumbotron jumbotron-fluid bg-dark">
 
-<div class="jumbotron-background">
-    <img src=<?= base_url(PATHIMG . 'F1.svg') ?> class="blur" style="width: 100%; height: 100%;" alt="Sleman">
-</div>
-
-<div class="container text-white">
-
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            <h1 class="section-heading text-uppercase mt-4 mb-4">Selamat Datang Di Website Arsip Pemerintah Desa Condongcatur</h1>
+        <div class="jumbotron-background">
+            <img src=<?= base_url(PATHIMG . 'F1.svg') ?> class="blur" style="width: 100%; height: 100%;" alt="Sleman">
         </div>
+
+        <div class="container text-white">
+
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1 class="section-heading text-uppercase mt-4 mb-4">Selamat Datang Di Website Arsip Pemerintah Desa Condongcatur</h1>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <div class="align-content-lg-center">
+                    <a href="<?= $url ?>" <button type="button" class="btn btn-success">
+                        <h6>LOGIN</h6></button>
+                    </a>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
     </div>
-
-    <div class="text-center">
-                     <div class="align-content-lg-center">
-                     <a href="<?= $url ?>" <button type="button" class="btn btn-success"><h6>LOGIN</h6></button></a>
-                         </a>
-                     </div>
-                 </div>
-
-</div>
-<!-- /.container -->
-</div>
-<!-- /.jumbotron -->
+    <!-- /.jumbotron -->
 </div>
 
 <div class="container-fluid">

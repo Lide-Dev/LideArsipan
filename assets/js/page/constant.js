@@ -1,10 +1,9 @@
 var config = {
-    development_ando : true,
-    baseurl : function () {
-        if (this.development_ando){
+    development_ando: false,
+    baseurl: function() {
+        if (this.development_ando) {
             return "http://lidearsipan.test/"
-        }
-        else{
+        } else {
             return "http://localhost/LideArsipan/"
         }
     }

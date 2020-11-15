@@ -58,27 +58,33 @@
                  </div>
              </div>
              <div class="row text-center">
+             
                  <div class="col">
+                 <a href="<?= base_url('Arsip') ?>" style="text-decoration: none; color: black;">
                      <div class="counter">
                          <i class="fa fa-arrow-circle-down fa-2x"></i>
                          <h2 class="timer count-title count-number" data-to=<?= $count_sm ?> data-speed="1500"></h2>
                          <p class="count-text ">Surat Masuk</p>
                      </div>
+                     </a>
                  </div>
+            
                  <div class="col">
+                 <a href="<?= base_url('Arsip') ?>" style="text-decoration: none; color: black;">
                      <div class="counter">
                          <i class="fa fa-arrow-circle-up fa-2x"></i>
                          <h2 class="timer count-title count-number" data-to=<?= $count_sk ?> data-speed="1500"></h2>
                          <p class="count-text ">Surat Keluar</p>
                      </div>
+                 </a>
                  </div>
-                 <div class="col">
+                 <!-- <div class="col">
                      <div class="counter">
                          <i class="fa fa-inbox fa-2x"></i>
                          <h2 class="timer count-title count-number" data-to=<?= $count_dp ?> data-speed="1500"></h2>
                          <p class="count-text ">Disposisi</p>
                      </div>
-                 </div>
+                 </div> -->
                  <div class="col">
                      <div class="counter">
                          <i class="fa fa-file fa-2x"></i>

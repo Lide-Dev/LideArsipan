@@ -255,7 +255,7 @@ class Form_Surat extends MY_Controller
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('uploaddoc')) {
             $error = array('error' => $this->upload->display_errors());
-            echo $error;
+            print_r($error); 
             return false;
         } else {
             $data = $this->upload->data();

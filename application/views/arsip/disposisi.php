@@ -13,11 +13,11 @@ $row = 4;
 <div class="container">
     <h5>Status:</h5>
     <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
-        <label class="btn btn-londonsquare <?= $button ?'active':''?>" for="id_deactive">
-            <input class="select-process" type="radio" name="active" value="noprocess" id="id_deactive" <?= $button ? 'checked' :''?>> Tidak Diproses
+        <label class="btn btn-outline-info <?= $button ?'active':''?>" for="id_deactive">
+            <input class="select-process" type="radio" name="active" value="noprocess" id="id_deactive" <?= $button ? 'checked' :''?>> <b>Arsipkan</b>
         </label>
-        <label class="btn btn-londonsquare <?= !$button ?'active':''?>" for="id_active">
-            <input class="select-process" type="radio" name="active" value="process" id="id_active" <?= !$button ? 'checked':'' ?>> Diproses
+        <label class="btn btn-outline-info <?= !$button ?'active':''?>" for="id_active">
+            <input class="select-process" type="radio" name="active" value="process" id="id_active" <?= !$button ? 'checked':'' ?>> <b>Diproses</b>
         </label>
     </div>
     <div class="container" id="inputform" style="<?= $button ? 'display:none;' : '' ?>">

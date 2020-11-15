@@ -30,7 +30,7 @@ if (!empty($_SESSION['typearsip'])) {
 
                 <div class="text-center p-3 ">
                     <div class="shadow row">
-                    <div class="col-md-4 btn btn-hintofelusive  <?= $active[0] ?>">
+                    <div class="col-md-6 btn btn-hintofelusive  <?= $active[0] ?>">
                         <a href="<?= base_url('arsip/suratmasuk') ?>" class="text-decoration-none text-dark">
                             <div id="arsip-sm" class="">
                                 <span class="fa-stack fa-4x">
@@ -41,7 +41,7 @@ if (!empty($_SESSION['typearsip'])) {
                             </div>
                         </a>
                     </div>
-                    <div class="col-md-4 btn btn-hintofelusive <?= $active[1] ?>">
+                    <div class="col-md-6 btn btn-hintofelusive <?= $active[1] ?>">
                         <a href="<?= base_url('arsip/suratkeluar') ?>" class="text-decoration-none text-dark">
                             <div id="arsip-sk">
                                 <span class="fa-stack fa-4x">
@@ -52,7 +52,7 @@ if (!empty($_SESSION['typearsip'])) {
                             </div>
                         </a>
                     </div>
-                    <div class="col-md-4 btn btn-hintofelusive <?= $active[2] ?>">
+                    <!-- <div class="col-md-4 btn btn-hintofelusive <?= $active[2] ?>">
                         <a href="<?= base_url('arsip/disposisi') ?>" class="text-decoration-none text-dark">
                             <div id="arsip-dp">
                                 <span class="fa-stack fa-4x">
@@ -62,7 +62,7 @@ if (!empty($_SESSION['typearsip'])) {
                                 <h5 class="service-heading">Disposisi</h5>
                             </div>
                         </a>
-                    </div>
+                    </div> -->
                     </div>
                 </div>
 

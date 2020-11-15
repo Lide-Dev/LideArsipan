@@ -37,7 +37,7 @@ $colorOption3 = $modal["color"]["option3"];
           </button>
         </div>
         <div class="modal-body" style="overflow-x: auto;">
-          <div id='color_message' class='mb-5 px-3'>
+          <div id='color_message' class='px-3'>
               <h3 id='text_message'></h3>
           </div>
           <?=
