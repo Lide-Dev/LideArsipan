@@ -6,7 +6,7 @@ $csrf = array(
 )
 ?>
 
-<div class="container " style="margin-top:20vh; margin-bottom:20vh">
+<div class="container" style="margin-top:10vh; margin-bottom:20vh">
     <div class="container">
 
         <div class="row my-5 bg-londonsquare rounded d-flex align-content-center">
@@ -126,7 +126,7 @@ $csrf = array(
     <div class="container my-3">
         <div class="table-responsive">
             <table class="table table-inverse " id='table_sampah'>
-                <thead class="thead-inverse">
+                <thead class="thead-dark">
                     <tr>
                         <th>ID Surat</th>
                         <th>Tanggal Hapus</th>

@@ -5,19 +5,20 @@ $csrf = array(
 )
 ?>
 
-<div class="container" style="margin-top:30vh; margin-bottom:20vh">
+<div class="container mt-3" style="margin-bottom:20vh">
     <?= !empty($_SESSION['message']) ? $_SESSION['message'] : "" ?>
+    <label class="px-4 mb-3" for=""><b>Pencarian Data User</b></label>
     <div class="row mb-5">
         <div class="col-md-6">
-            <label class="px-4" for="">Pencarian Data User</label>
             <div class="input-group px-4">
                 <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon3"><i class="fas fa-search fa-sm  "></i></span>
                 </div>
                 <input type="text" class="form-control" name="search" id="ad_search" aria-describedby="HelpPencarianUser" placeholder="Mencari Data...">
-                <small id='HelpPencarianUser' class="text-muted">Pencarian akan dilakukan jika melebihi 2 karakter huruf di kolom pencarian.<br>Kosongkan kolom pencarian jika ingin melihat semua arsip.</small>
             </div>
+            
+
         </div>
         <div class="col-md-6 align-self-center d-flex justify-content-start px-2">
             <button type="button" id="ad_btnsearch" class="btn btn-primary">Mencari</button>
@@ -42,7 +43,7 @@ $csrf = array(
         <?php } else { ?>
             <div class="container table-responsive">
                 <table class="table table-striped table-bordered" id="tabel_user" style="width: 100%">
-                    <thead class="">
+                    <thead class="thead-dark">
                         <tr>
                             <th>ID</th>
                             <th>Email</th>

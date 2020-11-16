@@ -242,7 +242,7 @@ class Form_Surat extends MY_Controller
                     'required' => 'Tanggal Penerimaan Surat perlu di isi!',
                 )
 
-            ],);
+            ]);
         }
         $this->form_validation->set_rules($config);
     }
